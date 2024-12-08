@@ -1,0 +1,93 @@
+.display-flex {
+    display: flex;
+}
+
+.side-menu-content {
+    width: 232px; /* die width vom restlichen content, egal ob board, add-task o.ä. sollte 100vw-232px sein */
+    height: 100vh; /* oder min-height: 100vh, sticky, damit es auch beim Scrollen */
+    background-color: #2A3647;
+    /*padding-top: 64px;*/
+    /*padding-bottom: 64px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.side-menu-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 64px;
+    gap: 144px;
+}
+
+.join-logo-menu {
+    width: 100.03px;
+    height: 121.97px;
+}
+
+.menu-components {
+    height: 229px;
+    width: 100%;
+    /*background-color: pink;*/
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-component {
+    height: 46px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-start;
+    padding-left: 56px;
+    padding-right: 56px;
+    color: #CDCDCD;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.menu-component:hover {
+    background-color: #2a3d59; /* richtige Farbe noch herausfinden */
+}
+
+.menu-icon {
+    height: 30px;
+    width: 30px;
+    color: #CDCDCD;
+}
+
+.imprint-content {
+    height: 317px;
+    width: 100%;
+    /*background-color: pink;*/
+    display: flex;
+    align-items: flex-end; 
+    padding-bottom: 64px;   
+}
+
+.imprint-links {
+    padding-left: 52px;
+    color: #CDCDCD;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.imprint-link {
+    color: #CDCDCD;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.imprint-link:hover {
+    color: #29ABE2;
+    font-weight: bold;
+}
