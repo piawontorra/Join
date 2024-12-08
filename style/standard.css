@@ -11,11 +11,51 @@
 }
 
 .max-width {
-    max-width: 1440px;
+    max-width: 1208px;
     width: 100%;
-    margin: 0 auto;
 }
 
 body {
     width: 100%;
+    background-color: #F6F7F8;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+main {
+    width: calc(100% - 232px);
+    background-color: #F6F7F8;
+}
+
+header {
+    background-color: white;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    padding-left: 116px;
+}
+
+header p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 22px;
+}
+
+.user-icon {
+    width: 56px;
+    height: 56px;
 }

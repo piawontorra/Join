@@ -1,0 +1,84 @@
+h1 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.add-task-header {
+    padding-left: 104px;
+    padding-top: 110px;
+    padding-bottom: 75px;
+}
+
+.add-task-form {
+    padding-left: 104px;
+    height: 424px;
+    display: flex;
+    flex-direction: row;
+    height: 424px;
+    gap: 47px;
+}
+
+.add-task-form-left {
+    width: 440px;
+}
+
+.add-task-form-seperator {
+    height: 424px;
+    width: 1px;
+    background-color: #D1D1D1;
+}
+
+.add-task-form-right {
+    width: 440px;
+}
+
+label {
+    font-size: 20px;
+    color: #2A3647;
+}
+
+textarea {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+input {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+select {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+.prio-label {
+    font-size: 20px;
+    color: #2A3647;
+}
+
+.add-task-input-fields {
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+}
+
+.task-prio {
+    display: flex;
+    flex-direction: column;
+}
+
+.prio-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 26px;
+    height: 56px;
+}
+
+.prio-button {
+    width: 136px;
+}
+
