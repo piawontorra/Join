@@ -157,6 +157,12 @@ h1 {
     height: 24px;
 }
 
+.task-header-done p {
+    font-size: 20px;
+    font-weight: 700;
+    color: #42526E;
+}
+
 .task-header p {
     font-size: 20px;
     font-weight: 700;
