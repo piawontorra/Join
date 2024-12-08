@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
+    <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/contacts.js"></script>
@@ -14,14 +15,14 @@
     <link rel="stylesheet" href="./style/board.css" />
     <link rel="stylesheet" href="./style/standard.css" />
     <link rel="stylesheet" href="./style/contacts.css" />
+    <link rel="stylesheet" href="./style/navigation.css">
     <link rel="icon" href="./assets/img/join_logo_login.png" />
 </head>
 
-  <body>
+  <body onload="initBoard()">
     <div class="content max-width">
-        <nav>
-            <img src="./assets/img/join_logo_menu.png" alt="">
-        </nav>
+        
+        <div id="sidebar" w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
             <header>
