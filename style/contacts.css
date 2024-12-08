@@ -9,15 +9,21 @@
 }
 
 #wrapperContacts{
-    height: 100vh;
+    /* height: 100vh; */
     width: 456px;
     background-color: rgb(255, 255, 255);
-    /* background-color: rgb(182, 14, 14); */
     box-shadow: 5px 5px 5px rgb(184, 183, 183);
-    /* margin-top: 80px; */
     display: flex;
-    justify-content: center;
-  
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#contactsOverview{
+    margin-top: 20px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 #btn_addNewContact{
@@ -32,8 +38,11 @@
     font-weight: 600;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center; 
+}
+
+#btn_addNewContact img{
+    padding-left: 15px;
 }
 
 #btn_addNewContact:hover{
@@ -41,14 +50,13 @@
     background-color: rgb(41, 171, 226);
     border: 1px solid rgb(41, 171, 226);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #contactDetailsHeader{
     display: flex;
     flex-direction: row;
-    /* margin-top: 182px; */
     padding-left:  64px;
-    /* width: 569px; */
     height: 232px;
     align-items: center;
 }
@@ -78,4 +86,38 @@
 
 .d-none{
     display: none;
+}
+
+.singleEntry{
+    width: 352px;
+    height: 78px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.singleEntry:hover{
+    background-color: rgb(246, 247, 248);
+    cursor: pointer;
+}
+
+.userInitials{
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+}
+
+#entryInfoName{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#entryInfoMail{
+    font-size: 16px;
+    font-weight: 400;
 }

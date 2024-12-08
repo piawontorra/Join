@@ -12,20 +12,20 @@ async function loadData(){
 
 /**
  @description
- * This function collects user information (name, email, and password) from a form,
+ * This function collects user information (name, email, password and a User Color) from a form,
  * organizes it into an object, and stores it in the specified paths (`/users` and `/contacts`)
  * in the Firebase database. After the data is stored, the form is reset. 
  */
 function newUser() {
+    let userColor = randomColor();
     let email = document.getElementById('userMail');
     let password = document.getElementById('userPassword');
     let name = document.getElementById('userName');
     let key = name.value;
 
     let newData = {
-        name: name.value,
-        email: email.value,
-        password: password.value
+        name: name.value, email: email.value,
+        password: password.value, userColor: userColor
     };
     const paths = ["/users", "/contacts"];
     paths.forEach(path => addNewData(newData, path, key));
@@ -55,11 +55,12 @@ function newTask(){
 
 /**
  @description
- * This function collects contact information (name, email, and phone) from the form,
+ * This function collects contact information (name, email, phone and a User Color) from the form,
  * structures it into an object, and saves it to the `/contacts` path in the Firebase database.
  * After saving, it resets the contact form.
  */
 function newContact(){
+    let userColor = randomColor();
     let name = document.getElementById('contactName');
     let email = document.getElementById('contactEmail');
     let phone = document.getElementById('contactPhone');
@@ -68,7 +69,8 @@ function newContact(){
     newData = {
         name: name.value,
         email: email.value,
-        phone: phone.value
+        phone: phone.value,
+        userColor: userColor
     }
     addNewData(newData, "/contacts", key);
     document.getElementById('newContactForm').reset();
@@ -97,3 +99,15 @@ async function getUsers(path){
     
 }
 
+/**
+ * 
+ * @returns a randomly created User Color 
+ */
+function randomColor(){
+    let letters = '89ABCDEF';
+    let color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * letters.length)];
+  }
+  return color;
+}

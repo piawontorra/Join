@@ -11,6 +11,7 @@
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
+    <script src="./assets/templates/contactsOverview.js"></script>
     <link rel="stylesheet" href="./style/style.css" />
     <link rel="stylesheet" href="./style/board.css" />
     <link rel="stylesheet" href="./style/standard.css" />
@@ -18,31 +19,23 @@
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="icon" href="./assets/img/join_logo_login.png" />
 </head>
-
-  <body onload="initBoard()">
+  <body onload="initBoard(), getContacts(path)">
     <div class="content max-width">
         
         <div id="sidebar" w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
-            <header>
-                <p>Kanban Project Management Tool</p>
-                <div class="header-right">
-                    <img src="./assets/img/help_icon.png" alt="">
-                    <img class="user-icon" src="./assets/img/default_user_icon.png" alt="">
-                </div>
-                
-            </header>
+            <div id="header" w3-include-html="./assets/templates/header.html"></div>
             <div id="contactDetails">
                 <div id="wrapperContacts">
                     <div id="btn_addNewContact" onclick="openOverlay()">Add new contact <img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"></div>
+                    <div id="contactsOverview"></div>
                 </div>
                 <div id="contactDetailsHeader">
                     <span id="span_contacts">Contacts</span>
                     <div class="vl"></div>
                     <span id="span_better"> Better with a team</span>
                 </div>
-                
             </div>
         </main>
     </div>
