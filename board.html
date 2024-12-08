@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
+    <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/contacts.js"></script>
@@ -17,65 +18,15 @@
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body>
+<body onload="initBoard()">
     <div class="content max-width">
 
-
-        <div class="side-menu-content">
-
-            <div class="side-menu-top">
-                <img class="join-logo-menu" src="./assets/img/join_logo_menu.png" alt="Join Logo">
-
-                <div class="menu-components">
-                    <a href="#">
-                        <div class="menu-component">
-                            <img class="menu-icon" src="./assets/img/summary_icon.png" alt="Summary Icon">
-                            <p>Summary</p>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="menu-component">
-                            <img class="menu-icon" src="./assets/img/add_task_icon.png" alt="Add Task Icon">
-                            <p>Add Task</p>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="menu-component">
-                            <img class="menu-icon" src="./assets/img/board_icon.png" alt="Board Icon">
-                            <p>Board</p>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="menu-component">
-                            <img class="menu-icon" src="./assets/img/contacts_icon.png" alt="Contacts Icon">
-                            <p>Contacts</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="imprint-content">
-                <div class="imprint-links">
-                    <a href="#">
-                        <p class="imprint-link">Privacy Policy</p>
-                    </a>
-                    <a href="#">
-                        <p class="imprint-link">Legal Notice</p>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
+        <div id="sidebar" w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
-            <header>
-                <p>Kanban Project Management Tool</p>
-                <div class="header-right">
-                    <img src="./assets/img/help_icon.png" alt="">
-                    <img class="user-icon" src="./assets/img/default_user_icon.png" alt="">
-                </div>
-            </header>
+
+            <div id="header" w3-include-html="./assets/templates/header.html"></div>
+
             <div class="board-header">
                 <h1>Board</h1>
                 <div class="board-header-right">
