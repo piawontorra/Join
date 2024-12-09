@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
+    <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/register.js"></script>
     <script src="./js/board.js"></script>
+    <script src="./js/template.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
     <link rel="stylesheet" href="./style/style.css">
-    <link rel="icon" href="./assets/join_logo_login.png">
+    <link rel="stylesheet" href="./style/board.css">
+    <link rel="stylesheet" href="./style/standard.css">
+    <link rel="stylesheet" href="./style/navigation.css">
+    <link rel="stylesheet" href="./style/index_registry.css">
+    <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
-<body>
-    
+
+<body onload="init()">
+    <div class="content content-add max-width">
+        <div class="login-header">
+            <img class="join-logo-menu" src="./assets/img/join_logo_login.png" alt="Logo">
+            <div class="registry-link">
+                <span>Not a Join user?</span>
+                <button onclick="openRegistry()">Sign up</button>
+            </div>
+        </div>
+
+        <div class="form-position">
+            <form onsubmit="login(); return false;" class="form">
+                <h1 class="headline-shadow">Log in</h1>
+                <div class="input-field">
+                    <input type="email" id="email" name="email" autocomplete="username" required placeholder="Email">
+                    <img src="./assets/img/mail_icon.png" alt="email icon">
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password" name="password" autocomplete="current-password" required
+                        placeholder="Password">
+                    <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                </div>
+                <div class="centered-position">
+                    <button id="log-in-btn">Log in</button>
+                    <button onclick="guestLogIn()">Guest Log in</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="msg-box" id="msg-box"></div>
+        <div class="centered-position">
+            <a href="">Privacy Policy</a>
+            <a href="">Legal notice</a>
+        </div>
+    </div>
+
 </body>
+
 </html>

@@ -1,0 +1,90 @@
+.content-add {
+    padding: 40px;
+    flex-direction: column;
+}
+
+.login-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.registry-link {
+    display: flex;
+    gap: 24px;
+}
+
+.form-position {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    background-color: #FFFFFF;
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    border: unset;
+    border-radius: 12px;
+    box-shadow: 0 0 12px 0 rgba(248, 248, 249, 0.6);
+}
+
+.return-to-log-in {
+    border: unset;
+    background-color: none;
+}
+
+.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.headline-shadow {
+    box-shadow: 8px 2px 0px rgba(41, 171, 226, 0.5);
+}
+
+.input-field {
+    position: relative;
+    width: 300px;
+}
+
+.input-field input {
+    width: 100%;
+    padding-right: 30px;
+    padding: 2px;
+    border-radius: 8px;
+}
+
+.input-field img {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.check-policy{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-position {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
