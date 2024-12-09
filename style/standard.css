@@ -64,3 +64,40 @@ header p {
 .d-none {
     display: none;
 }
+
+.btn1 {
+    background-color: #2A3647;
+    color: #FFFFFF;
+    font-size: 21px;
+    font-weight: 500;
+    width: 160px;
+    height: 48px;
+    border-radius: 10px;
+    border: unset;
+    padding: 8px 16px;
+}
+
+.btn1:hover {
+    background-color: #26ace3;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn2 {
+    background-color: #FFFFFF;
+    color: #2A3647;
+    font-size: 21px;
+    font-weight: 500;
+    width: 160px;
+    height: 48px;
+    border-radius: 10px;
+    border-color: #2A3647;
+    padding: 8px 16px;
+}
+
+.btn2:hover {
+    border-color: #26ace3;
+    cursor: pointer;
+    transition: .3s;
+}
+
