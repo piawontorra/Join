@@ -86,18 +86,13 @@ header p {
 .btn2 {
     background-color: #FFFFFF;
     color: #2A3647;
-    font-size: 21px;
-    font-weight: 500;
-    width: 160px;
-    height: 48px;
-    border-radius: 10px;
     border-color: #2A3647;
-    padding: 8px 16px;
+    border: solid 0.8px #2A3647;
 }
 
 .btn2:hover {
+    background-color: #FFFFFF;
+    color: #26ace3;
     border-color: #26ace3;
-    cursor: pointer;
-    transition: .3s;
 }
 

@@ -8,7 +8,7 @@ let msgBox = document.getElementById('msg-box');
 // if (msg != 0) {
 //     msgBox.innerHTML = msg;
 // } else {
-//     msgBox.classList.add('d_none');
+//     msgBox.classList.add('d-none');
 // }
 
 function init() {
