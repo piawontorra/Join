@@ -47,16 +47,86 @@
 
 #btn_addNewContact:hover{
     box-shadow: 0 5px 5px rgb(184, 183, 183);
-    background-color: rgb(41, 171, 226);
+    background-color: #29abe2;
     border: 1px solid rgb(41, 171, 226);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
+#contactDetailsContainer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 64px;
+}
+
+#contactCard{
+    height: 364px;
+    width: 500px;  /* breiter als in Figma weil...passt sonst nicht mit Schriftgröße */
+}
+
+#contactCardHeader{
+    height: 120px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#userInitials{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+    background-color: blueviolet;
+    font-size: 47px;
+}
+
+#userName{
+    font-size: 47px;
+}
+
+.action{
+    color: rgb(42, 54, 71);
+    display: flex;
+}
+
+#edit{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;    
+}
+
+#edit:hover{
+    filter: invert(77%) sepia(31%) saturate(6859%) hue-rotate(165deg) brightness(91%) contrast(95%);
+    font-weight: 700;
+}
+
+#delete{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+
+#delete:hover{
+    filter: invert(77%) sepia(31%) saturate(6859%) hue-rotate(165deg) brightness(91%) contrast(95%);
+    font-weight: 700;
+}
+
+#userEdit{
+    display: flex;
+    color:rgb(60, 72, 87);
+    font-weight: 600;
+    padding-top: 5px;
+}
+
 #contactDetailsHeader{
     display: flex;
     flex-direction: row;
-    padding-left:  64px;
     height: 232px;
     align-items: center;
 }
