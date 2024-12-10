@@ -20,13 +20,13 @@
     <link rel="icon" href="./assets/img/join_logo_login.png" />
 </head>
   <body onload="initBoard(), getContacts(path)">
-    <div class="content max-width">
+    <div class="content">
         
         <div id="sidebar" w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
             <div id="header" w3-include-html="./assets/templates/header.html"></div>
-            <div id="contactDetails">
+            <div id="contactDetails" class="max-width">
                 <div id="wrapperContacts">
                     <div id="btn_addNewContact" onclick="openOverlay()">Add new contact <img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"></div>
                     <div id="contactsOverview"></div>

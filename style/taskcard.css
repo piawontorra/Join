@@ -1,0 +1,108 @@
+.task-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 252px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+}
+
+.task-card:hover {
+    cursor: pointer;
+    rotate: 3deg;
+}
+
+.task-category {
+    display: flex;
+}
+
+.task-category p {
+    color: white;
+    background-color: #0038FF;
+    border-radius: 8px;
+    padding: 4px 16px;
+}
+
+.task-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.task-title {
+    color: #2A3647;
+    font-weight: 700;
+}
+
+.task-description {
+    color: #A8A8A8;
+}
+
+.task-subtask {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-progress-bar {
+    width: 128px;
+    height: 8px;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.task-subtask p {
+    font-size: 13px;
+}
+
+.task-user-and-priority {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-assigned-to {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    /* Ermöglicht präzises Positionieren der Kinder */
+}
+
+.task-user-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    width: 32px;
+    height: 32px;
+    background-color: #FFBB2B;
+    border: 1px solid #FFFFFF;
+    border-radius: 45px;
+
+    color: white;
+    font-size: 12px;
+    position: relative;
+    /* Positionieren relativ zum Container */
+    margin-left: -8px;
+    /* Überlappung erzeugen, 1/4 der Breite (32px) */
+    z-index: 1;
+    /* Stapelreihenfolge */
+}
+
+.no-tasks-message {
+    width: 252px;
+    height: 48px;
+    background-color: #e7e7e7;
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}

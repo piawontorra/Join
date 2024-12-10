@@ -14,6 +14,7 @@
     <script src="./js/add_task.js"></script>
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/board.css">
+    <link rel="stylesheet" href="./style/taskcard.css">
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
@@ -35,7 +36,9 @@
                         <input type="" placeholder="Find Task">
                         <div class="input-box-right">
                             <div class="seperator"></div>
-                            <img src="./assets/img/search_icon.png" alt="">
+                            <div class="input-search-icon">
+                                <img src="./assets/img/search_icon.png" alt="">
+                            </div>                           
                         </div>
                     </div>
                     <button>
@@ -50,27 +53,27 @@
                         <p>To do</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div id="todo"></div>
+                    <div class="task-content-split" id="toDo"></div>
                 </div>
-                <div>
+                <div class="tasks-content">
                     <div class="task-header">
                         <p>In progress</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div></div>
+                    <div class="task-content-split" id="inProgress"></div>
                 </div>
-                <div>
+                <div class="tasks-content">
                     <div class="task-header">
                         <p>Await feedback</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div></div>
+                    <div class="task-content-split" id="awaitFeedback"></div>
                 </div>
-                <div>
+                <div class="tasks-content-done">
                     <div class="task-header-done">
                         <p>Done</p>
                     </div>
-                    <div></div>
+                    <div class="task-content-split" id="done"></div>
                 </div>
             </div>
         </main>
