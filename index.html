@@ -21,41 +21,46 @@
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="init()">
-    <div class="content content-add max-width">
-        <div class="login-header">
-            <img class="join-logo-menu" src="./assets/img/join_logo_login.png" alt="Logo">
-            <div class="registry-link">
-                <span>Not a Join user?</span>
-                <button class="btn1" onclick="openRegistry()">Sign up</button>
+<body onload="includeHTML(), init()">
+    <div class="min-height">
+        <div class="content content-add max-width">
+            <div class="login-header">
+                <img class="join-logo-menu" src="./assets/img/join_logo_login.png" alt="Logo">
+                <div class="registry-link">
+                    <span class="user-question">Not a Join user?</span>
+                    <button class="btn1 btn-fontsize" onclick="openRegistry()">Sign up</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-position">
-            <form onsubmit="login(); return false;" class="form">
-                <h1 class="headline-shadow">Log in</h1>
-                <div class="input-field">
-                    <input type="email" id="email" name="email" autocomplete="username" required placeholder="Email">
-                    <img src="./assets/img/mail_icon.png" alt="email icon">
-                </div>
-                <div class="input-field">
-                    <input type="password" id="password" name="password" autocomplete="current-password" required
-                        placeholder="Password">
-                    <img src="./assets/img/lock_icon.png" alt="locked lock icon">
-                </div>
-                <div class="centered-position">
-                    <button class="btn1" id="log-in-btn">Log in</button>
-                    <button class="btn1 btn2" onclick="guestLogIn()">Guest Log in</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="msg-box" id="msg-box"></div>
-        <div class="centered-position">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal notice</a>
+            <div class="form-position">
+                <form onsubmit="login(); return false;" class="form">
+                    <div class="form-headline">
+                        <h1 class="h1-variant">Log in</h1>
+                        <div class="h1-underline"></div>
+                    </div>
+                    <div class="form-input-fields fields-variant">
+                        <div class="input-box input-field">
+                            <input type="email" id="email" name="email" autocomplete="username" required
+                                placeholder="Email">
+                            <img src="./assets/img/mail_icon.png" alt="email icon">
+                        </div>
+                        <div class="input-box input-field">
+                            <input type="password" id="password" name="password" autocomplete="current-password"
+                                required placeholder="Password">
+                            <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                        </div>
+                        <div class="centered-position">
+                            <button class="btn1 btn-variant" id="log-in-btn">Log in</button>
+                            <button class="btn1 btn2 btn-variant" onclick="guestLogIn()">Guest Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="msg-box" id="msg-box"></div>
         </div>
     </div>
+
+    <div w3-include-html="./assets/templates/footer-login-registry.html"></div>
 
 </body>
 

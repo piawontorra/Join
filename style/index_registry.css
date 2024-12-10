@@ -1,3 +1,7 @@
+.min-height {
+    min-height: calc(100vh - 36px);
+}
+
 .content-add {
     padding: 40px;
     flex-direction: column;
@@ -17,7 +21,17 @@
     gap: 24px;
 }
 
+.user-question {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.btn-fontsize {
+    font-size: 16px;
+}
+
 .form-position {
+    min-height: calc(100vh - 202px - 36px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,21 +40,26 @@
 
 .form {
     background-color: #FFFFFF;
-    width: 400px;
-    height: auto;
+    width: 598px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 16px;
+    gap: 32px;
     border: unset;
-    border-radius: 12px;
-    box-shadow: 0 0 12px 0 rgba(248, 248, 249, 0.6);
+    border-radius: 30px;
+    padding: 48px 88px;
+    box-shadow: 0 0 14px 0 rgba(248, 248, 249, 0.6);
 }
 
 .return-to-log-in {
     border: unset;
-    background-color: none;
+    background-color: #FFFFFF;
+}
+
+.return-to-log-in img {
+    height: 32px;
+    aspect-ratio: 1 / 1;
 }
 
 .form-header {
@@ -48,15 +67,37 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
 }
 
-.headline-shadow {
-    box-shadow: 8px 2px 0px rgba(41, 171, 226, 0.5);
+.form-headline {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1-underline {
+    border-bottom: solid 3px rgb(41, 171, 226);
+    width: 150px;
+    padding-bottom: 10px;
+    align-items: center;
+}
+
+.form-input-fields {
+    display: flex;
+    flex-direction: column;
+    width: 422px;
+    gap: 16px;
+}
+
+.fields-variant {
+    gap: 20px;
 }
 
 .input-field {
     position: relative;
-    width: 300px;
+    width: 100%;
 }
 
 .input-field input {
@@ -84,10 +125,16 @@
     align-items: center;
 }
 
+.btn-variant {
+    padding: 15px 24px;
+    border-radius: 8px;
+}
+
 .centered-position {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 8px;
+    padding: 8px;
 }
