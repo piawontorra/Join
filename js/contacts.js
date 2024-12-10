@@ -1,6 +1,11 @@
-const BASE_URL = "https://join-83911-default-rtdb.europe-west1.firebasedatabase.app/";
 let path = "/contacts";
 let usersArray = [];
+
+function initContacts() {
+    includeHTML();
+    getContacts(path);
+}
+
 
 /**
  * Asynchronously fetches contact data from a given path, sorts the contacts by name, 

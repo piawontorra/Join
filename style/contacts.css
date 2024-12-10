@@ -61,6 +61,29 @@
     align-items: center;
 }
 
+#contactDetailsCard{
+    height: 364px;
+    width: 461px;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#cardTop{
+    width: 100%;
+    height: 120px;
+    background-color: aqua;
+}
+
+#cardBottom{
+    width: 100%;
+    height: auto;
+    background-color: aquamarine;
+    flex-grow: 1; /* Nimmt den verbleibenden Platz ein */
+}
+
 .vl{
     border-left: 4px solid rgb(41, 171, 226);
     height: 60px;
