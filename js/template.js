@@ -1,12 +1,11 @@
 function getTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
-    // Initialen für alle Benutzer generieren
     let assignedToHTML = task.assignedTo
         .map(name => `<div class="task-user-icon">${getInitials(name)}</div>`)
-        .join(""); // Einzelne Elemente zusammenfügen
+        .join("");
 
-    return `<div class="task-card">
+    return `<div class="task-card" draggable="true" ondragstart="dragTask(event)" data-task-id="${task.title}">
                 <div class="task-category">
                     <p>${task.category}</p>
                 </div>
@@ -26,6 +25,7 @@ function getTaskCardTemplate(task) {
                 </div>
             </div>`;
 }
+
 
 function getNoTasksTemplate(status) {
     return `

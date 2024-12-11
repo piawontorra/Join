@@ -106,4 +106,73 @@ function isContainerEmpty(container) {
   return container.innerHTML.trim() === '';
 }
 
+function allowDrop(event) {
+  event.preventDefault();
+
+  const targetContainer = event.target.closest('.task-content-split');
+  if (targetContainer) {
+      targetContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.15)';
+      targetContainer.style.borderRadius = '20px';
+  }
+}
+
+function dragTask(event) {
+  const taskId = event.target.getAttribute('data-task-id');
+  event.dataTransfer.setData('taskId', taskId);
+}
+
+function dropTask(event, newStatus) {
+  event.preventDefault();
+
+  const taskId = event.dataTransfer.getData('taskId');
+  const taskIndex = getTaskIndexById(taskId);
+  
+  if (taskIndex === -1) {
+      console.warn(`Aufgabe mit ID ${taskId} nicht gefunden.`);
+      return;
+  }
+
+  resetContainerHighlight(event);
+  updateTaskStatus(taskIndex, newStatus);
+  renderTaskInContainer(event, taskIndex);
+  renderTasks();
+}
+
+function getTaskIndexById(taskId) {
+  return myTasks.findIndex(task => task.title === taskId);
+}
+
+function resetContainerHighlight(event) {
+  const targetContainer = event.target.closest('.task-content-split');
+  if (targetContainer) {
+      targetContainer.style.backgroundColor = '';
+  }
+}
+
+function updateTaskStatus(taskIndex, newStatus) {
+  myTasks[taskIndex].status = newStatus;
+}
+
+function renderTaskInContainer(event, taskIndex) {
+  const targetTaskContainer = event.target.closest('.task-content-split');
+  if (targetTaskContainer) {
+      targetTaskContainer.innerHTML += getTaskCardTemplate(myTasks[taskIndex]);
+  }
+}
+
+function highlightDrag(event) {
+  const targetContainer = event.target.closest('.task-content-split');
+  if (targetContainer) {
+      targetContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.15)';
+      targetContainer.style.borderRadius = '20px';
+  }
+}
+
+function removeHighlightDrag(event) {
+  const targetContainer = event.target.closest('.task-content-split');
+  if (targetContainer) {
+      targetContainer.style.backgroundColor = '';
+      targetContainer.style.borderRadius = '20px';
+  }
+}
 

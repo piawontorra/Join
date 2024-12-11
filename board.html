@@ -38,7 +38,7 @@
                             <div class="seperator"></div>
                             <div class="input-search-icon">
                                 <img src="./assets/img/search_icon.png" alt="">
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                     <button>
@@ -47,30 +47,67 @@
                     </button>
                 </div>
             </div>
-            <div class="board-categorys">
+            <!-- <div class="board-categorys">
                 <div class="tasks-content">
                     <div class="task-header">
                         <p>To do</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div class="task-content-split" id="toDo"></div>
+                    <div class="task-content-split" id="toDo" ondragover="allowDrop(event)" ondrop="dropTask(event, 'todo')" ondragenter="handleDragEnter(event)" 
+                    ondragleave="handleDragLeave(event)"></div>
                 </div>
                 <div class="tasks-content">
                     <div class="task-header">
                         <p>In progress</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div class="task-content-split" id="inProgress"></div>
+                    <div class="task-content-split" id="inProgress" ondragover="allowDrop(event)" ondrop="dropTask(event, 'in-progress')" ondragenter="handleDragEnter(event)" 
+                    ondragleave="handleDragLeave(event)"></div>
                 </div>
                 <div class="tasks-content">
                     <div class="task-header">
                         <p>Await feedback</p>
                         <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
-                    <div class="task-content-split" id="awaitFeedback"></div>
+                    <div class="task-content-split" id="awaitFeedback" ondragover="allowDrop(event)" ondrop="dropTask(event, 'await-feedback')" ondragenter="handleDragEnter(event)" 
+                    ondragleave="handleDragLeave(event)"></div>
                 </div>
                 <div class="tasks-content-done">
                     <div class="task-header-done">
+                        <p>Done</p>
+                    </div>
+                    <div class="task-content-split" id="done" ondragover="allowDrop(event)" ondrop="dropTask(event, 'done')" ondragenter="handleDragEnter(event)" 
+                    ondragleave="handleDragLeave(event)"></div>
+                </div>
+            </div> -->
+            <div class="board-categorys">
+                <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)" ondragleave="removeHighlightDrag(event)" 
+                ondragleave="handleDragLeave(event)">
+                    <div class="task-header">
+                        <p>To do</p>
+                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                    </div>
+                    <div class="task-content-split" id="toDo"></div>
+                </div>
+                <div class="tasks-content" ondrop="dropTask(event, 'in-progress')" ondragover="allowDrop(event)" ondragleave="removeHighlightDrag(event)" 
+                ondragleave="handleDragLeave(event)">
+                    <div class="task-header">
+                        <p>In progress</p>
+                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                    </div>
+                    <div class="task-content-split" id="inProgress"></div>
+                </div>
+                <div class="tasks-content" ondrop="dropTask(event, 'await-feedback')" ondragover="allowDrop(event)" ondragleave="removeHighlightDrag(event)" 
+                ondragleave="handleDragLeave(event)">
+                    <div class="task-header">
+                        <p>Await feedback</p>
+                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                    </div>
+                    <div class="task-content-split" id="awaitFeedback"></div>
+                </div>
+                <div class="tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)" ondragleave="removeHighlightDrag(event)" 
+                ondragleave="handleDragLeave(event)">
+                    <div class="task-header">
                         <p>Done</p>
                     </div>
                     <div class="task-content-split" id="done"></div>
