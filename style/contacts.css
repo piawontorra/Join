@@ -62,6 +62,11 @@
 #contactCard{
     height: 364px;
     width: 500px;  /* breiter als in Figma weil...passt sonst nicht mit Schriftgröße */
+    /* background-color: beige; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 34px;
 }
 
 #contactCardHeader{
@@ -69,6 +74,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    /* background-color: aliceblue; */
 }
 
 #userInitials{
@@ -81,6 +87,7 @@
     margin-right: 25px;
     background-color: blueviolet;
     font-size: 47px;
+    border: 3px solid white;
 }
 
 #userName{
@@ -124,11 +131,40 @@
     padding-top: 5px;
 }
 
+#contactText{
+    height: 70px;
+    width: 100%;
+    font-size: 20px;
+}
+
+#contactCardEmail{
+    width: 100%;
+    height: 70px;
+}
+
+#contactCardPhone{
+    width: 100%;
+    height: 70px;
+}
+
+#contactPhoneNr{
+    margin-top: 7px;
+}
+
+#contactEmailAdr{
+    margin-top: 7px;
+}
+
+#contactCardUserInfo p{
+    font-weight: 700;
+}
+
 #contactDetailsHeader{
     display: flex;
     flex-direction: row;
-    height: 232px;
+    height: 80px;
     align-items: center;
+    margin-top: 102px;
 }
 
 #contactDetailsCard{
@@ -161,7 +197,7 @@
 
 #span_contacts{
     font-size: 60px;
-    font-weight: 600;
+    font-weight: 700;
     margin-right: 32px;
 }
 
@@ -178,7 +214,7 @@
 }
 
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 .singleEntry{
@@ -203,6 +239,7 @@
     align-items: center;
     justify-content: center;
     margin-right: 25px;
+    box-shadow: 0px 0px 4px hsla(240, 7%, 62%, 1);
 }
 
 #entryInfoName{
