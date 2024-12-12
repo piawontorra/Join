@@ -33,11 +33,11 @@
             </div>
 
             <form class="add-task-form">
-                
+
                 <div class="add-task-form-left">
 
                     <div class="task-title">
-                        <label for="inputTitle">Title*</label>
+                        <label for="inputTitle"><p>Title</p><p class="rosa-font">*</p></label>
                         <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
                             autocomplete="off" required>
                     </div>
@@ -61,7 +61,7 @@
 
                 <div class="add-task-form-right">
                     <div class="task-due-date">
-                        <label for="inputDueDate">Due Date</label>
+                        <label for="inputDueDate"><p>Due date</p><p class="rosa-font">*</p></label>
                         <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy">
                     </div>
                     <div class="task-prio">
@@ -69,25 +69,23 @@
                         <div class="prio-buttons">
                             <button class="prio-button">
                                 <p>Urgent</p>
-
+                                <img src="./assets/img/urgent_icon.png" alt="">
                             </button>
                             <button class="prio-button">
                                 <p>Medium</p>
-
+                                <img src="./assets/img/medium_icon.png" alt="">
                             </button>
                             <button class="prio-button">
                                 <p>Low</p>
-
+                                <img src="./assets/img/low_icon.png" alt="">
                             </button>
                         </div>
                     </div>
                     <div class="task-category">
-                        <label for="inputCategory">Category*</label>
+                        <label for="inputCategory"><p>Category</p><p class="rosa-font">*</p></label>
                         <select class="add-task-input-fields" id="inputCategory" name="">
-                            <option value="Beispielkategorie 1">Beispielkategorie 1</option>
-                            <option value="Beispielkategorie 2">Beispielkategorie 2</option>
-                            <option value="Beispielkategorie 3">Beispielkategorie 3</option>
-                            <option value="Beispielkategorie 4">Beispielkategorie 4</option>
+                            <option value="Beispielkategorie 1">Technical Task</option>
+                            <option value="Beispielkategorie 2">User Story</option>
                         </select>
                     </div>
                     <div class="task-subtask">
@@ -97,21 +95,11 @@
                     </div>
 
                 </div>
-            
-
-                
-
 
             </form>
 
         </main>
-
-
-
-
     </div>
-
-
 
 </body>
 
