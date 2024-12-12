@@ -14,7 +14,9 @@ function getTaskCardTemplate(task) {
                     <p class="task-description">${task.description}</p>
                 </div>
                 <div class="task-subtask">
-                    <div class="task-progress-bar"></div>
+                    <div class="task-progress-bar-container">
+                        <div class="task-progress-bar"></div>
+                    </div>
                     <p>0/${task.subtasks.length} Subtasks</p>
                 </div>
                 <div class="task-user-and-priority">
@@ -62,19 +64,31 @@ function getDetailTaskCardTemplate(task) {
                     ${task.assignedTo.map(name => `<div class="detail-task-assigned-to"><div class="detail-task-user-icon">${getInitials(name)}</div><p>${name}</p></div>`).join('')}
                 </div>
             </div>
-            <p class="navyblue-font">Subtasks</p>
-            <ul>
-                ${task.subtasks.map(subtask => `<li>${subtask}</li>`).join('')}
-            </ul>
+            <div class="detail-task-subtasks-content">
+                <p class="navyblue-font">Subtasks</p>
+                <div class="detail-task-subtasks-container">
+                    ${task.subtasks.map((subtask, index) => `
+                        <label class="detail-task-subtask-item">
+                            <input 
+                                type="checkbox" 
+                                class="subtask-checkbox" 
+                                ${subtask.completed ? "checked" : ""}
+                                onchange="handleSubtaskCheckboxChange(event, tasks.find(t => t.title === '${task.title}'), ${index})"
+                            >
+                            ${subtask.text}
+                        </label>
+                    `).join('')}
+                </div>
+            </div>
             <div class="detail-delete-edit-content">
                 <div class="detail-delete-edit">
                     <img src="./assets/img/delete_icon.svg">
-                    <p class="navyblue-font">Delete</p>
+                    <p>Delete</p>
                 </div>
                 <div class="seperator"></div>
                 <div class="detail-delete-edit">
                     <img class="width32" src="./assets/img/edit_icon.svg">
-                    <p class="navyblue-font">Edit</p>
+                    <p>Edit</p>
                 </div>
             </div>
         </div>
@@ -88,5 +102,4 @@ function getNoTasksTemplate(status) {
             <p>No tasks ${status}</p>
         </div>
     `;
-  }
-  
+}

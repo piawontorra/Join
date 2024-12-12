@@ -47,11 +47,19 @@
     gap: 10px;
 }
 
-.task-progress-bar {
+.task-progress-bar-container {
     width: 128px;
     height: 8px;
     background-color: #F4F4F4;
     border-radius: 8px;
+}
+
+.task-progress-bar {
+    width: 0%;
+    height: 8px;
+    background-color: #29abe2;
+    border-radius: 4px;
+    transition: width 0.3s ease;
 }
 
 .task-subtask p {

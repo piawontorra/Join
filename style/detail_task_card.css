@@ -60,10 +60,10 @@
 
 h2 {
     font-size: 65px;
-    word-wrap: break-word; /* Umbricht lange Wörter */
-    overflow-wrap: break-word; /* Unterstützt Umbruch für moderne Browser */
-    white-space: normal; /* Macht sicher, dass der Text umbricht */
-    max-width: 100%; /* Verhindert, dass der Text die Breite des Containers überschreitet */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
 }
 
 .detail-task-description {
@@ -123,6 +123,56 @@ h2 {
     z-index: 1;
 }
 
+.detail-task-subtasks-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-task-subtasks-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 24px;
+    gap: 12px;
+}
+
+.detail-task-subtask-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.detail-task-subtask-item input {
+    margin-right: 12px;
+}
+
+.subtask-checkbox {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #2A3647;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.subtask-checkbox:checked {
+    background-color: white;
+}
+
+.subtask-checkbox:checked::after {
+    content: '✓';
+    font-size: 18px;
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .detail-delete-edit-content {
     display: flex;
     flex-direction: row;
@@ -137,12 +187,25 @@ h2 {
     align-items: center;
 }
 
+.detail-delete-edit p {
+    font-weight: 300;
+    font-size: 18px;
+    color: #2A3647;
+}
+
 .detail-delete-edit img {
     padding-right: 8px;
     height: 20px;
 }
 
-.detail-delete-edit p {
-    font-weight: 300;
-    font-size: 18px;
+.detail-delete-edit:hover p,
+.detail-delete-edit:hover img {
+    color: #29abe2;
+    filter: brightness(0) saturate(100%) invert(53%) sepia(72%) saturate(747%) hue-rotate(172deg) brightness(95%) contrast(89%);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: .1s;
 }
+
+
+

@@ -1,10 +1,10 @@
 function initBoard() {
     includeHTML()
     renderTasks();
-    console.log(myTasks);
+    console.log(tasks);
 }
 
-let myTasks = [
+let tasks= [
   {
       "title": "Projektplan erstellen",
       "description": "Einen vollständigen Projektplan für das neue IT-Projekt erstellen.",
@@ -17,9 +17,9 @@ let myTasks = [
       "priority": "Urgent",
       "category": "User Story",
       "subtasks": [
-          "Anforderungen sammeln",
-          "Zeitplan erstellen",
-          "Ressourcen planen"
+          { text: "Anforderungen sammeln", completed: false },
+          { text: "Zeitplan erstellen", completed: false },
+          { text: "Ressourcen planen", completed: false },
       ],
       "status": "todo" // status möglichkeit sind vier stück "todo", "in-progress", "await-feedback" und "done"
   },
@@ -35,8 +35,8 @@ let myTasks = [
       "priority": "Medium",
       "category": "User Story",
       "subtasks": [
-          "Implement Recipe Recommendation",
-          "Start Page Layout"
+          { text: "Implement Recipe Recommendation", completed: false },
+          { text: "Start Page Layout", completed: false },
       ],
       "status": "await-feedback"
   }
@@ -71,8 +71,8 @@ function clearAllContainers(statusContainers) {
 }
 
 function renderAllTasks(statusContainers) {
-  for (let i = 0; i < myTasks.length; i++) {
-      const task = myTasks[i];
+  for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
       if (statusContainers[task.status]) {
           statusContainers[task.status].innerHTML += getTaskCardTemplate(task);
       } else {
@@ -139,7 +139,7 @@ function dropTask(event, newStatus) {
 }
 
 function getTaskIndexById(taskId) {
-  return myTasks.findIndex(task => task.title === taskId);
+  return tasks.findIndex(task => task.title === taskId);
 }
 
 function resetContainerHighlight(event) {
@@ -150,13 +150,13 @@ function resetContainerHighlight(event) {
 }
 
 function updateTaskStatus(taskIndex, newStatus) {
-  myTasks[taskIndex].status = newStatus;
+  tasks[taskIndex].status = newStatus;
 }
 
 function renderTaskInContainer(event, taskIndex) {
   const targetTaskContainer = event.target.closest('.task-content-split');
   if (targetTaskContainer) {
-      targetTaskContainer.innerHTML += getTaskCardTemplate(myTasks[taskIndex]);
+      targetTaskContainer.innerHTML += getTaskCardTemplate(tasks[taskIndex]);
   }
 }
 
@@ -178,7 +178,7 @@ function removeHighlightDrag(event) {
 
 function openTaskDetail(taskTitle) {
   // Aufgabe anhand des Titels finden
-  const task = myTasks.find(t => t.title === taskTitle);
+  const task = tasks.find(t => t.title === taskTitle);
 
   if (!task) {
       console.warn(`Aufgabe mit Titel "${taskTitle}" nicht gefunden.`);
@@ -199,4 +199,30 @@ function closeTaskDetail() {
   const modal = document.getElementById('taskDetailModal');
   modal.style.display = 'none';
 }
+
+
+function updateProgressBar(task) {
+  const taskCard = document.querySelector(`.task-card[data-task-id="${task.title}"]`);
+  if (!taskCard) return;
+
+  const progressBar = taskCard.querySelector('.task-progress-bar');
+  const progressText = taskCard.querySelector('.task-subtask p');
+
+  const completedCount = task.subtasks.filter(subtask => subtask.completed).length;
+  const totalSubtasks = task.subtasks.length;
+
+  // Fortschritt berechnen
+  const progressPercentage = totalSubtasks > 0 ? (completedCount / totalSubtasks) * 100 : 0;
+
+  // Progress-Bar und Text aktualisieren
+  if (progressBar) progressBar.style.width = `${progressPercentage}%`;
+  if (progressText) progressText.textContent = `${completedCount}/${totalSubtasks} Subtasks`;
+}
+
+
+function handleSubtaskCheckboxChange(event, task, subtaskIndex) {
+  task.subtasks[subtaskIndex].completed = event.target.checked; // Subtask-Status aktualisieren
+  updateProgressBar(task); // Kleine Karte synchronisieren
+}
+
 
