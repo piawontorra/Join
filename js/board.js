@@ -1,5 +1,5 @@
 function initBoard() {
-    includeHTML()
+    includeHTML();
     renderTasks();
     console.log(tasks);
 }
