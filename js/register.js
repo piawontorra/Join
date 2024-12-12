@@ -2,23 +2,51 @@ function returnToLogIn() {
     window.location.href = 'index.html';
 }
 
-function addUser() {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    putUser("/users", {"name": name.value, "email": email.value, "password": password.value});
-    // users.push({ name: name.value, email: email.value, password: password.value });
-    // window.location.href = 'index.html?msg=The registration was successful.';
+function initRegistry() {
+    document.getElementById("registration-form").onsubmit = function (event) {
+        event.preventDefault();
 
+        let name = document.getElementById('name');
+        let email = document.getElementById('email');
+        let password = document.getElementById('password');
+
+        let newUser = {
+            name: name.value,
+            email: email.value,
+            password: password.value
+        };
+        addUser(newUser);
+        document.getElementById('registration-form').reset();
+    };
 }
 
-async function putUser(path = "", user = {}) {
+async function addUser(user) {
+    let existingUsers = await loadUsers("users");
+
+    if (!existingUsers) {
+        existingUsers = {};
+    }
+
+    let newUserId = user.name;
+    if (existingUsers[newUserId]) {
+        console.log("Benutzer mit diesem Namen existiert bereits.");
+        return;
+        ;
+    }
+    existingUsers[newUserId] = user;
+    await putUser("users", existingUsers);
+    // window.location.href = 'login.html?msg=You Signed Up successfully.'
+    returnToLogIn();
+}
+
+async function putUser(path = "", users = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
         header: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(users)
     });
-    return response.json();
+
+    return responseAsJson = await response.json();
 }
