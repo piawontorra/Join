@@ -5,7 +5,7 @@ function getTaskCardTemplate(task) {
         .map(name => `<div class="task-user-icon">${getInitials(name)}</div>`)
         .join("");
 
-    return `<div class="task-card" draggable="true" ondragstart="dragTask(event)" data-task-id="${task.title}">
+    return `<div class="task-card" draggable="true" ondragstart="dragTask(event)" data-task-id="${task.title}" onclick="openTaskDetail('${task.title}')">
                 <div class="task-category">
                     <p>${task.category}</p>
                 </div>
@@ -24,6 +24,61 @@ function getTaskCardTemplate(task) {
                     <img src="${icon}"> 
                 </div>
             </div>`;
+}
+
+function getDetailTaskCardTemplate(task) {
+    let icon = priorityIcons[task.priority];
+
+    let assignedToHTML = task.assignedTo
+        .map(name => `<div class="task-user-icon">${getInitials(name)}</div>`)
+        .join("");
+
+    return `
+        <div class="detail-task-card">
+            <div class="detail-task-header">
+                <div class="detail-task-category">
+                    <p>${task.category}</p>
+                </div>
+                <div class="close-btn">
+                    <img src="./assets/img/cancel_icon.png" onclick="closeTaskDetail()">
+                </div>
+            </div>
+            <h2>${task.title}</h2>
+            <p class="detail-task-description">${task.description}</p>
+            <div class="detail-task-horizontal">
+                <p class="width100 navyblue-font">Due date:</p>
+                <p>${task.dueDate}</p>
+            </div>
+            <div class="detail-task-horizontal">
+                <p class="width100 navyblue-font">Priority:</p>
+                <div class="detail-task-priority">
+                    <p>${task.priority}</p>
+                    <img src="${icon}"> 
+                </div>
+            </div>
+            <div>
+                <p class="detail-assigned-to-headline navyblue-font">Assigned to:</p>
+                <div class="detail-task-assigned-user">
+                    ${task.assignedTo.map(name => `<div class="detail-task-assigned-to"><div class="detail-task-user-icon">${getInitials(name)}</div><p>${name}</p></div>`).join('')}
+                </div>
+            </div>
+            <p class="navyblue-font">Subtasks</p>
+            <ul>
+                ${task.subtasks.map(subtask => `<li>${subtask}</li>`).join('')}
+            </ul>
+            <div class="detail-delete-edit-content">
+                <div class="detail-delete-edit">
+                    <img src="./assets/img/delete_icon.svg">
+                    <p class="navyblue-font">Delete</p>
+                </div>
+                <div class="seperator"></div>
+                <div class="detail-delete-edit">
+                    <img class="width32" src="./assets/img/edit_icon.svg">
+                    <p class="navyblue-font">Edit</p>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 

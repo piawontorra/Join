@@ -24,19 +24,19 @@ let myTasks = [
       "status": "todo" // status möglichkeit sind vier stück "todo", "in-progress", "await-feedback" und "done"
   },
   {
-      "title": "Marketingstrategie entwickeln",
-      "description": "Strategie für das neue Produkt ausarbeiten.",
+      "title": "Kochwelt Page & Recipe Recommender",
+      "description": "Build start page with recipe recommendation.",
       "assignedTo": [
-          "Anna Schmidt",
-          "Marco Reus"
+          "Emmanuel Mauer",
+          "Marcel Bauer",
+          "Anton Mayer"
       ],
-      "dueDate": "2024-12-20",
+      "dueDate": "10/05/2023",
       "priority": "Medium",
-      "category": "Marketing",
+      "category": "User Story",
       "subtasks": [
-          "Wettbewerbsanalyse",
-          "Zielgruppen definieren",
-          "Budgetplanung"
+          "Implement Recipe Recommendation",
+          "Start Page Layout"
       ],
       "status": "await-feedback"
   }
@@ -174,5 +174,29 @@ function removeHighlightDrag(event) {
       targetContainer.style.backgroundColor = '';
       targetContainer.style.borderRadius = '20px';
   }
+}
+
+function openTaskDetail(taskTitle) {
+  // Aufgabe anhand des Titels finden
+  const task = myTasks.find(t => t.title === taskTitle);
+
+  if (!task) {
+      console.warn(`Aufgabe mit Titel "${taskTitle}" nicht gefunden.`);
+      return;
+  }
+
+  // Detailansicht befüllen
+  const detailHTML = getDetailTaskCardTemplate(task);
+  document.getElementById('taskDetail').innerHTML = detailHTML;
+
+  // Modal anzeigen
+  const modal = document.getElementById('taskDetailModal');
+  modal.style.display = 'flex';
+}
+
+
+function closeTaskDetail() {
+  const modal = document.getElementById('taskDetailModal');
+  modal.style.display = 'none';
 }
 
