@@ -77,10 +77,7 @@ async function putUser(path = "", users = {}) {
         },
         body: JSON.stringify(users)
     });
-
-    let responseAsJson = await response.json();
-
-    console.log("Benutzer gespeichert:", responseAsJson);
+    return responseAsJson = await response.json();
 }
 
 function addGreyOverlay() {
