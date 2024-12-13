@@ -1,24 +1,27 @@
-const BASE_URL = "https://join-83911-default-rtdb.europe-west1.firebasedatabase.app";
-
-let userArr = [];
-
+const BASE_URL = "https://join-83911-default-rtdb.europe-west1.firebasedatabase.app/";
+let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
-let msgBox = document.getElementById('msg-box');
-// if (msg != 0) {
-//     msgBox.innerHTML = msg;
-// } else {
-//     msgBox.classList.add('d-none');
-// }
 
-function init() {
-    loadUsers("/users");
+
+async function initLogin() {
+    let userResponse = await loadUsers("users");
+    console.log(userResponse);
+
+    let userKeysArray = Object.keys(userResponse);
+    for (let i = 0; i < userKeysArray.length; i++) {
+        users.push(
+            {
+                id: userKeysArray[i],
+                user: userResponse[userKeysArray[i]]
+            }
+        )
+    }
 }
 
 async function loadUsers(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
-    let responseAsJson = await response.json();
-    return responseAsJson;
+    return responseAsJson = await response.json();
 }
 
 function openRegistry() {
@@ -26,13 +29,15 @@ function openRegistry() {
 }
 
 function login() {
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
-    let user = userArr.find(user => user.email === email.value && user.password === password.value);
-    console.log(user);
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let user = users.find(user => user.user.email === email && user.user.password === password);
+
     if (user) {
-        console.log('user gefunden');
         transferToSummary();
+        document.getElementById('login-form').reset();
+    } else {
+        document.getElementById('msg-box').innerHTML = "Wrong email or assword";
     }
 }
 

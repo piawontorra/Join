@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/taskcard.css">
+    <link rel="stylesheet" href="./style/detail_task_card.css">
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
@@ -23,11 +24,11 @@
 <body onload="initBoard()">
     <div class="content">
 
-        <div id="sidebar" w3-include-html="./assets/templates/navigation.html"></div>
+        <div w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
 
-            <div id="header" w3-include-html="./assets/templates/header.html"></div>
+            <div w3-include-html="./assets/templates/header.html"></div>
 
             <div class="board-header max-width">
                 <h1>Board</h1>
@@ -47,39 +48,6 @@
                     </button>
                 </div>
             </div>
-            <!-- <div class="board-categorys">
-                <div class="tasks-content">
-                    <div class="task-header">
-                        <p>To do</p>
-                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
-                    </div>
-                    <div class="task-content-split" id="toDo" ondragover="allowDrop(event)" ondrop="dropTask(event, 'todo')" ondragenter="handleDragEnter(event)" 
-                    ondragleave="handleDragLeave(event)"></div>
-                </div>
-                <div class="tasks-content">
-                    <div class="task-header">
-                        <p>In progress</p>
-                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
-                    </div>
-                    <div class="task-content-split" id="inProgress" ondragover="allowDrop(event)" ondrop="dropTask(event, 'in-progress')" ondragenter="handleDragEnter(event)" 
-                    ondragleave="handleDragLeave(event)"></div>
-                </div>
-                <div class="tasks-content">
-                    <div class="task-header">
-                        <p>Await feedback</p>
-                        <button><img src="./assets/img/plus_dark_icon.png" alt=""></button>
-                    </div>
-                    <div class="task-content-split" id="awaitFeedback" ondragover="allowDrop(event)" ondrop="dropTask(event, 'await-feedback')" ondragenter="handleDragEnter(event)" 
-                    ondragleave="handleDragLeave(event)"></div>
-                </div>
-                <div class="tasks-content-done">
-                    <div class="task-header-done">
-                        <p>Done</p>
-                    </div>
-                    <div class="task-content-split" id="done" ondragover="allowDrop(event)" ondrop="dropTask(event, 'done')" ondragenter="handleDragEnter(event)" 
-                    ondragleave="handleDragLeave(event)"></div>
-                </div>
-            </div> -->
             <div class="board-categorys">
                 <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)" ondragleave="removeHighlightDrag(event)" 
                 ondragleave="handleDragLeave(event)">
@@ -113,6 +81,11 @@
                     <div class="task-content-split" id="done"></div>
                 </div>
             </div>
+            <div id="taskDetailModal" class="task-detail-modal">
+                <div class="task-detail-content">
+                    <div id="taskDetail"></div>
+                </div>
+            </div>                    
         </main>
     </div>
 </body>

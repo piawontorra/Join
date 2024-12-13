@@ -78,7 +78,7 @@
 }
 
 .h1-underline {
-    border-bottom: solid 3px rgb(41, 171, 226);
+    border-bottom: solid 3px #26ace3;
     width: 150px;
     padding-bottom: 10px;
     align-items: center;
@@ -137,4 +137,15 @@
     align-items: center;
     gap: 8px;
     padding: 8px;
+}
+
+.btn-without-formatting {
+    border: none;
+    background-color: #F6F7F8;
+    color: #A8A8A8;
+}
+
+.btn-without-formatting:hover {
+    color: #26ace3;
+    font-weight: 700;
 }

@@ -21,7 +21,7 @@
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="includeHTML(), init()">
+<body onload="includeHTML(), initLogin()">
     <div class="min-height">
         <div class="content content-add max-width">
             <div class="login-header">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-position">
-                <form onsubmit="login(); return false;" class="form">
+                <form id="login-form" onsubmit="login(); return false;" class="form">
                     <div class="form-headline">
                         <h1 class="h1-variant">Log in</h1>
                         <div class="h1-underline"></div>

@@ -94,3 +94,22 @@ header p {
     border-color: #26ace3;
 }
 
+.navyblue-font {
+    color: #2A3647;
+}
+
+.rosa-font {
+    color: #ff8190;
+}
+
+.width32 {
+    width: 32px;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
