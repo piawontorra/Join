@@ -28,7 +28,7 @@
             <div id="header" w3-include-html="./assets/templates/header.html"></div>
             <div id="contactDetails" class="max-width">
                 <div id="wrapperContacts">
-                    <div id="btn_addNewContact" onclick="openOverlay()">Add new contact <img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"></div>
+                    <div id="btn_addNewContact"  onclick="document.querySelector('#' + this.getAttribute('data-infobox')).classList.toggle('open');" data-infobox="contactCard">Add new contact <img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"></div>
                     <div id="contactsOverview"></div>
                 </div>
                 <div id="contactDetailsContainer">
@@ -37,7 +37,7 @@
                         <div class="vl"></div>
                         <span id="span_better"> Better with a team</span>
                     </div>
-                    <div id="contactCard">
+                    <div id="contactCard" class="infobox">
                         <div id="contactCardHeader">
                             <div id="userInitials">BG</div>
                             <div id="userInfo">
