@@ -65,19 +65,25 @@ header p {
     display: none;
 }
 
-.btn1 {
-    background-color: #2A3647;
-    color: #FFFFFF;
+.btn {
     font-size: 21px;
     font-weight: 500;
     border-radius: 10px;
     border: unset;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn1 {
+    background-color: #2A3647;
+    color: #FFFFFF;
     padding: 8px 16px;
 }
 
 .btn1:hover {
     background-color: #26ace3;
-    cursor: pointer;
     transition: .3s;
 }
 
