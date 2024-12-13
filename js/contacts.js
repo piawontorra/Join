@@ -2,13 +2,12 @@ let path = "/contacts";
 let usersArray = [];
 
 function initContacts() {
-    includeHTML();
-    getContacts(path);
+  includeHTML();
+  getContacts(path);
 }
 
-
 /**
- * Asynchronously fetches contact data from a given path, sorts the contacts by name, 
+ * Asynchronously fetches contact data from a given path, sorts the contacts by name,
  * and renders them in the UI.
  *
  * @async
@@ -17,13 +16,17 @@ function initContacts() {
  * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
  *
  */
-async function getContacts(path){
-    let response = await fetch(BASE_URL + path + ".json");
-    let contactsJson = await response.json();
-    let contactsArray = Array.isArray(contactsJson) ? contactsJson : Object.values(contactsJson);
-    let usersArray = contactsArray.sort((current, next) => current.name > next.name?1 : next.name > current.name ? -1 : 0 );
-    renderContacts(usersArray);
-    
+async function getContacts(path) {
+  let response = await fetch(BASE_URL + path + ".json");
+  let contactsJson = await response.json();
+  let contactsArray = Array.isArray(contactsJson)
+    ? contactsJson
+    : Object.values(contactsJson);
+  usersArray = contactsArray.sort((current, next) =>
+    current.name > next.name ? 1 : next.name > current.name ? -1 : 0
+  );
+  renderContacts(usersArray);
+  console.log(usersArray);
 }
 
 /**
@@ -35,15 +38,28 @@ async function getContacts(path){
  * @returns {void}
  *
  */
-function renderContacts(contacts){
-    document.getElementById('contactsOverview').innerHTML = '';
-    for (let i = 0; i < contacts.length; i++) {
-        if (contacts[i] && contacts[i].name) {
-            let firstLetter = contacts[i].name.charAt(0);
-            let secondLetter = contacts[i].name.charAt(contacts[i].name.indexOf(" ")+1);
-            document.getElementById('contactsOverview').innerHTML += overviewTemplate(contacts, i, firstLetter, secondLetter);
-        } else {
-            console.error("Ungültiger Kontakt an Index " + i);
-        }
+function renderContacts(contacts) {
+  document.getElementById("contactsOverview").innerHTML = "";
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i] && contacts[i].name) {
+      let firstLetter = contacts[i].name.charAt(0);
+      let secondLetter = contacts[i].name.charAt(
+        contacts[i].name.indexOf(" ") + 1
+      );
+      document.getElementById("contactsOverview").innerHTML += overviewTemplate(
+        contacts,
+        i,
+        firstLetter,
+        secondLetter
+      );
+    } else {
+      console.error("Ungültiger Kontakt an Index " + i);
     }
+  }
+}
+
+function showContactdetails() {}
+
+function openContactDetailsCard(infoboxId) {
+  document.querySelector(`#${infoboxId}`).classList.toggle("open");
 }

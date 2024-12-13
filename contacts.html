@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
@@ -16,63 +15,40 @@
     <link rel="stylesheet" href="./style/board.css" />
     <link rel="stylesheet" href="./style/standard.css" />
     <link rel="stylesheet" href="./style/contacts.css" />
-    <link rel="stylesheet" href="./style/navigation.css">
+    <link rel="stylesheet" href="./style/navigation.css" />
     <link rel="icon" href="./assets/img/join_logo_login.png" />
-</head>
+  </head>
   <body onload="initContacts()">
     <div class="content">
-        
-        <div w3-include-html="./assets/templates/navigation.html"></div>
+      <div w3-include-html="./assets/templates/navigation.html"></div>
 
-        <main>
-            <div w3-include-html="./assets/templates/header.html"></div>
-            <div id="contactDetails" class="max-width">
-                <div id="wrapperContacts">
-                    <div id="btn_addNewContact"  onclick="document.querySelector('#' + this.getAttribute('data-infobox')).classList.toggle('open');" data-infobox="contactCard">Add new contact <img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"></div>
-                    <div id="contactsOverview"></div>
-                </div>
-                <div id="contactDetailsContainer">
-                    <div id="contactDetailsHeader">
-                        <span id="span_contacts">Contacts</span>
-                        <div class="vl"></div>
-                        <span id="span_better"> Better with a team</span>
-                    </div>
-                    <div id="contactCard" class="infobox">
-                        <div id="contactCardHeader">
-                            <div id="userInitials">BG</div>
-                            <div id="userInfo">
-                                <div id="userName">Bastian Geppert</div>
-                                <div class="action">
-                                        <div id="edit">
-                                            <img src="assets/img/edit_icon.svg" alt="">
-                                            <span>Edit</span>
-                                        </div>
-                                        <div id="delete">
-                                            <img src="assets/img/delete_icon.svg" alt="">
-                                            <span>Delete</span>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="contactCardUserInfo">
-                            <div id="contactText">
-                                <span>Contact Information</span>
-                            </div>
-                            <div id="contactCardEmail">
-                                <p>Email</p>
-                                <div id="contactEmailAdr">
-                                    <a href="mailto:bastigepp@example.org">bastigepp@example.org</a>
-                                </div>
-                            </div>
-                            <div id="contactCardPhone">
-                                <p>Phone</p>
-                                <div id="contactPhoneNr">+49 0845 1234567</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <main>
+        <div w3-include-html="./assets/templates/header.html"></div>
+        <div id="contactDetails" class="max-width">
+          <div id="wrapperContacts">
+            <div
+              id="btn_addNewContact"
+              onclick="document.querySelector('#' + this.getAttribute('data-infobox')).classList.toggle('open');"
+              data-infobox="contactCard"
+            >
+              Add new contact
+              <img
+                src="assets/img/add_contact_icon.png"
+                alt="Add Contact Icon"
+              />
             </div>
-        </main>
+            <div id="contactsOverview"></div>
+          </div>
+          <div id="contactDetailsContainer">
+            <div id="contactDetailsHeader">
+              <span id="span_contacts">Contacts</span>
+              <div class="vl"></div>
+              <span id="span_better"> Better with a team</span>
+            </div>
+            <div id="contactCard" class="infobox"></div>
+          </div>
+        </div>
+      </main>
     </div>
   </body>
 </html>
