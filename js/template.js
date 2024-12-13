@@ -1,3 +1,11 @@
+function getRegistrySuccessTemplate() {
+    return `
+        <div class="registration-success">
+            <div class="btn btn1">You Signed Up successfully.</div>
+        </div>
+    `;
+}
+
 function getTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 

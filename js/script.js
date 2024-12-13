@@ -2,20 +2,22 @@ const BASE_URL = "https://join-83911-default-rtdb.europe-west1.firebasedatabase.
 let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
+const msgBox = document.getElementById('msg-box');
 
+if (msg) {
+    msgBox.innerHTML = msg;
+}
 
 async function initLogin() {
+    // animateLogo();
+    includeHTML();
     let userResponse = await loadUsers("users");
-    console.log(userResponse);
-
     let userKeysArray = Object.keys(userResponse);
     for (let i = 0; i < userKeysArray.length; i++) {
-        users.push(
-            {
-                id: userKeysArray[i],
-                user: userResponse[userKeysArray[i]]
-            }
-        )
+        users.push({
+            id: userKeysArray[i],
+            user: userResponse[userKeysArray[i]]
+        });
     }
 }
 
@@ -36,9 +38,40 @@ function login() {
     if (user) {
         transferToSummary();
         document.getElementById('login-form').reset();
-    } else {
-        document.getElementById('msg-box').innerHTML = "Wrong email or assword";
+        resetFields();
+    } 
+    else {
+        adaptFields();
     }
+}
+
+function adaptFields() {
+    document.getElementById('input-email').classList.add('red-border');
+    document.getElementById('input-password').classList.add('red-border');
+    document.getElementById('msg-box').innerHTML = 'Check your email and password. Please try again.';
+    document.getElementById('login-form').reset();
+}
+
+function resetFields() {
+    document.getElementById('input-email').classList.remove('red-border');
+    document.getElementById('input-password').classList.remove('red-border');
+    document.getElementById('msg-box').innerHTML = '';
+}
+
+function guestLogIn() {
+    const guestLoginData = {
+        email: 'guest@test.de',
+        password: '000'
+    };
+
+    loginWithGuestData(guestLoginData.email, guestLoginData.password);
+}
+
+async function loginWithGuestData(email, password) {
+    let users = await loadUsers("users");
+    let user = Object.values(users).find(u => u.email === email && u.password === password);
+
+    user ? transferToSummary() : document.getElementById('msg-box').innerHTML = 'Error logging in as guest. Please try again.';
 }
 
 function transferToSummary() {

@@ -1,9 +1,9 @@
 .min-height {
-    min-height: calc(100vh - 36px);
+    min-height: calc(100vh - 102px);
 }
 
 .content-add {
-    padding: 40px;
+    padding: 40px 40px 0 40px;
     flex-direction: column;
 }
 
@@ -48,26 +48,43 @@
     gap: 32px;
     border: unset;
     border-radius: 30px;
-    padding: 48px 88px;
+    padding: 48px 88px 48px 56px;
     box-shadow: 0 0 14px 0 rgba(248, 248, 249, 0.6);
 }
 
-.return-to-log-in {
-    border: unset;
-    background-color: #FFFFFF;
+.registration-form {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
 }
 
-.return-to-log-in img {
+.return-btn {
+    color: #26ace3;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 0;
+    margin-top: 24px;
+}
+
+.return-btn:hover {
+    background-color: #F6F7F8;
+}
+
+.return-btn img {
     height: 32px;
     aspect-ratio: 1 / 1;
 }
 
-.form-header {
+.form-content {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    gap: 32px;
 }
 
 .form-headline {
@@ -81,7 +98,6 @@
     border-bottom: solid 3px #26ace3;
     width: 150px;
     padding-bottom: 10px;
-    align-items: center;
 }
 
 .form-input-fields {
@@ -123,6 +139,15 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 6px;
+}
+
+.privacy-policy-link {
+    color: #26ace3;
+}
+
+.privacy-policy-link:hover {
+    text-decoration: underline;
 }
 
 .btn-variant {
@@ -136,11 +161,10 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 8px;
+    padding: 40px;
 }
 
 .btn-without-formatting {
-    border: none;
     background-color: #F6F7F8;
     color: #A8A8A8;
 }
@@ -148,4 +172,65 @@
 .btn-without-formatting:hover {
     color: #26ace3;
     font-weight: 700;
+}
+
+.grey-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background: rgba(191, 191, 191, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.registration-success {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    animation: slideInFromBottom 0.4s ease-in-out forwards;
+    position: relative;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100vh);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes stayInCenter {
+    0% {
+        transform: translateY(50px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+/* Musste Klasse hier noch einmal anlegen, weil sie von der standard.css nicht genommen wird. */
+.d-none {
+    display: none;
+}
+
+body.overlay-active {
+    overflow: hidden;
+}
+
+.msg-box {
+    color: rgb(247, 120, 135);
+    height: 14px;
+}
+
+.red-border {
+    border-color: rgb(247, 120, 135);
 }
