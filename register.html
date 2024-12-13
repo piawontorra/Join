@@ -21,14 +21,14 @@
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="includeHTML(), initRegistry()">
+<body onload="initRegistry()">
     <div class="min-height">
         <div class="content content-add max-width">
             <img class="join-logo-menu" src="./assets/img/join_logo_login.png" alt="Logo">
 
             <div class="form-position">
                 <form id="registration-form" onsubmit="addUser(); return false;" class="form">
-                    <button class="return-to-log-in" onclick="returnToLogIn()">
+                    <button class="btn return-btn" onclick="returnToLogIn()">
                         <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
                     </button>
                     <div class="form-headline">
@@ -49,21 +49,25 @@
                                 placeholder="Password">
                             <img src="./assets/img/lock_icon.png" alt="locked lock icon">
                         </div>
-                        <div class="input-box input-field">
-                            <input type="password" id="password-confirmation" name="password" required
-                                placeholder="Confirm Password">
-                            <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                        <div>
+                            <div class="input-box input-field" id="input-password-confirmation">
+                                <input type="password" id="password-confirmation" name="password" required
+                                    placeholder="Confirm Password">
+                                <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                            </div>
+                            <div class="msg-box" id="msg-box"></div>
                         </div>
                         <div class="check-policy">
-                            <input type="checkbox" id="accepted-policy" name="accepted-policy" required>I accept the <a
-                                href="#">Privacy
-                                Policy.</a>
+                            <input type="checkbox" id="accepted-policy" name="accepted-policy" required>I accept the 
+                            <a class="privacy-policy-link" href="#">Privacy Policy.</a>
                         </div>
                     </div>
-                    <button class="btn1 btn-variant">Sign up</button>
+                    <button class="btn btn1 btn-variant" id="registry">Sign up</button>
                 </form>
             </div>
-            <div class="msg-box" id="msg-box"></div>
+            <div class="grey-overlay d-none" id="grey-overlay">
+                <div class="msg-box-animated" id="success-msg"></div>
+            </div>
         </div>
     </div>
 
