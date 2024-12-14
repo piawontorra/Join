@@ -40,26 +40,29 @@ async function getContacts(path) {
  */
 function renderContacts(contacts) {
   document.getElementById("contactsOverview").innerHTML = "";
+  let currentLetter = "";
   for (let i = 0; i < contacts.length; i++) {
     if (contacts[i] && contacts[i].name) {
       let firstLetter = contacts[i].name.charAt(0);
       let secondLetter = contacts[i].name.charAt(
         contacts[i].name.indexOf(" ") + 1
       );
-      document.getElementById("contactsOverview").innerHTML += overviewTemplate(
-        contacts,
-        i,
-        firstLetter,
-        secondLetter
-      );
-    } else {
-      console.error("Ungültiger Kontakt an Index " + i);
+      if (firstLetter !== currentLetter) {
+        currentLetter = firstLetter;
+        contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperator"></div>`;
+      }
+      document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts,i,firstLetter,secondLetter
+      );}
     }
-  }
 }
-
-function showContactdetails() {}
 
 function openContactDetailsCard(infoboxId) {
   document.querySelector(`#${infoboxId}`).classList.toggle("open");
 }
+
+function contactDetailCard(id) {
+    let contact = usersArray[id];
+    let contactCardContainer = document.getElementById("contactCard");
+    contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
+    console.log(contact);
+  }

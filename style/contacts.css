@@ -30,6 +30,9 @@
     max-height: calc(100vh - 200px);
     overflow-y: auto;
     scrollbar-width: thin;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 #btn_addNewContact{
@@ -243,6 +246,7 @@
     display: flex;
     align-items: center;
     border-radius: 12px;
+    padding-left: 2px;
 }
 
 .singleEntry:hover{
@@ -269,4 +273,14 @@
 #entryInfoMail{
     font-size: 16px;
     font-weight: 400;
+    color: rgb(28, 28, 254);
 }
+
+.letter-group {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: #333;
+    margin-left: 12px;
+  }
