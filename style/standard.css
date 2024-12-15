@@ -119,3 +119,7 @@ header p {
 .rotate180 {
     transform: rotate(180deg);
 }
+
+.flex {
+    display: flex !important;
+}
