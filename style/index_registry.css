@@ -7,17 +7,41 @@
     flex-direction: column;
 }
 
-.login-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+.logo-animation {
+    z-index: 1000;
+    height: 334px;
+    width: 274px;
+    position: absolute;
+    top: calc(345px - 178px);
+    left: calc(583px -446px);
+    box-sizing: unset;
+    padding: 178px 446px;
+    background: #F6F7F8;
+    animation: moveLogo 0.7s ease-in-out forwards;
+}
+
+@keyframes moveLogo {
+    0% {
+        top: calc(345px - 178px);
+        left: calc(583px -446px);
+        height: 334px;
+        width: 274px;
+        padding: 178px 446px;
+    }
+    100% {
+        top: 40px;
+        left: 40px;
+        height: 121.97px;
+        width: 100.03px;
+        padding: 0;
+    }
 }
 
 .registry-link {
     display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
-    display: flex;
     gap: 24px;
 }
 
@@ -72,6 +96,7 @@
 
 .return-btn:hover {
     background-color: #F6F7F8;
+    box-shadow: none;
 }
 
 .return-btn img {
@@ -172,6 +197,7 @@
 .btn-without-formatting:hover {
     color: #26ace3;
     font-weight: 700;
+    box-shadow: none;
 }
 
 .grey-overlay {
@@ -216,7 +242,6 @@
     }
 }
 
-
 /* Musste Klasse hier noch einmal anlegen, weil sie von der standard.css nicht genommen wird. */
 .d-none {
     display: none;
@@ -227,10 +252,11 @@ body.overlay-active {
 }
 
 .msg-box {
-    color: rgb(247, 120, 135);
+    color: #FF8190;
     height: 14px;
 }
 
 .red-border {
-    border-color: rgb(247, 120, 135);
+    border-color: #FF001F;
 }
+

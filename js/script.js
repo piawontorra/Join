@@ -4,12 +4,19 @@ const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
 
+// logo-animation sollte nur beim ersten Mal in der session abgespielt Werden. Funktioniert noch nicht.
+window.onload = function () {
+    if (!sessionStorage.getItem('logoAnimated')) {
+        document.getElementById('logo-animation').classList.add('animate-logo');
+        sessionStorage.setItem('logoAnimated', 'true');
+    }
+};
+
 if (msg) {
     msgBox.innerHTML = msg;
 }
 
 async function initLogin() {
-    // animateLogo();
     includeHTML();
     let userResponse = await loadUsers("users");
     let userKeysArray = Object.keys(userResponse);
@@ -39,7 +46,7 @@ function login() {
         transferToSummary();
         document.getElementById('login-form').reset();
         resetFields();
-    } 
+    }
     else {
         adaptFields();
     }
@@ -77,3 +84,4 @@ async function loginWithGuestData(email, password) {
 function transferToSummary() {
     window.location.href = 'summary.html';
 }
+
