@@ -117,7 +117,7 @@ select {
     border-radius: 10px;
     border: none;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-
+    transition: background-color 0.3s, color 0.3s;
     font-size: 20px;
 
 }
@@ -125,6 +125,31 @@ select {
 .prio-button:hover {
     cursor: pointer;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.35);
+}
+
+.prio-button p {
+    margin: 0;
+    color: #000;
+}
+
+.prio-button.selected p {
+    color: #fff; 
+}
+
+.prio-button.selected img {
+    filter: brightness(0) invert(1);
+}
+
+#urgentPrio.selected {
+    background-color: #ff3e00;
+}
+
+#mediumPrio.selected {
+    background-color: #FFA800;
+}
+
+#lowPrio.selected {
+    background-color: #79E227;
 }
 
 .task-assignement-and-category {

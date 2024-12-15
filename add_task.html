@@ -84,15 +84,15 @@
                     <div class="task-prio">
                         <p class="prio-label">Prio</p>
                         <div class="prio-buttons">
-                            <div class="prio-button">
+                            <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
                                 <p>Urgent</p>
                                 <img src="./assets/img/urgent_icon.png" alt="">
                             </div>
-                            <div class="prio-button">
+                            <div id="mediumPrio" class="prio-button selected" onclick="selectPriority('Medium')">
                                 <p>Medium</p>
                                 <img src="./assets/img/medium_icon.png" alt="">
                             </div>
-                            <div class="prio-button">
+                            <div id="lowPrio" class="prio-button" onclick="selectPriority('Low')">
                                 <p>Low</p>
                                 <img src="./assets/img/low_icon.png" alt="">
                             </div>
