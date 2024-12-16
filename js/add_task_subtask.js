@@ -12,7 +12,9 @@ function resetButtons() {
     const plusButton = document.getElementById('inputOffButton');
     const closeAndCheckButtons = document.getElementById('inputOnButtons');
     const divButtons = document.getElementById('containerButtons');
+    subtask = document.getElementById('inputSubtask');
 
+    subtask.value = '';
     plusButton.style.display = 'flex';
     closeAndCheckButtons.style.display = 'none';
     divButtons.style.top = '';
