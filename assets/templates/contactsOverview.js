@@ -13,16 +13,13 @@ function contactDetailCard(id) {
   let contact = usersArray[id];
   let contactCardContainer = document.getElementById("contactCard");
   contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
-  console.log(contact);
 }
 
 function contactCardDetailsTemplate(id, contact) {
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
-                <div id="userInitials" style="background-color: ${
-                  contact.userColor
-                }">${initials}</div>
+                <div id="userInitials" style="background-color: ${contact.userColor}">${initials}</div>
                 <div id="userInfo">
                     <div id="userName">${contact.name}</div>
                     <div class="action">

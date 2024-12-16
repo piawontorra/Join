@@ -33,19 +33,36 @@
                 <div id="newContactHeaderText">
                   <p>Add contact</p>
                   <span>Tasks are better with a team!</span>
-                  <div id="newContactDivider"></div>
                 </div>
+                <div id="newContactDivider"></div>
               </div>  
             </div>
             <div id="newContactFormContainer">
               <div id="formContainer">
                 <div id="circleContainer">
-                  <div id="circle"></div>
+                  <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
                 </div>
-                <div id="addUserFormContainer"></div>
+                <div id="addUserFormContainer">
+                  <form id="newUserForm">
+                    <div class="inputField">
+                      <input type="text" id="newUserName" placeholder="Name" required>
+                      <img src="./assets/img/user_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="email" id="newUserEmail"  placeholder="Email" required>
+                      <img src="./assets/img/mail_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="phone" id="newUserPhone" placeholder="Phone" required>
+                      <img src="./assets/img/phone_icon.png" alt="">
+                    </div>
+                  </form>
+                  <div id="btnContainer">
+                    <div id="btnCancel" onclick="closeNewContactCard()">Cancel</div> <div id="btnCreate" onclick="newContact()">Create Contact</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <button onclick="closeNewContactCard()">close</button>
           </div>
         </div>
         <div w3-include-html="./assets/templates/header.html"></div>

@@ -99,15 +99,4 @@ async function getUsers(path){
     
 }
 
-/**
- * 
- * @returns a randomly created User Color 
- */
-function randomColor(){
-    let letters = '89ABCDEF';
-    let color = '#';
-    for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * letters.length)];
-  }
-  return color;
-}
+

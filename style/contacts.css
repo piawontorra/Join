@@ -78,6 +78,12 @@
     margin-top: 34px;
 }
 
+#seperator{
+    height: 1px;
+    width: 100%;
+    background-color: lightgray;
+}
+
 .infobox{
     position: fixed;
     top: 260px;
@@ -369,6 +375,9 @@
     /* background-color: aquamarine; */
     height: calc(100% - 100px);
     width: calc(100% - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   #circleContainer{
@@ -386,4 +395,80 @@
     border: 4px solid white;
     box-shadow: 0 0 3px rgb(216, 214, 214);
     background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  #circle img{
+    height: 42px;
+    width: 42px;
+  }
+
+  #newContactDivider{
+    height: 3px;
+    width: 100px;
+    margin-top: 13px;
+    background-color:rgb(41, 171, 226)
+  }
+
+  #newUserForm{
+    height: 215px;
+    /* width: 422px; */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  #newUserForm input{
+    height: 46px;
+    border-radius: 12px;
+    border: 1px solid #8080804a;
+    font-size: 18px;
+    padding-left: 28px;
+  }
+
+  #newUserForm img{
+    height: 24px;
+    width: 24px;
+  }
+
+  .inputField {
+    position: relative;
+    padding: 0;
+}
+
+.inputField img {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+}
+
+.inputField input{
+    width: 422px;
+}
+
+#btnContainer{
+    display: flex;
+    gap: 20px;
+    padding-top: 25px;
+}
+
+#btnContainer div{
+    height: 56px;
+    color: rgb(42, 54, 71);
+    /* width: auto; */
+    border: 1px solid rgba(42, 54, 71, 0.52);
+    border-radius: 12px;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+#btnContainer div:hover{
+    background-color: rgb(42, 54, 71);
+    color: white;
+    font-weight: 600;
+}
