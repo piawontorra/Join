@@ -31,11 +31,18 @@ function newTask() {
         let description = document.getElementById('inputDescription').value;
         // würde contacts als Bearbeiter nehmen (Video von Kevin)
         let dueDate = document.getElementById('inputDueDate').value;
+        let priority = selectedPriority;
+        let selectedCategoryElement = document.getElementById('selectedCategory');
+        let category = selectedCategoryElement.textContent;
+
         let newTask = {
             title: title,
             description: description,
-            dueDate: dueDate
+            dueDate: dueDate,
+            priority: priority,
+            category: category,
         };
+        
         addTask(newTask);
         document.getElementById('add-task-form').reset();
     }
