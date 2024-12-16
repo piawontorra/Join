@@ -26,17 +26,9 @@
         <div w3-include-html="./assets/templates/header.html"></div>
         <div id="contactDetails" class="max-width">
           <div id="wrapperContacts">
-            <div
-              id="btn_addNewContact"
-              onclick="document.querySelector('#' + this.getAttribute('data-infobox')).classList.toggle('open');"
-              data-infobox="contactCard"
-            >
-              Add new contact
-              <img
-                src="assets/img/add_contact_icon.png"
-                alt="Add Contact Icon"
-              />
-            </div>
+            <div id="btn_addNewContact" onclick="openNewContactCard()"
+              data-infobox="contactCard">
+              Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"/></div>
             <div id="contactsOverview"></div>
           </div>
           <div id="contactDetailsContainer">
@@ -46,7 +38,26 @@
               <span id="span_better"> Better with a team</span>
             </div>
             <div id="contactCard" class="infobox"></div>
+            <div id="newContactContainer" class="newContactContainer">
+              <div id="addContactHeaderContainer">
+                <div id="addContactHeader">
+                  <div id="joinLogo">
+                    <img src="assets/img/join_logo_menu.png" alt="">
+                  </div>
+                  <div id="newContactHeaderText">
+                    <p>Add contact</p>
+                    <span>Tasks are better with a team!</span>
+                    <div id="newContactDivider"></div>
+                  </div>
+                </div>  
+              </div>
+              <button onclick="closeNewContactCard()">close</button>
+            </div>
           </div>
+          
+
+          </div>
+        
         </div>
       </main>
     </div>

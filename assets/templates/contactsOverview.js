@@ -17,8 +17,7 @@ function contactDetailCard(id) {
 }
 
 function contactCardDetailsTemplate(id, contact) {
-  const initials =
-    contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
+  const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
                 <div id="userInitials" style="background-color: ${

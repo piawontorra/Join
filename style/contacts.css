@@ -2,6 +2,7 @@
     --sidebar-width: 232px;
     --wrapper-contacts-width: 456px;
     --wrapper-contactCard-width: 562px;
+    --newContactContainer-width: 1212px;
     --infobox-offset: calc(100% - var(--sidebar-width) - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
   }
 
@@ -283,4 +284,63 @@
     margin-bottom: 8px;
     color: #333;
     margin-left: 12px;
+  }
+
+#newContactContainer{
+    --newContactContainer-width: 1212px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 64px;
+    width: 1212px;
+    height: 592px;
+    background-color: white;
+    border-radius: 24px;
+}
+
+#addContactHeaderContainer{
+    width: 467px;
+    height: 100%;
+    background-color: rgb(42, 54, 71);
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#addContactHeader{
+    width: 80%;
+}
+
+#addContactHeader p{
+    color: white;
+    font-weight: bold;
+    font-size: 61px;
+    width: 100%;
+}
+
+#addContactHeader img{
+    height: 66px;
+    width: 55px;
+}
+
+#addContactHeader span{
+    color: white;
+    font-weight: 300;
+    font-size: 28px;
+    width: 373px;
+    display: inline-block;
+}
+
+.newContactContainer{
+    position: fixed;
+    top: 260px;
+    height: 100%;
+    right: -1500px;
+    width: 200px;
+    transition: right 0.75s ease-in-out;
+  }
+
+.newContactContainer.open{
+    right: calc(100% / 5);
   }
