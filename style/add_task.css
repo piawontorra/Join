@@ -332,3 +332,75 @@ select {
     display: flex;
     gap: 4px;
 }
+
+.add-task-form-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-top: 160px;
+    padding-left: 104px;
+    padding-right: 128px;
+}
+
+.info-line {
+    display: flex;
+    align-items: flex-end;
+    font-size: 16px;
+}
+
+.add-task-finish-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.clear-task-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f7f7f8;
+    color: #2A3647; 
+    font-size: 21px;
+    font-weight: 700;
+
+    border: 1px solid rgba(42, 54, 71, 1);
+    border-radius: 10px;
+    padding: 16px;
+    gap: 10px;
+    transform: ease;
+}
+
+.clear-task-btn:hover {
+    border: 1px solid #26ace3;
+    color: #26ace3;
+    transition: .3s;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.35);
+}
+
+.clear-task-btn:hover img {
+    transition: .3s;
+    filter: invert(33%) sepia(88%) saturate(403%) hue-rotate(158deg); /* Filter to change the color */
+}
+
+.create-task-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #2A3647;
+    color: white;
+    font-size: 21px;
+    font-weight: 700;
+
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    gap: 4px;
+}
+
+.create-task-btn:hover {
+    background-color: #26ace3;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.35);
+}

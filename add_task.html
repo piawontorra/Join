@@ -31,89 +31,121 @@
                 <h1>Add Task</h1>
             </div>
 
-            <form class="add-task-form" id="add-task-form" onsubmit="newTask(); return false;">
+            <form id="add-task-form" onsubmit="newTask(); return false;">
+                <div class="add-task-form">
                     <div class="add-task-form-left">
-
-                    <div class="task-title">
-                        <label for="inputTitle"><p>Title</p><p class="rosa-font">*</p></label>
-                        <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
-                            autocomplete="off" required>
-                    </div>
-                    <div class="task-description">
-                        <label for="inputDescription">Description</label>
-                        <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px"
-                            placeholder="Enter a Description"></textarea>
-                    </div>
-                    <div class="task-assignement-and-category">
-                        <label for="inputAssignedTo">Assigned to</label>
-                        <div onclick="showUsers()" class="add-task-assigned-to-input-field">
-                            <p>Select user to assign</p>
-                            <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                            <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt="" style="display: none;">
+                        <div class="task-title">
+                            <label for="inputTitle">
+                                <p>Title</p>
+                                <p class="rosa-font">*</p>
+                            </label>
+                            <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
+                                autocomplete="off" required>
                         </div>
-                        <div id="users" class="users" style="display: none;">
+                        <div class="task-description">
+                            <label for="inputDescription">Description</label>
+                            <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px"
+                                placeholder="Enter a Description"></textarea>
+                        </div>
+                        <div class="task-assignement-and-category">
+                            <label for="inputAssignedTo">Assigned to</label>
+                            <div onclick="showUsers()" class="add-task-assigned-to-input-field">
+                                <p>Select user to assign</p>
+                                <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
+                                    style="display: none;">
+                            </div>
+                            <div id="users" class="users" style="display: none;">
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <div class="add-task-form-seperator"></div>
 
-                <div class="add-task-form-right">
-                    <label for="inputDueDate"><p>Due date</p><p class="rosa-font">*</p></label>
-                    <div class="task-due-date">
-                        <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10">
-                        <img src="./assets/img/calendar_icon.png" alt="">
-                    </div>
-                    <div class="task-prio">
-                        <p class="prio-label">Prio</p>
-                        <div class="prio-buttons">
-                            <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
-                                <p>Urgent</p>
-                                <img src="./assets/img/urgent_icon.png" alt="">
-                            </div>
-                            <div id="mediumPrio" class="prio-button selected" onclick="selectPriority('Medium')">
-                                <p>Medium</p>
-                                <img src="./assets/img/medium_icon.png" alt="">
-                            </div>
-                            <div id="lowPrio" class="prio-button" onclick="selectPriority('Low')">
-                                <p>Low</p>
-                                <img src="./assets/img/low_icon.png" alt="">
-                            </div>
+                    <div class="add-task-form-right">
+                        <label for="inputDueDate">
+                            <p>Due date</p>
+                            <p class="rosa-font">*</p>
+                        </label>
+                        <div class="task-due-date">
+                            <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy"
+                                maxlength="10">
+                            <img src="./assets/img/calendar_icon.png" alt="">
                         </div>
-                    </div>
-                    <div class="task-assignement-and-category">
-                        <label for="inputAssignedTo"><p>Category</p><p class="rosa-font">*</p></label>
-                        <div onclick="showCategorys()" class="add-task-assigned-to-input-field">
-                            <p id="selectedCategory">Select task category</p>
-                            <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                            <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt="" style="display: none;">
-                            <div id="category" class="category" style="display: none;">
-                                <div class="category-options" onclick="selectCategory(event, 'Technical Task')">Technical Task</div>
-                                <div class="category-options" onclick="selectCategory(event, 'User Story')">User Story</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="task-subtask">
-                        <label for="inputSubTask">Subtasks</label>
-                        <input onkeydown="handleKeyPress(event)" onclick="changeButtons()" class="add-task-input-fields" type="text" id="inputSubtask"
-                            placeholder="Add new subtask">
-                        <div id="containerButtons" class="add-subtask-buttons">
-                            <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons">
-                                <img src="./assets/img/plus_dark_icon.svg" alt="">
-                            </div>
-                            <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
-                                <div onclick="resetButtons()" class="subtask-buttons">
-                                    <img src="./assets/img/cancel_icon.svg" alt="">
+                        <div class="task-prio">
+                            <p class="prio-label">Prio</p>
+                            <div class="prio-buttons">
+                                <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
+                                    <p>Urgent</p>
+                                    <img src="./assets/img/urgent_icon.png" alt="">
                                 </div>
-                                <div class="subtask-seperator"></div>
-                                <div onclick="addSubtask()" class="subtask-buttons">
-                                    <img src="./assets/img/check_dark_icon.svg" alt="">
+                                <div id="mediumPrio" class="prio-button selected" onclick="selectPriority('Medium')">
+                                    <p>Medium</p>
+                                    <img src="./assets/img/medium_icon.png" alt="">
+                                </div>
+                                <div id="lowPrio" class="prio-button" onclick="selectPriority('Low')">
+                                    <p>Low</p>
+                                    <img src="./assets/img/low_icon.png" alt="">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="subtask" class="created-subtasks-container"></div>
+                        <div class="task-assignement-and-category">
+                            <label for="inputAssignedTo">
+                                <p>Category</p>
+                                <p class="rosa-font">*</p>
+                            </label>
+                            <div onclick="showCategorys()" class="add-task-assigned-to-input-field">
+                                <p id="selectedCategory">Select task category</p>
+                                <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
+                                    alt="" style="display: none;">
+                                <div id="category" class="category" style="display: none;">
+                                    <div class="category-options" onclick="selectCategory(event, 'Technical Task')">
+                                        Technical Task</div>
+                                    <div class="category-options" onclick="selectCategory(event, 'User Story')">User
+                                        Story</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-subtask">
+                            <label for="inputSubTask">Subtasks</label>
+                            <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
+                                class="add-task-input-fields" type="text" id="inputSubtask"
+                                placeholder="Add new subtask">
+                            <div id="containerButtons" class="add-subtask-buttons">
+                                <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons">
+                                    <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                </div>
+                                <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
+                                    <div onclick="resetButtons()" class="subtask-buttons">
+                                        <img src="./assets/img/cancel_icon.svg" alt="">
+                                    </div>
+                                    <div class="subtask-seperator"></div>
+                                    <div onclick="addSubtask()" class="subtask-buttons">
+                                        <img src="./assets/img/check_dark_icon.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="subtask" class="created-subtasks-container"></div>
 
+                    </div>
+                </div>
+                <div class="add-task-form-bottom">
+                    <div class="info-line">
+                        <p class="rosa-font">*</p>
+                        <p>This field is required</p>
+                    </div>
+                    <div class="add-task-finish-buttons">
+                        <div class="clear-task-btn">
+                            <p>Clear</p>
+                            <img src="./assets/img/cancel_icon.svg" alt="">
+                        </div>
+                        <button class="create-task-btn">
+                            Create Task
+                            <img src="./assets/img/check_icon.png" alt="">
+                        </button>
+                    </div>
                 </div>
 
             </form>
