@@ -7,6 +7,12 @@ function initContacts() {
   getContacts(path);
 }
 
+function toggleOverlay(){
+  let overlay = document.getElementById('overlay');
+  overlay.classList.remove('d-none');
+  setTimeout(()=>{openNewContactCard()}, 10);
+}
+
 /**
  * Asynchronously fetches contact data from a given path, sorts the contacts by name,
  * and renders them in the UI.
@@ -74,7 +80,10 @@ function openNewContactCard() {
 
   function closeNewContactCard(){
     let newContactCard = document.getElementById('newContactContainer');
+    let overlay = document.getElementById('overlay');
     newContactCard.classList.remove('open');
+    setTimeout(()=>{overlay.classList.add('d-none')}, 400);
+
 
   }
 
