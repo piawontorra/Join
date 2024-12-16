@@ -10,6 +10,11 @@
     src: url('../assets/fonts/inter.ttf') format('truetype');
 }
 
+.max-width-login-registry {
+    max-width: 1440px;
+    width: 100%;
+}
+
 .max-width {
     max-width: 1208px;
     width: 100%;
@@ -63,6 +68,33 @@ header p {
 
 .d-none {
     display: none;
+}
+
+.h1 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.section-head {
+    padding-top: calc(206px - 96px);
+    padding-right: 104px;
+    padding-bottom: 75px;
+    padding-left: calc(328px - 232px);
+    display: flex;
+    justify-content: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+.vl{
+    border-left: 4px solid rgb(41, 171, 226);
+    height: 60px;
+}
+
+.section-subheader{
+    font-size: 27px;
+    font-weight: 400;
 }
 
 .btn {

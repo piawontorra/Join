@@ -1,14 +1,3 @@
-h1 {
-    font-size: 61px;
-    font-weight: 700;
-}
-
-.add-task-header {
-    padding-left: 104px;
-    padding-top: 110px;
-    padding-bottom: 75px;
-}
-
 .add-task-form {
     padding-left: 104px;
     height: 424px;
