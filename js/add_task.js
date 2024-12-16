@@ -4,6 +4,8 @@ function initAddTask() {
 
 let subtasks = [];
 
+let selectedPriority = "Medium"; // Standardpriorität
+
 function showUsers() {
     const usersElement = document.getElementById('users');
     const arrowDown = document.getElementById('userArrowDown');
@@ -49,6 +51,24 @@ function showCategorys() {
         }
     }
 }
+
+function selectPriority(priority) {
+    document.querySelectorAll('.prio-button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    const selectedButton = document.getElementById(priority.toLowerCase() + "Prio");
+    selectedButton.classList.add('selected');
+
+    selectedPriority = priority;
+
+    console.log("Selected Priority:", selectedPriority);
+}
+
+window.onload = function () {
+    selectPriority(selectedPriority);
+};
+
 
 
   
