@@ -1,3 +1,35 @@
+function getAssignedToTemplate(contact) {
+  // Initialen aus dem Namen extrahieren
+  let initials = getInitials(contact.name);
+
+  return `
+      <div class="user">
+          <div class="user-left">
+              <div class="initials-circle" style="background-color: ${contact.userColor}">${initials}</div>
+              <span class="contact-name">${contact.name}</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-${contact.userId}" class="user-checkbox">
+          </div>
+      </div>
+  `;
+}
+
+function renderUsersHTML(contact, i) {
+  let initials = getInitials(contact.name);
+
+  return /*html*/ `
+        <label for="checkbox${i}">
+            <li class="contact-list" id="contactList${i}">        
+                <div tabindex="0" class="emblem" style="background-color: ${contact.userColor}">
+                  ${contact.emblem}
+                </div> 
+                <div class="contact-name" >${contact.name}</div> 
+                <input class="user-checkbox" onclick="showUsersEmblem()" type="checkbox" id="checkbox${i}" data-userid="${contact.userId}">          
+            </li>
+        </label> `;
+}
+
 function getSubtaskTemplate(i) {
     return `
       <div class="subtask-list" id="mainSubtask-container${i}">

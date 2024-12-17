@@ -1,10 +1,12 @@
 let tasks = [];
 let subtasks = [];
+let assignedTo = [];
 let selectedPriority = "Medium"; // Standardpriorität
 
 function initAddTask() {
     includeHTML();
     fetchTasks();
+    loadData();
 }
 
 async function fetchTasks() {
@@ -92,8 +94,43 @@ function showUsers() {
     }
 }
 
-function renderUsers() {
-    
+async function loadData() {
+    try {
+        let response = await fetch(BASE_URL + "/contacts.json"); // Den richtigen Pfad angeben
+        let responseToJson = await response.json();
+        console.log(responseToJson);
+
+        // Rendern der User nach Laden der Daten
+        renderUsers(responseToJson);
+    } catch (error) {
+        console.error("Fehler beim Laden der Daten:", error);
+    }
+}
+
+function renderUsers(contacts) {
+    let usersRef = document.getElementById('users');
+    usersRef.innerHTML = ''; // Container leeren
+
+    // Schlüssel der Kontakte in ein Array umwandeln
+    let contactKeys = Object.keys(contacts);
+
+    // Mit klassischer for-Schleife über die Kontakte iterieren
+    for (let i = 0; i < contactKeys.length; i++) {
+        let key = contactKeys[i];
+        let contact = contacts[key];
+
+        // HTML-Template für den aktuellen Kontakt holen
+        let contactTemplate = getAssignedToTemplate(contact);
+
+        // Kontakt in den Container einfügen
+        usersRef.innerHTML += contactTemplate;
+    }
+}
+
+function getInitials(name) {
+    let nameParts = name.split(" ");
+    let initials = nameParts.map(part => part[0].toUpperCase()).join(""); // Nur die ersten Buchstaben
+    return initials;
 }
 
 function showCategorys() {
