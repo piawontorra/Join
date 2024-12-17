@@ -16,6 +16,8 @@ function contactDetailCard(id) {
 }
 
 function contactCardDetailsTemplate(id, contact) {
+    console.log(contact);
+    
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
@@ -27,7 +29,7 @@ function contactCardDetailsTemplate(id, contact) {
                                 <img src="assets/img/edit_icon.svg" alt="Image edit">
                                 <span>Edit</span>
                             </div>
-                            <div id="delete">
+                            <div id="delete" onclick="deleteContact(${contact.id})">
                                 <img src="assets/img/delete_icon.svg" alt="Image delete">
                                 <span>Delete</span>
                             </div>
@@ -51,6 +53,5 @@ function contactCardDetailsTemplate(id, contact) {
                     }</div>
                 </div>
             </div>
-                    
     `;
 }

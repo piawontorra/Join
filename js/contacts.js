@@ -1,4 +1,4 @@
-let path = "/contacts";
+let path = "contacts";
 let usersArray = [];
 let userColorsPreset = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
@@ -48,15 +48,22 @@ async function getUsers(path){
 async function getContacts(path) {
   let response = await fetch(BASE_URL + path + ".json");
   let contactsJson = await response.json();
-  let contactsArray = Array.isArray(contactsJson)
-    ? contactsJson
-    : Object.values(contactsJson);
+  
+  // let contactsArray = Array.isArray(contactsJson)
+  //   ? contactsJson
+  //   : Object.values(contactsJson);
+
+  let contactsArray = [];
+  for (let key in contactsJson){
+    contactsArray.push({id: key, ...contactsJson[key]})
+  }
   usersArray = contactsArray.sort((current, next) =>
     current.name > next.name ? 1 : next.name > current.name ? -1 : 0
   );
   renderContacts(usersArray);
   console.log(usersArray);
 }
+
 
 /**
  * Renders a list of contacts into the "contactsOverview" container in the DOM.
@@ -80,8 +87,7 @@ function renderContacts(contacts) {
         currentLetter = firstLetter;
         contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperator"></div>`;
       }
-      document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts,i,firstLetter,secondLetter
-      );}
+      document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts,i,firstLetter,secondLetter);}
     }
 }
 
@@ -110,10 +116,9 @@ function openContactDetailsCard(infoboxId) {
 function openNewContactCard() {
   let newContactCard = document.getElementById('newContactContainer');
   newContactCard.classList.add('open');
-  getNextID();
   }
 
-  function closeNewContactCard(){
+function closeNewContactCard(){
     let newContactCard = document.getElementById('newContactContainer');
     let overlay = document.getElementById('overlay');
     newContactCard.classList.remove('open');
@@ -134,15 +139,16 @@ async function newContact(){
   let name = document.getElementById('newUserName');
   let email = document.getElementById('newUserEmail');
   let phone = document.getElementById('newUserPhone');
-  // let key = name.value;  <--- Eintrag wird wie gehabt unter dem Namen gespeichert
-  let key = await getNextID(); //<---- hier wird als key die userID verwendet
-  // let userID = await getNextID();   <---- userID wird unter dem Namen als einzelnes Element des JSONs gespeichert, userID muss dann bei newData= wieder eingefügt werden
+  // let key = name.value; //<--- Eintrag wird wie gehabt unter dem Namen gespeichert
+  let key = await getNextID(); //<--- hier wird als key die userID verwendet
+  // let userID = await getNextID(); //<--- userID wird unter dem Namen als einzelnes Element des JSONs gespeichert, userID muss dann bei newData= wieder eingefügt werden
   newData = {
       name: name.value,email: email.value,
-      phone: phone.value,userColor: userColor
+      phone: phone.value,userColor: userColor, userId: key
   }
   addNewData(newData, "/contacts", key);
   closeNewContactCard();
+  nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 100);
 }
 
@@ -159,20 +165,39 @@ function createUserColor(){
 
 /**
  * fetches the database and lookin for the current userID
- * taking the ID and increases by 1
- * writing the next available ID into the database
  * @returns the next available ID from the database 
  */
 async function getNextID() {
   let response = await fetch(`${BASE_URL}/nextID.json`);
   let nextID = await response.json();
   if (!nextID) {
-      nextID = 1;
+      nextID = 0;
   }
-  await fetch(`${BASE_URL}/nextID.json`, {
-      method: 'PUT',
-      body: JSON.stringify(nextID + 1),
-  });
   return nextID;
 }
 
+/**
+ * writing the next available ID into the database
+ * @param {number} nextID 
+ */
+async function nextIdToDatabase(nextID){
+  await fetch(`${BASE_URL}/nextID.json`, {
+    method: 'PUT',
+    body: JSON.stringify(nextID + 1),
+  })
+}
+  
+async function deleteContact(entryId){
+  let dbRef = (BASE_URL + path + "/" + entryId);
+  console.log(dbRef);
+  let response = await fetch(dbRef + ".json", {
+    method: "DELETE", 
+    });
+    closeContactDetailsCard();
+    getContacts(path);
+  }
+
+  function closeContactDetailsCard() {
+    let contactCard = document.getElementById('contactCard');
+    contactCard.classList.remove("open");
+  }
