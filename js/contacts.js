@@ -33,7 +33,6 @@ async function getUsers(path){
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
   console.log(responseToJson);
-  
 }
 
 /**
@@ -86,6 +85,14 @@ function renderContacts(contacts) {
     }
 }
 
+/**
+ * opens a contact detail card by adding "open" class. 
+ * @param {string} infoboxId the id of the element to open
+ * @descripton
+ * - check if contact card exists
+ * - if it is already opened the function exits 
+ * - if not it will open the card by adding the class "open"
+ */
 function openContactDetailsCard(infoboxId) {
   let contactCard = document.getElementById('contactCard');
   if (contactCard) {
@@ -96,9 +103,14 @@ function openContactDetailsCard(infoboxId) {
   }
 }
 
+/**
+ * Opens the new contact card by adding the "open" class to the container
+ * firing the getNextID to get the next available userID
+ */
 function openNewContactCard() {
   let newContactCard = document.getElementById('newContactContainer');
   newContactCard.classList.add('open');
+  getNextID();
   }
 
   function closeNewContactCard(){
@@ -117,13 +129,14 @@ function contactDetailCard(id) {
 
   // function highlightContactNavbar(){}
 
-  
-function newContact(){
+async function newContact(){
   let userColor = createUserColor();
   let name = document.getElementById('newUserName');
   let email = document.getElementById('newUserEmail');
   let phone = document.getElementById('newUserPhone');
-  let key = name.value;
+  // let key = name.value;  <--- Eintrag wird wie gehabt unter dem Namen gespeichert
+  let key = await getNextID(); //<---- hier wird als key die userID verwendet
+  // let userID = await getNextID();   <---- userID wird unter dem Namen als einzelnes Element des JSONs gespeichert, userID muss dann bei newData= wieder eingefügt werden
   newData = {
       name: name.value,email: email.value,
       phone: phone.value,userColor: userColor
@@ -133,10 +146,33 @@ function newContact(){
   setTimeout(()=>{getContacts(path)}, 100);
 }
 
+/**
+ * 
+ * @returns a background color for the new user out of preset colors
+ * 
+ */
 function createUserColor(){
   let randomNumber = Math.floor(Math.random()*15);
   let userColor = userColorsPreset[randomNumber];
   return userColor;
 }
 
+/**
+ * fetches the database and lookin for the current userID
+ * taking the ID and increases by 1
+ * writing the next available ID into the database
+ * @returns the next available ID from the database 
+ */
+async function getNextID() {
+  let response = await fetch(`${BASE_URL}/nextID.json`);
+  let nextID = await response.json();
+  if (!nextID) {
+      nextID = 1;
+  }
+  await fetch(`${BASE_URL}/nextID.json`, {
+      method: 'PUT',
+      body: JSON.stringify(nextID + 1),
+  });
+  return nextID;
+}
 
