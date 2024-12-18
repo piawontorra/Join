@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./style/standard.css" />
     <link rel="stylesheet" href="./style/contacts.css" />
     <link rel="stylesheet" href="./style/navigation.css" />
+    <link rel="stylesheet" href="./style/add_task.css" />
     <link rel="icon" href="./assets/img/join_logo_login.png" />
   </head>
   <body onload="initContacts()">
@@ -42,6 +43,9 @@
                   <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
                 </div>
                 <div id="addUserFormContainer">
+                  <div id="cancelImgContainer">
+                    <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
+                  </div>
                   <form id="newUserForm">
                     <div class="inputField">
                       <input type="text" id="newUserName" placeholder="Name" required>
@@ -57,7 +61,11 @@
                     </div>
                   </form>
                   <div id="btnContainer">
-                    <div id="btnCancel" onclick="closeNewContactCard()">Cancel</div> <div id="btnCreate" onclick="newContact()">Create Contact</div>
+                    <button id="btnCancel" class="clear-task-btn" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
+                    <!-- <div id="btnCancel" onclick="closeNewContactCard()">Cancel</div>  -->
+                    <button id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
+                    <!-- <div id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact</div>
+                    <img src="./assets/img/check_icon.png" alt=""> -->
                   </div>
                 </div>
               </div>

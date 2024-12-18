@@ -417,7 +417,7 @@
     /* width: 422px; */
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    /* gap: 25px; */
   }
 
   #newUserForm input{
@@ -451,24 +451,36 @@
 #btnContainer{
     display: flex;
     gap: 20px;
-    padding-top: 25px;
+    padding-top: 31px;
 }
 
 #btnContainer div{
     height: 56px;
-    color: rgb(42, 54, 71);
-    /* width: auto; */
-    border: 1px solid rgba(42, 54, 71, 0.52);
-    border-radius: 12px;
+    /* color: rgb(42, 54, 71); */
+    width: auto;
+    /* border: 1px solid rgba(42, 54, 71, 0.52); */
+    /* border-radius: 12px; */
     display: flex;
     padding: 20px;
     align-items: center;
-    font-size: 21px;
+    /* font-size: 21px; */
     cursor: pointer;
 }
 
-#btnContainer div:hover{
+/* #btnContainer div:hover{
     background-color: rgb(42, 54, 71);
     color: white;
     font-weight: 600;
+} */
+
+#closingImg:hover{
+    cursor: pointer;
+    background-color: rgb(230, 223, 223);
+    border-radius: 90%;
+}
+
+#cancelImgContainer{
+    justify-content: end;
+    display: flex;
+    margin-bottom: 65px;
 }
