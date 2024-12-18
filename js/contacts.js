@@ -126,11 +126,11 @@ function closeNewContactCard(){
     document.getElementById("newUserForm").reset();
   }
 
-function contactDetailCard(id) {
-    let contact = usersArray[id];
-    let contactCardContainer = document.getElementById("contactCard");
-    contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
-  }
+// function contactDetailCard(id) {
+//     let contact = usersArray[id];
+//     let contactCardContainer = document.getElementById("contactCard");
+//     contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
+//   }
 
   // function highlightContactNavbar(){}
 
@@ -200,4 +200,10 @@ async function deleteContact(entryId){
   function closeContactDetailsCard() {
     let contactCard = document.getElementById('contactCard');
     contactCard.classList.remove("open");
+  }
+
+  function addBackground(id){
+    let allEntries = document.querySelectorAll('.singleEntry');
+    allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
+    document.getElementById(`${id}`).classList.add('chosen');;
   }

@@ -1,6 +1,6 @@
 function overviewTemplate(contacts, i, firstLetter, secondLetter) {
   return `
-            <div id="${i}" class="singleEntry" onclick="openContactDetailsCard('contactCard'), contactDetailCard(id)">
+            <div id="${i}" class="singleEntry" onclick="openContactDetailsCard('contactCard'), contactDetailCard(id), addBackground(id)">
                 <div class="userInitials" style="background-color: ${contacts[i].userColor};">${firstLetter}${secondLetter}</div>    
                 <div>
                     <div id="entryInfoName">${contacts[i].name}</div>
