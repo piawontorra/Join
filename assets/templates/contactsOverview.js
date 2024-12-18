@@ -1,3 +1,5 @@
+let currentUser = [];
+
 function overviewTemplate(contacts, i, firstLetter, secondLetter) {
   return `
             <div id="${i}" class="singleEntry" onclick="openContactDetailsCard('contactCard'), contactDetailCard(id), addBackground(id)">
@@ -13,11 +15,11 @@ function contactDetailCard(id) {
   let contact = usersArray[id];
   let contactCardContainer = document.getElementById("contactCard");
   contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
+  currentUser = [];
+  currentUser.push(contact);
 }
 
-function contactCardDetailsTemplate(id, contact) {
-    console.log(contact);
-    
+function contactCardDetailsTemplate(id, contact) {   
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
@@ -25,7 +27,7 @@ function contactCardDetailsTemplate(id, contact) {
                 <div id="userInfo">
                     <div id="userName">${contact.name}</div>
                     <div class="action">
-                            <div id="edit">
+                            <div id="edit" onclick="toggleOverlay(), openEditForm(currentUser)">
                                 <img src="assets/img/edit_icon.svg" alt="Image edit">
                                 <span>Edit</span>
                             </div>
@@ -52,6 +54,101 @@ function contactCardDetailsTemplate(id, contact) {
                       contact.phone || "no phone number available"
                     }</div>
                 </div>
+            </div>
+    `;
+}
+
+function newContactTemplate(){
+    return `
+            <div id="addContactHeaderContainer">
+              <div id="addContactHeader">
+                <div id="joinLogo">
+                  <img src="assets/img/join_logo_menu.png" alt="">
+                </div>
+                <div id="newContactHeaderText">
+                  <p>Add contact</p>
+                  <span>Tasks are better with a team!</span>
+                </div>
+                <div id="newContactDivider"></div>
+              </div>  
+            </div>
+            <div id="newContactFormContainer">
+              <div id="formContainer">
+                <div id="circleContainer">
+                  <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
+                </div>
+                <div id="addUserFormContainer">
+                  <div id="cancelImgContainer">
+                    <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
+                  </div>
+                  <form id="newUserForm">
+                    <div class="inputField">
+                      <input type="text" id="newUserName" placeholder="Name" required>
+                      <img src="./assets/img/user_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="email" id="newUserEmail"  placeholder="Email" required>
+                      <img src="./assets/img/mail_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="phone" id="newUserPhone" placeholder="Phone" required>
+                      <img src="./assets/img/phone_icon.png" alt="">
+                    </div>
+                  </form>
+                  <div id="btnContainer">
+                    <button id="btnCancel" class="clear-task-btn" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
+                    <button id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+    `;
+}
+
+function editContactTemplate(user){
+    console.log(currentUser);
+    
+    return `
+            <div id="addContactHeaderContainer">
+              <div id="addContactHeader">
+                <div id="joinLogo">
+                  <img src="assets/img/join_logo_menu.png" alt="">
+                </div>
+                <div id="newContactHeaderText">
+                  <p>Edit contact</p>
+                </div>
+                <div id="newContactDivider"></div>
+              </div>  
+            </div>
+            <div id="newContactFormContainer">
+              <div id="formContainer">
+                <div id="circleContainer">
+                  <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
+                </div>
+                <div id="addUserFormContainer">
+                  <div id="cancelImgContainer">
+                    <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
+                  </div>
+                  <form id="newUserForm">
+                    <div class="inputField">
+                      <input type="text" id="newUserName" value="${currentUser[0].name}" required>
+                      <img src="./assets/img/user_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="email" id="newUserEmail" value="${currentUser[0].email}"  required>
+                      <img src="./assets/img/mail_icon.png" alt="">
+                    </div>
+                    <div class="inputField">
+                      <input type="phone" id="newUserPhone" value="${currentUser[0].phone}" required>
+                      <img src="./assets/img/phone_icon.png" alt="">
+                    </div>
+                  </form>
+                  <div id="btnContainer">
+                    <button id="btnCancel" class="clear-task-btn" onclick="#">Delete<img src="./assets/img/cancel_icon.png" alt=""></button>
+                    <button id="btnCreate" class="create-task-btn" onclick="#">Save<img src="./assets/img/check_icon.png" alt=""></button>
+                  </div>
+                </div>
+              </div>
             </div>
     `;
 }

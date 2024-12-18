@@ -126,13 +126,10 @@ function closeNewContactCard(){
     document.getElementById("newUserForm").reset();
   }
 
-// function contactDetailCard(id) {
-//     let contact = usersArray[id];
-//     let contactCardContainer = document.getElementById("contactCard");
-//     contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
-//   }
-
-  // function highlightContactNavbar(){}
+function newUserCard() {
+  let newContactContainer = document.getElementById("newContactContainer");
+  newContactContainer.innerHTML = newContactTemplate();
+}
 
 async function newContact(){
   let userColor = createUserColor();
@@ -197,13 +194,18 @@ async function deleteContact(entryId){
     getContacts(path);
   }
 
-  function closeContactDetailsCard() {
-    let contactCard = document.getElementById('contactCard');
-    contactCard.classList.remove("open");
-  }
+function closeContactDetailsCard() {
+  let contactCard = document.getElementById('contactCard');
+  contactCard.classList.remove("open");
+}
 
-  function addBackground(id){
-    let allEntries = document.querySelectorAll('.singleEntry');
-    allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
-    document.getElementById(`${id}`).classList.add('chosen');;
-  }
+function addBackground(id){
+  let allEntries = document.querySelectorAll('.singleEntry');
+  allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
+  document.getElementById(`${id}`).classList.add('chosen');;
+}
+
+function openEditForm(contact){
+  let newContactContainer = document.getElementById("newContactContainer");
+  newContactContainer.innerHTML = editContactTemplate(contact);
+}

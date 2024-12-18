@@ -25,57 +25,12 @@
       <main>
         <div id="overlay" class="d-none">
           <div id="newContactContainer" class="newContactContainer">
-            <div id="addContactHeaderContainer">
-              <div id="addContactHeader">
-                <div id="joinLogo">
-                  <img src="assets/img/join_logo_menu.png" alt="">
-                </div>
-                <div id="newContactHeaderText">
-                  <p>Add contact</p>
-                  <span>Tasks are better with a team!</span>
-                </div>
-                <div id="newContactDivider"></div>
-              </div>  
-            </div>
-            <div id="newContactFormContainer">
-              <div id="formContainer">
-                <div id="circleContainer">
-                  <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
-                </div>
-                <div id="addUserFormContainer">
-                  <div id="cancelImgContainer">
-                    <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
-                  </div>
-                  <form id="newUserForm">
-                    <div class="inputField">
-                      <input type="text" id="newUserName" placeholder="Name" required>
-                      <img src="./assets/img/user_icon.png" alt="">
-                    </div>
-                    <div class="inputField">
-                      <input type="email" id="newUserEmail"  placeholder="Email" required>
-                      <img src="./assets/img/mail_icon.png" alt="">
-                    </div>
-                    <div class="inputField">
-                      <input type="phone" id="newUserPhone" placeholder="Phone" required>
-                      <img src="./assets/img/phone_icon.png" alt="">
-                    </div>
-                  </form>
-                  <div id="btnContainer">
-                    <button id="btnCancel" class="clear-task-btn" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-                    <!-- <div id="btnCancel" onclick="closeNewContactCard()">Cancel</div>  -->
-                    <button id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
-                    <!-- <div id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact</div>
-                    <img src="./assets/img/check_icon.png" alt=""> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        </div>
         </div>
         <div w3-include-html="./assets/templates/header.html"></div>
         <div id="contactDetails" class="max-width">
           <div id="wrapperContacts">
-            <div id="btn_addNewContact" onclick="toggleOverlay()"
+            <div id="btn_addNewContact" onclick="toggleOverlay(), newUserCard()"
               data-infobox="contactCard">
               Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"/></div>
             <div id="contactsOverview"></div>
@@ -87,24 +42,6 @@
                 <span id="span_better"> Better with a team</span>
               </div>
               <div id="contactCard" class="infobox"></div>
-              <!-- <div id="newContactContainer" class="newContactContainer">
-                <div id="addContactHeaderContainer">
-                  <div id="addContactHeader">
-                    <div id="joinLogo">
-                      <img src="assets/img/join_logo_menu.png" alt="">
-                    </div>
-                    <div id="newContactHeaderText">
-                      <p>Add contact</p>
-                      <span>Tasks are better with a team!</span>
-                      <div id="newContactDivider"></div>
-                    </div>
-                  </div>  
-                </div>
-                <div id="newContactFormContainer">
-
-                </div>
-                <button onclick="closeNewContactCard()">close</button>
-              </div> -->
             </div>
           </div>
         </div>
