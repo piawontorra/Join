@@ -156,3 +156,7 @@ header p {
 .flex {
     display: flex !important;
 }
+
+.mr-10 {
+    margin-right: 10px;
+}
