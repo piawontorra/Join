@@ -19,6 +19,14 @@ function closeOverlay(){
   // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
 }
 
+function toggleAlert(){
+  let overlay = document.getElementById('statusAlert');
+  overlay.classList.add('open');
+  setTimeout(() => {
+    overlay.classList.remove('open');
+}, 2000); // 2 Sekunden bleibt die Nachricht sichtbar
+}
+
 async function newContact(){
   let userColor = createUserColor();
   let name = document.getElementById('newUserName');
@@ -179,8 +187,6 @@ function newUserCard() {
   let newContactContainer = document.getElementById("newContactContainer");
   newContactContainer.innerHTML = newContactTemplate();
 }
-
-
 
 /**
  * 

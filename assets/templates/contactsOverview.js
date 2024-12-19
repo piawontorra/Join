@@ -97,7 +97,7 @@ function newContactTemplate(){
                   </form>
                   <div id="btnContainer">
                     <button id="btnCancel" class="clear-task-btn" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-                    <button id="btnCreate" class="create-task-btn" onclick="newContact()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
+                    <button id="btnCreate" class="create-task-btn" onclick="newContact(), toggleAlert()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
                   </div>
                 </div>
               </div>
