@@ -21,8 +21,6 @@ function contactDetailCard(id) {
 
 function contactCardDetailsTemplate(id, contact) {   
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
-  
-  
   return `
             <div id="contactCardHeader">
                 <div id="userInitials" style="background-color: ${contact.userColor}">${initials}</div>
@@ -108,6 +106,7 @@ function newContactTemplate(){
 }
 
 function editContactTemplate(user, id){
+  const initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
   let arrayID = id;    
     return /*html*/`
             <div id="addContactHeaderContainer">
@@ -124,7 +123,7 @@ function editContactTemplate(user, id){
             <div id="newContactFormContainer">
               <div id="formContainer">
                 <div id="circleContainer">
-                  <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
+                  <div id="circle" style="background-color: ${user[0].userColor}">${initials}</div>
                 </div>
                 <div id="addUserFormContainer">
                   <div id="cancelImgContainer">
@@ -145,7 +144,7 @@ function editContactTemplate(user, id){
                     </div>
                   </form>
                   <div id="btnContainer">
-                    <button id="btnCancel" class="clear-task-btn" onclick="deleteContact(${currentUser[0].id}), closeOverlay()">Delete<img src="./assets/img/cancel_icon.png" alt=""></button>
+                    <button id="btnCancel" class="clear-task-btn" onclick="deleteContact(${currentUser[0].id}), closeOverlay()">Delete</button>
                     <button id="btnCreate" class="create-task-btn" onclick="editContact(currentUser)">Save<img src="./assets/img/check_icon.png" alt=""></button>
                   </div>
                 </div>
