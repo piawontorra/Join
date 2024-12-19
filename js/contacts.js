@@ -13,6 +13,28 @@ function toggleOverlay(){
   setTimeout(()=>{openNewContactCard()}, 10);
 }
 
+function closeOverlay(){
+  let overlay = document.getElementById('overlay');
+  overlay.classList.add('d-none');
+  // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
+}
+
+async function newContact(){
+  let userColor = createUserColor();
+  let name = document.getElementById('newUserName');
+  let email = document.getElementById('newUserEmail');
+  let phone = document.getElementById('newUserPhone');
+  let key = await getNextID();
+  newData = {
+      name: name.value,email: email.value,
+      phone: phone.value,userColor: userColor, userId: key
+  }
+  addNewData(newData, "/contacts", key);
+  closeNewContactCard();
+  nextIdToDatabase(key);
+  setTimeout(()=>{getContacts(path)}, 100);
+}
+
 /**
  @param {Object} data - The data to be stored.
  * @param {string} path - The database path where the data should be stored.
@@ -22,6 +44,39 @@ function toggleOverlay(){
  async function addNewData(data, path, key){
   let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
       method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+  });
+}
+
+function getUpdatedData() {
+  return {
+      name: document.getElementById('newUserName').value,
+      email: document.getElementById('newUserEmail').value,
+      phone: document.getElementById('newUserPhone').value
+  };
+}
+
+async function editContact(user){
+  let updatedData = getUpdatedData();
+  let key = user[0].id;
+  await updateData(updatedData, "contacts", key);
+  const index = usersArray.findIndex(contact => contact.id === key);
+  if (index !== -1) {
+    usersArray[index] = { ...usersArray[index], ...updatedData };
+  }
+  currentUser = [{ ...currentUser[0], ...updatedData }];
+  closeNewContactCard();
+  renderContacts(usersArray);
+  contactDetailCard(index);
+  addBackground(index);
+}
+
+ async function updateData(data, path, key){
+  let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
+      method: "PATCH",
       headers: {
           "Content-Type": "application/json",
       },
@@ -48,11 +103,6 @@ async function getUsers(path){
 async function getContacts(path) {
   let response = await fetch(BASE_URL + path + ".json");
   let contactsJson = await response.json();
-  
-  // let contactsArray = Array.isArray(contactsJson)
-  //   ? contactsJson
-  //   : Object.values(contactsJson);
-
   let contactsArray = [];
   for (let key in contactsJson){
     contactsArray.push({id: key, ...contactsJson[key]})
@@ -61,7 +111,6 @@ async function getContacts(path) {
     current.name > next.name ? 1 : next.name > current.name ? -1 : 0
   );
   renderContacts(usersArray);
-  console.log(usersArray);
 }
 
 
@@ -131,23 +180,7 @@ function newUserCard() {
   newContactContainer.innerHTML = newContactTemplate();
 }
 
-async function newContact(){
-  let userColor = createUserColor();
-  let name = document.getElementById('newUserName');
-  let email = document.getElementById('newUserEmail');
-  let phone = document.getElementById('newUserPhone');
-  // let key = name.value; //<--- Eintrag wird wie gehabt unter dem Namen gespeichert
-  let key = await getNextID(); //<--- hier wird als key die userID verwendet
-  // let userID = await getNextID(); //<--- userID wird unter dem Namen als einzelnes Element des JSONs gespeichert, userID muss dann bei newData= wieder eingefügt werden
-  newData = {
-      name: name.value,email: email.value,
-      phone: phone.value,userColor: userColor, userId: key
-  }
-  addNewData(newData, "/contacts", key);
-  closeNewContactCard();
-  nextIdToDatabase(key);
-  setTimeout(()=>{getContacts(path)}, 100);
-}
+
 
 /**
  * 
@@ -205,7 +238,8 @@ function addBackground(id){
   document.getElementById(`${id}`).classList.add('chosen');;
 }
 
-function openEditForm(contact){
+function openEditForm(contact, id){
   let newContactContainer = document.getElementById("newContactContainer");
-  newContactContainer.innerHTML = editContactTemplate(contact);
+  newContactContainer.innerHTML = editContactTemplate(contact, id);
+  
 }

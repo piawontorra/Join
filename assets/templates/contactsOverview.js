@@ -21,13 +21,15 @@ function contactDetailCard(id) {
 
 function contactCardDetailsTemplate(id, contact) {   
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
+  
+  
   return `
             <div id="contactCardHeader">
                 <div id="userInitials" style="background-color: ${contact.userColor}">${initials}</div>
                 <div id="userInfo">
                     <div id="userName">${contact.name}</div>
                     <div class="action">
-                            <div id="edit" onclick="toggleOverlay(), openEditForm(currentUser)">
+                            <div id="edit" onclick="toggleOverlay(), openEditForm(currentUser, ${id})">
                                 <img src="assets/img/edit_icon.svg" alt="Image edit">
                                 <span>Edit</span>
                             </div>
@@ -105,10 +107,9 @@ function newContactTemplate(){
     `;
 }
 
-function editContactTemplate(user){
-    console.log(currentUser);
-    
-    return `
+function editContactTemplate(user, id){
+  let arrayID = id;    
+    return /*html*/`
             <div id="addContactHeaderContainer">
               <div id="addContactHeader">
                 <div id="joinLogo">
@@ -144,8 +145,8 @@ function editContactTemplate(user){
                     </div>
                   </form>
                   <div id="btnContainer">
-                    <button id="btnCancel" class="clear-task-btn" onclick="#">Delete<img src="./assets/img/cancel_icon.png" alt=""></button>
-                    <button id="btnCreate" class="create-task-btn" onclick="#">Save<img src="./assets/img/check_icon.png" alt=""></button>
+                    <button id="btnCancel" class="clear-task-btn" onclick="deleteContact(${currentUser[0].id}), closeOverlay()">Delete<img src="./assets/img/cancel_icon.png" alt=""></button>
+                    <button id="btnCreate" class="create-task-btn" onclick="editContact(currentUser)">Save<img src="./assets/img/check_icon.png" alt=""></button>
                   </div>
                 </div>
               </div>
