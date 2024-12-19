@@ -1,12 +1,13 @@
 let tasks = [];
 let subtasks = [];
+let contacts = {};
 let assignedTo = [];
 let selectedPriority = "Medium"; // Standardpriorität
 
-function initAddTask() {
+async function initAddTask() {
     includeHTML();
-    fetchTasks();
-    loadData();
+    await fetchTasks();
+    await loadData();
 }
 
 async function fetchTasks() {
@@ -76,11 +77,13 @@ function showUsers() {
     const arrowDown = document.getElementById('userArrowDown');
     const arrowUp = document.getElementById('userArrowUp');
     const border = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
+    const selectedUsers = document.getElementById('assignedUsers');
 
     if (usersElement.style.display === 'none' || usersElement.style.display === '') {
         usersElement.style.display = 'block';
         arrowDown.style.display = 'none';
         arrowUp.style.display = 'block';
+        selectedUsers.style.display = 'none';
         if (border) {
             border.style.border = '1px solid #26ace3';
         }
@@ -88,6 +91,7 @@ function showUsers() {
         usersElement.style.display = 'none';
         arrowDown.style.display = 'block';
         arrowUp.style.display = 'none';
+        selectedUsers.style.display = 'flex';
         if (border) {
             border.style.border = '';
         }
@@ -96,12 +100,14 @@ function showUsers() {
 
 async function loadData() {
     try {
-        let response = await fetch(BASE_URL + "/contacts.json"); // Den richtigen Pfad angeben
+        let response = await fetch(BASE_URL + "/contacts.json");
         let responseToJson = await response.json();
         console.log(responseToJson);
+        
+        contacts = responseToJson;
 
-        // Rendern der User nach Laden der Daten
-        renderUsers(responseToJson);
+        renderUsers(contacts);
+        showAssignedUsers();
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
     }
@@ -109,28 +115,76 @@ async function loadData() {
 
 function renderUsers(contacts) {
     let usersRef = document.getElementById('users');
-    usersRef.innerHTML = ''; // Container leeren
+    usersRef.innerHTML = '';
 
-    // Schlüssel der Kontakte in ein Array umwandeln
     let contactKeys = Object.keys(contacts);
 
-    // Mit klassischer for-Schleife über die Kontakte iterieren
     for (let i = 0; i < contactKeys.length; i++) {
         let key = contactKeys[i];
         let contact = contacts[key];
 
-        // HTML-Template für den aktuellen Kontakt holen
         let contactTemplate = getAssignedToTemplate(contact);
 
-        // Kontakt in den Container einfügen
         usersRef.innerHTML += contactTemplate;
     }
 }
 
 function getInitials(name) {
     let nameParts = name.split(" ");
-    let initials = nameParts.map(part => part[0].toUpperCase()).join(""); // Nur die ersten Buchstaben
+    let initials = nameParts.map(part => part[0].toUpperCase()).join("");
     return initials;
+}
+
+function handleUserClick(userId) {
+    const userElement = document.getElementById(`user-${userId}`);
+    const checkbox = document.getElementById(`select-${userId}`);
+
+    if (userElement.classList.contains("selected")) {
+        userElement.classList.remove("selected");
+        checkbox.checked = false;
+
+        assignedTo = assignedTo.filter(id => id !== userId);
+    } else {
+        userElement.classList.add("selected");
+        checkbox.checked = true;
+
+        if (!assignedTo.includes(userId)) {
+            assignedTo.push(userId);
+        }
+    }
+
+    showAssignedUsers();
+}
+
+function handleCheckboxChange(userId) {
+    const userElement = document.getElementById(`user-${userId}`);
+    const checkbox = document.getElementById(`select-${userId}`);
+
+    if (checkbox.checked) {
+        userElement.classList.add("selected");
+
+        if (!assignedTo.includes(userId)) {
+            assignedTo.push(userId);
+        }
+    } else {
+        userElement.classList.remove("selected");
+
+        assignedTo = assignedTo.filter(id => id !== userId);
+    }
+
+    showAssignedUsers();
+}
+
+function showAssignedUsers() {
+    const assignedUsersElement = document.getElementById('assignedUsers');
+    assignedUsersElement.innerHTML = '';
+
+    assignedTo.forEach(userId => {
+        const user = contacts[userId];
+        if (user) {
+            assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
+        }
+    });
 }
 
 function showCategorys() {
@@ -157,18 +211,14 @@ function showCategorys() {
 }
 
 function selectCategory(event, category) {
-    // Verhindere Event-Bubbling
     event.stopPropagation();
 
-    // Text im <p>-Tag aktualisieren
     const selectedCategoryElement = document.getElementById('selectedCategory');
     selectedCategoryElement.textContent = category;
 
-    // Dropdown-Menü ausblenden
     const categorysElement = document.getElementById('category');
     categorysElement.style.display = 'none';
 
-    // Pfeile zurücksetzen
     const arrowDown = document.getElementById('categoryArrowDown');
     const arrowUp = document.getElementById('categoryArrowUp');
     arrowDown.style.display = 'block';
