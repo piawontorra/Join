@@ -12,8 +12,8 @@
     height: 334px;
     width: 274px;
     position: absolute;
-    top: calc(345px - 178px);
-    left: calc(583px -446px);
+    top: calc(345px - 280px);
+    left: calc(583px - 446px);
     box-sizing: unset;
     padding: 178px 446px;
     background: #F6F7F8;
@@ -22,11 +22,11 @@
 
 @keyframes moveLogo {
     0% {
-        top: calc(345px - 178px);
-        left: calc(583px -446px);
+        top: calc(50vh - 167px - 280px);
+        left: calc(1440px/2 - 137px - 446px);
         height: 334px;
         width: 274px;
-        padding: 178px 446px;
+        padding: 280px 446px;
     }
     100% {
         top: 40px;
@@ -43,6 +43,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 24px;
+    padding-bottom: 87px;
 }
 
 .user-question {
@@ -55,7 +56,7 @@
 }
 
 .form-position {
-    min-height: calc(100vh - 202px - 36px);
+    min-height: calc(100vh - 262px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -185,7 +186,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 35px;
     padding: 40px;
 }
 

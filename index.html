@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
-    <link rel="stylesheet" href="./style/index_registry.css">
+    <link rel="stylesheet" href="./style/index-registry.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
@@ -46,8 +46,8 @@
                         <div>
                             <div class="input-box input-field" id="input-password">
                                 <input type="password" id="password" name="password" autocomplete="current-password"
-                                    required placeholder="Password">
-                                <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                                    required placeholder="Password" oninput="changePasswordImg()">
+                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" id="password-img" onclick="togglePasswordVisibility()">
                             </div>
                             <div class="msg-box" id="msg-box"></div>
                         </div>
