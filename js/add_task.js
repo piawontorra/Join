@@ -61,7 +61,7 @@ async function newTask(event) {
     let assignedId = assignedTo;
     let dueDate = dueDateInput.value;
     let priority = selectedPriority || 'Medium'; // Fallback-Priorität
-
+    
     try {
         const cardID = await getCardID();
 
@@ -80,6 +80,7 @@ async function newTask(event) {
         console.log("Neuer Task wird erstellt:", newTask);
 
         addTask(newTask);
+        showTaskAddedToBoard();
         resetErrorState();
         clearAddTask();
     } catch (error) {
@@ -283,5 +284,17 @@ function selectCategory(event, category) {
     console.log(`Selected category: ${selectedCategory}`); // Optional: Zur Überprüfung in der Konsole
 }
 
+function showTaskAddedToBoard() {
+    let taskAddedToBoard = document.getElementById('taskAddedToBoard');
+    let taskAddedToBoardModal = document.getElementById('taskAddedToBoardModal');
 
+    taskAddedToBoard.style.display = 'flex';
+    taskAddedToBoard.classList.add('task-added-to-board');
+    taskAddedToBoardModal.classList.add('task-added-to-board-modal');
+    setTimeout(function () {
+        taskAddedToBoard.style.display = 'none';
+        taskAddedToBoard.classList.remove('task-added-to-board');
+        taskAddedToBoardModal.classList.remove('task-added-to-board-modal');
+      }, 3000);
+}
 
