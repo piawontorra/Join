@@ -32,7 +32,7 @@
                 <h1>Add Task</h1>
             </div>
 
-            <form id="add-task-form" onclick="newTask(event)">
+            <form id="add-task-form">
                 <div class="add-task-form">
                     <div class="add-task-form-left">
                         <div class="task-title">
@@ -145,7 +145,7 @@
                             <p>Clear</p>
                             <img src="./assets/img/cancel_icon.svg" alt="">
                         </div>
-                        <button class="create-task-btn" type="submit">
+                        <button class="create-task-btn" type="submit" onclick="newTask(event)">
                             Create Task
                             <img src="./assets/img/check_icon.png" alt="">
                         </button>

@@ -13,92 +13,57 @@ window.onload = function () {
 async function initAddTask() {
     includeHTML();
     initializeCategory();
-    await fetchTasks();
     await loadData();
     console.log(selectedCategory);
 }
 
-async function fetchTasks() {
-    let taskResponse = await loadTasks("tasks");
-    let tasksKeysArray = Object.keys(taskResponse);
-    for (let i = 0; i < tasksKeysArray.length; i++) {
-        tasks.push({
-            id: tasksKeysArray[i],
-            tasks: taskResponse[tasksKeysArray[i]]
+async function loadTasks(path = "") {
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseAsJson = await response.json();
+
+    return responseAsJson || {};
+}
+
+async function getCardID() {
+    try {
+        let response = await fetch(`${BASE_URL}/nextCardID.json`);
+        let nextCardID = await response.json();
+
+        if (nextCardID === null) {
+            nextCardID = 0;
+        }
+
+        await fetch(`${BASE_URL}/nextCardID.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(nextCardID + 1),
         });
+
+        return nextCardID;
+    } catch (error) {
+        console.error("Fehler beim Abrufen oder Aktualisieren der nextCardID:", error);
+        throw error;
     }
 }
 
-async function loadTasks(path = "") {
-    let response = await fetch(BASE_URL + path + ".json");
-    return responseAsJson = await response.json();
-}
+async function newTask(event) {
+    event.preventDefault(); // Verhindert das Neuladen der Seite
 
-// function newTask() {
-//     document.getElementById("add-task-form").onsubmit = function (event) {
-//         event.preventDefault();
+    const titleInput = document.getElementById('inputTitle');
+    const dueDateInput = document.getElementById('inputDueDate');
 
-//         let title = document.getElementById('inputTitle').value;
-//         let description = document.getElementById('inputDescription').value;
-//         // würde contacts als Bearbeiter nehmen (Video von Kevin)
-//         let dueDate = document.getElementById('inputDueDate').value;
-//         let priority = selectedPriority;
-//         let selectedCategoryElement = document.getElementById('selectedCategory');
-//         let category = selectedCategoryElement.textContent;
+    if (!validateTitle() || !validateDueDate() || !validateCategory()) {
+        return; // Abbruch, wenn irgendeine Validierung fehlschlägt
+    }
 
-//         // Validierung der Kategorie
-//         if (category === 'Select task category') {
-//             alert("Bitte wählen Sie eine Kategorie aus, bevor Sie die Aufgabe erstellen.");
-//             selectedCategoryElement.style.border = "2px solid red"; // Zeigt ein visuelles Feedback an
-//             setTimeout(() => {
-//                 selectedCategoryElement.style.border = ""; // Entfernt den Rahmen nach 2 Sekunden
-//             }, 2000);
-//             return; // Bricht die Formularverarbeitung ab
-//         }
+    let title = titleInput.value;
+    let description = document.getElementById('inputDescription').value;
+    let assignedId = assignedTo;
+    let dueDate = dueDateInput.value;
+    let priority = selectedPriority || 'Medium'; // Fallback-Priorität
 
-//         let newTask = {
-//             title: title,
-//             description: description,
-//             dueDate: dueDate,
-//             priority: priority,
-//             category: category,
-//         };
-        
-//         addTask(newTask);
-
-//         document.getElementById('add-task-form').reset();
-
-//         selectedCategoryElement.textContent = "Select task category";
-//     }
-// }
-
-function newTask() {
-    const form = document.getElementById("add-task-form");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Verhindert das Neuladen der Seite
-
-        const titleInput = document.getElementById('inputTitle');
-        const dueDateInput = document.getElementById('inputDueDate');
-
-        // Validierung des Title-Feldes
-        if (!validateTitle()) {
-            return; // Abbruch, wenn Title ungültig
-        }
-
-        if (!validateDueDate()) {
-            return;
-        }
-
-        if (!validateCategory()) {
-            return;
-        }
-
-        let title = titleInput.value;
-        let description = document.getElementById('inputDescription').value;
-        let assignedId = assignedTo;
-        let dueDate = dueDateInput.value;
-        let priority = selectedPriority || 'Medium'; // Fallback-Priorität
+    try {
+        const cardID = await getCardID();
 
         let newTask = {
             title: title,
@@ -107,23 +72,24 @@ function newTask() {
             dueDate: dueDate,
             priority: priority,
             category: selectedCategory,
-            subtask: subtasks,
+            subtasks: subtasks,
+            status: 'todo',
+            id: cardID,
         };
 
         console.log("Neuer Task wird erstellt:", newTask);
 
         addTask(newTask);
-
         resetErrorState();
-
-        // Felder zurücksetzen, aber Fehlerzustände beibehalten
         clearAddTask();
-    });
+    } catch (error) {
+        console.error("Fehler beim Erstellen des Tasks:", error);
+    }
 }
 
 async function addTask(task) {
     let existingTasks = await loadTasks("tasks");
-    let newTaskId = task.title;
+    let newTaskId = task.id;
 
     existingTasks[newTaskId] = task;
 
@@ -133,39 +99,12 @@ async function addTask(task) {
 async function putTask(path = "", tasks = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
-        header: {
+        headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(tasks)
     });
     return responseAsJson = await response.json();
-}
-
-
-function showUsers() {
-    const usersElement = document.getElementById('users');
-    const arrowDown = document.getElementById('userArrowDown');
-    const arrowUp = document.getElementById('userArrowUp');
-    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
-    const selectedUsers = document.getElementById('assignedUsers');
-
-    if (usersElement.style.display === 'none' || usersElement.style.display === '') {
-        usersElement.style.display = 'block';
-        arrowDown.style.display = 'none';
-        arrowUp.style.display = 'block';
-        selectedUsers.style.display = 'none';
-        if (border) {
-            border.style.border = '1px solid #26ace3';
-        }
-    } else {
-        usersElement.style.display = 'none';
-        arrowDown.style.display = 'block';
-        arrowUp.style.display = 'none';
-        selectedUsers.style.display = 'flex';
-        if (border) {
-            border.style.border = '';
-        }
-    }
 }
 
 async function loadData() {
@@ -196,6 +135,32 @@ function renderUsers(contacts) {
         let contactTemplate = getAssignedToTemplate(contact);
 
         usersRef.innerHTML += contactTemplate;
+    }
+}
+
+function showUsers() {
+    const usersElement = document.getElementById('users');
+    const arrowDown = document.getElementById('userArrowDown');
+    const arrowUp = document.getElementById('userArrowUp');
+    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
+    const selectedUsers = document.getElementById('assignedUsers');
+
+    if (usersElement.style.display === 'none' || usersElement.style.display === '') {
+        usersElement.style.display = 'block';
+        arrowDown.style.display = 'none';
+        arrowUp.style.display = 'block';
+        selectedUsers.style.display = 'none';
+        if (border) {
+            border.style.border = '1px solid #26ace3';
+        }
+    } else {
+        usersElement.style.display = 'none';
+        arrowDown.style.display = 'block';
+        arrowUp.style.display = 'none';
+        selectedUsers.style.display = 'flex';
+        if (border) {
+            border.style.border = '';
+        }
     }
 }
 
@@ -242,6 +207,9 @@ function handleCheckboxChange(userId) {
         assignedTo = assignedTo.filter(id => id !== userId);
     }
 
+    console.log(assignedTo);
+    
+
     showAssignedUsers();
 }
 
@@ -255,6 +223,17 @@ function showAssignedUsers() {
             assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
         }
     });
+}
+
+function selectPriority(priority) {
+    document.querySelectorAll('.prio-button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    const selectedButton = document.getElementById(priority.toLowerCase() + "Prio");
+    selectedButton.classList.add('selected');
+
+    selectedPriority = priority;
 }
 
 function initializeCategory() {
@@ -303,20 +282,6 @@ function selectCategory(event, category) {
 
     console.log(`Selected category: ${selectedCategory}`); // Optional: Zur Überprüfung in der Konsole
 }
-
-function selectPriority(priority) {
-    document.querySelectorAll('.prio-button').forEach(button => {
-        button.classList.remove('selected');
-    });
-
-    const selectedButton = document.getElementById(priority.toLowerCase() + "Prio");
-    selectedButton.classList.add('selected');
-
-    selectedPriority = priority;
-
-    console.log("Selected Priority:", selectedPriority);
-}
-
 
 
 

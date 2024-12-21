@@ -7,6 +7,7 @@ function clearAddTask() {
     description.value = '';
     assignedTo = [];
     showAssignedUsers();
+    clearAssignedCheckboxes();
     dueDate.value = '';
     selectedPriority = "Medium";
     selectPriority(selectedPriority);
@@ -16,6 +17,19 @@ function clearAddTask() {
     renderSubtasks();
 }
 
+function clearAssignedCheckboxes() {
+    const checkboxes = document.querySelectorAll('#users .user-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        const userId = checkbox.id.split('-')[1];
+
+        checkbox.checked = false;
+
+        handleCheckboxChange(userId);
+    });
+
+    console.log("Alle Assigned-To-Checkboxen und zugehörige Stile wurden zurückgesetzt.");
+}
 
 function validateCategory() {
     let selectedCategoryElement = document.getElementById('categoryInput');
@@ -81,7 +95,6 @@ function resetErrorState() {
     const titleInput = document.getElementById('inputTitle');
     const dueDateInput = document.getElementById('inputDueDate');
 
-    // Entfernen der Fehlerrahmen
     titleInput.classList.remove('error');
     document.getElementById('inputTitleError').style.display = 'none';
 
