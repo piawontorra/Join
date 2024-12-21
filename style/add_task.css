@@ -51,7 +51,9 @@ select {
     margin-bottom: 32px;
 }
 
-.prio-label {
+.add-task-input-headline {
+    display: flex;
+    padding-bottom: 8px;
     font-size: 20px;
     color: #2A3647;
 }
@@ -64,6 +66,18 @@ select {
     font-size: 20px;
     padding-left: 16px;
     padding-right: 16px;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -28px;
+    margin-bottom: 13px;
+    display: block; /* Standardmäßig nicht anzeigen */
 }
 
 .add-task-assigned-to-input-field {

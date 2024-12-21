@@ -9,6 +9,7 @@
     <script src="./js/script.js"></script>
     <script src="./js/add_task_template.js"></script>
     <script src="./js/add_task.js"></script>
+    <script src="./js/add_task_clear_and_validate.js"></script>
     <script src="./js/add_task_subtask.js"></script>
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/board.css">
@@ -31,7 +32,7 @@
                 <h1>Add Task</h1>
             </div>
 
-            <form id="add-task-form" onsubmit="newTask(); return false;">
+            <form id="add-task-form" onclick="newTask(event)">
                 <div class="add-task-form">
                     <div class="add-task-form-left">
                         <div class="task-title">
@@ -40,7 +41,8 @@
                                 <p class="rosa-font">*</p>
                             </label>
                             <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
-                                autocomplete="off" required>
+                                autocomplete="off">
+                            <span id="inputTitleError" class="error-message" style="display: none;">This field is required</span>
                         </div>
                         <div class="task-description">
                             <label for="inputDescription">Description</label>
@@ -48,7 +50,7 @@
                                 placeholder="Enter a Description"></textarea>
                         </div>
                         <div class="task-assignement-and-category">
-                            <label for="inputAssignedTo">Assigned to</label>
+                            <p class="add-task-input-headline">Assigned to</p>
                             <div onclick="showUsers()" class="add-task-assigned-to-input-field">
                                 <p>Select user to assign</p>
                                 <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
@@ -69,12 +71,13 @@
                             <p class="rosa-font">*</p>
                         </label>
                         <div class="task-due-date">
-                            <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy"
-                                maxlength="10">
+                            <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10">
                             <img src="./assets/img/calendar_icon.png" alt="">
                         </div>
+                        <!-- Fehlernachricht für Due Date -->
+                        <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>                        
                         <div class="task-prio">
-                            <p class="prio-label">Prio</p>
+                            <p class="add-task-input-headline">Prio</p>
                             <div class="prio-buttons">
                                 <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
                                     <p>Urgent</p>
@@ -91,12 +94,12 @@
                             </div>
                         </div>
                         <div class="task-assignement-and-category">
-                            <label for="inputAssignedTo">
+                            <div class="add-task-input-headline">
                                 <p>Category</p>
                                 <p class="rosa-font">*</p>
-                            </label>
-                            <div onclick="showCategorys()" class="add-task-assigned-to-input-field">
-                                <p id="selectedCategory">Select task category</p>
+                            </div>
+                            <div onclick="showCategorys()" id="categoryInput" class="add-task-assigned-to-input-field">
+                                <p id="selectedCategory"></p>
                                 <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
                                 <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
                                     alt="" style="display: none;">
@@ -109,7 +112,7 @@
                             </div>
                         </div>
                         <div class="task-subtask">
-                            <label for="inputSubTask">Subtasks</label>
+                            <p class="add-task-input-headline">Subtasks</p>
                             <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
                                 class="add-task-input-fields" type="text" id="inputSubtask"
                                 placeholder="Add new subtask">
@@ -138,11 +141,11 @@
                         <p>This field is required</p>
                     </div>
                     <div class="add-task-finish-buttons">
-                        <div class="clear-task-btn">
+                        <div onclick="clearAddTask()" class="clear-task-btn">
                             <p>Clear</p>
                             <img src="./assets/img/cancel_icon.svg" alt="">
                         </div>
-                        <button class="create-task-btn">
+                        <button class="create-task-btn" type="submit">
                             Create Task
                             <img src="./assets/img/check_icon.png" alt="">
                         </button>
