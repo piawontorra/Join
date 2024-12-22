@@ -87,7 +87,7 @@ function newContactTemplate(){
                       <img src="./assets/img/user_icon.png" alt="">
                     </div>
                     <div class="inputField">
-                      <input type="email" id="newUserEmail"  placeholder="Email" required>
+                      <input type="email" id="newUserEmail" placeholder="Email" required>
                       <img src="./assets/img/mail_icon.png" alt="">
                     </div>
                     <div class="inputField">

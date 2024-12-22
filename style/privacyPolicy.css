@@ -1,0 +1,24 @@
+:root {
+    --sidebar-width: 232px;
+    --header-height: 96px;
+}
+
+#privacyPolicyText{
+    width: 100%;
+    padding-left: 50px;
+    padding-left: calc(var(--sidebar-width) + 50px);
+    padding-top: calc(var(--header-height) + 50px);
+}
+
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#header{
+    position: fixed;
+    left: calc(var(--sidebar-width));
+    top: 0;
+    width: 100%;
+}

@@ -246,6 +246,24 @@ function addBackground(id){
 
 function openEditForm(contact, id){
   let newContactContainer = document.getElementById("newContactContainer");
-  newContactContainer.innerHTML = editContactTemplate(contact, id);
-  
+  newContactContainer.innerHTML = editContactTemplate(contact, id); 
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+// function handleFormSubmit(event) {
+//   event.preventDefault(); // Verhindert den Standard-Submit
+//   const form = document.getElementById('newUserForm');
+  
+//   // Prüfen, ob alle Eingaben valide sind
+//   if (form.checkValidity()) {
+//       newContact(); // Deine eigene Funktion
+//       toggleAlert(); // Feedback-Container
+//       closeNewContactCard();
+//   } else {
+//       form.reportValidity(); // Zeigt Standard-Fehlernachrichten an
+//   }
+// }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
