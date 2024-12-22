@@ -1,38 +1,64 @@
-function getTaskCardTemplate(task) {
+async function getTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
-    let assignedToHTML = task.assignedTo
-        .map(name => `<div class="task-user-icon">${getInitials(name)}</div>`)
+    const assignedUserData = await getAssignedUserInitialsAndColor(task.assignedTo);
+    let assignedToHTML = assignedUserData
+        .map(user =>
+            `<div class="task-user-icon" style="background-color: ${user.color};">
+                ${user.initials}
+            </div>`
+        )
         .join("");
 
-    return `<div class="task-card" draggable="true" ondragstart="dragTask(event)" data-task-id="${task.title}" onclick="openTaskDetail('${task.title}')">
+    let descriptionSection = task.description
+        ? `<p class="task-description">${task.description}</p>`
+        : "";
+
+    const completedCount = task.subtasks.filter(subtask => subtask.completed).length;
+    const totalSubtasks = task.subtasks.length;
+    const progressPercentage = totalSubtasks > 0 ? (completedCount / totalSubtasks) * 100 : 0;
+
+    let subtasksSection = task.subtasks && task.subtasks.length > 0
+        ? `<div class="task-subtask">
+               <div class="task-progress-bar-container">
+                   <div class="task-progress-bar" style="width: ${progressPercentage}%"></div>
+               </div>
+               <p>${completedCount}/${task.subtasks.length} Subtasks</p>
+           </div>`
+        : "";
+
+    return `<div class="task-card" data-task-id="${task.id}" draggable="true" ondragstart="dragTask(${task.id})" onclick="openTaskDetail('${task.id}')">
                 <div class="task-category">
                     <p>${task.category}</p>
                 </div>
                 <div class="task-card-header">
                     <p class="task-title">${task.title}</p>
-                    <p class="task-description">${task.description}</p>
+                    ${descriptionSection}
                 </div>
-                <div class="task-subtask">
-                    <div class="task-progress-bar-container">
-                        <div class="task-progress-bar"></div>
-                    </div>
-                    <p>0/${task.subtasks.length} Subtasks</p>
-                </div>
+                ${subtasksSection}
                 <div class="task-user-and-priority">
                     <div class="task-assigned-to">
-                        ${assignedToHTML}
+                    ${assignedToHTML}
                     </div>
                     <img src="${icon}"> 
                 </div>
             </div>`;
 }
 
-function getDetailTaskCardTemplate(task) {
+
+async function getDetailTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
-    let assignedToHTML = task.assignedTo
-        .map(name => `<div class="task-user-icon">${getInitials(name)}</div>`)
+    const assignedUserData = await getAssignedUserInitialsAndColor(task.assignedTo);
+    let assignedToHTML = assignedUserData
+        .map(user =>
+            `<div class="detail-task-assigned-to">
+            <div class="detail-task-user-icon" style="background-color: ${user.color};">
+                ${user.initials}
+            </div>
+            <p>${user.name}</p>
+        </div>`
+        )
         .join("");
 
     return `
@@ -61,7 +87,7 @@ function getDetailTaskCardTemplate(task) {
             <div>
                 <p class="detail-assigned-to-headline navyblue-font">Assigned to:</p>
                 <div class="detail-task-assigned-user">
-                    ${task.assignedTo.map(name => `<div class="detail-task-assigned-to"><div class="detail-task-user-icon">${getInitials(name)}</div><p>${name}</p></div>`).join('')}
+                ${assignedToHTML}
                 </div>
             </div>
             <div class="detail-task-subtasks-content">
@@ -73,7 +99,7 @@ function getDetailTaskCardTemplate(task) {
                                 type="checkbox" 
                                 class="subtask-checkbox" 
                                 ${subtask.completed ? "checked" : ""}
-                                onchange="handleSubtaskCheckboxChange(event, tasks.find(t => t.title === '${task.title}'), ${index})"
+                                onchange="handleSubtaskCheckboxChange(event, tasksData.find(t => t.id === ${task.id}), ${index})"
                             >
                             ${subtask.text}
                         </label>

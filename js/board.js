@@ -1,47 +1,12 @@
-function initBoard() {
+async function initBoard() {
     includeHTML();
+    await getTasksData();
     renderTasks();
-    console.log(tasks);
+    console.log(tasksData);  // Überprüfe, ob task.id korrekt vorhanden ist
 }
 
-let tasks= [
-  {
-      "title": "Projektplan erstellen",
-      "description": "Einen vollständigen Projektplan für das neue IT-Projekt erstellen.",
-      "assignedTo": [
-          "Max Mustermann",
-          "Cristiano Ronaldo",
-          "Lionel Messi"
-      ],
-      "dueDate": "2024-12-15",
-      "priority": "Urgent",
-      "category": "User Story",
-      "subtasks": [
-          { text: "Anforderungen sammeln", completed: false },
-          { text: "Zeitplan erstellen", completed: false },
-          { text: "Ressourcen planen", completed: false },
-      ],
-      "status": "todo" // status möglichkeit sind vier stück "todo", "in-progress", "await-feedback" und "done"
-  },
-  {
-      "title": "Kochwelt Page & Recipe Recommender",
-      "description": "Build start page with recipe recommendation.",
-      "assignedTo": [
-          "Emmanuel Mauer",
-          "Marcel Bauer",
-          "Anton Mayer"
-      ],
-      "dueDate": "10/05/2023",
-      "priority": "Medium",
-      "category": "User Story",
-      "subtasks": [
-          { text: "Implement Recipe Recommendation", completed: false },
-          { text: "Start Page Layout", completed: false },
-      ],
-      "status": "await-feedback"
-  }
-];
-
+let tasksData = {};
+let draggedElementId;
 let priorityIcons = {
   Urgent: "./assets/img/urgent_icon.png",
   Medium: "./assets/img/medium_icon.png",
@@ -70,15 +35,66 @@ function clearAllContainers(statusContainers) {
   }
 }
 
-function renderAllTasks(statusContainers) {
+async function getTasksData() {
+  const path = "tasks";
+  let response = await fetch(BASE_URL + path + ".json");
+  let responseAsJson = await response.json();
+
+  // Bereinige die Daten, um ungültige oder leere Einträge zu entfernen
+  tasksData = cleanTasksData(responseAsJson);
+
+  console.log("Bereinigte Tasks Data:", tasksData);
+  return tasksData || {};  // Rückgabe der bereinigten Daten
+}
+
+function cleanTasksData(tasksData) {
+  // Filtere ungültige (null oder leere) Tasks heraus
+  return Object.values(tasksData).filter(task => task !== null && task !== undefined && Object.keys(task).length > 0);
+}
+
+async function getUserDataById(userId) {
+  const path = `contacts/${userId}`;  // Setze den Pfad für den Benutzer in der Firebase-Datenbank
+  try {
+    const response = await fetch(BASE_URL + path + ".json");
+    const userData = await response.json();
+    
+    if (response.ok && userData) {
+      return userData;  // Gibt die Benutzerdaten zurück
+    } else {
+      throw new Error('Benutzerdaten konnten nicht geladen werden.');
+    }
+  } catch (error) {
+    console.error(`Fehler beim Laden der Benutzerdaten für die ID ${userId}:`, error);
+    return null;  // Falls ein Fehler auftritt, gebe null zurück
+  }
+}
+
+async function renderAllTasks(statusContainers) {
+  const tasks = cleanTasksData(tasksData);
+
   for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i];
+      const task = tasksData[i];
       if (statusContainers[task.status]) {
-          statusContainers[task.status].innerHTML += getTaskCardTemplate(task);
+          statusContainers[task.status].innerHTML += await getTaskCardTemplate(task);
       } else {
           console.warn(`Unbekannter Status: ${task.status}`);
       }
   }
+}
+
+async function getAssignedUserInitialsAndColor(assignedUserIds) {
+  const assignedUserData = [];
+
+  for (let userId of assignedUserIds) {
+      const userData = await getUserDataById(userId);
+      const userInitials = getInitials(userData.name);
+      const userColor = userData.userColor;
+      const userName = userData.name;
+
+      assignedUserData.push({ initials: userInitials, color: userColor, name: userName });
+  }
+
+  return assignedUserData;
 }
 
 function getInitials(name) {
@@ -106,6 +122,10 @@ function isContainerEmpty(container) {
   return container.innerHTML.trim() === '';
 }
 
+function dragTask(taskId) {
+  draggedElementId = taskId
+}
+
 function allowDrop(event) {
   event.preventDefault();
 
@@ -116,30 +136,25 @@ function allowDrop(event) {
   }
 }
 
-function dragTask(event) {
-  const taskId = event.target.getAttribute('data-task-id');
-  event.dataTransfer.setData('taskId', taskId);
-}
-
 function dropTask(event, newStatus) {
   event.preventDefault();
 
-  const taskId = event.dataTransfer.getData('taskId');
+  const taskId = draggedElementId;
   const taskIndex = getTaskIndexById(taskId);
-  
+
   if (taskIndex === -1) {
-      console.warn(`Aufgabe mit ID ${taskId} nicht gefunden.`);
-      return;
+    console.warn(`Aufgabe mit ID ${taskId} nicht gefunden.`);
+    return;
   }
 
-  resetContainerHighlight(event);
   updateTaskStatus(taskIndex, newStatus);
-  renderTaskInContainer(event, taskIndex);
+  updateTaskStatusInFirebase(taskId, newStatus);
+  resetContainerHighlight(event)
   renderTasks();
 }
 
 function getTaskIndexById(taskId) {
-  return tasks.findIndex(task => task.title === taskId);
+  return Object.values(tasksData).findIndex(task => task.id === taskId);
 }
 
 function resetContainerHighlight(event) {
@@ -150,7 +165,25 @@ function resetContainerHighlight(event) {
 }
 
 function updateTaskStatus(taskIndex, newStatus) {
-  tasks[taskIndex].status = newStatus;
+  const task = Object.values(tasksData)[taskIndex];
+  task.status = newStatus;
+}
+
+async function updateTaskStatusInFirebase(taskId, newStatus) {
+  const path = `tasks/${taskId}`;
+  const updateData = { status: newStatus };
+
+  try {
+    const response = await fetch(BASE_URL + path + ".json", {
+      method: 'PATCH',
+      body: JSON.stringify(updateData),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+  } catch (error) {
+    console.error(`Error updating status for task with ID "${taskId}": ${error.message}`);
+  }
 }
 
 function renderTaskInContainer(event, taskIndex) {
@@ -176,20 +209,19 @@ function removeHighlightDrag(event) {
   }
 }
 
-function openTaskDetail(taskTitle) {
-  // Aufgabe anhand des Titels finden
-  const task = tasks.find(t => t.title === taskTitle);
+async function openTaskDetail(taskId) {
+  taskId = Number(taskId);
+
+  const task = tasksData.find(t => t.id === taskId);
 
   if (!task) {
-      console.warn(`Aufgabe mit Titel "${taskTitle}" nicht gefunden.`);
-      return;
+    console.warn(`Aufgabe mit ID "${taskId}" nicht gefunden.`);
+    return;
   }
 
-  // Detailansicht befüllen
-  const detailHTML = getDetailTaskCardTemplate(task);
+  const detailHTML = await getDetailTaskCardTemplate(task);
   document.getElementById('taskDetail').innerHTML = detailHTML;
 
-  // Modal anzeigen
   const modal = document.getElementById('taskDetailModal');
   modal.style.display = 'flex';
 }
@@ -200,9 +232,8 @@ function closeTaskDetail() {
   modal.style.display = 'none';
 }
 
-
 function updateProgressBar(task) {
-  const taskCard = document.querySelector(`.task-card[data-task-id="${task.title}"]`);
+  const taskCard = document.querySelector(`.task-card[data-task-id="${task.id}"]`);
   if (!taskCard) return;
 
   const progressBar = taskCard.querySelector('.task-progress-bar');
@@ -219,10 +250,43 @@ function updateProgressBar(task) {
   if (progressText) progressText.textContent = `${completedCount}/${totalSubtasks} Subtasks`;
 }
 
-
 function handleSubtaskCheckboxChange(event, task, subtaskIndex) {
-  task.subtasks[subtaskIndex].completed = event.target.checked; // Subtask-Status aktualisieren
-  updateProgressBar(task); // Kleine Karte synchronisieren
+  const isChecked = event.target.checked;  // Hole den Status der Checkbox (true oder false)
+  
+  // Aktualisiere die completed-Eigenschaft der Subtask
+  task.subtasks[subtaskIndex].completed = isChecked;
+  
+  // Patch die Änderung in Firebase
+  updateSubtaskInFirebase(task.id, subtaskIndex, isChecked);
+
+  // Synchronisiere die Fortschrittsanzeige
+  updateProgressBar(task);
+}
+
+
+async function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
+  const path = `tasks/${taskId}/subtasks/${subtaskIndex}`;  // Pfad zu der Subtask in der Firebase-Datenbank
+  const updateData = {
+    completed: completed,  // Setze die completed-Eigenschaft der Subtask
+  };
+
+  try {
+    const response = await fetch(BASE_URL + path + ".json", {
+      method: "PATCH",  // Verwende PATCH, um nur die Änderungen zu speichern
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Fehler beim Patchen der Subtask in Firebase');
+    }
+
+    console.log(`Subtask ${subtaskIndex} in Task ${taskId} erfolgreich aktualisiert.`);
+  } catch (error) {
+    console.error("Fehler beim Aktualisieren der Subtask in Firebase:", error);
+  }
 }
 
 

@@ -31,8 +31,7 @@ function renderSubtasks() {
 function addSubtask() {
     let input = document.getElementById('inputSubtask').value;
     if (input == '') {
-      document.getElementById('inputSubtask').placeholder =
-        'Bitte etwas eingeben!';
+      document.getElementById('inputSubtask').placeholder = 'Bitte etwas eingeben!';
       return;
     }
     if (subtasks.length < 5) {

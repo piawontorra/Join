@@ -30,7 +30,7 @@ async function getCardID() {
         let nextCardID = await response.json();
 
         if (nextCardID === null) {
-            nextCardID = 0;
+            nextCardID = 1;
         }
 
         await fetch(`${BASE_URL}/nextCardID.json`, {
@@ -82,7 +82,10 @@ async function newTask(event) {
         addTask(newTask);
         showTaskAddedToBoard();
         resetErrorState();
-        clearAddTask();
+        setTimeout(async function () {
+            clearAddTask();
+            location.href = 'board.html';
+          }, 3000);
     } catch (error) {
         console.error("Fehler beim Erstellen des Tasks:", error);
     }
@@ -269,6 +272,9 @@ function selectCategory(event, category) {
     event.stopPropagation();
 
     selectedCategory = category;
+
+    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[1];
+    border.style.border = '';
 
     const selectedCategoryElement = document.getElementById('selectedCategory');
     selectedCategoryElement.textContent = selectedCategory;
