@@ -14,10 +14,10 @@ let priorityIcons = {
   Low: "./assets/img/low_icon.png"
 }
 
-function renderTasks() {
+async function renderTasks() {
   const statusContainers = getStatusContainers();
   clearAllContainers(statusContainers);
-  renderAllTasks(statusContainers);
+  await renderAllTasks(statusContainers);
   addNoTasksMessage(statusContainers);
 }
 
@@ -123,6 +123,22 @@ function isContainerEmpty(container) {
   return container.innerHTML.trim() === '';
 }
 
+function checkAndUpdateNoTasksMessage(container) {
+  const statusMapping = {
+    toDo: 'To Do',
+    inProgress: 'In Progress',
+    awaitFeedback: 'Await Feedback',
+    done: 'Done',
+  };
+
+  const taskCards = container.querySelectorAll('.task-card');
+
+  if (taskCards.length === 0) {
+    const readableStatus = statusMapping[container.id];
+    container.innerHTML = getNoTasksTemplate(readableStatus);
+  }
+}
+
 function dragTask(taskId) {
   draggedElementId = taskId
 }
@@ -142,16 +158,35 @@ function dropTask(event, newStatus) {
 
   const taskId = draggedElementId;
   const taskIndex = getTaskIndexById(taskId);
-
-  if (taskIndex === -1) {
-    console.warn(`Aufgabe mit ID ${taskId} nicht gefunden.`);
-    return;
-  }
+  const task = Object.values(tasksData)[taskIndex];
+  const oldStatus = task.status;
 
   updateTaskStatus(taskIndex, newStatus);
   updateTaskStatusInFirebase(taskId, newStatus);
-  resetContainerHighlight(event)
-  renderTasks();
+  moveTaskCardInDOM(taskId, newStatus);
+  const statusContainers = getStatusContainers();
+  checkAndUpdateNoTasksMessage(statusContainers[oldStatus]);
+  resetContainerHighlight(event);
+}
+
+function moveTaskCardInDOM(taskId, newStatus) {
+  const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+  taskCard.remove();
+
+  // Finde den neuen Container
+  const statusContainers = getStatusContainers();
+  const newContainer = statusContainers[newStatus];
+
+  if (newContainer) {
+    // Füge die Karte in den neuen Container ein
+    newContainer.appendChild(taskCard);
+
+    // Leere Nachricht entfernen, falls vorhanden
+    const noTasksMessage = newContainer.querySelector('.no-tasks-message');
+    if (noTasksMessage) {
+      noTasksMessage.remove();
+    }
+  }
 }
 
 function getTaskIndexById(taskId) {
@@ -227,7 +262,6 @@ async function openTaskDetail(taskId) {
   modal.style.display = 'flex';
 }
 
-
 function closeTaskDetail() {
   const modal = document.getElementById('taskDetailModal');
   modal.style.display = 'none';
@@ -243,27 +277,19 @@ function updateProgressBar(task) {
   const completedCount = task.subtasks.filter(subtask => subtask.completed).length;
   const totalSubtasks = task.subtasks.length;
 
-  // Fortschritt berechnen
   const progressPercentage = totalSubtasks > 0 ? (completedCount / totalSubtasks) * 100 : 0;
 
-  // Progress-Bar und Text aktualisieren
   if (progressBar) progressBar.style.width = `${progressPercentage}%`;
   if (progressText) progressText.textContent = `${completedCount}/${totalSubtasks} Subtasks`;
 }
 
 function handleSubtaskCheckboxChange(event, task, subtaskIndex) {
-  const isChecked = event.target.checked;  // Hole den Status der Checkbox (true oder false)
-  
-  // Aktualisiere die completed-Eigenschaft der Subtask
+  const isChecked = event.target.checked;
   task.subtasks[subtaskIndex].completed = isChecked;
-  
-  // Patch die Änderung in Firebase
-  updateSubtaskInFirebase(task.id, subtaskIndex, isChecked);
 
-  // Synchronisiere die Fortschrittsanzeige
+  updateSubtaskInFirebase(task.id, subtaskIndex, isChecked);
   updateProgressBar(task);
 }
-
 
 async function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   const path = `tasks/${taskId}/subtasks/${subtaskIndex}`;  // Pfad zu der Subtask in der Firebase-Datenbank
