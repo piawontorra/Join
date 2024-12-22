@@ -1,6 +1,7 @@
 async function initBoard() {
     includeHTML();
     await getTasksData();
+    await initAddTask();
     renderTasks();
     console.log(tasksData);  // Überprüfe, ob task.id korrekt vorhanden ist
 }
@@ -289,4 +290,8 @@ async function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   }
 }
 
-
+function openAddTask() {
+  let contentRef = document.getElementById('boardAddTask');
+  
+  contentRef.style.display = 'flex';
+}

@@ -19,7 +19,7 @@ async function getTaskCardTemplate(task) {
     const progressPercentage = totalSubtasks > 0 ? (completedCount / totalSubtasks) * 100 : 0;
 
     let subtasksSection = task.subtasks && task.subtasks.length > 0
-        ? `<div class="task-subtask">
+        ? `<div class="taskcard-subtask">
                <div class="task-progress-bar-container">
                    <div class="task-progress-bar" style="width: ${progressPercentage}%"></div>
                </div>
