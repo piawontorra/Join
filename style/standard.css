@@ -160,3 +160,7 @@ header p {
 .mr-10 {
     margin-right: 10px;
 }
+
+#btn_help:hover{
+    transform: scale(1.1);
+}
