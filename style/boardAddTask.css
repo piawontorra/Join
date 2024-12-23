@@ -1,3 +1,26 @@
+.board-add-task-section-header {
+    padding-bottom: 40px;
+    padding-left: 104px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.add-task-close-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-task-close-btn:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #eeeeee;
+}
+
 .add-task-form {
     padding-left: 104px;
     height: 424px;
@@ -93,6 +116,10 @@ select {
     border: 1px solid #D1D1D1;
     font-size: 20px;
     position: relative;
+}
+
+.add-task-assigned-to-input-field:hover {
+    cursor: pointer;
 }
 
 .task-prio {
@@ -381,10 +408,10 @@ select {
     border-radius: 10px;
     padding: 16px;
     gap: 10px;
-    transform: ease;
 }
 
 .clear-task-btn:hover {
+    cursor: pointer;
     border: 1px solid #26ace3;
     color: #26ace3;
     transition: .3s;

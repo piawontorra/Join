@@ -272,7 +272,7 @@ function updateProgressBar(task) {
   if (!taskCard) return;
 
   const progressBar = taskCard.querySelector('.task-progress-bar');
-  const progressText = taskCard.querySelector('.task-subtask p');
+  const progressText = taskCard.querySelector('.taskcard-subtask p'); // Richtiges Element auswählen
 
   const completedCount = task.subtasks.filter(subtask => subtask.completed).length;
   const totalSubtasks = task.subtasks.length;
@@ -320,4 +320,10 @@ function openAddTask() {
   let contentRef = document.getElementById('boardAddTask');
   
   contentRef.style.display = 'flex';
+}
+
+function closeAddTask() {
+  let contentRef = document.getElementById('boardAddTask');
+  
+  contentRef.style.display = 'none';
 }

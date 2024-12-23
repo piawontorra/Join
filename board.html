@@ -86,15 +86,21 @@
                 </div>
             </div>
             <div id="taskDetailModal" class="task-detail-modal">
-                <div class="task-detail-content">
-                    <div id="taskDetail"></div>
-                </div>
+                    <div class="task-detail-content">
+                        <div id="taskDetail"></div>
+                    </div>
             </div>
         </main>
     </div>
     <div class="board-add-task-overlay" id="boardAddTask" style="display: none;">
         <div class="board-add-task-content max-width-login-registry">
             <div class="board-add-task-modal">
+                <div class="board-add-task-section-header max-width">
+                    <h1>Add Task</h1>
+                    <div onclick="closeAddTask()" class="add-task-close-btn">
+                        <img src="./assets/img/cancel_icon.svg" alt="">
+                    </div>
+                </div>
                 <form id="add-task-form">
                     <div class="add-task-form">
                         <div class="add-task-form-left">
