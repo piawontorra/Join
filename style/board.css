@@ -41,6 +41,10 @@ h1 {
     padding-left: 16px;
 }
 
+.input-box input:focus {
+    outline: none;
+}
+
 ::placeholder {
     color: #D1D1D1;
 }
