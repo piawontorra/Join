@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
-    <link rel="stylesheet" href="./style/index_registry.css">
+    <link rel="stylesheet" href="./style/index-registry.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
@@ -46,16 +46,16 @@
                                 <input type="email" id="email" name="email" required placeholder="Email">
                                 <img src="./assets/img/mail_icon.png" alt="email icon">
                             </div>
-                            <div class="input-box input-field">
+                            <div class="input-box input-field password-field">
                                 <input type="password" id="password" name="password" autocomplete="new-password"
-                                    required placeholder="Password">
-                                <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                                    required placeholder="Password" oninput="changePasswordImg(this)">
+                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img" id="password-img" onclick="togglePasswordVisibility(this)">
                             </div>
                             <div>
-                                <div class="input-box input-field" id="input-password-confirmation">
+                                <div class="input-box input-field password-field" id="input-password-confirmation">
                                     <input type="password" id="password-confirmation" name="password" required
-                                        placeholder="Confirm Password">
-                                    <img src="./assets/img/lock_icon.png" alt="locked lock icon">
+                                        placeholder="Confirm Password" oninput="changePasswordImg(this)">
+                                    <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img" id="password-confirmation-img" onclick="togglePasswordVisibility(this)">
                                 </div>
                                 <div class="msg-box" id="msg-box"></div>
                             </div>
@@ -65,11 +65,11 @@
                                 <a class="privacy-policy-link" href="#">Privacy Policy.</a>
                             </div>
                         </div>
-                        <button class="btn btn1 btn-variant" id="registry">Sign up</button>
+                        <button class="btn btn1 btn-variant" id="registry-btn">Sign up</button>
                     </div>
                 </form>
             </div>
-            <div class="grey-overlay d-none" id="grey-overlay">
+            <div class="grey-overlay max-width-login-registry d-none" id="grey-overlay">
                 <div class="msg-box-animated" id="success-msg"></div>
             </div>
         </div>

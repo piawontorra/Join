@@ -46,8 +46,8 @@
                         <div>
                             <div class="input-box input-field" id="input-password">
                                 <input type="password" id="password" name="password" autocomplete="current-password"
-                                    required placeholder="Password" oninput="changePasswordImg()">
-                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" id="password-img" onclick="togglePasswordVisibility()">
+                                    required placeholder="Password" oninput="changePasswordImg(this)">
+                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img" id="password-img" onclick="togglePasswordVisibility(this)">
                             </div>
                             <div class="msg-box" id="msg-box"></div>
                         </div>
