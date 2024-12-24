@@ -37,7 +37,6 @@ function openRegistry() {
 }
 
 function changePasswordImg(passwordRef) {
-
     let passwordImgRef = passwordRef.parentElement.querySelector('.password-img');
 
     passwordRef.value.length > 0 ? passwordImgRef.src = "./assets/img/invisible.png" : passwordImgRef.src = "./assets/img/lock-icon.png";

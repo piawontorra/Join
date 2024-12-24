@@ -1,7 +1,13 @@
+function initRegistry() {
+    includeHTML();
+    registerUsers();
+}
+
 function returnToLogIn() {
     window.location.href = 'index.html';
 }
 
+<<<<<<< Updated upstream
 function initRegistry() {
     includeHTML();
     registerUsers();
@@ -9,24 +15,32 @@ function initRegistry() {
 
 function registerUsers() {
     document.getElementById("registration-form").onsubmit = function (event) {
+=======
+async function registerUsers() {
+    document.getElementById("registration-form").onsubmit = async function (event) {
+>>>>>>> Stashed changes
         event.preventDefault();
 
         let name = document.getElementById('name').value;
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         let passwordConfirmation = document.getElementById('password-confirmation').value;
+
         checkPasswordCongruence(password, passwordConfirmation);
         if (checkPasswordCongruence(password, passwordConfirmation)) {
             let newUser = {
-                name: name,
-                email: email,
-                password: password
+                "name": name,
+                "email": email,
+                "password": password
             };
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             addUser(newUser);
             document.getElementById('registration-form').reset();
-        }
-    };
+        };
+    }
 }
 
 function checkPasswordCongruence(password, passwordConfirmation) {
@@ -47,12 +61,6 @@ async function addUser(user) {
     }
 
     let newUserId = user.name;
-    // nicht gefordert
-    if (existingUsers[newUserId] && checkPasswordCongruence === false) {
-        document.getElementById('msg-box').innerHTML = "User with this name already exists.";
-        return;
-        ;
-    }
     existingUsers[newUserId] = user;
 
     await putUser("users", existingUsers);
