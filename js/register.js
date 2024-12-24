@@ -5,7 +5,6 @@ function returnToLogIn() {
 function initRegistry() {
     includeHTML();
     registerUsers();
-    // document.getElementById("registry").disabled = true;
 }
 
 function registerUsers() {
@@ -23,21 +22,12 @@ function registerUsers() {
                 email: email,
                 password: password
             };
-            // checkFormValidity(name, email, password, passwordConfirmation);
 
             addUser(newUser);
             document.getElementById('registration-form').reset();
         }
     };
 }
-
-// function checkFormValidity(name, email, password, passwordConfirmation) {
-//     if (name && email && password && passwordConfirmation) {
-//         document.getElementById('registry').disabled = false;
-//     } else {
-//         document.getElementById('registry').disabled = true;
-//     }
-// }
 
 function checkPasswordCongruence(password, passwordConfirmation) {
     if (password !== passwordConfirmation) {
