@@ -62,7 +62,7 @@ header p {
     gap: 22px;
 }
 
-.img:hover {
+img:hover {
     cursor: pointer;
 }
 
