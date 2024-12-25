@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="openAddTask()">
+                    <button onclick="openAddTask('todo')">
                         Add task
                         <img src="./assets/img/plus_white_icon.png" alt="">
                     </button>
@@ -57,7 +57,7 @@
                     ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
                     <div class="task-header">
                         <p>To do</p>
-                        <button onclick="openAddTask()"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                        <button onclick="openAddTask('todo')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="toDo"></div>
                 </div>
@@ -65,7 +65,7 @@
                     ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
                     <div class="task-header">
                         <p>In progress</p>
-                        <button onclick="openAddTask()"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                        <button onclick="openAddTask('in-progress')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="inProgress"></div>
                 </div>
@@ -73,7 +73,7 @@
                     ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
                     <div class="task-header">
                         <p>Await feedback</p>
-                        <button onclick="openAddTask()"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                        <button onclick="openAddTask('await-feedback')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="awaitFeedback"></div>
                 </div>
