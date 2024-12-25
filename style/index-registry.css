@@ -7,6 +7,13 @@
     flex-direction: column;
 }
 
+.login-headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 .logo-animation {
     z-index: 1000;
     height: 334px;
@@ -38,6 +45,7 @@
 }
 
 .registry-link {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -174,6 +182,17 @@
 
 .privacy-policy-link:hover {
     text-decoration: underline;
+}
+
+input[type="checkbox"] {
+    height: 22px;
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+}
+
+.checkbox-img {
+    height: 22px;
+    aspect-ratio: 1 / 1;
 }
 
 .btn-variant {

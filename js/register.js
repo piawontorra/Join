@@ -38,6 +38,19 @@ function checkPasswordCongruence(password, passwordConfirmation) {
     }
 }
 
+function toggleCheckboxImg() {
+    let checkboxRef = document.getElementById('accepted-policy');
+    let checkboxImgRef = document.getElementById('checkbox-img');
+
+    if (checkboxRef.checked) {
+        checkboxImgRef.src = "assets/img/unchecked.png";
+        checkboxRef.checked = false;
+    } else {
+        checkboxImgRef.src = "assets/img/checked.png";
+        checkboxRef.checked = true;
+    }
+}
+
 async function addUser(user) {
     let existingUsers = await loadUsers("users");
 

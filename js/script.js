@@ -51,7 +51,7 @@ function changePasswordImg(passwordRef) {
     let passwordImgRef = passwordRef.parentElement.querySelector('.password-img');
     let passwordFieldRef = passwordRef
 
-    passwordRef.value.length > 0 ? (passwordFieldRef.type === "password" ? passwordImgRef.src = "./assets/img/invisible.png" : passwordImgRef.src = "./assets/img/visible.png") : passwordImgRef.src = "./assets/img/lock-icon.png";
+    passwordRef.value.length > 0 ? (passwordFieldRef.type === "password" ? passwordImgRef.src = "assets/img/invisible.png" : passwordImgRef.src = "assets/img/visible.png") : passwordImgRef.src = "./assets/img/lock-icon.png";
 }
 
 function togglePasswordVisibility(passwordImgRef) {
@@ -61,11 +61,11 @@ function togglePasswordVisibility(passwordImgRef) {
     switch (passwordVisibilityRef) {
         case "password":
             passwordFieldRef.type = "text";
-            passwordImgRef.src = "./assets/img/visible.png";
+            passwordImgRef.src = "assets/img/visible.png";
             break;
         default:
             passwordFieldRef.type = "password";
-            passwordImgRef.src = "./assets/img/invisible.png";
+            passwordImgRef.src = "assets/img/invisible.png";
             break;
     }
 }

@@ -25,10 +25,13 @@
 <body onload="initLogin()">
     <div class="min-height">
         <div class="content content-add max-width-login-registry">
-            <img class="join-logo-menu logo-animation" id="logo-animation" src="./assets/img/join_logo_login.png" alt="Logo">
-            <div class="registry-link">
-                <span class="user-question">Not a Join user?</span>
-                <button class="btn btn1 btn-fontsize" onclick="openRegistry()">Sign up</button>
+            <div class="login-headline">
+                <img class="join-logo-menu logo-animation" id="logo-animation" src="./assets/img/join_logo_login.png"
+                    alt="Logo">
+                <div class="registry-link">
+                    <span class="user-question">Not a Join user?</span>
+                    <button class="btn btn1 btn-fontsize" onclick="openRegistry()">Sign up</button>
+                </div>
             </div>
 
             <div class="form-position">
@@ -47,7 +50,8 @@
                             <div class="input-box input-field" id="input-password">
                                 <input type="password" id="password" name="password" autocomplete="current-password"
                                     required placeholder="Password" oninput="changePasswordImg(this)">
-                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img" id="password-img" onclick="togglePasswordVisibility(this)">
+                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
+                                    id="password-img" onclick="togglePasswordVisibility(this)">
                             </div>
                             <div class="msg-box" id="msg-box"></div>
                         </div>

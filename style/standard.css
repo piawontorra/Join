@@ -62,6 +62,10 @@ header p {
     gap: 22px;
 }
 
+.img:hover {
+    cursor: pointer;
+}
+
 .user-icon {
     width: 56px;
     height: 56px;
