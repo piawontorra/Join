@@ -5,3 +5,9 @@ function getRegistrySuccessTemplate() {
         </div>
     `;
 }
+
+function getLoginErrorTemplate() {
+    return `
+        <div>Check your email and password. Please try again.</div>
+    `;
+}

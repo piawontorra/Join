@@ -1,43 +1,47 @@
+function initRegistry() {
+    includeHTML();
+    registerUsers();
+}
+
 function returnToLogIn() {
     window.location.href = 'index.html';
 }
 
+<<<<<<< Updated upstream
 function initRegistry() {
     includeHTML();
     registerUsers();
-    // document.getElementById("registry").disabled = true;
 }
 
 function registerUsers() {
     document.getElementById("registration-form").onsubmit = function (event) {
+=======
+async function registerUsers() {
+    document.getElementById("registration-form").onsubmit = async function (event) {
+>>>>>>> Stashed changes
         event.preventDefault();
 
         let name = document.getElementById('name').value;
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
         let passwordConfirmation = document.getElementById('password-confirmation').value;
+
         checkPasswordCongruence(password, passwordConfirmation);
         if (checkPasswordCongruence(password, passwordConfirmation)) {
             let newUser = {
-                name: name,
-                email: email,
-                password: password
+                "name": name,
+                "email": email,
+                "password": password
             };
-            // checkFormValidity(name, email, password, passwordConfirmation);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             addUser(newUser);
             document.getElementById('registration-form').reset();
-        }
-    };
+        };
+    }
 }
-
-// function checkFormValidity(name, email, password, passwordConfirmation) {
-//     if (name && email && password && passwordConfirmation) {
-//         document.getElementById('registry').disabled = false;
-//     } else {
-//         document.getElementById('registry').disabled = true;
-//     }
-// }
 
 function checkPasswordCongruence(password, passwordConfirmation) {
     if (password !== passwordConfirmation) {
@@ -57,12 +61,6 @@ async function addUser(user) {
     }
 
     let newUserId = user.name;
-    // nicht gefordert
-    if (existingUsers[newUserId] && checkPasswordCongruence === false) {
-        document.getElementById('msg-box').innerHTML = "User with this name already exists.";
-        return;
-        ;
-    }
     existingUsers[newUserId] = user;
 
     await putUser("users", existingUsers);
