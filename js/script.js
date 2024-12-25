@@ -111,3 +111,6 @@ function transferToSummary() {
     window.location.href = 'summary.html';
 }
 
+function showUserMenu(){
+    document.getElementById('userMenu').classList.toggle('d-none');
+}

@@ -1,10 +1,21 @@
-<link rel="stylesheet" href="./style/standard.css" />
+<head>
+    <link rel="stylesheet" href="/style/standard.css" />
+    <script src="/js/script.js"></script>
+</head>
 <header>
     <div class="header-content max-width">
         <p>Kanban Project Management Tool</p>
         <div class="header-right">
             <a id="btn_help" href="help.html"><img src="./assets/img/help_icon.png" alt="Help"></a>
-            <img class="user-icon" src="./assets/img/default_user_icon.png" alt="User">
+            <div>
+                <img onclick="showUserMenu()" class="user-icon" src="./assets/img/default_user_icon.png" alt="User">
+                <div class="d-none" id="userMenu">
+                    <div class="helpLink"><a href="/legal_notice_internal.html">Legal Notice</a></div>
+                    <div class="helpLink"><a href="/privacy_policy_internal.html">Privacy Policy</a></div>
+                    <div class="helpLink"><a href="/index.html">Logout</a></div>
+                </div>
+            </div>
         </div>
+        
     </div>
 </header>

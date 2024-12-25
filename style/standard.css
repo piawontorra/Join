@@ -55,6 +55,7 @@ header p {
 }
 
 .header-right {
+    position: relative; /* Parent-Element als Bezugspunkt für #userMenu */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -66,8 +67,12 @@ header p {
     height: 56px;
 }
 
+.user-icon:hover{
+    cursor: pointer;
+}
+
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .h1 {
@@ -163,4 +168,41 @@ header p {
 
 #btn_help:hover{
     transform: scale(1.1);
+}
+
+#userMenu{
+    height: 158px;
+    width: 150px;
+    background-color: rgb(42, 54, 71);
+    border-radius: 15% 0 15% 15%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 200;
+    text-decoration: none;
+    position: absolute; /* Position relativ zu .header-right */
+    top: calc(100% + 20px);
+    right: 0; /* Bleibt an der rechten Seite von .header-right */
+    border: 1px solid rgb(246, 247, 248);
+    z-index: 10;
+}
+
+#userMenu a{
+    color: white;
+}
+
+#userMenu div:hover{
+    background-color: rgb(42, 61, 89)
+}
+
+.helpLink{
+    height: 40px;
+    width: 80%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
