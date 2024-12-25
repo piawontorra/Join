@@ -7,18 +7,8 @@ function returnToLogIn() {
     window.location.href = 'index.html';
 }
 
-<<<<<<< Updated upstream
-function initRegistry() {
-    includeHTML();
-    registerUsers();
-}
-
-function registerUsers() {
-    document.getElementById("registration-form").onsubmit = function (event) {
-=======
 async function registerUsers() {
     document.getElementById("registration-form").onsubmit = async function (event) {
->>>>>>> Stashed changes
         event.preventDefault();
 
         let name = document.getElementById('name').value;
@@ -26,18 +16,13 @@ async function registerUsers() {
         let password = document.getElementById('password').value;
         let passwordConfirmation = document.getElementById('password-confirmation').value;
 
-        checkPasswordCongruence(password, passwordConfirmation);
         if (checkPasswordCongruence(password, passwordConfirmation)) {
             let newUser = {
                 "name": name,
                 "email": email,
                 "password": password
             };
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-            addUser(newUser);
+            await addUser(newUser);
             document.getElementById('registration-form').reset();
         };
     }
@@ -60,11 +45,28 @@ async function addUser(user) {
         existingUsers = {};
     }
 
-    let newUserId = user.name;
+    let newUserId = await getNextUserId();
     existingUsers[newUserId] = user;
 
     await putUser("users", existingUsers);
+    await nextUserIdToDatabase(newUserId);
     addGreyOverlay();
+}
+
+async function getNextUserId() {
+    let response = await fetch(`${BASE_URL}/nextUserId.json`);
+    let nextUserId = await response.json();
+    if (!nextUserId) {
+        nextUserId = 0;
+    }
+    return nextUserId;
+}
+
+async function nextUserIdToDatabase(nextUserId) {
+    await fetch(`${BASE_URL}/nextUserId.json`, {
+        method: 'PUT',
+        body: JSON.stringify(nextUserId + 1),
+    });
 }
 
 async function putUser(path = "", users = {}) {

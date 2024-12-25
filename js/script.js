@@ -4,8 +4,26 @@ const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
 
-async function initLogin() {
+function initLogin() {
+    logoAnimation();
     includeHTML();
+    usersPush();
+}
+
+function logoAnimation() {
+    const logo = document.getElementById('logo-animation');
+
+    if (sessionStorage.getItem('logoAnimated') === 'true') {
+        logo.classList.remove('logo-animation');
+    } else {
+        if (logo) {
+            logo.classList.add('logo-animation');
+            sessionStorage.setItem('logoAnimated', 'true');
+        }
+    }
+};
+
+async function usersPush() {
     let userResponse = await loadUsers("users");
     let userKeysArray = Object.keys(userResponse);
     for (let i = 0; i < userKeysArray.length; i++) {
@@ -21,13 +39,6 @@ async function loadUsers(path = "") {
     return responseAsJson = await response.json();
 }
 
-window.onload = function () {
-    if (!sessionStorage.getItem('logoAnimated')) {
-        document.getElementById('logo-animation').classList.add('animate-logo');
-        sessionStorage.setItem('logoAnimated', 'true');
-    }
-};
-
 if (msg) {
     msgBox.innerHTML = msg;
 }
@@ -38,8 +49,9 @@ function openRegistry() {
 
 function changePasswordImg(passwordRef) {
     let passwordImgRef = passwordRef.parentElement.querySelector('.password-img');
+    let passwordFieldRef = passwordRef
 
-    passwordRef.value.length > 0 ? passwordImgRef.src = "./assets/img/invisible.png" : passwordImgRef.src = "./assets/img/lock-icon.png";
+    passwordRef.value.length > 0 ? (passwordFieldRef.type === "password" ? passwordImgRef.src = "./assets/img/invisible.png" : passwordImgRef.src = "./assets/img/visible.png") : passwordImgRef.src = "./assets/img/lock-icon.png";
 }
 
 function togglePasswordVisibility(passwordImgRef) {
@@ -63,7 +75,6 @@ function login() {
     let password = document.getElementById('password');
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
-
     if (user) {
         let userName = user.user.name;
         console.log(userName);
@@ -79,7 +90,7 @@ function login() {
 function resetFields() {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
-    
+
     document.getElementById('input-email').classList.remove('red-border');
     email.value = '';
     document.getElementById('input-password').classList.remove('red-border');
