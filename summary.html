@@ -8,7 +8,7 @@
     <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/register.js"></script>
-    <script src="./js/registerTemplate.js"></script>
+    <script src="./js/loginRegisterTemplate.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/board_template.js"></script>
     <script src="./js/contacts.js"></script>
@@ -16,15 +16,15 @@
     <script src="./js/summaryTemplate.js"></script>
     <script src="./js/add_task.js"></script>
     <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet" href="./style/board.css">
-    <link rel="stylesheet" href="./style/taskcard.css">
-    <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/summary.css">
+    <link rel="stylesheet" href="./style/board.css">
+    <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
+    <link rel="stylesheet" href="./style/index-registry.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="includeHTML()">
+<body onload="initSummary()">
     <div class="content">
 
         <div w3-include-html="./assets/templates/navigation.html"></div>
@@ -41,8 +41,8 @@
 
                 <section class="summary">
                     <div class="summary-content">
-                        
-<!-- Code kommt später in Template. Designen in html geht aber schneller. -->
+
+                        <!-- Code kommt später in Template. Designen in html geht aber schneller. -->
                         <button class="btn btn2 summary-btn">
                             <img class="status-img" src="./assets/img/to_do_summary_icon.png" alt="To do">
                             <div class="task-count-status">
@@ -89,7 +89,7 @@
 
                     </div>
                     <div class="welcome-user">
-
+                        <text id="greet">Good morning</text>
 
                     </div>
                 </section>
