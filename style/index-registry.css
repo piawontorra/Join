@@ -83,6 +83,16 @@
     border-radius: 30px;
     padding: 48px 88px 48px 56px;
     box-shadow: 0 0 14px 0 rgba(248, 248, 249, 0.6);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .registration-form {
@@ -176,11 +186,14 @@
     gap: 6px;
 }
 
-.privacy-policy-link {
-    color: #26ace3;
+.additional-links {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+    color: #29ABE2;
 }
 
-.privacy-policy-link:hover {
+.additional-links:hover {
     text-decoration: underline;
 }
 
@@ -198,6 +211,14 @@ input[type="checkbox"] {
 .btn-variant {
     padding: 15px 24px;
     border-radius: 8px;
+}
+
+.btn-forgotten-password {
+    background-color: #FFFFFF;
+}
+
+.btn-forgotten-password:hover {
+    box-shadow: none;
 }
 
 .centered-position {

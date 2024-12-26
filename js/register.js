@@ -30,7 +30,7 @@ async function registerUsers() {
 
 function checkPasswordCongruence(password, passwordConfirmation) {
     if (password !== passwordConfirmation) {
-        document.getElementById('msg-box').innerHTML = "Your passwords don´t match. Please try again.";
+        document.getElementById('msg-box').innerText = "Your passwords don´t match. Please try again.";
         document.getElementById('input-password-confirmation').classList.add('red-border');
         return false;
     } else {

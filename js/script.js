@@ -102,6 +102,7 @@ function adaptFields() {
     document.getElementById('input-email').classList.add('red-border');
     document.getElementById('input-password').classList.add('red-border');
     document.getElementById('msg-box').innerHTML = getLoginErrorTemplate();
+    forgotPasswordQuote();
 }
 
 function guestLogIn() {
@@ -123,6 +124,26 @@ async function loginWithGuestData(email, password) {
 function transferToSummary() {
     window.location.href = 'summary.html';
 }
+
+function forgotPasswordQuote() {
+    let forgottenPasswordRef = document.getElementById('forgotten-password');
+    let forgottenPasswordConditions = users.find(user => user.user.email === email.value && user.user.password !== password.value);
+
+    if (forgottenPasswordConditions) {
+        forgottenPasswordRef.classList.remove('d-none');
+    } else {
+        forgottenPasswordRef.classList.add('d-none');
+    }
+}
+
+function setNewPassword() {
+    let email = document.getElementById('email').value;
+    window.location.href = `forgotten-password.html?email=${encodeURIComponent(email)}`;
+}
+
+
+
+
 
 function showUserMenu(){
     document.getElementById('userMenu').classList.toggle('d-none');
