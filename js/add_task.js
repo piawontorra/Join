@@ -2,6 +2,7 @@ let tasks = [];
 let subtasks = [];
 let contacts = {};
 let assignedTo = [];
+let selectedTaskStatus = 'todo';
 let selectedCategory = "Select task category";
 let selectedPriority = "Medium"; // Standardpriorität
 
@@ -73,7 +74,7 @@ async function newTask(event) {
             priority: priority,
             category: selectedCategory,
             subtasks: subtasks,
-            status: 'todo',
+            status: selectedTaskStatus,
             id: cardID,
         };
 

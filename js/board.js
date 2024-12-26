@@ -13,6 +13,8 @@ let priorityIcons = {
   Medium: "./assets/img/medium_icon.png",
   Low: "./assets/img/low_icon.png"
 }
+// Status-Mapping
+const statusOrder = ['todo', 'in-progress', 'await-feedback', 'done'];
 
 async function renderTasks() {
   const statusContainers = getStatusContainers();
@@ -48,9 +50,25 @@ async function getTasksData() {
   return tasksData || {};  // Rückgabe der bereinigten Daten
 }
 
+// async function getTasksData() {
+//   try {
+//       const response = await fetch(BASE_URL + '/tasks.json'); // Hole die Daten
+//       const tasksData = await response.json();
+
+//       // Daten bereinigen und Standardwert nutzen, falls keine Tasks vorhanden
+//       return cleanTasksData(tasksData || {});
+//   } catch (error) {
+//       console.error("Fehler beim Abrufen der Tasks:", error);
+//       return {}; // Gib ein leeres Objekt zurück, wenn ein Fehler auftritt
+//   }
+// }
+
 function cleanTasksData(tasksData) {
-  // Filtere ungültige (null oder leere) Tasks heraus
-  return Object.values(tasksData).filter(task => task !== null && task !== undefined && Object.keys(task).length > 0);
+  if (!tasksData || Object.keys(tasksData).length === 0) {
+      return []; // Gib ein leeres Array zurück, wenn keine Daten vorhanden sind
+  }
+
+  return Object.values(tasksData).filter(task => task); // Entferne undefinierte oder null-Werte
 }
 
 async function getUserDataById(userId) {
@@ -84,6 +102,10 @@ async function renderAllTasks(statusContainers) {
 }
 
 async function getAssignedUserInitialsAndColor(assignedUserIds) {
+  if (!Array.isArray(assignedUserIds) || assignedUserIds.length === 0) {
+      return []; // Rückgabe eines leeren Arrays, wenn keine User-IDs vorhanden sind
+  }
+
   const assignedUserData = [];
 
   for (let userId of assignedUserIds) {
@@ -140,17 +162,49 @@ function checkAndUpdateNoTasksMessage(container) {
 }
 
 function dragTask(taskId) {
-  draggedElementId = taskId
+  draggedElementId = taskId;
+
+  // Verstecke alle "No Tasks"-Meldungen
+  const noTasksMessages = document.querySelectorAll('.no-tasks-message');
+  noTasksMessages.forEach(message => {
+    message.style.display = 'none';
+  });
+
+  // Zeige die dashed-box in allen erlaubten Containern
+  const task = Object.values(tasksData).find(task => task.id === taskId);
+  if (task) {
+    const currentStatus = task.status;
+    const statusContainers = getStatusContainers();
+
+    // Durchlaufe alle Status-Container, um die "dashed-box" anzuzeigen
+    statusOrder.forEach(status => {
+      if (status !== currentStatus) {
+        const container = statusContainers[status];
+        if (container) {
+          showDashedBox(container);  // Funktion zum Anzeigen der dashed-box
+        }
+      }
+    });
+  }
 }
 
 function allowDrop(event) {
-  event.preventDefault();
+  event.preventDefault(); // Zulassen des Drops
+}
 
-  const targetContainer = event.target.closest('.task-content-split');
-  if (targetContainer) {
-      targetContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.15)';
-      targetContainer.style.borderRadius = '20px';
-  }
+function showDashedBox(container) {
+  const dashedBox = document.createElement('div');
+  dashedBox.className = 'dashed-box';
+  dashedBox.style.border = '2px dashed #aaa';
+  dashedBox.style.height = '100px'; // Höhe deiner Task-Karte
+  dashedBox.style.margin = '10px 0';
+  dashedBox.dataset.dashedBox = 'true'; // Markiere es zur späteren Identifikation
+  container.appendChild(dashedBox);
+}
+
+function removeAllDashedBoxes() {
+  const dashedBoxes = document.querySelectorAll('.dashed-box');
+  dashedBoxes.forEach(box => box.remove());
 }
 
 function dropTask(event, newStatus) {
@@ -164,30 +218,41 @@ function dropTask(event, newStatus) {
   updateTaskStatus(taskIndex, newStatus);
   updateTaskStatusInFirebase(taskId, newStatus);
   moveTaskCardInDOM(taskId, newStatus);
+
+  // Prüfe und aktualisiere "No Tasks"-Meldungen
   const statusContainers = getStatusContainers();
-  checkAndUpdateNoTasksMessage(statusContainers[oldStatus]);
+  Object.keys(statusContainers).forEach(status => {
+    checkAndUpdateNoTasksMessage(statusContainers[status]);
+  });
+
   resetContainerHighlight(event);
 }
 
 function moveTaskCardInDOM(taskId, newStatus) {
   const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
-  taskCard.remove();
+  if (taskCard) {
+    taskCard.remove();
 
-  // Finde den neuen Container
-  const statusContainers = getStatusContainers();
-  const newContainer = statusContainers[newStatus];
+    // Finde den neuen Container
+    const statusContainers = getStatusContainers();
+    const newContainer = statusContainers[newStatus];
 
-  if (newContainer) {
-    // Füge die Karte in den neuen Container ein
-    newContainer.appendChild(taskCard);
+    if (newContainer) {
+      newContainer.appendChild(taskCard);
 
-    // Leere Nachricht entfernen, falls vorhanden
-    const noTasksMessage = newContainer.querySelector('.no-tasks-message');
-    if (noTasksMessage) {
-      noTasksMessage.remove();
+      // Leere Nachricht entfernen, falls vorhanden
+      const noTasksMessage = newContainer.querySelector('.no-tasks-message');
+      if (noTasksMessage) {
+        noTasksMessage.remove();
+      }
     }
   }
 }
+
+// Event, um beim Ende des Draggens alles zurückzusetzen
+document.addEventListener('dragend', () => {
+  removeAllDashedBoxes();
+});
 
 function getTaskIndexById(taskId) {
   return Object.values(tasksData).findIndex(task => task.id === taskId);
@@ -240,8 +305,8 @@ function highlightDrag(event) {
 function removeHighlightDrag(event) {
   const targetContainer = event.target.closest('.task-content-split');
   if (targetContainer) {
-      targetContainer.style.backgroundColor = '';
-      targetContainer.style.borderRadius = '20px';
+    targetContainer.style.backgroundColor = '';
+    targetContainer.style.borderRadius = '20px';
   }
 }
 
@@ -316,9 +381,9 @@ async function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
   }
 }
 
-function openAddTask() {
+function openAddTask(status) {
+  selectedTaskStatus = status;
   let contentRef = document.getElementById('boardAddTask');
-  
   contentRef.style.display = 'flex';
 }
 
@@ -326,4 +391,30 @@ function closeAddTask() {
   let contentRef = document.getElementById('boardAddTask');
   
   contentRef.style.display = 'none';
+}
+
+async function deleteTask(taskId, taskStatus) {
+  try {
+    const taskPath = `${BASE_URL}tasks/${taskId}.json`;
+
+    const response = await fetch(taskPath, {
+      method: "DELETE",
+    });
+
+    tasksData = tasksData.filter(task => task.id !== taskId);
+
+    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+    if (taskCard) {
+      taskCard.remove();
+    }
+
+    const statusContainers = getStatusContainers(); // Hole alle Status-Container
+    if (statusContainers && statusContainers[taskStatus]) {
+      addNoTasksMessage(statusContainers);
+    }
+
+    closeTaskDetail();
+  } catch (error) {
+    console.error("Fehler beim Löschen der Task:", error);
+  }
 }
