@@ -1,7 +1,7 @@
 :root {
     --sidebar-width: 232px;
     --wrapper-contacts-width: 456px;
-    --wrapper-contactCard-width: 562px;
+    --wrapper-contactCard-width: 640px;
     --newContactContainer-width: 1212px;
     --infobox-offset: calc(100% - var(--sidebar-width) - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
   }
@@ -71,11 +71,15 @@
 
 #contactCard{
     height: 364px;
-    width: 500px;  /* breiter als in Figma weil...passt sonst nicht mit Schriftgröße */
+    /* min-width: 500px;
+    max-width: 600px; */
+
+    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 34px;
+    
 }
 
 #seperator{

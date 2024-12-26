@@ -34,3 +34,10 @@ body, html {
     padding: 20px;
     /* box-sizing: border-box; */
   }
+
+  .headline{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }

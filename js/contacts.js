@@ -183,6 +183,9 @@ function closeNewContactCard(){
     document.getElementById("newUserForm").reset();
   }
 
+  /**
+   * 
+   */
 function newUserCard() {
   let newContactContainer = document.getElementById("newContactContainer");
   newContactContainer.innerHTML = newContactTemplate();
