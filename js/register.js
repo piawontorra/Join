@@ -39,8 +39,8 @@ function checkPasswordCongruence(password, passwordConfirmation) {
 }
 
 function toggleCheckboxImg() {
-    let checkboxRef = document.getElementById('accepted-policy');
-    let checkboxImgRef = document.getElementById('checkbox-img');
+    const checkboxRef = document.getElementById('accepted-policy');
+    const checkboxImgRef = document.getElementById('checkbox-img');
 
     if (checkboxRef.checked) {
         checkboxImgRef.src = "assets/img/unchecked.png";

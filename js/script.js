@@ -7,6 +7,8 @@ const msgBox = document.getElementById('msg-box');
 function initLogin() {
     logoAnimation();
     includeHTML();
+    loadUserCredentials();
+    checkRememberMe();
     usersPush();
 }
 
@@ -22,6 +24,34 @@ function logoAnimation() {
         }
     }
 };
+
+function loadUserCredentials() {
+    const rememberMe = localStorage.getItem('rememberMe');
+
+    if (rememberMe === 'true') {
+        const storedEmail = localStorage.getItem('email');
+        const storedPassword = localStorage.getItem('password');
+
+        if (storedEmail && storedPassword) {
+            document.getElementById('email').value = storedEmail;
+            document.getElementById('password').value = storedPassword;
+        }
+    }
+}
+
+function checkRememberMe() {
+    const rememberMe = localStorage.getItem('rememberMe');
+    const realCheckboxRef = document.getElementById('remember-me');
+    const customizedCheckboxImg = document.getElementById('remember-checkbox-img');
+
+    if (rememberMe === 'true') {
+        realCheckboxRef.checked = true;
+        customizedCheckboxImg.src = './assets/img/checked.png';
+    } else {
+        realCheckboxRef.checked = false;
+        customizedCheckboxImg.src = './assets/img/unchecked.png';
+    }
+}
 
 async function usersPush() {
     let userResponse = await loadUsers("users");
@@ -73,11 +103,17 @@ function togglePasswordVisibility(passwordImgRef) {
 function login() {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
+    let rememberMe = document.getElementById('remember-me').checked;
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
     if (user) {
-        let userName = user.user.name;
-        console.log(userName);
+        if (rememberMe) {
+            localStorage.setItem('email', email.value);
+            localStorage.setItem('password', password.value);
+        } else {
+            localStorage.remove('email');
+            localStorage.remove('password');
+        }
 
         transferToSummary();
         resetFields();
@@ -141,10 +177,28 @@ function setNewPassword() {
     window.location.href = `forgotten-password.html?email=${encodeURIComponent(email)}`;
 }
 
+function toggleRememberCheckboxImg() {
+    const realCheckboxRef = document.getElementById('remember-me');
+    const customizedCheckboxImg = document.getElementById('remember-checkbox-img');
+
+    realCheckboxRef.checked = !realCheckboxRef.checked;
+
+    if (realCheckboxRef.checked) {
+        customizedCheckboxImg.src = './assets/img/checked.png';
+    } else {
+        customizedCheckboxImg.src = './assets/img/unchecked.png';
+    }
+
+    localStorage.setItem('rememberMe', realCheckboxRef.checked);
+}
 
 
 
 
-function showUserMenu(){
+
+
+
+
+function showUserMenu() {
     document.getElementById('userMenu').classList.toggle('d-none');
 }
