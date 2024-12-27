@@ -32,11 +32,7 @@ async function updateUserPassword(userId, newPassword) {
     const user = users[userId];
 
     if (user) {
-        const updatedData = {
-            email: user.email,
-            name: user.name,
-            password: newPassword
-        };
+        const updatedData = {email: user.email, name: user.name, password: newPassword};
 
         await fetch(`${BASE_URL}users/${userId}.json`, {
             method: 'PUT',
