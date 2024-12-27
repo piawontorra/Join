@@ -15,7 +15,7 @@ async function initAddTask() {
     includeHTML();
     initializeCategory();
     await loadData();
-    console.log(selectedCategory);
+    // console.log(selectedCategory);
 }
 
 async function loadTasks(path = "") {
@@ -116,7 +116,7 @@ async function loadData() {
     try {
         let response = await fetch(BASE_URL + "/contacts.json");
         let responseToJson = await response.json();
-        console.log(responseToJson);
+        // console.log(responseToJson);
         
         contacts = responseToJson;
 

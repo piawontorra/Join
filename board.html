@@ -9,6 +9,7 @@
     <script src="./js/script.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/board_template.js"></script>
+    <script src="./js/boardTaskEdit.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/taskcard.css">
     <link rel="stylesheet" href="./style/detail_task_card.css">
+    <link rel="stylesheet" href="./style/editTask.css">
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="stylesheet" href="./style/boardAddTask.css">
@@ -31,7 +33,6 @@
         <div w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
-
             <div w3-include-html="./assets/templates/header.html"></div>
 
             <div class="board-header max-width">
@@ -86,9 +87,10 @@
                 </div>
             </div>
             <div id="taskDetailModal" class="task-detail-modal">
-                    <div class="task-detail-content">
+                    <div id="taskDetailCard" class="task-detail-content">
                         <div id="taskDetail"></div>
                     </div>
+                    <div id="editContainer" style="display: none;"></div>
             </div>
         </main>
     </div>

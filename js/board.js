@@ -3,7 +3,7 @@ async function initBoard() {
     await getTasksData();
     await initAddTask();
     renderTasks();
-    console.log(tasksData);  // Überprüfe, ob task.id korrekt vorhanden ist
+    // console.log(tasksData);  // Überprüfe, ob task.id korrekt vorhanden ist
 }
 
 let tasksData = {};
@@ -46,7 +46,7 @@ async function getTasksData() {
   // Bereinige die Daten, um ungültige oder leere Einträge zu entfernen
   tasksData = cleanTasksData(responseAsJson);
 
-  console.log("Bereinigte Tasks Data:", tasksData);
+  // console.log("Bereinigte Tasks Data:", tasksData);
   return tasksData || {};  // Rückgabe der bereinigten Daten
 }
 
