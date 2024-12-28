@@ -45,15 +45,16 @@
                 <section class="summary">
                     <div class="summary-content">
                         <div class="summary-rows">
-                            <button class="btn summary-btn">
-                                <img class="status-img" src="./assets/img/to_do_summary_icon.png" alt="To do">
+                            <button class="btn summary-btn" onmouseover="toggleImage(true, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')" onmouseout="toggleImage(false, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')">
+                                <img class="status-img" id="to-do-img" src="./assets/img/to-do-summary-icon.png" alt="To do">
                                 <div class="task-count-status">
                                     <span class="task-count">1</span>
                                     <text class="status">To-do</text>
                                 </div>
                             </button>
-                            <button class="btn summary-btn">
-                                <img class="status-img" src="./assets/img/done_summary_icon.png" alt="To do">
+                            
+                            <button class="btn summary-btn" onmouseover="toggleImage(true, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')" onmouseout="toggleImage(false, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')">
+                                <img class="status-img" id="done-img" src="./assets/img/done-summary-icon.png" alt="Done">
                                 <div class="task-count-status">
                                     <span class="task-count">1</span>
                                     <text class="status">Done</text>
@@ -63,7 +64,7 @@
 
                         <div class="summary-rows">
                             <button class="btn summary-btn">
-                                <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="To do">
+                                <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="Urgent">
                                 <div class="task-count-status">
                                     <span class="task-count">1</span>
                                     <text class="status status-urgent">Urgent</text>

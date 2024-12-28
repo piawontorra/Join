@@ -11,7 +11,7 @@ function greetUser() {
     let greeting = getGreetingBasedOnTime(hours);
     greetingTextRef.innerHTML = '';
     userNameRef.innerHTML = '';
-    
+
     userName ? greetingTextRef.innerHTML = greeting + ', ' : greetingTextRef.innerHTML = greeting;
 
     if (userName) {
@@ -27,4 +27,9 @@ function getGreetingBasedOnTime(hours) {
     } else {
         return 'Good evening';
     }
+}
+
+function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
+    let imgRef = document.getElementById(imgId);
+    imgRef.src = isHovered ? hoverSrc : originalSrc;
 }

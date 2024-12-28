@@ -48,10 +48,9 @@
 .summary-btn:hover {
     transform: scale(1.08);
     background-color: #2A3647;
-    color: #FFFFFF;
 }
 
-.summary-btn:hover .task-count {
+.summary-btn:hover .task-count{
     color: #FFFFFF;
 }
 
@@ -73,6 +72,7 @@
 .status-img {
     height: 69px;
     aspect-ratio: 1 / 1;
+    border-radius: 50%;
     margin-bottom: 10px;
 }
 
