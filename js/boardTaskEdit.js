@@ -24,7 +24,13 @@ async function loadEditorContactData(task) {
         console.log("AssignedTo Typ:", typeof currentTask.assignedTo);
         console.log("AssignedTo Daten:", currentTask.assignedTo);
 
-        let assignedUserIds = currentTask.assignedTo.map(id => String(id));
+        let assignedUserIds = []; // Standardwert: leeres Array
+
+        if (currentTask.assignedTo && currentTask.assignedTo.length > 0) {
+            // Wenn assignedTo existiert und nicht leer ist
+            assignedUserIds = currentTask.assignedTo.map(id => String(id));
+        }
+
         console.log("Assigned User IDs:", assignedUserIds);
 
         renderEditorUsers(contacts, assignedUserIds); // Übergibt die Kontakte und die zugewiesenen User-IDs
@@ -34,8 +40,50 @@ async function loadEditorContactData(task) {
     }
 }
 
+function handleEditorUserClick(userId) {
+    const userElement = document.getElementById(`user-${userId}`);
+    const checkbox = document.getElementById(`select-${userId}`);
+
+    // Initialisiere `assignedTo`, falls es noch nicht existiert
+    if (!currentTask.assignedTo) {
+        currentTask.assignedTo = [];
+    }
+
+    if (userElement.classList.contains("selected")) {
+        // Entferne die Klasse 'selected' und aktualisiere die Checkbox
+        userElement.classList.remove("selected");
+        checkbox.checked = false;
+
+        // Entferne die User-ID aus `assignedTo`
+        currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
+    } else {
+        // Füge die Klasse 'selected' hinzu und aktualisiere die Checkbox
+        userElement.classList.add("selected");
+        checkbox.checked = true;
+
+        // Füge die User-ID zu `assignedTo` hinzu, falls sie nicht schon existiert
+        if (!currentTask.assignedTo.includes(userId)) {
+            currentTask.assignedTo.push(userId);
+        }
+    }
+
+    console.log("Updated assignedTo list:", currentTask.assignedTo); // Debugging
+
+    // Aktualisiere die Anzeige der zugewiesenen Benutzer
+    renderEditorAssignedUsers(currentTask);
+}
+
 function handleEditorCheckboxChange(userId, isChecked) {
-    // Aktualisiere `task.assignedTo`
+    console.log("Checkbox triggered for userId:", userId, "isChecked:", isChecked); // Debugging
+
+    // Stellen Sie sicher, dass userId eine Zahl ist
+    userId = Number(userId);
+
+    // Initialisiere `assignedTo`, falls es noch nicht existiert
+    if (!currentTask.assignedTo) {
+        currentTask.assignedTo = [];
+    }
+
     if (isChecked) {
         if (!currentTask.assignedTo.includes(userId)) {
             currentTask.assignedTo.push(userId);
@@ -44,15 +92,17 @@ function handleEditorCheckboxChange(userId, isChecked) {
         currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
     }
 
+    console.log("Updated assignedTo list:", currentTask.assignedTo); // Debugging
+
     // Aktualisiere die Klasse 'selected' im DOM
     const userElement = document.getElementById(`user-${userId}`);
-    if (isChecked) {
-        userElement.classList.add('selected');
-    } else {
-        userElement.classList.remove('selected');
+    if (userElement) {
+        if (isChecked) {
+            userElement.classList.add('selected');
+        } else {
+            userElement.classList.remove('selected');
+        }
     }
-
-    console.log("Aktualisierte Task assignedTo:", currentTask.assignedTo);
 
     // Optional: Aktualisiere die Anzeige der zugewiesenen Benutzer
     renderEditorAssignedUsers(currentTask);
@@ -90,7 +140,7 @@ async function renderEditorAssignedUsers(task) {
     let assignedToHTML = assignedUserData.length > 0
         ? assignedUserData
             .map(user =>
-                `<div class="detail-task-assigned-to">
+                `<div class="editor-task-assigned-to">
                     <div class="detail-task-user-icon" style="background-color: ${user.color};">
                         ${user.initials}
                     </div>
@@ -121,11 +171,14 @@ async function renderEditorSubtasks() {
     const subtaskContainer = document.getElementById('subtask');
     subtaskContainer.innerHTML = '';
 
-    for (let i = 0; i < currentTask.subtasks.length; i++) {
-        const subtask = currentTask.subtasks[i];
-        console.log(subtask);
-        
-        subtaskContainer.innerHTML += getEditorSubtaskTemplate(subtask, i);
+    // Überprüfen, ob subtasks existieren und nicht leer sind
+    if (currentTask.subtasks && currentTask.subtasks.length > 0) {
+        for (let i = 0; i < currentTask.subtasks.length; i++) {
+            const subtask = currentTask.subtasks[i];
+            console.log(subtask);
+            
+            subtaskContainer.innerHTML += getEditorSubtaskTemplate(subtask, i);
+        }
     }
 }
 
@@ -168,6 +221,11 @@ function addEditorSubtask() {
         return;
     }
 
+    // Überprüfen und initialisieren, falls subtasks noch nicht existieren
+    if (!currentTask.subtasks) {
+        currentTask.subtasks = [];
+    }
+
     currentTask.subtasks.push({ text: input, completed: false }); // Füge die Subtask hinzu
     renderEditorSubtasks(); // Aktualisiere die Anzeige
     document.getElementById('inputSubtask').value = ''; // Leere das Eingabefeld
@@ -178,7 +236,7 @@ function closeTaskEditor() {
     let contentRef = document.getElementById('editContainer');
     let taskCard = document.getElementById('taskDetailCard');
     contentRef.innerHTML = "";
-    taskCard.style.display = 'flex';
+    taskCard.style.display = 'block';
     contentRef.style.display = 'none';
 }
 
@@ -192,7 +250,9 @@ function updateCurrentTask(event) {
     const dueDate = document.getElementById('inputDueDate').value.trim();
     const category = document.getElementById('selectedCategory').innerText.trim();
     const priority = getSelectedPriority();
-    const assignedTo = getSelectedContacts();
+    const assignedTo = currentTask.assignedTo && currentTask.assignedTo.length > 0 
+        ? currentTask.assignedTo 
+        : [];
 
     // Validierung der Pflichtfelder
     if (!title) {
@@ -226,9 +286,8 @@ function updateCurrentTask(event) {
     currentTask.title = title;
     currentTask.description = description;
     currentTask.dueDate = dueDate;
-    currentTask.category = category;
     currentTask.priority = priority;
-    currentTask.assignedTo = assignedTo;
+    currentTask.assignedTo = assignedTo; // Prüfen, ob assignedTo existiert
     currentTask.subtasks = subtasks;
 
     // Schließe den Editor oder speichere die Änderungen
@@ -248,22 +307,3 @@ function getSelectedPriority() {
     }
     return null;
 }
-
-function getSelectedContacts() {
-    const checkboxes = document.querySelectorAll('#users input[type="checkbox"]:checked');
-    const selectedIds = Array.from(checkboxes).map(checkbox => {
-        // Hole das 'value'-Attribut und versuche es in eine Zahl umzuwandeln
-        const userId = parseInt(checkbox.value);
-        
-        // Stelle sicher, dass der Wert eine gültige Zahl ist
-        if (!isNaN(userId)) {
-            return userId;
-        } else {
-            console.warn(`Ungültige Benutzer-ID: ${checkbox.value}`);
-            return null;
-        }
-    }).filter(id => id !== null);  // Entferne ungültige IDs (null)
-
-    return selectedIds;
-}
-

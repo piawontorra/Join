@@ -76,7 +76,7 @@ async function getDetailTaskCardTemplate(task) {
                     <img src="./assets/img/cancel_icon.png" onclick="closeTaskDetail()">
                 </div>
             </div>
-            <h2>${task.title}</h2>
+            <span class="task-detail-headline">${task.title}</span>
             <p class="detail-task-description">${task.description || ""}</p>
             <div class="detail-task-horizontal">
                 <p class="width100 navyblue-font">Due date:</p>
@@ -146,9 +146,9 @@ function getTaskEditorTemplate(task) {
                     </div>
                 </div>
                 <div class="add-task-form-left">
-                    <div class="task-title">
+                    <div>
                         <label for="inputTitle">
-                            <p>Title</p>
+                            <p class="editor-title">Title</p>
                             <p class="rosa-font">*</p>
                         </label>
                         <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
@@ -160,21 +160,6 @@ function getTaskEditorTemplate(task) {
                         <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px"
                             placeholder="Enter a Description">${task.description}</textarea>
                     </div>
-                    <div class="task-assignement-and-category">
-                        <p class="add-task-input-headline">Assigned to</p>
-                        <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field">
-                            <p>Select contacts to assign</p>
-                            <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                            <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
-                                style="display: none;">
-                        </div>
-                        <div id="users" class="users" style="display: none;">
-                        </div>
-                        <div id="assignedUsers"></div>
-                    </div>
-                </div>
-
-                <div class="add-task-form-right">
                     <label for="inputDueDate">
                         <p>Due date</p>
                         <p class="rosa-font">*</p>
@@ -183,9 +168,9 @@ function getTaskEditorTemplate(task) {
                         <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
                         <img src="./assets/img/calendar_icon.png" alt="">
                     </div>
-                    <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>                        
+                    <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>
                     <div class="task-prio">
-                        <p class="add-task-input-headline">Prio</p>
+                        <p class="add-task-input-headline">Priority</p>
                         <div class="prio-buttons">
                             <div id="urgentPrio" class="prio-button ${task.priority === 'Urgent' ? 'selected' : ''}" onclick="selectPriority('Urgent')">
                                 <p>Urgent</p>
@@ -202,26 +187,19 @@ function getTaskEditorTemplate(task) {
                         </div>
                     </div>
                     <div class="task-assignement-and-category">
-                        <div class="add-task-input-headline">
-                            <p>Category</p>
-                            <p class="rosa-font">*</p>
+                        <p class="add-task-input-headline">Assigned to</p>
+                        <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field">
+                            <p>Select contacts to assign</p>
+                            <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                            <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
+                                style="display: none;">
                         </div>
-                        <div onclick="showCategorys()" id="categoryInput" class="add-task-assigned-to-input-field">
-                            <p id="selectedCategory">${task.category || 'Select category'}</p>
-                            <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                            <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
-                                alt="" style="display: none;">
-                            <div id="category" class="category" style="display: none;">
-                                <div class="category-options ${task.category === 'Technical Task' ? 'selected' : ''}" onclick="selectCategory(event, 'Technical Task')">
-                                    Technical Task
-                                </div>
-                                <div class="category-options ${task.category === 'User Story' ? 'selected' : ''}" onclick="selectCategory(event, 'User Story')">
-                                    User Story
-                                </div>
-                            </div>
+                        <div id="users" class="users" style="display: none;">
                         </div>
+                        <div class="assigned-users-container" id="assignedUsers"></div>
                     </div>
-                    <div class="task-subtask">
+                </div>
+                <div class="task-subtask">
                         <p class="add-task-input-headline">Subtasks</p>
                         <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
                             class="add-task-input-fields" type="text" id="inputSubtask"
@@ -240,9 +218,8 @@ function getTaskEditorTemplate(task) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="subtask" class="created-subtasks-container"></div>
                 </div>
+                <div id="subtask" class="created-subtasks-container"></div>
                 <div class="change-edit-task-btn-container">
                     <button class="change-edit-task-btn" onclick="updateCurrentTask(event)">
                         <span>Ok</span>
@@ -284,11 +261,11 @@ function editEditorSubtaskHTML(i) {
 
 function getEditorAssignedToTemplate(contact, isChecked) {
     let initials = getInitials(contact.name);
-
     let userClass = isChecked ? 'user selected' : 'user';
 
     return `
-        <div class="${userClass}" id="user-${contact.userId}" data-user-id="${contact.userId}">
+        <div class="${userClass}" id="user-${contact.userId}" data-user-id="${contact.userId}" 
+             onclick="handleEditorUserClick(${contact.userId})">
             <div class="user-left">
                 <div class="initials-circle mr-10" style="background-color: ${contact.userColor}">${initials}</div>
                 <span class="contact-name">${contact.name}</span>
@@ -298,12 +275,14 @@ function getEditorAssignedToTemplate(contact, isChecked) {
                     type="checkbox" 
                     id="select-${contact.userId}" 
                     class="user-checkbox" 
-                    onchange="handleEditorCheckboxChange(${contact.userId}, this.checked)"
+                    onchange="handleEditorCheckboxChange(Number(${contact.userId}), this.checked)"
                     ${isChecked ? 'checked' : ''}>
             </div>
         </div>
     `;
 }
+
+
 
 
 

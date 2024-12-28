@@ -12,6 +12,22 @@
     justify-content: flex-end;
 }
 
+.editor-title {
+    font-weight: 400;
+}
+
+.assigned-users-container {
+    padding-left: 8px;
+}
+
+.editor-task-assigned-to {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding-left: 4px;
+}
+
 .change-edit-task-btn-container {
     display: flex;
     justify-content: flex-end;
