@@ -137,12 +137,14 @@ function getNoTasksTemplate(status) {
 }
 
 function getTaskEditorTemplate(task) {
-
-    console.log(task.assignedTo);
-    
     return `
         <form id="add-task-form">
             <div class="edit-task-form">
+                <div class="edit-task-header">
+                    <div class="close-btn">
+                        <img src="./assets/img/cancel_icon.png" onclick="closeTaskEditor()">
+                    </div>
+                </div>
                 <div class="add-task-form-left">
                     <div class="task-title">
                         <label for="inputTitle">
@@ -233,7 +235,7 @@ function getTaskEditorTemplate(task) {
                                     <img src="./assets/img/cancel_icon.svg" alt="">
                                 </div>
                                 <div class="subtask-seperator"></div>
-                                <div onclick="addSubtask()" class="subtask-buttons">
+                                <div onclick="addEditorSubtask()" class="subtask-buttons">
                                     <img src="./assets/img/check_dark_icon.svg" alt="">
                                 </div>
                             </div>
@@ -241,9 +243,43 @@ function getTaskEditorTemplate(task) {
                     </div>
                     <div id="subtask" class="created-subtasks-container"></div>
                 </div>
+                <div class="change-edit-task-btn-container">
+                    <button class="change-edit-task-btn" onclick="updateCurrentTask(event)">
+                        <span>Ok</span>
+                        <img src="./assets/img/check_icon.png" alt="">
+                    </button>
+                </div>
             </div>
         </form>
     `;
+}
+
+function getEditorSubtaskTemplate(subtask,i) {    
+    return `
+        <div class="subtask-list" id="mainSubtask-container${i}">
+            <input
+                readonly
+                type="text"
+                id="subtaskList${i}"
+                value="${subtask.text}"
+            />
+            <div class="edit-images" id="edit-images${i}">
+                <img onclick="editEditorSubtask(${i})" id="editEditorSubtask${i}" src="./assets/img/edit_icon.svg" alt="">
+                <div class="edit-seperator"></div>
+                <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+            </div>
+        </div>`;
+}
+
+function editEditorSubtaskHTML(i) {
+    return `
+        <div class="edit-icons">
+            <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+        </div>
+        <div class="edit-seperator"></div>
+        <div class="edit-icons">
+            <img onclick="checkEditorSubtask(${i})" id="checkEditorSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="">
+        </div>`;
 }
 
 function getEditorAssignedToTemplate(contact, isChecked) {
