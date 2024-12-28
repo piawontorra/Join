@@ -121,9 +121,6 @@ function rememberMeEffects() {
     if (rememberMe) {
         localStorage.setItem('email', email.value);
         localStorage.setItem('password', password.value);
-    // } else {
-    //     localStorage.remove('email');
-    //     localStorage.remove('password');
     }
 }
 
