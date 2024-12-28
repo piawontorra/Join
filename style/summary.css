@@ -42,11 +42,24 @@
     gap: 18px;
     background-color: #FFFFFF;
     color: #2A3647;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .summary-btn:hover {
     transform: scale(1.08);
     background-color: #2A3647;
+    color: #FFFFFF;
+}
+
+.summary-btn:hover .task-count {
+    color: #FFFFFF;
+}
+
+.summary-btn:hover .status {
+    color: #FFFFFF;
+}
+
+.summary-btn:hover .h1-variant-deadline {
     color: #FFFFFF;
 }
 
