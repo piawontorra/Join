@@ -9,6 +9,8 @@
     <script src="./js/script.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/board_template.js"></script>
+    <script src="./js/boardDragAndDrop.js"></script>
+    <script src="./js/boardDetailTaskCard.js"></script>
     <script src="./js/boardTaskEdit.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
@@ -54,32 +56,28 @@
                 </div>
             </div>
             <div class="board-categorys">
-                <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
+                <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)">
                     <div class="task-header">
                         <p>To do</p>
                         <button onclick="openAddTask('todo')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="toDo"></div>
                 </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'in-progress')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
+                <div class="tasks-content" ondrop="dropTask(event, 'in-progress')" ondragover="allowDrop(event)">
                     <div class="task-header">
                         <p>In progress</p>
                         <button onclick="openAddTask('in-progress')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="inProgress"></div>
                 </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'await-feedback')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
+                <div class="tasks-content" ondrop="dropTask(event, 'await-feedback')" ondragover="allowDrop(event)">
                     <div class="task-header">
                         <p>Await feedback</p>
                         <button onclick="openAddTask('await-feedback')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
                     </div>
                     <div class="task-content-split" id="awaitFeedback"></div>
                 </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)"
-                    ondragleave="removeHighlightDrag(event)" ondragleave="handleDragLeave(event)">
+                <div class="tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)">
                     <div class="task-header">
                         <p>Done</p>
                     </div>

@@ -17,7 +17,6 @@ async function renderTaskEditor(stringTask) {
     await renderEditorSubtasks(); // Zeige die Subtasks an
 }
 
-
 async function loadEditorContactData(task) {
     try {
         console.log("Task Daten:", currentTask); // Zeigt die gesamte Task
@@ -248,7 +247,6 @@ function updateCurrentTask(event) {
     const title = document.getElementById('inputTitle').value.trim();
     const description = document.getElementById('inputDescription').value.trim();
     const dueDate = document.getElementById('inputDueDate').value.trim();
-    const category = document.getElementById('selectedCategory').innerText.trim();
     const priority = getSelectedPriority();
     const assignedTo = currentTask.assignedTo && currentTask.assignedTo.length > 0 
         ? currentTask.assignedTo 
@@ -263,10 +261,10 @@ function updateCurrentTask(event) {
     }
 
     if (!dueDate) {
-        document.getElementById('inputDueDateError').style.display = 'block';
-        return;
+        document.getElementById('inputDueDateError').style.display = 'block'; // Fehleranzeige aktivieren
+        return; // Stoppt den Vorgang, wenn dueDate leer ist
     } else {
-        document.getElementById('inputDueDateError').style.display = 'none';
+        document.getElementById('inputDueDateError').style.display = 'none'; // Fehleranzeige deaktivieren
     }
 
     if (category === 'Select category') {
@@ -292,7 +290,48 @@ function updateCurrentTask(event) {
 
     // Schließe den Editor oder speichere die Änderungen
     console.log('Updated Task:', currentTask);
+
+    // Task in Firebase überschreiben
+    updateTaskInFirebase(currentTask);
+
     closeTaskEditor();
+}
+
+async function updateTaskInFirebase(task) {
+    try {
+        const taskUrl = `${BASE_URL}tasks/${task.id}.json`;
+        const response = await fetch(taskUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: task.title,
+                description: task.description,
+                dueDate: task.dueDate,
+                category: task.category,
+                priority: task.priority,
+                assignedTo: task.assignedTo,
+                subtasks: task.subtasks,
+                status: task.status,
+                id: task.id
+            })
+        });
+
+        // Aktualisiere die globale Variable tasksData basierend auf der ID
+        const existingTask = tasksData.find(t => t.id === task.id);
+
+        if (existingTask) {
+            // Überschreibe das bestehende Objekt mit den neuen Werten
+            Object.assign(existingTask, task);
+            console.log('Updated tasksData:', tasksData);
+        } else {
+            console.warn(`Task with ID ${task.id} not found in tasksData.`);
+        }
+        renderTasks();
+    } catch (error) {
+        console.error('Error updating task in Firebase Realtime Database:', error);
+    }
 }
 
 function getSelectedPriority() {
