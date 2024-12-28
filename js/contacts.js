@@ -7,18 +7,27 @@ function initContacts() {
   getContacts(path);
 }
 
+/**
+ * removing d-none class from the overlay so it can be seen
+ */
 function toggleOverlay(){
   let overlay = document.getElementById('overlay');
   overlay.classList.remove('d-none');
   setTimeout(()=>{openNewContactCard()}, 10);
 }
 
+/**
+ * Closes the Overlay after deleting a contact
+ */
 function closeOverlay(){
   let overlay = document.getElementById('overlay');
   overlay.classList.add('d-none');
   // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
 }
 
+/**
+ * Shows a popup notification when a new contact is created 
+ */
 function toggleAlert(){
   let overlay = document.getElementById('statusAlert');
   overlay.classList.add('open');
@@ -27,6 +36,11 @@ function toggleAlert(){
 }, 2000); // 2 Sekunden bleibt die Nachricht sichtbar
 }
 
+/**
+ * creates a new contact and saves it in the database
+ * colecting data from user input as name, email and phone number
+ * update contact list and reload it
+ */
 async function newContact(){
   let userColor = createUserColor();
   let name = document.getElementById('newUserName');
@@ -59,6 +73,10 @@ async function newContact(){
   });
 }
 
+/**
+ * gathers values from user input and returns it to the editContact function
+ * @returns value of name, email and phone
+ */
 function getUpdatedData() {
   return {
       name: document.getElementById('newUserName').value,
@@ -67,6 +85,14 @@ function getUpdatedData() {
   };
 }
 
+/**
+ * Edit an existing contact and updates the database
+ * 
+ * This function get updated contact data and updates the database,
+ * and refreshes the UI to show the changes.
+ * 
+ * @param {Object[]} user - An array containing the contact object to be edited. 
+ */
 async function editContact(user){
   let updatedData = getUpdatedData();
   let key = user[0].id;
@@ -82,6 +108,15 @@ async function editContact(user){
   addBackground(index);
 }
 
+/**
+ * This function sends a PATCH request to the database (firebase) update a resource at the specified database path and key
+ * with the provided data.
+ * 
+ * @param {Object} data - The data object containing the updated values for the resource.
+ * @param {string} path - The database path where the resource is located.
+ * @param {string|number} key - The unique identifier of the resource to be updated.
+ * 
+ */
  async function updateData(data, path, key){
   let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
       method: "PATCH",
@@ -92,6 +127,13 @@ async function editContact(user){
   });
 }
 
+/**
+ * * Fetches user data from the specified database path and logs it to the console.
+ * 
+ * This function sends a GET request to retrieve all user data from the provided database path
+ * and converts the response to JSON format.
+ * @param {string} path - The path of the database
+ */
 async function getUsers(path){
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -120,7 +162,6 @@ async function getContacts(path) {
   );
   renderContacts(usersArray);
 }
-
 
 /**
  * Renders a list of contacts into the "contactsOverview" container in the DOM.
@@ -184,7 +225,7 @@ function closeNewContactCard(){
   }
 
   /**
-   * 
+   * gets the html template for creating a new contact
    */
 function newUserCard() {
   let newContactContainer = document.getElementById("newContactContainer");
@@ -225,7 +266,15 @@ async function nextIdToDatabase(nextID){
     body: JSON.stringify(nextID + 1),
   })
 }
-  
+
+/**
+ * 
+ * deletes a specific entry with the given id in the firebase database
+ * close the Detail Card
+ * reload the contacts
+ * 
+ * @param {number} entryId 
+ */
 async function deleteContact(entryId){
   let dbRef = (BASE_URL + path + "/" + entryId);
   console.log(dbRef);
@@ -236,17 +285,32 @@ async function deleteContact(entryId){
     getContacts(path);
   }
 
+/**
+ * closes the contact details card overlay
+ */
 function closeContactDetailsCard() {
   let contactCard = document.getElementById('contactCard');
   contactCard.classList.remove("open");
 }
 
+/**
+ * add or remove the background color to the chosen entry in the contact list
+ * @param {string} id 
+ */
 function addBackground(id){
   let allEntries = document.querySelectorAll('.singleEntry');
   allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
   document.getElementById(`${id}`).classList.add('chosen');;
 }
 
+/**
+ * 
+ * Opens the edit form for a specific contact and shows it in a form
+ * 
+ * @param {Object} contact - object with contact information.
+ * @param {string|number} id - The identifier of the contact.
+ * 
+ */
 function openEditForm(contact, id){
   let newContactContainer = document.getElementById("newContactContainer");
   newContactContainer.innerHTML = editContactTemplate(contact, id); 
