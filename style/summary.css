@@ -1,24 +1,60 @@
+.separator {
+    height: 59px;
+    width: 3px;
+    background-color: #29ABE2;
+    text-align: center;
+}
+
 .summary {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+    padding: 0 104px 75px 96px;
 }
 
 .summary-content {
     display: flex;
+    flex-direction: column;
+    max-width: 560px;
+    width: 100%;
+    gap: 13px;
+}
+
+.summary-rows {
+    display: flex;
     flex-direction: row;
-    width: calc(100vh - clamp(200px, 50%, 500px));
+    justify-content: flex-start;
+    align-items: space-between;
+    gap: 10px;
+    max-width: 560px;
+    width: 100%;
 }
 
 .summary-btn {
     padding: 38px 19px;
     border-radius: 30px;
+    border: unset;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 18px;
+    background-color: #FFFFFF;
+    color: #2A3647;
+}
+
+.summary-btn:hover {
+    transform: scale(1.08);
+    background-color: #2A3647;
+    color: #FFFFFF;
+}
+
+.square-btn {
+    padding: 25px;
+    gap: 13px;
+    width: calc(33.333% - 26/3px);
+    aspect-ratio: 1 / 1;
 }
 
 .status-img {
@@ -45,11 +81,56 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
-    color: rgb(42, 54, 71);
+    color: #2A3647;
+}
+
+.status-urgent {
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.separator-variant {
+    height: 102.02px;
+    width: 2px;
+    background-color: #D1D1D1;
+}
+
+.urgent-deadline {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 13px;
+}
+
+.h1-variant-deadline {
+    font-size: 21px;
+    line-height: 25.2px;
+    color: #2A3647;
 }
 
 
 
 .welcome-user {
     width: clamp(200px, 50%, 500px);
+    height: calc(50vh - 50px);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 96px;
+}
+
+.greeting-text {
+    font-weight: 500;
+    font-size: 47px;
+    line-height: 56.4px;
+    color: #2A3647;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 76.8px;
+    color: #29ABE2;
 }

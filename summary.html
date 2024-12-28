@@ -9,6 +9,9 @@
     <script src="./js/script.js"></script>
     <script src="./js/register.js"></script>
     <script src="./js/loginRegisterTemplate.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/headerUserTemplate.js"></script>
+    <script src="./js/navigation.js"></script>
     <script src="./js/board.js"></script>
     <script src="./js/board_template.js"></script>
     <script src="./js/contacts.js"></script>
@@ -35,62 +38,71 @@
 
                 <div class="section-head max-width">
                     <h1>Join 360</h1>
-                    <div class="vl"></div>
-                    <span class="section-subhead">Key Metrics at a Glance</span>
+                    <div class="separator"></div>
+                    <h2 class="section-subhead">Key Metrics at a Glance</h2>
                 </div>
 
                 <section class="summary">
                     <div class="summary-content">
+                        <div class="summary-rows">
+                            <button class="btn summary-btn">
+                                <img class="status-img" src="./assets/img/to_do_summary_icon.png" alt="To do">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status">To-do</text>
+                                </div>
+                            </button>
+                            <button class="btn summary-btn">
+                                <img class="status-img" src="./assets/img/done_summary_icon.png" alt="To do">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status">Done</text>
+                                </div>
+                            </button>
+                        </div>
 
-                        <!-- Code kommt später in Template. Designen in html geht aber schneller. -->
-                        <button class="btn btn2 summary-btn">
-                            <img class="status-img" src="./assets/img/to_do_summary_icon.png" alt="To do">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">To-do</text>
-                            </div>
-                        </button>
-                        <button class="btn btn2 summary-btn">
-                            <img class="status-img" src="./assets/img/done_summary_icon.png" alt="To do">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">Done</text>
-                            </div>
-                        </button>
+                        <div class="summary-rows">
+                            <button class="btn summary-btn">
+                                <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="To do">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status status-urgent">Urgent</text>
+                                </div>
+                                <div class="separator separator-variant"></div>
+                                <div class="urgent-deadline">
+                                    <h1 class="h1-variant-deadline">January 16, 2025</h1>
+                                    <text class="status status-urgent">Upcoming Deadline</text>
+                                </div>
+                            </button>
+                        </div>
 
-
-                        <button class="btn btn2 summary-btn">
-                            <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="To do">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">Urgent</text>
-                            </div>
-                        </button>
-
-
-                        <button class="btn btn2 summary-btn">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">Tasks In Board</text>
-                            </div>
-                        </button>
-                        <button class="btn btn2 summary-btn">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">Tasks In Progress</text>
-                            </div>
-                        </button>
-                        <button class="btn btn2 summary-btn">
-                            <div class="task-count-status">
-                                <span class="task-count">1</span>
-                                <text class="status">Awaiting Feedback</text>
-                            </div>
-                        </button>
+                        <div class="summary-rows">
+                            <button class="btn summary-btn square-btn">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status">Tasks In Board</text>
+                                </div>
+                            </button>
+                            <button class="btn summary-btn square-btn">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status">Tasks In Progress</text>
+                                </div>
+                            </button>
+                            <button class="btn summary-btn square-btn">
+                                <div class="task-count-status">
+                                    <span class="task-count">1</span>
+                                    <text class="status">Awaiting Feedback</text>
+                                </div>
+                            </button>
+                        </div>
 
                     </div>
                     <div class="welcome-user">
-                        <text id="greet">Good morning</text>
-
+                        <text id="greet">
+                            <span class="greeting-text" id="greeting-text">Good morning</span>
+                            <span class="user-name" id="user-name"></span>
+                        </text>
                     </div>
                 </section>
             </div>

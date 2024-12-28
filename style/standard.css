@@ -79,9 +79,18 @@ img:hover {
     display: none !important;
 }
 
-.h1 {
+h1 {
     font-size: 61px;
     font-weight: 700;
+    line-height: 73.2px;
+    color: #000000;
+}
+
+h2 {
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32.4px;
+    color: #2A3647;
 }
 
 .section-head {
@@ -94,16 +103,6 @@ img:hover {
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
-}
-
-.vl{
-    border-left: 4px solid rgb(41, 171, 226);
-    height: 60px;
-}
-
-.section-subheader{
-    font-size: 27px;
-    font-weight: 400;
 }
 
 .btn {

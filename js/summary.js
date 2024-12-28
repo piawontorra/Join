@@ -4,20 +4,27 @@ function initSummary() {
 }
 
 function greetUser() {
-    let greetRef = document.getElementById('greet');
-    greetRef.innerHTML = '';
-
+    let greetingTextRef = document.getElementById('greeting-text');
+    let userNameRef = document.getElementById('user-name');
     let hours = new Date().getHours();
+    let userName = sessionStorage.getItem('loggedInUserName');
+    let greeting = getGreetingBasedOnTime(hours);
+    greetingTextRef.innerHTML = '';
+    userNameRef.innerHTML = '';
     
-    switch (true) {
-        case (hours >= 1 && hours < 12):
-            greetRef.innerHTML = 'Good morning';
-            break;
-        case (hours >= 12 && hours < 17):
-            greetRef.innerHTML = 'Good afternoon';
-            break;
-        default:
-            greetRef.innerHTML = 'Good evening';
-            break;
+    userName ? greetingTextRef.innerHTML = greeting + ', ' : greetingTextRef.innerHTML = greeting;
+
+    if (userName) {
+        userNameRef.innerHTML = userName;
+    }
+}
+
+function getGreetingBasedOnTime(hours) {
+    if (hours >= 1 && hours < 12) {
+        return 'Good morning';
+    } else if (hours >= 12 && hours < 17) {
+        return 'Good afternoon';
+    } else {
+        return 'Good evening';
     }
 }
