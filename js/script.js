@@ -46,10 +46,10 @@ function checkRememberMe() {
 
     if (rememberMe === 'true') {
         realCheckboxRef.checked = true;
-        customizedCheckboxImg.src = './assets/img/checked.png';
+        customizedCheckboxImg.src = 'assets/img/checked.png';
     } else {
         realCheckboxRef.checked = false;
-        customizedCheckboxImg.src = './assets/img/unchecked.png';
+        customizedCheckboxImg.src = 'assets/img/unchecked.png';
     }
 }
 
@@ -103,23 +103,27 @@ function togglePasswordVisibility(passwordImgRef) {
 function login() {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
-    let rememberMe = document.getElementById('remember-me').checked;
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
     if (user) {
-        if (rememberMe) {
-            localStorage.setItem('email', email.value);
-            localStorage.setItem('password', password.value);
-        } else {
-            localStorage.remove('email');
-            localStorage.remove('password');
-        }
-
+        sessionStorage.setItem('loggedInUserName', user.user.name);
+        rememberMeEffects();
         transferToSummary();
         resetFields();
     }
     else {
         adaptFields();
+    }
+}
+
+function rememberMeEffects() {
+    let rememberMe = document.getElementById('remember-me').checked;
+    if (rememberMe) {
+        localStorage.setItem('email', email.value);
+        localStorage.setItem('password', password.value);
+    // } else {
+    //     localStorage.remove('email');
+    //     localStorage.remove('password');
     }
 }
 
@@ -184,21 +188,10 @@ function toggleRememberCheckboxImg() {
     realCheckboxRef.checked = !realCheckboxRef.checked;
 
     if (realCheckboxRef.checked) {
-        customizedCheckboxImg.src = './assets/img/checked.png';
+        customizedCheckboxImg.src = 'assets/img/checked.png';
     } else {
-        customizedCheckboxImg.src = './assets/img/unchecked.png';
+        customizedCheckboxImg.src = 'assets/img/unchecked.png';
     }
 
     localStorage.setItem('rememberMe', realCheckboxRef.checked);
-}
-
-
-
-
-
-
-
-
-function showUserMenu() {
-    document.getElementById('userMenu').classList.toggle('d-none');
 }
