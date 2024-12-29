@@ -1,5 +1,4 @@
 async function getTaskCardTemplate(task) {
-    console.log('Rendering task card for:', task); // Debug
     let icon = priorityIcons[task.priority];
 
     const assignedUserData = task.assignedTo && Array.isArray(task.assignedTo) 

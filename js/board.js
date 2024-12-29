@@ -1,4 +1,4 @@
-let tasksData = {};
+let tasksData = [];
 let draggedElementId;
 let priorityIcons = {
   Urgent: "./assets/img/urgent_icon.png",
@@ -11,7 +11,7 @@ async function initBoard() {
     includeHTML();
     await getTasksData();
     await initAddTask();
-    renderTasks();
+    await renderTasks();
 }
 
 async function renderTasks() {
@@ -82,18 +82,27 @@ async function renderAllTasks(statusContainers) {
 
 async function getAssignedUserInitialsAndColor(assignedUserIds) {
   if (!Array.isArray(assignedUserIds) || assignedUserIds.length === 0) {
-      return [];
+    return [];
   }
-  const assignedUserData = [];
 
-  for (let userId of assignedUserIds) {
-      const userData = await getUserDataById(userId);
+  // Alle Benutzer-Daten parallel abrufen
+  const userPromises = assignedUserIds.map(userId => getUserDataById(userId));
+
+  // Warten, bis alle Promises abgeschlossen sind
+  const userDataList = await Promise.all(userPromises);
+
+  // Extrahiere die notwendigen Informationen aus den Benutzerdaten
+  const assignedUserData = userDataList.map(userData => {
+    if (userData) {
       const userInitials = getInitials(userData.name);
       const userColor = userData.userColor;
       const userName = userData.name;
 
-      assignedUserData.push({ initials: userInitials, color: userColor, name: userName });
-  }
+      return { initials: userInitials, color: userColor, name: userName };
+    }
+    return null; // Falls userData null ist
+  }).filter(user => user !== null); // Entferne null-Werte, falls kein userData zurückgegeben wurde
+
   return assignedUserData;
 }
 
