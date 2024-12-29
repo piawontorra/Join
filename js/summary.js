@@ -30,6 +30,10 @@ function getGreetingBasedOnTime(hours) {
     }
 }
 
+function transferToBoard() {
+    window.location.href = 'board.html';
+}
+
 function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
     let imgRef = document.getElementById(imgId);
     imgRef.src = isHovered ? hoverSrc : originalSrc;
@@ -42,52 +46,53 @@ async function loadTasks(path = "") {
             throw new Error('Failed to fetch tasks data');
         }
         const data = await response.json();
-        if (!data) {
-            return [];
-        }
-        return data;
+        return data ? Object.values(data).filter(task => task && task.status) : [];
     } catch (error) {
         console.error('Error loading tasks:', error);
         return [];
     }
 }
 
-function initializeStatusCount() {
-    return {
+function countTasksByStatus(tasksData) {
+    const statusCount = {
         'todo': 0,
         'done': 0,
         'in-progress': 0,
         'await-feedback': 0
     };
-}
-
-function isValidTask(task, statusCount) {
-    return task && task.status && statusCount.hasOwnProperty(task.status);
-}
-
-function countTasksByStatus(tasksData) {
-    const statusCount = initializeStatusCount();
-
-    if (!tasksData || tasksData.length === 0) {
-        console.warn('No tasks data available');
-        return statusCount;
-    }
 
     tasksData.forEach(task => {
-        isValidTask(task, statusCount) ? statusCount[task.status]++ : console.warn('Skipping task with invalid status', task);
+        if (task && task.status && statusCount.hasOwnProperty(task.status)) {
+            statusCount[task.status]++;
+        }
     });
 
     return statusCount;
 }
 
-
 async function showCurrentTasksCount() {
     let tasksData = await loadTasks("tasks");
-    if (tasksData && Array.isArray(tasksData) && tasksData.length > 0) {
+    if (tasksData && tasksData.length > 0) {
         updateSummaryStatusCount(tasksData);
+        let totalTasks = countValidTasks(tasksData);
+        updateGeneralTasksCount(totalTasks);
     } else {
-        console.warn('No valid tasks data available to show counts');
+        console.warn('No valid tasks found');
+        updateGeneralTasksCount(0);
     }
+}
+
+function countValidTasks(tasksData) {
+    let validTasksCount = 0;
+    
+    tasksData.forEach(task => {
+        // Zählt nur gültige Aufgaben (task darf nicht null sein und muss einen Status haben)
+        if (task && task.status) {
+            validTasksCount++;
+        }
+    });
+
+    return validTasksCount;
 }
 
 function updateSummaryStatusCount(tasksData) {
@@ -95,7 +100,10 @@ function updateSummaryStatusCount(tasksData) {
 
     document.getElementById('to-do-count').textContent = statusCount['todo'];
     document.getElementById('done-count').textContent = statusCount['done'];
-    // document.getElementById('urgent-count').textContent = statusCount['urgent'];
     document.getElementById('in-progress-count').textContent = statusCount['in-progress'];
     document.getElementById('awaiting-feedback-count').textContent = statusCount['await-feedback'];
+}
+
+function updateGeneralTasksCount(totalTasks) {
+    document.getElementById('general-tasks-count').textContent = totalTasks;
 }
