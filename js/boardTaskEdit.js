@@ -293,8 +293,6 @@ function updateCurrentTask(event) {
 
     // Task in Firebase überschreiben
     updateTaskInFirebase(currentTask);
-
-    closeTaskEditor();
 }
 
 async function updateTaskInFirebase(task) {
@@ -329,6 +327,8 @@ async function updateTaskInFirebase(task) {
             console.warn(`Task with ID ${task.id} not found in tasksData.`);
         }
         renderTasks();
+        openTaskDetail(task.id);
+        closeTaskEditor();
     } catch (error) {
         console.error('Error updating task in Firebase Realtime Database:', error);
     }
