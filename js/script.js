@@ -192,3 +192,10 @@ function toggleRememberCheckboxImg() {
 
     localStorage.setItem('rememberMe', realCheckboxRef.checked);
 }
+
+/**
+ * open up a user menu
+ */
+function showUserMenu() {
+    document.getElementById('userMenu').classList.toggle('d-none');
+}

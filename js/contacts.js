@@ -319,18 +319,25 @@ function openEditForm(contact, id){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-// function handleFormSubmit(event) {
-//   event.preventDefault(); // Verhindert den Standard-Submit
-//   const form = document.getElementById('newUserForm');
-  
-//   // Prüfen, ob alle Eingaben valide sind
-//   if (form.checkValidity()) {
-//       newContact(); // Deine eigene Funktion
-//       toggleAlert(); // Feedback-Container
-//       closeNewContactCard();
-//   } else {
-//       form.reportValidity(); // Zeigt Standard-Fehlernachrichten an
-//   }
-// }
+function renderNewContactForm() {
+  const container = document.getElementById("newContactContainer");
+  container.innerHTML = newContactTemplate(); // Fügt das Template ein
+
+  // Event-Listener erst registrieren, nachdem das Template eingefügt wurde
+  const form = document.getElementById("newUserForm");
+  if (form) {
+      form.addEventListener("submit", function (event) {
+          event.preventDefault(); // Verhindert das Standard-Submit-Verhalten
+          if (form.checkValidity()) {
+              newContact(); // Führt deine Funktion aus
+              toggleAlert(); // Zeigt den Alert an
+          } else {
+              console.log("Form is invalid");
+          }
+      });
+  } else {
+      console.error("Form element not found!");
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
