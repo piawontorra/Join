@@ -326,12 +326,21 @@ async function updateTaskInFirebase(task) {
         } else {
             console.warn(`Task with ID ${task.id} not found in tasksData.`);
         }
-        renderTasks();
+        // Karte neu rendern
+        refreshTaskCard(task);
         openTaskDetail(task.id);
         closeTaskEditor();
     } catch (error) {
         console.error('Error updating task in Firebase Realtime Database:', error);
     }
+}
+
+async function refreshTaskCard(task) {
+    const taskCard = document.querySelector(`.task-card[data-task-id="${task.id}"]`);
+
+    const newTaskCardHTML = await getTaskCardTemplate(task);
+
+    taskCard.outerHTML = newTaskCardHTML;
 }
 
 function getSelectedPriority() {
