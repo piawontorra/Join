@@ -80,6 +80,29 @@ async function renderAllTasks(statusContainers) {
   }
 }
 
+async function renderAllTasks(statusContainers) {
+  const tasks = cleanTasksData(tasksData);
+
+  const tempContainers = {
+      'todo': '',
+      'in-progress': '',
+      'await-feedback': '',
+      'done': ''
+  };
+
+  for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      if (tempContainers[task.status] !== undefined) {
+          tempContainers[task.status] += await getTaskCardTemplate(task);
+      }
+  }
+
+  for (const status in statusContainers) {
+      statusContainers[status].innerHTML = tempContainers[status];
+  }
+}
+
+
 async function getAssignedUserInitialsAndColor(assignedUserIds) {
   if (!Array.isArray(assignedUserIds) || assignedUserIds.length === 0) {
     return [];

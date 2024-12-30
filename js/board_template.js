@@ -31,9 +31,16 @@ async function getTaskCardTemplate(task) {
            </div>`
         : "";
 
+    // Setze die Hintergrundfarbe basierend auf der Kategorie
+    const categoryColors = {
+        "User Story": "#0038FF",
+        "Technical Task": "#1FD7C1"
+    };
+    const categoryColor = categoryColors[task.category] || "#CCCCCC"; // Standardfarbe, falls Kategorie unbekannt
+
     return `<div class="task-card" data-task-id="${task.id}" draggable="true" ondragstart="dragTask(${task.id})" onclick="openTaskDetail('${task.id}')">
                 <div class="task-category">
-                    <p>${task.category}</p>
+                    <p style="background-color: ${categoryColor};">${task.category}</p>
                 </div>
                 <div class="task-card-header">
                     <p class="task-title">${task.title}</p>
@@ -66,11 +73,18 @@ async function getDetailTaskCardTemplate(task) {
             .join("")
         : "";
 
+    // Setze die Hintergrundfarbe basierend auf der Kategorie
+    const categoryColors = {
+        "User Story": "#0038FF",
+        "Technical Task": "#1FD7C1"
+    };
+    const categoryColor = categoryColors[task.category] || "#CCCCCC"; // Standardfarbe für unbekannte Kategorien
+
     return `
         <div class="detail-task-card">
             <div class="detail-task-header">
-                <div class="detail-task-category">
-                    <p>${task.category || "Uncategorized"}</p>
+                <div class="detail-task-category" style="background-color: ${categoryColor};">
+                    <p>${task.category}</p>
                 </div>
                 <div class="close-btn">
                     <img src="./assets/img/cancel_icon.png" onclick="closeTaskDetail()">
@@ -127,6 +141,7 @@ async function getDetailTaskCardTemplate(task) {
         </div>
     `;
 }
+
   
 function getNoTasksTemplate(status) {
     return `
