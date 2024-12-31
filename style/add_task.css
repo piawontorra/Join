@@ -1,9 +1,7 @@
 .add-task-form {
     padding-left: 104px;
-    height: 424px;
     display: flex;
     flex-direction: row;
-    height: 424px;
     gap: 47px;
 }
 
