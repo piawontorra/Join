@@ -1,11 +1,19 @@
+.board-content {
+    position: fixed;
+    padding-top: 100px;
+    padding-left: 232px;
+}
+
 .board-header {
-    height: 232px;
+    /* height: 232px; */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding-left: 64px;
     padding-right: 88px;
+    padding-top: 80px;
+    padding-bottom: 48px;
 }
 
 h1 {
@@ -129,7 +137,8 @@ h1 {
     flex-direction: row;
     gap: 26px;
     padding: 0px 64px;
-    height: calc(100% - 332px);
+    height: calc(100vh - 301.2px);
+    overflow: auto;
 }
 
 .tasks-content {
