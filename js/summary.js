@@ -52,11 +52,8 @@ async function loadTasks(path = "") {
 }
 
 function countTasksByStatus(tasksData) {
-    const statusCount = { 'todo': 0, 'done': 0, 'in-progress': 0, 'await-feedback': 0, 'urgent': 0 };
-    tasksData.forEach(task => {
-        if (task && task.status && statusCount.hasOwnProperty(task.status)) statusCount[task.status]++;
-        if (task && task.priority === 'Urgent') statusCount['urgent']++;
-    });
+    const statusCount = { 'todo': 0, 'done': 0, 'in-progress': 0, 'await-feedback': 0 };
+    tasksData.forEach(task => task && task.status && statusCount.hasOwnProperty(task.status) && statusCount[task.status]++);
     return statusCount;
 }
 
@@ -66,70 +63,74 @@ function updateSummaryStatusCount(tasksData) {
     document.getElementById('done-count').textContent = statusCount['done'];
     document.getElementById('in-progress-count').textContent = statusCount['in-progress'];
     document.getElementById('awaiting-feedback-count').textContent = statusCount['await-feedback'];
-    document.getElementById('urgent-count').textContent = statusCount['urgent'];
 }
 
 function findUrgentTaskWithNearestDeadline(tasksData) {
     const today = new Date();
     let selectedTask = null;
     let selectedDateDiff = null;
-
-    const urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
-
-    if (urgentUnfinishedTasks.length === 0) {
-        return null;
-    }
-
-    urgentUnfinishedTasks.forEach(task => {
-        const dueDateParts = task.dueDate.split('/');
-        const dueDate = new Date(dueDateParts[2], dueDateParts[1] - 1, dueDateParts[0]);
-
-        const diffTime = dueDate - today;
-
-        if (selectedDateDiff === null || diffTime < selectedDateDiff) {
-            selectedTask = task;
-            selectedDateDiff = diffTime;
-        }
-    });
-
+    tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done')
+        .forEach(task => {
+            const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
+            const diffTime = dueDate - today;
+            if (dueDate > today && (selectedDateDiff === null || diffTime < selectedDateDiff)) {
+                selectedTask = task;
+                selectedDateDiff = diffTime;
+            }
+        });
     return selectedTask ? new Date(selectedTask.dueDate.split('/').reverse().join('/')) : null;
 }
 
 function updateUrgentTaskDeadline(dueDate) {
     const deadlineElement = document.getElementById('next-deadline-date');
-    
-    if (!dueDate) {
+    if (!dueDate || dueDate < new Date()) {
         deadlineElement.textContent = '';
         return;
     }
-
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    let formattedDate = dueDate.toLocaleDateString('en-US', options);
-
-    deadlineElement.textContent = formattedDate;
-}
-
-function updateGeneralTasksCount(totalTasks) {
-    document.getElementById('general-tasks-count').textContent = totalTasks;
+    deadlineElement.textContent = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function countValidTasks(tasksData) {
     return tasksData.filter(task => task && task.status).length;
 }
 
+function updateGeneralTasksCount(totalTasks) {
+    document.getElementById('general-tasks-count').textContent = totalTasks;
+}
+
+function updateUrgentTasksCount(tasksData) {
+    const urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.status !== 'done' && task.dueDate);
+
+    if (urgentUnfinishedTasks.length === 0) {
+        document.getElementById('urgent-count').textContent = 0;
+        return;
+    }
+
+    let nearestDueDate = findUrgentTaskWithNearestDeadline(urgentUnfinishedTasks);
+    if (!nearestDueDate) {
+        document.getElementById('urgent-count').textContent = 0;
+        return;
+    }
+
+    let urgentCount = urgentUnfinishedTasks.filter(task => {
+        const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
+        return dueDate <= nearestDueDate;
+    }).length;
+
+    document.getElementById('urgent-count').textContent = urgentCount;
+}
+
 async function showCurrentTasksCount() {
     let tasksData = await loadTasks("tasks");
     if (tasksData && tasksData.length > 0) {
         updateSummaryStatusCount(tasksData);
-        let totalTasks = countValidTasks(tasksData);
-        updateGeneralTasksCount(totalTasks);
-        
+        updateGeneralTasksCount(countValidTasks(tasksData));
         const urgentUnfinishedTask = findUrgentTaskWithNearestDeadline(tasksData);
-        if (urgentUnfinishedTask) {
-            updateUrgentTaskDeadline(urgentUnfinishedTask);
-        }
+        updateUrgentTaskDeadline(urgentUnfinishedTask);
+        updateUrgentTasksCount(tasksData);
     } else {
         updateGeneralTasksCount(0);
-        updateUrgentTaskDeadline(null);
+        updateUrgentTaskDeadline(0);
+        updateUrgentTasksCount([]);
     }
 }
