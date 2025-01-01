@@ -320,11 +320,11 @@ function openEditForm(contact, id){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
 function renderNewContactForm() {
-  const container = document.getElementById("newContactContainer");
+  const container = document.getElementById('contactDialog');
   container.innerHTML = newContactTemplate(); // Fügt das Template ein
 
   // Event-Listener erst registrieren, nachdem das Template eingefügt wurde
-  const form = document.getElementById("newUserForm");
+  const form = document.getElementById('newUserForm');
   if (form) {
       form.addEventListener("submit", function (event) {
           event.preventDefault(); // Verhindert das Standard-Submit-Verhalten
@@ -341,3 +341,21 @@ function renderNewContactForm() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function openDialog(){
+  let modal = document.querySelector("[newContactDialog]");
+  const modal2 = document.getElementById('contactDialog');
+  modal.showModal();
+  setTimeout(() => {modal2.classList.add('open');}, 10);
+  renderNewContactForm();
+}
+
+function closeDialog(){
+  let modal = document.querySelector("[newContactDialog]");
+  modal.classList.remove('open');
+  setTimeout(() => {
+    modal.close();
+  }, 300);
+  modal.close();
+}
