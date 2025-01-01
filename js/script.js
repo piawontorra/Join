@@ -193,9 +193,28 @@ function toggleRememberCheckboxImg() {
     localStorage.setItem('rememberMe', realCheckboxRef.checked);
 }
 
-/**
- * open up a user menu
- */
-function showUserMenu() {
-    document.getElementById('userMenu').classList.toggle('d-none');
+
+// header
+// function showUserMenu() {
+//     document.getElementById('userMenu').classList.toggle('d-none');
+// }
+
+
+function switchTab(event, tabName) {
+    window.location.href = `${tabName}.html`;
+}
+
+function markCurrentTab() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const tabName = currentPage.split('.')[0];
+
+    const tabs = document.getElementsByClassName('menu-component');
+    Array.from(tabs).forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    const activeTabBtn = document.getElementById(tabName);
+    if (activeTabBtn) {
+        activeTabBtn.classList.add('active');
+    }
 }
