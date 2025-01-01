@@ -200,11 +200,27 @@ function showUserMenu() {
     document.getElementById('userMenu').classList.toggle('d-none');
 }
 
+function getCurrentUserName() {
+    const currentUserName = sessionStorage.getItem('loggedInUserName');
+    getUserInitials(currentUserName);
+}
 
+function getUserInitials(currentUserName) {
+    const nameParts = currentUserName.split(' ');
+    const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+    return initials;
+}
+
+function userIcon() {
+    getUserIconTemplate();
+}
 
 function logout() {
-// remove logged in user
-
+    const currentUserName = sessionStorage.getItem('loggedInUserName');
+    if (currentUserName) {
+        sessionStorage.removeItem('loggedInUserName');
+        sessionStorage.setItem('logoAnimated', false);
+    }
     window.location.href = 'index.html';
 }
 

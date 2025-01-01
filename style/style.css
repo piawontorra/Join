@@ -27,7 +27,7 @@ header p {
     gap: 22px;
 }
 
-#btn-help:hover{
+.btn-help:hover{
     transform: scale(1.1);
 }
 
