@@ -359,5 +359,4 @@ function closeDialog(){
   setTimeout(() => {
     modal.close();
   }, 600);
-  modal.close();
 }
