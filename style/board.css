@@ -1,7 +1,7 @@
 .board-content {
     position: fixed;
-    padding-top: 100px;
-    padding-left: 232px;
+    top: 100px;
+    left: 232px;
 }
 
 .board-header {
