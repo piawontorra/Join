@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
+    <title>Join - Contacts</title>
     <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/board.js"></script>
@@ -23,14 +23,17 @@
     <div class="content">
       <div w3-include-html="./assets/templates/navigation.html"></div>
       <main>
-        <div id="overlay" class="d-none">
+        <!-- <div id="overlay" class="d-none">
           <div id="newContactContainer" class="newContactContainer"></div>
-        </div>
+        </div> -->
+        <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()">
+          
+        </dialog>
         <div id="statusAlert" class="">Contact succesfull created</div>
         <div w3-include-html="./assets/templates/header.html"></div>
         <div id="contactDetails" class="max-width">
           <div id="wrapperContacts">
-            <div id="btn_addNewContact" onclick="toggleOverlay(), renderNewContactForm()"
+            <div id="btn_addNewContact" onclick="openDialog()";
               data-infobox="contactCard">
               Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"/></div>
             <div id="contactsOverview"></div>
