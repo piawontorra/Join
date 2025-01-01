@@ -104,6 +104,10 @@ h2 {
     color: #2A3647;
 }
 
+a {
+    text-decoration: none;
+}
+
 .section-head {
     padding-top: calc(206px - 96px);
     padding-right: 104px;

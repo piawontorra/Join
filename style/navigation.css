@@ -43,8 +43,7 @@
     align-items: center;
     gap: 8px;
     justify-content: flex-start;
-    padding-left: 56px;
-    padding-right: 56px;
+    padding: 0 61px;
     color: #CDCDCD;
     font-size: 16px;
     line-height: 19.2px;
@@ -72,16 +71,9 @@
 }
 
 .imprint-links {
-    padding-left: 52px;
     color: #CDCDCD;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-/* a sollte in die standard.css */
-a {
-    text-decoration: none;
 }
 
 .imprint-link {
@@ -103,4 +95,8 @@ a {
 
 .menu-component.active {
     background-color: #091931;
+}
+
+.btn-imprint-links:hover {
+    background-color: #2A3647;
 }
