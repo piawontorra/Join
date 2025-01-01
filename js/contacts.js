@@ -345,9 +345,11 @@ function renderNewContactForm() {
 
 function openDialog(){
   let modal = document.querySelector("[newContactDialog]");
-  const modal2 = document.getElementById('contactDialog');
+  // const modal2 = document.getElementById('contactDialog');
   modal.showModal();
-  setTimeout(() => {modal2.classList.add('open');}, 10);
+  setTimeout(() => {
+    modal.classList.add('open');
+  }, 10);
   renderNewContactForm();
 }
 
@@ -356,6 +358,6 @@ function closeDialog(){
   modal.classList.remove('open');
   setTimeout(() => {
     modal.close();
-  }, 300);
+  }, 600);
   modal.close();
 }

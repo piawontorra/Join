@@ -1,10 +1,9 @@
-:root {
+/* :root {
     --sidebar-width: 232px;
     --wrapper-contacts-width: 456px;
     --wrapper-contactCard-width: 640px;
-    /* --newContactContainer-width: 1212px; */
     --infobox-offset: calc(100% - var(--sidebar-width) - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
-  }
+  } */
 
 #contactDetails{
     display: flex;
@@ -71,9 +70,6 @@
 
 #contactCard{
     height: 364px;
-    /* min-width: 500px;
-    max-width: 600px; */
-
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -221,7 +217,7 @@
     width: 100%;
     height: auto;
     background-color: aquamarine;
-    flex-grow: 1; /* Nimmt den verbleibenden Platz ein */
+    flex-grow: 1;
 }
 
 .vl{
@@ -257,7 +253,6 @@
     margin-top: 5px;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     border-radius: 12px;
     padding-left: 2px;
 }
@@ -312,7 +307,6 @@
 
 #addContactHeaderContainer{
     width: 467px;
-    /* height: 100%; */
     background-color: rgb(42, 54, 71);
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -345,28 +339,10 @@
     display: inline-block;
 }
 
-/* .newContactContainer{
-    position: fixed;
-    top: 260px;
-    height: 100%;
-    right: -1500px;
-    width: 200px;
-    transition: right 0.5s ease-in-out;
-} */
-
-/* .newContactContainer.open{
-    right: calc(100% / 5);
-} */
-
 #newContactFormContainer{
-    /* flex-grow: 1;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px; */
     display: flex;
     flex-direction: column;
     margin: 16px;
-    /* align-items: center;
-    justify-content: center; */
 }
 
 #overlay{
@@ -380,9 +356,6 @@
   }
 
 #formContainer{
-    /* height: calc(100% - 100px);
-    width: calc(100% - 100px); */
-    /* padding-left: 38px; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -517,31 +490,21 @@
 #contactDialog{
     padding: 0;
     border-radius: 25px;
-    /* border: unset !important; */
 }
-
-/* Dialog{
-    transform: translateX(-50%);
-    left: 50%;
-    top: 25%;
-} */
-
-
 
 Dialog {
   position: fixed;
-  top: 50%; /* Zentriert vertikal */
-  left: 1500px; /* Start außerhalb des Bildschirms */
+  top: 50%;
+  left: 100vw;
   transform: translateY(-50%);
-  transition: left 0.6s ease-in-out; /* Smooth-Effekt */
-  opacity: 0; /* Unsichtbar standardmäßig */
+  transition: left 0.6s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  outline: none;
+  border: none;
 }
 
-/* Offene Klasse, um es sichtbar und hereinzuschieben */
 Dialog.open {
-  left: 50%; /* Schiebe in die Mitte des Bildschirms */
+  left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 1; /* Sichtbar */
+  opacity: 1;
 }
-
-
