@@ -194,10 +194,20 @@ function toggleRememberCheckboxImg() {
 }
 
 
-// header
-// function showUserMenu() {
-//     document.getElementById('userMenu').classList.toggle('d-none');
-// }
+
+
+function showUserMenu() {
+    document.getElementById('userMenu').classList.toggle('d-none');
+}
+
+
+
+function logout() {
+// remove logged in user
+
+    window.location.href = 'index.html';
+}
+
 
 
 function switchTab(event, tabName) {

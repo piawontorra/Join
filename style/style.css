@@ -1,0 +1,75 @@
+header {
+    background-color: white;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    padding-left: 348px;
+}
+
+header p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.header-right {
+    position: relative; /* Parent-Element als Bezugspunkt für #userMenu */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 22px;
+}
+
+#btn-help:hover{
+    transform: scale(1.1);
+}
+
+.user-menu {
+    height: 158px;
+    width: 150px;
+    background-color: rgb(42, 54, 71);
+    border-radius: 15% 0 15% 15%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 200;
+    text-decoration: none;
+    position: absolute;
+    top: calc(100% + 20px);
+    right: 0; /* Bleibt an der rechten Seite von .header-right */
+    border: 1px solid rgb(246, 247, 248);
+    z-index: 10;
+}
+
+.user-menu:hover{
+    background-color: rgb(42, 61, 89);
+}
+
+.help-link{
+    height: 40px;
+    width: 80%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.logout-btn {
+    border: unset;
+    background-color: #2A3647;
+}
+
+.logout-btn:hover {
+    cursor: pointer;
+    background-color: rgb(42, 61, 89);
+}
