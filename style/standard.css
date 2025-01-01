@@ -15,8 +15,13 @@
     width: 100%;
 }
 
-.max-width {
+.max-width-calced {
     max-width: 1208px;
+    width: 100%;
+}
+
+.max-width {
+    max-width: 1440px;
     width: 100%;
 }
 
@@ -31,13 +36,14 @@ body {
 }
 
 main {
-    width: calc(100% - 232px);
     background-color: #F6F7F8;
 }
 
 header {
     background-color: white;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
 }
 
 .header-content {
@@ -46,7 +52,7 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 20px 40px;
-    padding-left: 116px;
+    padding-left: 348px;
 }
 
 header p {
@@ -77,6 +83,11 @@ img:hover {
 
 .d-none {
     display: none !important;
+}
+
+.content-fixed {
+    margin-left: 232px;
+    margin-top: 100px;
 }
 
 h1 {

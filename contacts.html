@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join - Contacts</title>
-    <script src="./js/include.js"></script>
-    <script src="./js/script.js"></script>
-    <script src="./js/board.js"></script>
-    <script src="./js/contacts.js"></script>
-    <script src="./js/summary.js"></script>
-    <script src="./js/add_task.js"></script>
-    <script src="./assets/templates/contactsOverview.js"></script>
-    <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="./style/board.css" />
-    <link rel="stylesheet" href="./style/standard.css" />
-    <link rel="stylesheet" href="./style/contacts.css" />
-    <link rel="stylesheet" href="./style/navigation.css" />
-    <link rel="stylesheet" href="./style/add_task.css" />
-    <link rel="icon" href="./assets/img/join_logo_login.png" />
-  </head>
-  <body onload="initContacts()">
-    <div class="content">
-      <div w3-include-html="./assets/templates/navigation.html"></div>
-      <main>
-        <!-- <div id="overlay" class="d-none">
-          <div id="newContactContainer" class="newContactContainer"></div>
-        </div> -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join - Contacts</title>
+  <script src="./js/include.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/contacts.js"></script>
+  <script src="./js/summary.js"></script>
+  <script src="./js/add_task.js"></script>
+  <script src="./assets/templates/contactsOverview.js"></script>
+  <link rel="stylesheet" href="./style/style.css" />
+  <link rel="stylesheet" href="./style/board.css" />
+  <link rel="stylesheet" href="./style/standard.css" />
+  <link rel="stylesheet" href="./style/contacts.css" />
+  <link rel="stylesheet" href="./style/navigation.css" />
+  <link rel="stylesheet" href="./style/add_task.css" />
+  <link rel="icon" href="./assets/img/join_logo_login.png" />
+</head>
+
+<body onload="initContacts()">
+  <div class="content">
+    <div w3-include-html="./assets/templates/navigation.html"></div>
+    <main>
+      <!-- <div id="overlay" class="d-none">
+        <div id="newContactContainer" class="newContactContainer"></div>
+      </div> -->
         <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()">
           
         </dialog>
-        <div id="statusAlert" class="">Contact succesfull created</div>
-        <div w3-include-html="./assets/templates/header.html"></div>
-        <div id="contactDetails" class="max-width">
-          <div id="wrapperContacts">
-            <div id="btn_addNewContact" onclick="openDialog()";
-              data-infobox="contactCard">
-              Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon"/></div>
-            <div id="contactsOverview"></div>
-          </div>
-            <div id="contactDetailsContainer">
-              <div id="contactDetailsHeader">
-                <span id="span_contacts">Contacts</span>
-                <div class="vl"></div>
-                <span id="span_better"> Better with a team</span>
-              </div>
-              <div id="contactCard" class="infobox"></div>
-            </div>
-          </div>
+      <div id="statusAlert" class="">Contact succesfull created</div>
+      <div w3-include-html="./assets/templates/header.html"></div>
+      <div id="contactDetails" class="max-width content-fixed">
+        <div id="wrapperContacts">
+          <div id="btn_addNewContact" onclick="openDialog()"; data-infobox="contactCard">
+            Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon" /></div>
+          <div id="contactsOverview"></div>
         </div>
-      </main>
-    </div>
-  </body>
+        <div id="contactDetailsContainer">
+          <div id="contactDetailsHeader">
+            <span id="span_contacts">Contacts</span>
+            <div class="vl"></div>
+            <span id="span_better"> Better with a team</span>
+          </div>
+          <div id="contactCard" class="infobox"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
 </html>

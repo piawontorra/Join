@@ -12,6 +12,7 @@
     <script src="./js/boardDragAndDrop.js"></script>
     <script src="./js/boardDetailTaskCard.js"></script>
     <script src="./js/boardTaskEdit.js"></script>
+    <script src="./js/boardSearchTask.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
@@ -36,59 +37,67 @@
 
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
-
-            <div class="board-header max-width">
-                <h1>Board</h1>
-                <div class="board-header-right">
-                    <div class="input-box">
-                        <input type="" placeholder="Find Task">
-                        <div class="input-box-right">
-                            <div class="seperator"></div>
-                            <div class="input-search-icon">
-                                <img src="./assets/img/search_icon.png" alt="">
+            <div class="board-content max-width">
+                <div class="board-header">
+                    <h1>Board</h1>
+                    <div class="board-header-right">
+                        <div>
+                            <div class="input-box">
+                                <input onkeyup="searchTasks()" id="searchInput" type="text" placeholder="Find Task">
+                                <div class="input-box-right">
+                                    <div class="seperator"></div>
+                                    <div class="input-search-icon">
+                                        <img src="./assets/img/search_icon.png" alt="">
+                                    </div>
+                                </div>
                             </div>
+                            <span id="errorTaskFound" class="no-tasks-found-message" style="display: none;">Keine
+                                Ergebnisse gefunden</span>
                         </div>
+                        <button onclick="openAddTask('todo')">
+                            Add task
+                            <img src="./assets/img/plus_white_icon.png" alt="">
+                        </button>
                     </div>
-                    <button onclick="openAddTask('todo')">
-                        Add task
-                        <img src="./assets/img/plus_white_icon.png" alt="">
-                    </button>
                 </div>
-            </div>
-            <div class="board-categorys">
-                <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)">
-                    <div class="task-header">
-                        <p>To do</p>
-                        <button onclick="openAddTask('todo')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                <div id="tasksContainer" class="board-categorys">
+                    <div class="tasks-content" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)">
+                        <div class="task-header">
+                            <p>To do</p>
+                            <button onclick="openAddTask('todo')"><img src="./assets/img/plus_dark_icon.png"
+                                    alt=""></button>
+                        </div>
+                        <div class="task-content-split" id="toDo"></div>
                     </div>
-                    <div class="task-content-split" id="toDo"></div>
-                </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'in-progress')" ondragover="allowDrop(event)">
-                    <div class="task-header">
-                        <p>In progress</p>
-                        <button onclick="openAddTask('in-progress')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                    <div class="tasks-content" ondrop="dropTask(event, 'in-progress')" ondragover="allowDrop(event)">
+                        <div class="task-header">
+                            <p>In progress</p>
+                            <button onclick="openAddTask('in-progress')"><img src="./assets/img/plus_dark_icon.png"
+                                    alt=""></button>
+                        </div>
+                        <div class="task-content-split" id="inProgress"></div>
                     </div>
-                    <div class="task-content-split" id="inProgress"></div>
-                </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'await-feedback')" ondragover="allowDrop(event)">
-                    <div class="task-header">
-                        <p>Await feedback</p>
-                        <button onclick="openAddTask('await-feedback')"><img src="./assets/img/plus_dark_icon.png" alt=""></button>
+                    <div class="tasks-content" ondrop="dropTask(event, 'await-feedback')" ondragover="allowDrop(event)">
+                        <div class="task-header">
+                            <p>Await feedback</p>
+                            <button onclick="openAddTask('await-feedback')"><img src="./assets/img/plus_dark_icon.png"
+                                    alt=""></button>
+                        </div>
+                        <div class="task-content-split" id="awaitFeedback"></div>
                     </div>
-                    <div class="task-content-split" id="awaitFeedback"></div>
-                </div>
-                <div class="tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)">
-                    <div class="task-header">
-                        <p>Done</p>
+                    <div class="tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)">
+                        <div class="task-header">
+                            <p>Done</p>
+                        </div>
+                        <div class="task-content-split" id="done"></div>
                     </div>
-                    <div class="task-content-split" id="done"></div>
                 </div>
-            </div>
-            <div id="taskDetailModal" class="task-detail-modal">
+                <div id="taskDetailModal" class="task-detail-modal">
                     <div id="taskDetailCard" class="task-detail-content">
                         <div id="taskDetail"></div>
                     </div>
                     <div id="editContainer" style="display: none;"></div>
+                </div>
             </div>
         </main>
     </div>
