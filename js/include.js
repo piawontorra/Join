@@ -14,4 +14,5 @@ async function includeHTML() {
         }
     }
     markCurrentTab();
+    getCurrentUserName();
 }

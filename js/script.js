@@ -193,16 +193,17 @@ function toggleRememberCheckboxImg() {
     localStorage.setItem('rememberMe', realCheckboxRef.checked);
 }
 
-
-
-
-function showUserMenu() {
-    document.getElementById('userMenu').classList.toggle('d-none');
+function toggleUserMenu() {
+    const userMenuRef = document.getElementById('userMenu');
+    userMenuRef.classList.toggle('d-none');
 }
 
 function getCurrentUserName() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
-    getUserInitials(currentUserName);
+
+    if (currentUserName) {
+        displayUserIcon(currentUserName);
+    }
 }
 
 function getUserInitials(currentUserName) {
@@ -211,20 +212,33 @@ function getUserInitials(currentUserName) {
     return initials;
 }
 
-function userIcon() {
-    getUserIconTemplate();
+function displayUserIcon(currentUserName) {
+    const guestIconRef = document.getElementById('guestIcon');
+    const userInitialsRef = document.getElementById('userInitials');
+
+
+    if (currentUserName) {
+        const initials = getUserInitials(currentUserName);
+        guestIconRef.classList.add('d-none');
+        userInitialsRef.classList.remove('d-none');
+        userInitialsRef.textContent = initials;
+    }
 }
 
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
+    const userInitialsRef = document.getElementById('userInitials');
+    const guestIconRef = document.getElementById('guestIcon');
+
     if (currentUserName) {
+        userInitialsRef.classList.add('d-none');
+        guestIconRef.classList.remove('d-none');
         sessionStorage.removeItem('loggedInUserName');
         sessionStorage.setItem('logoAnimated', false);
     }
+
     window.location.href = 'index.html';
 }
-
-
 
 function switchTab(event, tabName) {
     window.location.href = `${tabName}.html`;
