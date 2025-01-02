@@ -20,7 +20,7 @@ header p {
 }
 
 .header-right {
-    position: relative; /* Parent-Element als Bezugspunkt für #userMenu */
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -45,7 +45,7 @@ header p {
     text-decoration: none;
     position: absolute;
     top: calc(100% + 20px);
-    right: 0; /* Bleibt an der rechten Seite von .header-right */
+    right: 0;
     border: 1px solid rgb(246, 247, 248);
     z-index: 1000;
 }
@@ -74,10 +74,11 @@ header p {
     background-color: rgb(42, 61, 89);
 }
 
-.user-initials {
+.user-initials-header {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 56px;
     height: 56px;
     background-color: #FFFFFF;
@@ -86,11 +87,10 @@ header p {
     color: #29ABE2;
     font-size: 21px;
     font-weight: 400;
-    text-align: center;
     padding: 10px;
 }
 
-.user-initials:hover {
+.user-initials-header:hover {
     cursor: pointer;
     background-color: #F6F7F8;
 }

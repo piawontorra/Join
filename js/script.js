@@ -214,7 +214,7 @@ function getUserInitials(currentUserName) {
 
 function displayUserIcon(currentUserName) {
     const guestIconRef = document.getElementById('guestIcon');
-    const userInitialsRef = document.getElementById('userInitials');
+    const userInitialsRef = document.getElementById('userInitialsHeader');
 
 
     if (currentUserName) {
@@ -227,7 +227,7 @@ function displayUserIcon(currentUserName) {
 
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
-    const userInitialsRef = document.getElementById('userInitials');
+    const userInitialsRef = document.getElementById('userInitialsHeader');
     const guestIconRef = document.getElementById('guestIcon');
 
     if (currentUserName) {
