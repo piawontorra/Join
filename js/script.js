@@ -216,7 +216,6 @@ function displayUserIcon(currentUserName) {
     const guestIconRef = document.getElementById('guestIcon');
     const userInitialsRef = document.getElementById('userInitialsHeader');
 
-
     if (currentUserName) {
         const initials = getUserInitials(currentUserName);
         guestIconRef.classList.add('d-none');

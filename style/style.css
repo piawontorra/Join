@@ -24,10 +24,10 @@ header p {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 22px;
+    gap: 16px;
 }
 
-.btn-help:hover{
+.btn-help:hover {
     transform: scale(1.1);
 }
 
@@ -35,43 +35,43 @@ header p {
     height: 158px;
     width: 150px;
     background-color: rgb(42, 54, 71);
-    border-radius: 15% 0 15% 15%;
+    border-radius: 20px 0 20px 20px;
+    padding: 10px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     font-weight: 200;
     text-decoration: none;
     position: absolute;
     top: calc(100% + 20px);
     right: 0;
     border: 1px solid rgb(246, 247, 248);
-    z-index: 1000;
+    z-index: 1100;
 }
 
-.user-menu:hover{
-    background-color: rgb(42, 61, 89);
-}
-
-.help-link{
-    height: 40px;
-    width: 80%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-.logout-btn {
+.user-menu-btn {
+    width: 130px;
     border: unset;
+    border-radius: 8px;
     background-color: #2A3647;
+    padding: 8px;
+    text-align: left;
 }
 
-.logout-btn:hover {
+.user-menu-btn:hover {
     cursor: pointer;
     background-color: rgb(42, 61, 89);
+}
+
+.menu-link {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: #CDCDCD;
+    width: 100%;
 }
 
 .user-initials-header {
@@ -80,13 +80,13 @@ header p {
     align-items: center;
     text-align: center;
     width: 56px;
-    height: 56px;
+    aspect-ratio: 1 / 1;
     background-color: #FFFFFF;
     border: 3px solid #2A3647;
     border-radius: 50%;
     color: #29ABE2;
     font-size: 21px;
-    font-weight: 400;
+    font-weight: 700;
     padding: 10px;
 }
 
@@ -97,10 +97,6 @@ header p {
 
 .guest-icon {
     width: 56px;
-    height: 56px;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
-}
-
-.d-none {
-    display: none;
 }
