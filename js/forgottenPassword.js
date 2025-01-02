@@ -9,8 +9,8 @@ async function saveNewPassword() {
         if (user) {
             const { userId } = user;
             await updateUserPassword(userId, newPassword);
-            document.getElementById('msg-box').innerText = 'Your password has been updated successfully!';
-            window.location.href = 'index.html';
+            addGreyOverlay();
+            renderOverlay('Your password was resetted.');
         }
     }
 }
@@ -19,7 +19,6 @@ function getEmailFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('email');
 }
-
 
 async function getUserByEmail(email) {
     const users = await loadUsers("users");
@@ -32,7 +31,7 @@ async function updateUserPassword(userId, newPassword) {
     const user = users[userId];
 
     if (user) {
-        const updatedData = {email: user.email, name: user.name, password: newPassword};
+        const updatedData = { email: user.email, name: user.name, password: newPassword };
 
         await fetch(`${BASE_URL}users/${userId}.json`, {
             method: 'PUT',

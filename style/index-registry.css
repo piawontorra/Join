@@ -286,7 +286,7 @@ input[type="checkbox"] {
     font-weight: 400;
 }
 
-.registration-success {
+.overlay-message {
     display: flex;
     justify-content: flex-start;
     align-items: center;

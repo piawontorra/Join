@@ -4,7 +4,6 @@
 
 .side-menu-content {
     width: 232px;
-    /* die width vom restlichen content, egal ob board, add-task o.ä. sollte 100vw-232px sein */
     height: 100vh;
     background-color: #2A3647;
     display: flex;
@@ -12,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
     position: fixed;
-    z-index: 1000;
+    z-index: 1200;
 }
 
 .side-menu-top {
@@ -87,7 +86,7 @@
     font-weight: bold;
 }
 
-#seperator{
+#seperator {
     width: 100%;
     height: 1px;
     background-color: rgba(183, 181, 181, 1);

@@ -1,13 +1,13 @@
-function getRegistrySuccessTemplate() {
+function getSuccessTemplate(message) {
     return `
-        <div class="registration-success">
-            <div class="btn btn1 btn-success">You Signed Up successfully.</div>
+        <div class="overlay-message">
+            <button class="btn btn1 btn-success">${message}</button>
         </div>
     `;
 }
 
 function getLoginErrorTemplate() {
     return `
-        <div>Check your email and password. Please try again.</div>
+        <p>Check your email and password. Please try again.</p>
     `;
 }

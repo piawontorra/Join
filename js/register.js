@@ -60,10 +60,10 @@ async function addUser(user) {
 
     let newUserId = await getNextUserId();
     existingUsers[newUserId] = user;
-
     await putUser("users", existingUsers);
     await nextUserIdToDatabase(newUserId);
     addGreyOverlay();
+    renderOverlay('You Signed Up successfully.');
 }
 
 async function getNextUserId() {
@@ -100,11 +100,11 @@ function addGreyOverlay() {
     handleScrollbar();
 }
 
-function renderOverlay() {
+function renderOverlay(message) {
     let overlayRef = document.getElementById('success-msg');
     overlayRef.innerHTML = '';
 
-    overlayRef.innerHTML = getRegistrySuccessTemplate();
+    overlayRef.innerHTML = getSuccessTemplate(message);
 
     setTimeout(() => {
         returnToLogIn();
