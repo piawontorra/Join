@@ -48,7 +48,7 @@ header p {
     top: calc(100% + 20px);
     right: 0;
     border: 1px solid rgb(246, 247, 248);
-    z-index: 1100;
+    z-index: 9999;
 }
 
 .user-menu-btn {
@@ -86,7 +86,7 @@ header p {
     border-radius: 50%;
     color: #29ABE2;
     font-size: 21px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 10px;
 }
 
@@ -95,7 +95,7 @@ header p {
     background-color: #F6F7F8;
 }
 
-.guest-icon {
+.unlogged-icon {
     width: 56px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;

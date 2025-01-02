@@ -200,9 +200,27 @@ function toggleUserMenu() {
 
 function getCurrentUserName() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
+    const unloggedIconRef = document.getElementById('unloggedIcon');
+    const guestInitialsRef = document.getElementById('guestInitialsHeader');
+
+    if (unloggedIconRef && guestInitialsRef) {
+        if (currentUserName) {
+            displayUserInitialsHeader(currentUserName);
+        } else {
+            displayGuestInitial();
+        }
+    }
+}
+
+function displayUserInitialsHeader(currentUserName) {
+    const unloggedIconRef = document.getElementById('unloggedIcon');
+    const userInitialsRef = document.getElementById('userInitialsHeader');
 
     if (currentUserName) {
-        displayUserIcon(currentUserName);
+        const initials = getUserInitials(currentUserName);
+        unloggedIconRef.classList.add('d-none');
+        userInitialsRef.classList.remove('d-none');
+        userInitialsRef.textContent = initials;
     }
 }
 
@@ -212,30 +230,32 @@ function getUserInitials(currentUserName) {
     return initials;
 }
 
-function displayUserIcon(currentUserName) {
-    const guestIconRef = document.getElementById('guestIcon');
-    const userInitialsRef = document.getElementById('userInitialsHeader');
+function displayGuestInitial() {
+    const unloggedIconRef = document.getElementById('unloggedIcon');
+    const guestInitialsRef = document.getElementById('guestInitialsHeader');
 
-    if (currentUserName) {
-        const initials = getUserInitials(currentUserName);
-        guestIconRef.classList.add('d-none');
-        userInitialsRef.classList.remove('d-none');
-        userInitialsRef.textContent = initials;
+    if (unloggedIconRef && guestInitialsRef) {
+        unloggedIconRef.classList.add('d-none');
+        guestInitialsRef.classList.remove('d-none');
+        guestInitialsRef.textContent = "G";
     }
 }
 
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
     const userInitialsRef = document.getElementById('userInitialsHeader');
-    const guestIconRef = document.getElementById('guestIcon');
+    const guestInitialsRef = document.getElementById('guestInitialsHeader');
+    const unloggedIconRef = document.getElementById('unloggedIcon');
 
     if (currentUserName) {
         userInitialsRef.classList.add('d-none');
-        guestIconRef.classList.remove('d-none');
+        unloggedIconRef.classList.remove('d-none');
         sessionStorage.removeItem('loggedInUserName');
         sessionStorage.setItem('logoAnimated', false);
+    } else {
+        guestInitialsRef.classList.add('d-none');
+        unloggedIconRef.classList.remove('d-none');
     }
-
     window.location.href = 'index.html';
 }
 

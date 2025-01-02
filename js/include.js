@@ -14,5 +14,5 @@ async function includeHTML() {
         }
     }
     markCurrentTab();
-    getCurrentUserName();
+    setTimeout(getCurrentUserName, 0);
 }
