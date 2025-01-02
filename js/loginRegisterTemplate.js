@@ -15,7 +15,7 @@ function getSuccessTemplate(message) {
 
 /**
  * Generates an HTML template for a login error message.
- * This template contains a simple error message instructing the user to check their credentials.
+ * This template contains a simple error message instructing the user to check her/his credentials.
  *
  * @returns {string} The HTML string for the login error message.
  */
