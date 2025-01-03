@@ -110,9 +110,7 @@ function editContactTemplate(user, id){
   let initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
   let arrayID = id;
   let userId = user[0].userId;
-  console.log(userId);
-  
-    return /*html*/`
+    return `
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
               <div id="addContactHeader">
@@ -151,7 +149,7 @@ function editContactTemplate(user, id){
                   </div>
               </div>
               <div id="btnContainer">
-                <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId})">Delete</button>
+                <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
                 <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button>
               </div>
           </div>

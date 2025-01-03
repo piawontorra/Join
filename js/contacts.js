@@ -37,6 +37,18 @@ async function newContact(){
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 100);
+  setTimeout(()=>{chooseNewContact(key);}, 300);
+}
+
+/**
+ * choose the last created contact, add background color on overview and show the detail page
+ * @param {number} key 
+ */
+function chooseNewContact(key){
+  let index = usersArray.findIndex(user => user.id == key);
+  addBackground(index);
+  openContactDetailsCard('contactCard');
+  contactDetailCard(index);
 }
 
 /**
