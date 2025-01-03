@@ -13,8 +13,8 @@ async function renderTaskEditor(stringTask) {
     await initAddTask();
     contentRef.innerHTML = getTaskEditorTemplate(task);
 
-    await renderEditorAssignedUsers(task); // Zeige die zugewiesenen Benutzer an
-    await renderEditorSubtasks(); // Zeige die Subtasks an
+    await renderEditorAssignedUsers(task);
+    await renderEditorSubtasks();
 }
 
 async function loadEditorContactData(task) {
@@ -99,7 +99,6 @@ function renderEditorUsers(contacts, assignedUserIds) {
 
 async function renderEditorAssignedUsers(task) {
     const assignedUserData = await getEditorAssignedUserInitialsAndColor(task.assignedTo || []);
-
     let assignedToHTML = assignedUserData.length > 0
         ? assignedUserData
             .map(user =>
@@ -117,23 +116,22 @@ async function renderEditorAssignedUsers(task) {
 
 async function getEditorAssignedUserInitialsAndColor(assignedUserIds) {
     return assignedUserIds.map(userId => {
-        const contact = contacts[userId]; // Kontakte aus der globalen Variable
+        const contact = contacts[userId];
 
-        if (!contact) return null; // Falls der Benutzer nicht existiert
+        if (!contact) return null;
 
         return {
-            initials: getInitials(contact.name), // Initialen berechnen
-            color: contact.userColor, // Farbe des Kontakts
-            name: contact.name // Vollständiger Name (optional)
+            initials: getInitials(contact.name),
+            color: contact.userColor,
+            name: contact.name
         };
-    }).filter(Boolean); // Entferne alle `null`-Werte
+    }).filter(Boolean);
 }
 
 async function renderEditorSubtasks() {
     const subtaskContainer = document.getElementById('subtask');
     subtaskContainer.innerHTML = '';
 
-    // Überprüfen, ob subtasks existieren und nicht leer sind
     if (currentTask.subtasks && currentTask.subtasks.length > 0) {
         for (let i = 0; i < currentTask.subtasks.length; i++) {
             const subtask = currentTask.subtasks[i];
@@ -146,12 +144,12 @@ async function renderEditorSubtasks() {
 
 function toggleEditorSubtaskCompletion(index) {
     currentTask.subtasks[index].completed = !currentTask.subtasks[index].completed;
-    renderEditorSubtasks(); // Aktualisiere die Anzeige
+    renderEditorSubtasks();
 }
 
 function deleteEditorSubtask(i) {
-    currentTask.subtasks.splice(i, 1); // Entferne Subtask
-    renderEditorSubtasks(); // Aktualisiere die Anzeige
+    currentTask.subtasks.splice(i, 1);
+    renderEditorSubtasks();
 }
 
 function editEditorSubtask(i) {
@@ -218,10 +216,10 @@ function updateCurrentTask(event) {
     }
 
     if (!dueDate) {
-        document.getElementById('inputDueDateError').style.display = 'block'; // Fehleranzeige aktivieren
-        return; // Stoppt den Vorgang, wenn dueDate leer ist
+        document.getElementById('inputDueDateError').style.display = 'block';
+        return;
     } else {
-        document.getElementById('inputDueDateError').style.display = 'none'; // Fehleranzeige deaktivieren
+        document.getElementById('inputDueDateError').style.display = 'none';
     }
 
     if (category === 'Select category') {
@@ -232,23 +230,18 @@ function updateCurrentTask(event) {
     const subtasks = [];
     document.querySelectorAll('.created-subtasks-container input').forEach((input, index) => {
         subtasks.push({
-            completed: currentTask.subtasks[index]?.completed || false, // Falls bereits Subtasks vorhanden sind
+            completed: currentTask.subtasks[index]?.completed || false,
             text: input.value.trim()
         });
     });
 
-    // Aktualisiere currentTask
     currentTask.title = title;
     currentTask.description = description;
     currentTask.dueDate = dueDate;
     currentTask.priority = priority;
-    currentTask.assignedTo = assignedTo; // Prüfen, ob assignedTo existiert
+    currentTask.assignedTo = assignedTo;
     currentTask.subtasks = subtasks;
 
-    // Schließe den Editor oder speichere die Änderungen
-    console.log('Updated Task:', currentTask);
-
-    // Task in Firebase überschreiben
     updateTaskInFirebase(currentTask);
 }
 
@@ -273,17 +266,15 @@ async function updateTaskInFirebase(task) {
             })
         });
 
-        // Aktualisiere die globale Variable tasksData basierend auf der ID
         const existingTask = tasksData.find(t => t.id === task.id);
 
         if (existingTask) {
-            // Überschreibe das bestehende Objekt mit den neuen Werten
             Object.assign(existingTask, task);
             console.log('Updated tasksData:', tasksData);
         } else {
             console.warn(`Task with ID ${task.id} not found in tasksData.`);
         }
-        // Karte neu rendern
+
         refreshTaskCard(task);
         openTaskDetail(task.id);
         closeTaskEditor();
