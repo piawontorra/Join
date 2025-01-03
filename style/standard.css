@@ -10,18 +10,14 @@
     src: url('../assets/fonts/inter.ttf') format('truetype');
 }
 
-.max-width-login-registry {
-    max-width: 1440px;
-    width: 100%;
-}
-
-.max-width-calced {
-    max-width: 1208px;
-    width: 100%;
-}
-
 .max-width {
     max-width: 1440px;
+    width: 100%;
+}
+
+/* Ist hier calculated gemeint?  */
+.max-width-calced {
+    max-width: 1208px;
     width: 100%;
 }
 
@@ -33,6 +29,7 @@ body {
 .content {
     display: flex;
     flex-direction: row;
+    overflow-x: hidden;
 }
 
 main {
