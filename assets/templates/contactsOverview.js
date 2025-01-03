@@ -20,9 +20,7 @@ function contactDetailCard(id) {
 }
 
 function contactCardDetailsTemplate(id, contact) {   
-  console.log(contact);
-  
-  const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
+  let initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
                 <div class="userInitials circle" style="background-color: ${contact.userColor}">${initials}</div>
@@ -109,9 +107,10 @@ function newContactTemplate() {
 }
 
 function editContactTemplate(user, id){
-  const initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
-  let arrayID = id;    
-  console.log(user[0].userId);
+  let initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
+  let arrayID = id;
+  let userId = user[0].userId;
+  console.log(userId);
   
     return /*html*/`
             <div id="newContactContent">
@@ -152,7 +151,7 @@ function editContactTemplate(user, id){
                   </div>
               </div>
               <div id="btnContainer">
-                <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${user.id})">Delete</button>
+                <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId})">Delete</button>
                 <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button>
               </div>
           </div>

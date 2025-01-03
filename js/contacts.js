@@ -8,24 +8,6 @@ function initContacts() {
 }
 
 /**
- * removing d-none class from the overlay so it can be seen
- */
-// function toggleOverlay(){
-//   let overlay = document.getElementById('overlay');
-//   overlay.classList.remove('d-none');
-//   setTimeout(()=>{openNewContactCard()}, 10);
-// }
-
-/**
- * Closes the Overlay after deleting a contact
- */
-// function closeOverlay(){
-//   let overlay = document.getElementById('overlay');
-//   overlay.classList.add('d-none');
-//   // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
-// }
-
-/**
  * Shows a popup notification when a new contact is created 
  */
 function toggleAlert(){
@@ -94,18 +76,14 @@ function getUpdatedData() {
  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
 async function editContact(id){
-  console.log(id);
-  
   let updatedData = getUpdatedData();
   let key = id;
   await updateData(updatedData, "contacts", key);
-  const index = usersArray.findIndex(contact => contact.id === key);
+  const index = usersArray.findIndex(contact => contact.userId === key);
   if (index !== -1) {
     usersArray[index] = { ...usersArray[index], ...updatedData };
   }
   currentUser = [{ ...currentUser[0], ...updatedData }];
-  console.log(currentUser);
-  
   closeDialog("[editContactDialog]");
   renderContacts(usersArray);
   contactDetailCard(index);
@@ -141,7 +119,6 @@ async function editContact(id){
 async function getUsers(path){
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
-  console.log(responseToJson);
 }
 
 /**
@@ -211,23 +188,6 @@ function openContactDetailsCard(infoboxId) {
   }
 }
 
-/**
- * Opens the new contact card by adding the "open" class to the container
- * firing the getNextID to get the next available userID
- */
-// function openNewContactCard() {
-//   let newContactCard = document.getElementById('newContactContainer');
-//   newContactCard.classList.add('open');
-//   }
-
-// function closeNewContactCard(){
-//     let newContactCard = document.getElementById('newContactContainer');
-//     let overlay = document.getElementById('overlay');
-//     newContactCard.classList.remove('open');
-//     setTimeout(()=>{overlay.classList.add('d-none')}, 400);
-//     document.getElementById("newUserForm").reset();
-//   }
-
   /**
    * gets the html template for creating a new contact
    */
@@ -281,7 +241,6 @@ async function nextIdToDatabase(nextID){
  */
 async function deleteContact(entryId){
   let dbRef = (BASE_URL + path + "/" + entryId);
-  console.log(dbRef);
   let response = await fetch(dbRef + ".json", {
     method: "DELETE", 
     });
@@ -307,8 +266,6 @@ function addBackground(id){
   document.getElementById(`${id}`).classList.add('chosen');;
 }
 
-/////////////////////////////////New Contact Dialog/////////////////////////////////////////////////////////////////////
-
 function openDialog(){
   let modal = document.querySelector("[newContactDialog]");
   modal.showModal();
@@ -321,13 +278,12 @@ function openDialog(){
 function renderNewContactForm() {
   const container = document.getElementById('contactDialog');
   container.innerHTML = newContactTemplate();
-
   const form = document.getElementById('newUserForm');
   if (form) {
       form.addEventListener("submit", function (event) {
           event.preventDefault();
           if (form.checkValidity()) {
-              newContact(); // Führt deine Funktion aus
+              newContact();
               toggleAlert();
           } else {
               console.log("Form is invalid");
@@ -338,32 +294,24 @@ function renderNewContactForm() {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-/////// Edit Contact Form ////////////////////////////////////////////////////////////////////////////////////////
-
 function openEditDialog(user, id) {
   const modal = document.querySelector("[editContactDialog]");
   modal.showModal();
   setTimeout(() => {
     modal.classList.add('open');
   }, 10);
-
-  // Setze das Template für den Editier-Dialog
   renderEditContactForm(user, id);
 }
 
 function renderEditContactForm(user, id) {
   const container = document.getElementById('editContactDialog');
-  container.innerHTML = editContactTemplate(user, id); // Nutzt dein Template
-
+  container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
   if (form) {
     form.addEventListener('submit', function (event) {
-      event.preventDefault(); // Verhindert Standard-Submit-Verhalten
+      event.preventDefault();
       if (form.checkValidity()) {
-        saveEditedContact(user, id); // Funktion zum Speichern des bearbeiteten Kontakts
+        saveEditedContact(user, id);
         setTimeout(() => {toggleAlert()}, 300);
       } else {
         console.log("Form is invalid");
@@ -381,4 +329,3 @@ function closeDialog(dialogSelector) {
     modal.close();
   }, 500);
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
