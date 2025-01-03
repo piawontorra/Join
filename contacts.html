@@ -25,12 +25,8 @@
   <div class="content">
     <div w3-include-html="./assets/templates/navigation.html"></div>
     <main>
-      <!-- <div id="overlay" class="d-none">
-        <div id="newContactContainer" class="newContactContainer"></div>
-      </div> -->
-        <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()">
-          
-        </dialog>
+        <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()"></dialog>
+        <dialog editContactDialog id="editContactDialog"></dialog>
       <div id="statusAlert" class="">Contact succesfull created</div>
       <div w3-include-html="./assets/templates/header.html"></div>
       <div id="contactDetails" class="max-width content-fixed">

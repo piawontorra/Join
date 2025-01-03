@@ -3,7 +3,7 @@ let currentUser = [];
 function overviewTemplate(contacts, i, firstLetter, secondLetter) {
   return `
             <div id="${i}" class="singleEntry" onclick="openContactDetailsCard('contactCard'), contactDetailCard(id), addBackground(id)">
-                <div class="userInitials" style="background-color: ${contacts[i].userColor};">${firstLetter}${secondLetter}</div>    
+                <div class="userInitialsOverview" style="background-color: ${contacts[i].userColor};">${firstLetter}${secondLetter}</div>    
                 <div>
                     <div id="entryInfoName">${contacts[i].name}</div>
                     <div id="entryInfoMail">${contacts[i].email}</div>
@@ -20,14 +20,16 @@ function contactDetailCard(id) {
 }
 
 function contactCardDetailsTemplate(id, contact) {   
+  console.log(contact);
+  
   const initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
   return `
             <div id="contactCardHeader">
-                <div id="userInitials" style="background-color: ${contact.userColor}">${initials}</div>
+                <div class="userInitials circle" style="background-color: ${contact.userColor}">${initials}</div>
                 <div id="userInfo">
                     <div id="userName">${contact.name}</div>
                     <div class="action">
-                            <div id="edit" onclick="toggleOverlay(), openEditForm(currentUser, ${id})">
+                            <div id="edit" onclick="openEditDialog(currentUser, ${id})">
                                 <img src="assets/img/edit_icon.svg" alt="Image edit">
                                 <span>Edit</span>
                             </div>
@@ -50,64 +52,12 @@ function contactCardDetailsTemplate(id, contact) {
                 </div>
                 <div id="contactCardPhone">
                     <p>Phone</p>
-                    <div id="contactPhoneNr">${
-                      contact.phone || "no phone number available"
-                    }</div>
+                    <div id="contactPhoneNr">${contact.phone || "no phone number available"}</div>
                 </div>
             </div>
     `;
 }
 
-//ohne Form Validierung
-// function newContactTemplate(){
-//     return `
-//             <div id="addContactHeaderContainer">
-//               <div id="addContactHeader">
-//                 <div id="joinLogo">
-//                   <img src="assets/img/join_logo_menu.png" alt="">
-//                 </div>
-//                 <div id="newContactHeaderText">
-//                   <p>Add contact</p>
-//                   <span>Tasks are better with a team!</span>
-//                 </div>
-//                 <div id="newContactDivider"></div>
-//               </div>  
-//             </div>
-//             <div id="newContactFormContainer">
-//               <div id="formContainer">
-//                 <div id="circleContainer">
-//                   <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
-//                 </div>
-//                 <div id="addUserFormContainer">
-//                   <div id="cancelImgContainer">
-//                     <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
-//                   </div>
-//                   <form id="newUserForm">
-//                     <div class="inputField">
-//                       <input type="text" id="newUserName" placeholder="Name" required>
-//                       <img src="./assets/img/user_icon.png" alt="">
-//                     </div>
-//                     <div class="inputField">
-//                       <input type="email" id="newUserEmail" placeholder="Email" required>
-//                       <img src="./assets/img/mail_icon.png" alt="">
-//                     </div>
-//                     <div class="inputField">
-//                       <input type="phone" id="newUserPhone" placeholder="Phone" required>
-//                       <img src="./assets/img/phone_icon.png" alt="">
-//                     </div>
-//                   </form>
-//                   <div id="btnContainer">
-//                     <button id="btnCancel" class="clear-task-btn" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-//                     <button id="btnCreate" class="create-task-btn" onclick="newContact(), toggleAlert()">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//     `;
-// }
-
-
-//mit Form Validierung
 function newContactTemplate() {
   return /*html*/`
       <div id="newContactContent">
@@ -128,12 +78,9 @@ function newContactTemplate() {
         </div>
         <div id="newContactFormContainer">
             <div id="formContainer">
-                <!-- <div id="circleContainer">
-                    <div id="circle"><img src="./assets/img/person.svg" alt="user icon"></div>
-                </div> -->
                 <div id="addUserFormContainer">
                     <div id="cancelImgContainer">
-                        <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeDialog()">
+                        <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeDialog('[newContactDialog]');">
                     </div>
                     <form id="newUserForm">
                         <div class="inputField">
@@ -148,68 +95,68 @@ function newContactTemplate() {
                             <input type="tel" id="newUserPhone" placeholder="Phone" required>
                             <img src="./assets/img/phone_icon.png" alt="">
                         </div>
-                        <!-- <div id="btnContainer">
-                            <button id="btnCancel" class="clear-task-btn" type="button" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-                            <button id="btnCreate" class="create-task-btn" type="submit">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
-                        </div> -->
                     </form>
                 </div>
             </div>
             <div id="btnContainer">
-              <button id="btnCancel" class="clear-task-btn" type="button" onclick="closeNewContactCard()">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-              <button id="btnCreate" class="create-task-btn" type="submit">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
-              </div>
+              <button id="btnCancel" class="clear-task-btn" type="button" onclick="closeDialog('[newContactDialog]');">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
+              <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
+            </div>
         </div>
         
       </div>
   `;
 }
 
-
 function editContactTemplate(user, id){
   const initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
   let arrayID = id;    
-    return `
-            <div id="addContactHeaderContainer">
+  console.log(user[0].userId);
+  
+    return /*html*/`
+            <div id="newContactContent">
+              <div id="addContactHeaderContainer">
               <div id="addContactHeader">
-                <div id="joinLogo">
-                  <img src="assets/img/join_logo_menu.png" alt="">
-                </div>
-                <div id="newContactHeaderText">
-                  <p>Edit contact</p>
-                </div>
-                <div id="newContactDivider"></div>
+                  <div id="joinLogo">
+                      <img src="assets/img/join_logo_menu.png" alt="">
+                  </div>
+                  <div id="newContactHeaderText">
+                      <p>Edit contact</p>
+                  </div>
+                  <div id="newContactDivider"></div>
               </div>  
-            </div>
-            <div id="newContactFormContainer">
+          </div>
+          <div id="circleContainer">
+          <div class="userInitials circle no-margin" style="background-color: ${user[0].userColor}">${initials}</div>
+          </div>
+          <div id="newContactFormContainer">
               <div id="formContainer">
-                <div id="circleContainer">
-                  <div id="circle" style="background-color: ${user[0].userColor}">${initials}</div>
-                </div>
-                <div id="addUserFormContainer">
-                  <div id="cancelImgContainer">
-                    <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeNewContactCard()">
+                  <div id="addUserFormContainer">
+                      <div id="cancelImgContainer">
+                          <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeDialog('[editContactDialog]');">
+                      </div>
+                      <form id="newUserForm">
+                          <div class="inputField">
+                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name}" required>
+                              <img src="./assets/img/user_icon.png" alt="">
+                          </div>
+                          <div class="inputField">
+                              <input type="email" id="newUserEmail" placeholder="Email" value="${user[0].email}" required>
+                              <img src="./assets/img/mail_icon.png" alt="">
+                          </div>
+                          <div class="inputField">
+                              <input type="tel" id="newUserPhone" placeholder="Phone" value="${user[0].phone}" required>
+                              <img src="./assets/img/phone_icon.png" alt="">
+                          </div>
+                      </form>
                   </div>
-                  <form id="newUserForm">
-                    <div class="inputField">
-                      <input type="text" id="newUserName" value="${currentUser[0].name}" required>
-                      <img src="./assets/img/user_icon.png" alt="">
-                    </div>
-                    <div class="inputField">
-                      <input type="email" id="newUserEmail" value="${currentUser[0].email}"  required>
-                      <img src="./assets/img/mail_icon.png" alt="">
-                    </div>
-                    <div class="inputField">
-                      <input type="phone" id="newUserPhone" value="${currentUser[0].phone}" required>
-                      <img src="./assets/img/phone_icon.png" alt="">
-                    </div>
-                  </form>
-                  <div id="btnContainer">
-                    <button id="btnCancel" class="clear-task-btn" onclick="deleteContact(${currentUser[0].id}), closeOverlay()">Delete</button>
-                    <button id="btnCreate" class="create-task-btn" onclick="editContact(currentUser)">Save<img src="./assets/img/check_icon.png" alt=""></button>
-                  </div>
-                </div>
               </div>
-            </div>
+              <div id="btnContainer">
+                <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${user.id})">Delete</button>
+                <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button>
+              </div>
+          </div>
+        
+      </div>
     `;
 }

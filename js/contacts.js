@@ -10,20 +10,20 @@ function initContacts() {
 /**
  * removing d-none class from the overlay so it can be seen
  */
-function toggleOverlay(){
-  let overlay = document.getElementById('overlay');
-  overlay.classList.remove('d-none');
-  setTimeout(()=>{openNewContactCard()}, 10);
-}
+// function toggleOverlay(){
+//   let overlay = document.getElementById('overlay');
+//   overlay.classList.remove('d-none');
+//   setTimeout(()=>{openNewContactCard()}, 10);
+// }
 
 /**
  * Closes the Overlay after deleting a contact
  */
-function closeOverlay(){
-  let overlay = document.getElementById('overlay');
-  overlay.classList.add('d-none');
-  // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
-}
+// function closeOverlay(){
+//   let overlay = document.getElementById('overlay');
+//   overlay.classList.add('d-none');
+//   // setTimeout(()=>{overlay.classList.add('d-none');}, 1000);
+// }
 
 /**
  * Shows a popup notification when a new contact is created 
@@ -33,7 +33,7 @@ function toggleAlert(){
   overlay.classList.add('open');
   setTimeout(() => {
     overlay.classList.remove('open');
-}, 2000); // 2 Sekunden bleibt die Nachricht sichtbar
+}, 2000);
 }
 
 /**
@@ -52,7 +52,7 @@ async function newContact(){
       phone: phone.value,userColor: userColor, userId: key
   }
   addNewData(newData, "/contacts", key);
-  closeNewContactCard();
+  closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 100);
 }
@@ -93,16 +93,20 @@ function getUpdatedData() {
  * 
  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
-async function editContact(user){
+async function editContact(id){
+  console.log(id);
+  
   let updatedData = getUpdatedData();
-  let key = user[0].id;
+  let key = id;
   await updateData(updatedData, "contacts", key);
   const index = usersArray.findIndex(contact => contact.id === key);
   if (index !== -1) {
     usersArray[index] = { ...usersArray[index], ...updatedData };
   }
   currentUser = [{ ...currentUser[0], ...updatedData }];
-  closeNewContactCard();
+  console.log(currentUser);
+  
+  closeDialog("[editContactDialog]");
   renderContacts(usersArray);
   contactDetailCard(index);
   addBackground(index);
@@ -211,18 +215,18 @@ function openContactDetailsCard(infoboxId) {
  * Opens the new contact card by adding the "open" class to the container
  * firing the getNextID to get the next available userID
  */
-function openNewContactCard() {
-  let newContactCard = document.getElementById('newContactContainer');
-  newContactCard.classList.add('open');
-  }
+// function openNewContactCard() {
+//   let newContactCard = document.getElementById('newContactContainer');
+//   newContactCard.classList.add('open');
+//   }
 
-function closeNewContactCard(){
-    let newContactCard = document.getElementById('newContactContainer');
-    let overlay = document.getElementById('overlay');
-    newContactCard.classList.remove('open');
-    setTimeout(()=>{overlay.classList.add('d-none')}, 400);
-    document.getElementById("newUserForm").reset();
-  }
+// function closeNewContactCard(){
+//     let newContactCard = document.getElementById('newContactContainer');
+//     let overlay = document.getElementById('overlay');
+//     newContactCard.classList.remove('open');
+//     setTimeout(()=>{overlay.classList.add('d-none')}, 400);
+//     document.getElementById("newUserForm").reset();
+//   }
 
   /**
    * gets the html template for creating a new contact
@@ -303,34 +307,28 @@ function addBackground(id){
   document.getElementById(`${id}`).classList.add('chosen');;
 }
 
-/**
- * 
- * Opens the edit form for a specific contact and shows it in a form
- * 
- * @param {Object} contact - object with contact information.
- * @param {string|number} id - The identifier of the contact.
- * 
- */
-function openEditForm(contact, id){
-  let newContactContainer = document.getElementById("newContactContainer");
-  newContactContainer.innerHTML = editContactTemplate(contact, id); 
+/////////////////////////////////New Contact Dialog/////////////////////////////////////////////////////////////////////
+
+function openDialog(){
+  let modal = document.querySelector("[newContactDialog]");
+  modal.showModal();
+  setTimeout(() => {
+    modal.classList.add('open');
+  }, 10);
+  renderNewContactForm();
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
 function renderNewContactForm() {
   const container = document.getElementById('contactDialog');
-  container.innerHTML = newContactTemplate(); // Fügt das Template ein
+  container.innerHTML = newContactTemplate();
 
-  // Event-Listener erst registrieren, nachdem das Template eingefügt wurde
   const form = document.getElementById('newUserForm');
   if (form) {
       form.addEventListener("submit", function (event) {
-          event.preventDefault(); // Verhindert das Standard-Submit-Verhalten
+          event.preventDefault();
           if (form.checkValidity()) {
               newContact(); // Führt deine Funktion aus
-              toggleAlert(); // Zeigt den Alert an
+              toggleAlert();
           } else {
               console.log("Form is invalid");
           }
@@ -340,23 +338,47 @@ function renderNewContactForm() {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function openDialog(){
-  let modal = document.querySelector("[newContactDialog]");
-  // const modal2 = document.getElementById('contactDialog');
+/////// Edit Contact Form ////////////////////////////////////////////////////////////////////////////////////////
+
+function openEditDialog(user, id) {
+  const modal = document.querySelector("[editContactDialog]");
   modal.showModal();
   setTimeout(() => {
     modal.classList.add('open');
   }, 10);
-  renderNewContactForm();
+
+  // Setze das Template für den Editier-Dialog
+  renderEditContactForm(user, id);
 }
 
-function closeDialog(){
-  let modal = document.querySelector("[newContactDialog]");
+function renderEditContactForm(user, id) {
+  const container = document.getElementById('editContactDialog');
+  container.innerHTML = editContactTemplate(user, id); // Nutzt dein Template
+
+  const form = container.querySelector('#newUserForm');
+  if (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Verhindert Standard-Submit-Verhalten
+      if (form.checkValidity()) {
+        saveEditedContact(user, id); // Funktion zum Speichern des bearbeiteten Kontakts
+        setTimeout(() => {toggleAlert()}, 300);
+      } else {
+        console.log("Form is invalid");
+      }
+    });
+  } else {
+    console.error("Form element not found in edit dialog!");
+  }
+}
+
+function closeDialog(dialogSelector) {
+  const modal = document.querySelector(dialogSelector);
   modal.classList.remove('open');
   setTimeout(() => {
     modal.close();
-  }, 600);
+  }, 500);
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
