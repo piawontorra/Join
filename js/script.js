@@ -279,12 +279,12 @@ function toggleRememberCheckboxImg() {
 }
 
 /**
- * Toggles the visibility of the user menu by adding or removing the 'd-none' class.
+ * Toggles the visibility of the user menu by adding or removing the 'menu-closed' class.
  * This controls whether the user menu is displayed or hidden.
  */
 function toggleUserMenu() {
     const userMenuRef = document.getElementById('userMenu');
-    userMenuRef.classList.toggle('d-none');
+    userMenuRef.classList.toggle('menu-closed');
 }
 
 /**
