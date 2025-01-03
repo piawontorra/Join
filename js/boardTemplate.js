@@ -31,12 +31,11 @@ async function getTaskCardTemplate(task) {
            </div>`
         : "";
 
-    // Setze die Hintergrundfarbe basierend auf der Kategorie
     const categoryColors = {
         "User Story": "#0038FF",
         "Technical Task": "#1FD7C1"
     };
-    const categoryColor = categoryColors[task.category] || "#CCCCCC"; // Standardfarbe, falls Kategorie unbekannt
+    const categoryColor = categoryColors[task.category] || "#CCCCCC";
 
     return `<div class="task-card" data-task-id="${task.id}" draggable="true" ondragstart="dragTask(${task.id})" onclick="openTaskDetail('${task.id}')">
                 <div class="task-category">
@@ -59,7 +58,7 @@ async function getTaskCardTemplate(task) {
 async function getDetailTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
-    const assignedUserData = await getAssignedUserInitialsAndColor(task.assignedTo || []); // Standardwert für leeres Array
+    const assignedUserData = await getAssignedUserInitialsAndColor(task.assignedTo || []);
     let assignedToHTML = assignedUserData.length > 0
         ? assignedUserData
             .map(user =>
@@ -73,12 +72,11 @@ async function getDetailTaskCardTemplate(task) {
             .join("")
         : "";
 
-    // Setze die Hintergrundfarbe basierend auf der Kategorie
     const categoryColors = {
         "User Story": "#0038FF",
         "Technical Task": "#1FD7C1"
     };
-    const categoryColor = categoryColors[task.category] || "#CCCCCC"; // Standardfarbe für unbekannte Kategorien
+    const categoryColor = categoryColors[task.category] || "#CCCCCC";
 
     return `
         <div class="detail-task-card">
@@ -141,7 +139,6 @@ async function getDetailTaskCardTemplate(task) {
         </div>
     `;
 }
-
   
 function getNoTasksTemplate(status) {
     return `

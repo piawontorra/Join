@@ -1,117 +1,64 @@
 let currentTask = null;
 
-async function renderTaskEditor(stringTask) {
-    let task = JSON.parse(stringTask);
-    currentTask = task;
-    console.log(currentTask);
-
-    let contentRef = document.getElementById('editContainer');
-    let taskCard = document.getElementById('taskDetailCard');
-    contentRef.innerHTML = "";
-    taskCard.style.display = 'none';
-    contentRef.style.display = 'flex';
-    await initAddTask();
-    contentRef.innerHTML = getTaskEditorTemplate(task);
-
-    await renderEditorAssignedUsers(task);
-    await renderEditorSubtasks();
-}
-
-async function loadEditorContactData(task) {
-    try {
-        let assignedUserIds = [];
-
-        if (currentTask.assignedTo && currentTask.assignedTo.length > 0) {
-            assignedUserIds = currentTask.assignedTo.map(id => String(id));
-        }
-
-        renderEditorUsers(contacts, assignedUserIds);
-        renderEditorAssignedUsers(currentTask);
-    } catch (error) {
-        console.error("Fehler beim Laden der Daten:", error);
-    }
-}
-
 function handleEditorUserClick(userId) {
-    const userElement = document.getElementById(`user-${userId}`);
-    const checkbox = document.getElementById(`select-${userId}`);
+    const userElement = getUserElement(userId);
+    const checkbox = getCheckbox(userId);
 
-    if (!currentTask.assignedTo) {
-        currentTask.assignedTo = [];
-    }
+    ensureAssignedToExists();
 
-    if (userElement.classList.contains("selected")) {
-        userElement.classList.remove("selected");
-        checkbox.checked = false;
-        currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
+    if (isUserSelected(userElement)) {
+        deselectUser(userElement, checkbox, userId);
     } else {
-        userElement.classList.add("selected");
-        checkbox.checked = true;
-
-        if (!currentTask.assignedTo.includes(userId)) {
-            currentTask.assignedTo.push(userId);
-        }
+        selectUser(userElement, checkbox, userId);
     }
 
     renderEditorAssignedUsers(currentTask);
+}
+
+function getUserElement(userId) {
+    return document.getElementById(`user-${userId}`);
+}
+
+function getCheckbox(userId) {
+    return document.getElementById(`select-${userId}`);
+}
+
+function ensureAssignedToExists() {
+    if (!currentTask.assignedTo) {
+        currentTask.assignedTo = [];
+    }
+}
+
+function isUserSelected(userElement) {
+    return userElement.classList.contains("selected");
+}
+
+function deselectUser(userElement, checkbox, userId) {
+    userElement.classList.remove("selected");
+    checkbox.checked = false;
+    currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
+}
+
+function selectUser(userElement, checkbox, userId) {
+    userElement.classList.add("selected");
+    checkbox.checked = true;
+    if (!currentTask.assignedTo.includes(userId)) {
+        currentTask.assignedTo.push(userId);
+    }
 }
 
 function handleEditorCheckboxChange(userId, isChecked) {
     userId = Number(userId);
-
-    if (!currentTask.assignedTo) {
-        currentTask.assignedTo = [];
-    }
-    if (isChecked) {
-        if (!currentTask.assignedTo.includes(userId)) {
-            currentTask.assignedTo.push(userId);
-        }
-    } else {
-        currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
-    }
-
-    const userElement = document.getElementById(`user-${userId}`);
-    if (userElement) {
-        if (isChecked) {
-            userElement.classList.add('selected');
-        } else {
-            userElement.classList.remove('selected');
-        }
-    }
-
+    ensureAssignedToExists();
+    updateAssignedUsers(userId, isChecked);
+    updateUserElementClass(userId, isChecked);
     renderEditorAssignedUsers(currentTask);
 }
 
-function renderEditorUsers(contacts, assignedUserIds) {
-    let usersRef = document.getElementById('users');
-    usersRef.innerHTML = '';
-
-    let contactKeys = Object.keys(contacts);
-
-    for (let i = 0; i < contactKeys.length; i++) {
-        let key = contactKeys[i];
-        let contact = contacts[key];
-        let isChecked = assignedUserIds.includes(String(contact.userId));
-        let contactTemplate = getEditorAssignedToTemplate(contact, isChecked);
-        usersRef.innerHTML += contactTemplate;
+function ensureAssignedToExists() {
+    if (!currentTask.assignedTo) {
+        currentTask.assignedTo = [];
     }
-}
-
-async function renderEditorAssignedUsers(task) {
-    const assignedUserData = await getEditorAssignedUserInitialsAndColor(task.assignedTo || []);
-    let assignedToHTML = assignedUserData.length > 0
-        ? assignedUserData
-            .map(user =>
-                `<div class="editor-task-assigned-to">
-                    <div class="detail-task-user-icon" style="background-color: ${user.color};">
-                        ${user.initials}
-                    </div>
-                </div>`
-            )
-            .join("")
-        : "";
-
-    document.getElementById("assignedUsers").innerHTML = assignedToHTML;
 }
 
 async function getEditorAssignedUserInitialsAndColor(assignedUserIds) {
@@ -126,20 +73,6 @@ async function getEditorAssignedUserInitialsAndColor(assignedUserIds) {
             name: contact.name
         };
     }).filter(Boolean);
-}
-
-async function renderEditorSubtasks() {
-    const subtaskContainer = document.getElementById('subtask');
-    subtaskContainer.innerHTML = '';
-
-    if (currentTask.subtasks && currentTask.subtasks.length > 0) {
-        for (let i = 0; i < currentTask.subtasks.length; i++) {
-            const subtask = currentTask.subtasks[i];
-            console.log(subtask);
-            
-            subtaskContainer.innerHTML += getEditorSubtaskTemplate(subtask, i);
-        }
-    }
 }
 
 function toggleEditorSubtaskCompletion(index) {
@@ -197,36 +130,37 @@ function closeTaskEditor() {
     contentRef.style.display = 'none';
 }
 
-function updateCurrentTask(event) {
-    event.preventDefault();
-
+function validateInputs() {
     const title = document.getElementById('inputTitle').value.trim();
-    const description = document.getElementById('inputDescription').value.trim();
     const dueDate = document.getElementById('inputDueDate').value.trim();
-    const priority = getSelectedPriority();
-    const assignedTo = currentTask.assignedTo && currentTask.assignedTo.length > 0 
-        ? currentTask.assignedTo 
-        : [];
+    
+    const isValidTitle = validateTitle(title);
+    const isValidDueDate = validateDueDate(dueDate);
 
+    return isValidTitle && isValidDueDate;
+}
+
+function validateTitle(title) {
+    const titleError = document.getElementById('inputTitleError');
     if (!title) {
-        document.getElementById('inputTitleError').style.display = 'block';
-        return;
-    } else {
-        document.getElementById('inputTitleError').style.display = 'none';
+        titleError.style.display = 'block';
+        return false;
     }
+    titleError.style.display = 'none';
+    return true;
+}
 
+function validateDueDate(dueDate) {
+    const dueDateError = document.getElementById('inputDueDateError');
     if (!dueDate) {
-        document.getElementById('inputDueDateError').style.display = 'block';
-        return;
-    } else {
-        document.getElementById('inputDueDateError').style.display = 'none';
+        dueDateError.style.display = 'block';
+        return false;
     }
+    dueDateError.style.display = 'none';
+    return true;
+}
 
-    if (category === 'Select category') {
-        alert('Please select a category.');
-        return;
-    }
-
+function getSubtasks() {
     const subtasks = [];
     document.querySelectorAll('.created-subtasks-container input').forEach((input, index) => {
         subtasks.push({
@@ -234,72 +168,27 @@ function updateCurrentTask(event) {
             text: input.value.trim()
         });
     });
+    return subtasks;
+}
 
-    currentTask.title = title;
-    currentTask.description = description;
-    currentTask.dueDate = dueDate;
-    currentTask.priority = priority;
-    currentTask.assignedTo = assignedTo;
+function assignTaskProperties(subtasks) {
+    currentTask.title = document.getElementById('inputTitle').value.trim();
+    currentTask.description = document.getElementById('inputDescription').value.trim();
+    currentTask.dueDate = document.getElementById('inputDueDate').value.trim();
+    currentTask.priority = getSelectedPriority();
+    currentTask.assignedTo = getAssignedTo();
     currentTask.subtasks = subtasks;
-
-    updateTaskInFirebase(currentTask);
 }
 
-async function updateTaskInFirebase(task) {
-    try {
-        const taskUrl = `${BASE_URL}tasks/${task.id}.json`;
-        const response = await fetch(taskUrl, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: task.title,
-                description: task.description,
-                dueDate: task.dueDate,
-                category: task.category,
-                priority: task.priority,
-                assignedTo: task.assignedTo,
-                subtasks: task.subtasks,
-                status: task.status,
-                id: task.id
-            })
-        });
-
-        const existingTask = tasksData.find(t => t.id === task.id);
-
-        if (existingTask) {
-            Object.assign(existingTask, task);
-            console.log('Updated tasksData:', tasksData);
-        } else {
-            console.warn(`Task with ID ${task.id} not found in tasksData.`);
-        }
-
-        refreshTaskCard(task);
-        openTaskDetail(task.id);
-        closeTaskEditor();
-    } catch (error) {
-        console.error('Error updating task in Firebase Realtime Database:', error);
-    }
-}
-
-async function refreshTaskCard(task) {
-    const taskCard = document.querySelector(`.task-card[data-task-id="${task.id}"]`);
-
-    const newTaskCardHTML = await getTaskCardTemplate(task);
-
-    taskCard.outerHTML = newTaskCardHTML;
+function getAssignedTo() {
+    return currentTask.assignedTo && currentTask.assignedTo.length > 0
+        ? currentTask.assignedTo
+        : [];
 }
 
 function getSelectedPriority() {
-    if (document.getElementById('urgentPrio').classList.contains('selected')) {
-        return 'Urgent';
-    }
-    if (document.getElementById('mediumPrio').classList.contains('selected')) {
-        return 'Medium';
-    }
-    if (document.getElementById('lowPrio').classList.contains('selected')) {
-        return 'Low';
-    }
+    if (document.getElementById('urgentPrio').classList.contains('selected')) return 'Urgent';
+    if (document.getElementById('mediumPrio').classList.contains('selected')) return 'Medium';
+    if (document.getElementById('lowPrio').classList.contains('selected')) return 'Low';
     return null;
 }

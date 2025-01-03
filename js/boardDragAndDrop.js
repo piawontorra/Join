@@ -1,16 +1,13 @@
-// Hauptfunktion: Startet das Ziehen einer Aufgabe
 function dragTask(taskId) {
   setDraggedElement(taskId);
   hideAllNoTasksMessages();
   highlightDropTargets(taskId);
 }
 
-// Hilfsfunktion: Setzt die ID des gezogenen Elements
 function setDraggedElement(taskId) {
   draggedElementId = taskId;
 }
 
-// Hilfsfunktion: Versteckt alle "Keine Aufgaben"-Nachrichten
 function hideAllNoTasksMessages() {
   const noTasksMessages = document.querySelectorAll('.no-tasks-message');
   noTasksMessages.forEach(message => {
@@ -18,7 +15,6 @@ function hideAllNoTasksMessages() {
   });
 }
 
-// Hilfsfunktion: Hebt mögliche Zielbereiche hervor
 function highlightDropTargets(taskId) {
   const task = findTaskById(taskId);
   if (task) {
@@ -26,12 +22,10 @@ function highlightDropTargets(taskId) {
   }
 }
 
-// Hilfsfunktion: Findet eine Aufgabe basierend auf der ID
 function findTaskById(taskId) {
   return Object.values(tasksData).find(task => task.id === taskId);
 }
 
-// Hilfsfunktion: Hebt Container außer dem aktuellen hervor
 function highlightContainersExceptCurrent(currentStatus) {
   const statusContainers = getStatusContainers();
   statusOrder.forEach(status => {
@@ -69,8 +63,6 @@ function dropTask(event, newStatus) {
   const taskId = draggedElementId;
   const taskIndex = getTaskIndexById(taskId);
   const task = Object.values(tasksData)[taskIndex];
-  const oldStatus = task.status;
-  
   updateTaskStatus(taskIndex, newStatus);
   updateTaskStatusInFirebase(taskId, newStatus);
   moveTaskCardInDOM(taskId, newStatus);

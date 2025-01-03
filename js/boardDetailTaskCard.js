@@ -64,7 +64,6 @@ function logFirebaseUpdateError(error) {
   console.error("Fehler beim Aktualisieren der Subtask in Firebase:", error);
 }
 
-// Hauptfunktion: Löscht eine Aufgabe in Firebase
 async function deleteTask(taskId, taskStatus) {
   try {
       await deleteTaskFromFirebase(taskId);
@@ -75,7 +74,6 @@ async function deleteTask(taskId, taskStatus) {
   }
 }
 
-// Hilfsfunktion: Löscht eine Aufgabe in Firebase
 async function deleteTaskFromFirebase(taskId) {
   const taskPath = `${BASE_URL}tasks/${taskId}.json`;
   const response = await fetch(taskPath, { method: "DELETE" });
@@ -84,7 +82,6 @@ async function deleteTaskFromFirebase(taskId) {
   }
 }
 
-// Hilfsfunktion: Aktualisiert lokale Daten und das DOM nach dem Löschen
 function updateLocalDataAfterDeletion(taskId, taskStatus) {
   removeTaskFromLocalData(taskId);
   removeTaskCardFromDOM(taskId);
@@ -95,12 +92,10 @@ function updateLocalDataAfterDeletion(taskId, taskStatus) {
   }
 }
 
-// Hilfsfunktion: Entfernt eine Aufgabe aus den lokalen Daten
 function removeTaskFromLocalData(taskId) {
   tasksData = tasksData.filter(task => task.id !== taskId);
 }
 
-// Hilfsfunktion: Entfernt die Task-Karte aus dem DOM
 function removeTaskCardFromDOM(taskId) {
   const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
   if (taskCard) {
@@ -108,7 +103,6 @@ function removeTaskCardFromDOM(taskId) {
   }
 }
 
-// Hilfsfunktion: Loggt Fehler beim Löschen der Aufgabe
 function logTaskDeletionError(error) {
   console.error("Fehler beim Löschen der Task:", error);
 }
