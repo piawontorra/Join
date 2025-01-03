@@ -71,62 +71,68 @@ async function getUserDataById(userId) {
 
 async function renderAllTasks(statusContainers) {
   const tasks = cleanTasksData(tasksData);
+  const tempContainers = initializeTempContainers();
 
-  for (let i = 0; i < tasks.length; i++) {
-      const task = tasksData[i];
-      if (statusContainers[task.status]) {
-          statusContainers[task.status].innerHTML += await getTaskCardTemplate(task);
-      }
-  }
+  await populateTempContainers(tasks, tempContainers);
+  updateStatusContainers(statusContainers, tempContainers);
 }
 
-async function renderAllTasks(statusContainers) {
-  const tasks = cleanTasksData(tasksData);
-
-  const tempContainers = {
+function initializeTempContainers() {
+  return {
       'todo': '',
       'in-progress': '',
       'await-feedback': '',
       'done': ''
   };
+}
 
-  for (let i = 0; i < tasks.length; i++) {
-      const task = tasks[i];
+async function populateTempContainers(tasks, tempContainers) {
+  for (const task of tasks) {
       if (tempContainers[task.status] !== undefined) {
           tempContainers[task.status] += await getTaskCardTemplate(task);
       }
   }
+}
 
+function updateStatusContainers(statusContainers, tempContainers) {
   for (const status in statusContainers) {
       statusContainers[status].innerHTML = tempContainers[status];
   }
 }
 
-
 async function getAssignedUserInitialsAndColor(assignedUserIds) {
-  if (!Array.isArray(assignedUserIds) || assignedUserIds.length === 0) {
-    return [];
+  if (!isValidUserIdsArray(assignedUserIds)) {
+      return [];
   }
 
-  // Alle Benutzer-Daten parallel abrufen
+  const userDataList = await fetchUserDataList(assignedUserIds);
+  return extractAssignedUserData(userDataList);
+}
+
+function isValidUserIdsArray(assignedUserIds) {
+  return Array.isArray(assignedUserIds) && assignedUserIds.length > 0;
+}
+
+async function fetchUserDataList(assignedUserIds) {
   const userPromises = assignedUserIds.map(userId => getUserDataById(userId));
+  return await Promise.all(userPromises);
+}
 
-  // Warten, bis alle Promises abgeschlossen sind
-  const userDataList = await Promise.all(userPromises);
+function extractAssignedUserData(userDataList) {
+  return userDataList.map(userData => {
+      if (userData) {
+          return formatUserData(userData);
+      }
+      return null;
+  }).filter(user => user !== null);
+}
 
-  // Extrahiere die notwendigen Informationen aus den Benutzerdaten
-  const assignedUserData = userDataList.map(userData => {
-    if (userData) {
-      const userInitials = getInitials(userData.name);
-      const userColor = userData.userColor;
-      const userName = userData.name;
+function formatUserData(userData) {
+  const userInitials = getInitials(userData.name);
+  const userColor = userData.userColor;
+  const userName = userData.name;
 
-      return { initials: userInitials, color: userColor, name: userName };
-    }
-    return null; // Falls userData null ist
-  }).filter(user => user !== null); // Entferne null-Werte, falls kein userData zurückgegeben wurde
-
-  return assignedUserData;
+  return { initials: userInitials, color: userColor, name: userName };
 }
 
 function getInitials(name) {
@@ -172,29 +178,6 @@ function updateProgressBar(task) {
 
   if (progressBar) progressBar.style.width = `${progressPercentage}%`;
   if (progressText) progressText.textContent = `${completedCount}/${totalSubtasks} Subtasks`;
-}
-
-async function updateSubtaskInFirebase(taskId, subtaskIndex, completed) {
-  const path = `tasks/${taskId}/subtasks/${subtaskIndex}`;
-  const updateData = {
-    completed: completed,
-  };
-
-  try {
-    const response = await fetch(BASE_URL + path + ".json", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Fehler beim Patchen der Subtask in Firebase');
-    }
-  } catch (error) {
-    console.error("Fehler beim Aktualisieren der Subtask in Firebase:", error);
-  }
 }
 
 function openAddTask(status) {

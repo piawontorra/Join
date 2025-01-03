@@ -1,25 +1,47 @@
+// Hauptfunktion: Startet das Ziehen einer Aufgabe
 function dragTask(taskId) {
+  setDraggedElement(taskId);
+  hideAllNoTasksMessages();
+  highlightDropTargets(taskId);
+}
+
+// Hilfsfunktion: Setzt die ID des gezogenen Elements
+function setDraggedElement(taskId) {
   draggedElementId = taskId;
-  
+}
+
+// Hilfsfunktion: Versteckt alle "Keine Aufgaben"-Nachrichten
+function hideAllNoTasksMessages() {
   const noTasksMessages = document.querySelectorAll('.no-tasks-message');
   noTasksMessages.forEach(message => {
-    message.style.display = 'none';
+      message.style.display = 'none';
   });
-  
-  const task = Object.values(tasksData).find(task => task.id === taskId);
-  if (task) {
-    const currentStatus = task.status;
-    const statusContainers = getStatusContainers();
+}
 
-    statusOrder.forEach(status => {
-      if (status !== currentStatus) {
-        const container = statusContainers[status];
-        if (container) {
-          showDashedBox(container);
-        }
-      }
-    });
+// Hilfsfunktion: Hebt mögliche Zielbereiche hervor
+function highlightDropTargets(taskId) {
+  const task = findTaskById(taskId);
+  if (task) {
+      highlightContainersExceptCurrent(task.status);
   }
+}
+
+// Hilfsfunktion: Findet eine Aufgabe basierend auf der ID
+function findTaskById(taskId) {
+  return Object.values(tasksData).find(task => task.id === taskId);
+}
+
+// Hilfsfunktion: Hebt Container außer dem aktuellen hervor
+function highlightContainersExceptCurrent(currentStatus) {
+  const statusContainers = getStatusContainers();
+  statusOrder.forEach(status => {
+      if (status !== currentStatus) {
+          const container = statusContainers[status];
+          if (container) {
+              showDashedBox(container);
+          }
+      }
+  });
 }
   
 function allowDrop(event) {
@@ -52,12 +74,11 @@ function dropTask(event, newStatus) {
   updateTaskStatus(taskIndex, newStatus);
   updateTaskStatusInFirebase(taskId, newStatus);
   moveTaskCardInDOM(taskId, newStatus);
-  
+
   const statusContainers = getStatusContainers();
   Object.keys(statusContainers).forEach(status => {
     checkAndUpdateNoTasksMessage(statusContainers[status]);
   });
-  
   resetContainerHighlight(event);
 }
 

@@ -30,7 +30,6 @@ function hideErrorMessage() {
 
 function filterTasks(taskCards, searchQuery) {
     let foundTasks = false;
-
     taskCards.forEach(card => {
         const taskTitle = getTaskTitle(card);
         const taskDescription = getTaskDescription(card);
@@ -42,7 +41,7 @@ function filterTasks(taskCards, searchQuery) {
             card.style.display = 'none';
         }
     });
-
+    
     return foundTasks;
 }
 
