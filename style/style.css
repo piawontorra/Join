@@ -1,7 +1,9 @@
 header {
     background-color: white;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     z-index: 10;
 }
@@ -48,7 +50,7 @@ header {
     position: absolute;
     top: calc(100% + 20px);
     right: 0;
-    border: 1px solid rgb(246, 247, 248);
+    box-shadow: 0px 1px 4px 0px rgba(246, 247, 248);
 }
 
 .user-menu-btn {
@@ -72,6 +74,11 @@ header {
     line-height: 19.2px;
     color: #CDCDCD;
     width: 100%;
+}
+
+.menu-closed {
+    transform: translateX(132%);
+    display: none;
 }
 
 .user-initials-header {
@@ -118,12 +125,14 @@ header {
 
     .header-content {
         justify-content: flex-end;
+        padding: 20px 28px 20px 348px;
     }
 }
 
 @media (max-width: 480px) {
     header {
         z-index: 1300;
+        /* während die sidebar noch nicht responsive ist */
     }
 
     .header-content {
@@ -132,6 +141,14 @@ header {
     }
 
     .header-logo {
+        display: flex;
+    }
+
+    .user-menu {
+        transition: transform 100ms ease-in-out;
+    }
+
+    .menu-closed {
         display: flex;
     }
 
