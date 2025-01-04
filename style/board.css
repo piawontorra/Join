@@ -271,27 +271,37 @@ h1 {
     .board-header {
         padding-left: 32px;
         padding-right: 32px;
+        padding-top: 32px;
+        padding-bottom: 32px;
     }
 
     .board-categorys-container {
         max-width: none;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .board-categorys {
         flex-direction: column;
         padding: 0 16px;
         gap: 8px;
+        height: 1300px;
     }
 
     .tasks-content {
         display: flex;
         align-items: flex-start;
         gap: 8px;
-        height: auto;
+        height: 400px;
     }
 
     .task-header {
         padding-left: 8px;
+        width: 100vw;
+    }
+
+    .task-header-btn {
+        padding-right: 32px;
     }
 
     .task-content-split {
