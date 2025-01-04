@@ -138,6 +138,7 @@ h1 {
     /* gap: 26px; */
     padding: 0px 48px;
     height: calc(100vh - 301.2px);
+    min-width: 1208px;
 }
 
 .tasks-content {
@@ -193,7 +194,7 @@ h1 {
     align-items: center;
     gap: 16px;
     height: calc(100% - 40px);
-    overflow: auto;
+    overflow-y: auto;
     scrollbar-width: none;
     width: 272px;
     padding: 12px;
@@ -223,3 +224,82 @@ h1 {
     pointer-events: none;
 }
 
+@media (max-width: 1370px) {
+    .board-categorys {
+        padding: 0 8px;
+    }
+
+    .board-header {
+        padding-left: 24px;
+        padding-right: 250px;
+    }
+}
+
+@media (max-width: 1325px) {
+    .board-categorys-container {
+        max-width: 1100px;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: calc(100vh - 301.2px);
+    }
+}
+
+@media (max-width: 1215px) {
+    .board-categorys-container {
+        max-width: 990px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .board-header-right {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 1110px) {
+    .board-categorys-container {
+        max-width: 890px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .board-content {
+        left: 0;
+    }
+
+    .board-header {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .board-categorys-container {
+        max-width: none;
+    }
+
+    .board-categorys {
+        flex-direction: column;
+        padding: 0 16px;
+        gap: 8px;
+    }
+
+    .tasks-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        height: auto;
+    }
+
+    .task-header {
+        padding-left: 8px;
+    }
+
+    .task-content-split {
+        flex-direction: row;
+        align-items: flex-start;
+        padding: 8px;
+        overflow-y: hidden;
+        overflow-x: auto;
+        width: 100%;
+    }
+}
