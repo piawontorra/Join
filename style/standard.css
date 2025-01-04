@@ -10,6 +10,11 @@
     src: url('../assets/fonts/inter.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'open-sans';
+    src: url('../assets/fonts/OpenSans.ttf') format('truetype');
+}
+
 .max-width {
     max-width: 1440px;
     width: 100%;
@@ -151,4 +156,10 @@ a {
 /* Abkürzungen sind bei manchen DA-Mentoren nicht beliebt */
 .mr-10 {
     margin-right: 10px;
+}
+
+@media (max-width: 1000px){
+    .content-fixed {
+        margin-left: 0;
+    }
 }

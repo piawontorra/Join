@@ -138,6 +138,11 @@
         border-radius: 12px;
         display: flex;
         justify-content: center;
+        font-family: 'open-sans';
+    }
+
+    .menu-component p{
+        font-family: 'open-sans';
     }
 
     .menu-icon {
