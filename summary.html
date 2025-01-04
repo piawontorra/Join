@@ -9,7 +9,7 @@
     <script src="./js/script.js"></script>
     <script src="./js/loginRegisterTemplate.js"></script>
     <script src="./js/board.js"></script>
-    <script src="./js/board_template.js"></script>
+    <script src="./js/boardTemplate.js"></script>
     <script src="./js/contacts.js"></script>
     <script src="./js/summary.js"></script>
     <script src="./js/add_task.js"></script>
@@ -40,7 +40,7 @@
                 <section class="summary max-width-calced">
                     <div class="summary-content">
                         <div class="summary-rows">
-                            <button class="btn summary-btn" onclick="transferToBoard()" onmouseover="toggleImage(true, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')" onmouseout="toggleImage(false, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')">
+                            <button class="btn summary-btn summary-row1" onclick="transferToBoard()" onmouseover="toggleImage(true, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')" onmouseout="toggleImage(false, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')">
                                 <img class="status-img" id="to-do-img" src="./assets/img/to-do-summary-icon.png" alt="To do">
                                 <div class="task-count-status">
                                     <span class="task-count" id="to-do-count">0</span>
@@ -48,7 +48,7 @@
                                 </div>
                             </button>
                             
-                            <button class="btn summary-btn" onclick="transferToBoard()" onmouseover="toggleImage(true, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')" onmouseout="toggleImage(false, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')">
+                            <button class="btn summary-btn summary-row1" onclick="transferToBoard()" onmouseover="toggleImage(true, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')" onmouseout="toggleImage(false, 'done-img', 'assets/img/check-mark-white-background.png', 'assets/img/done-summary-icon.png')">
                                 <img class="status-img" id="done-img" src="./assets/img/done-summary-icon.png" alt="Done">
                                 <div class="task-count-status">
                                     <span class="task-count" id="done-count">0</span>
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="summary-rows">
-                            <button class="btn summary-btn" onclick="transferToBoard()">
+                            <button class="btn summary-btn summary-row2" onclick="transferToBoard()">
                                 <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="Urgent">
                                 <div class="task-count-status">
                                     <span class="task-count" id="urgent-count">0</span>
