@@ -15,7 +15,6 @@ async function initAddTask() {
     includeHTML();
     initializeCategory();
     await loadData();
-    // console.log(selectedCategory);
 }
 
 async function loadTasks(path = "") {
@@ -27,69 +26,94 @@ async function loadTasks(path = "") {
 
 async function getCardID() {
     try {
-        let response = await fetch(`${BASE_URL}/nextCardID.json`);
-        let nextCardID = await response.json();
-
-        if (nextCardID === null) {
-            nextCardID = 1;
-        }
-
-        await fetch(`${BASE_URL}/nextCardID.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(nextCardID + 1),
-        });
-
+        const nextCardID = await fetchNextCardID();
+        await updateNextCardID(nextCardID + 1);
         return nextCardID;
     } catch (error) {
-        console.error("Fehler beim Abrufen oder Aktualisieren der nextCardID:", error);
+        handleCardIDError(error);
         throw error;
     }
 }
 
+async function fetchNextCardID() {
+    const response = await fetch(`${BASE_URL}/nextCardID.json`);
+    const nextCardID = await response.json();
+    return nextCardID === null ? 1 : nextCardID;
+}
+
+async function updateNextCardID(newCardID) {
+    await fetch(`${BASE_URL}/nextCardID.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCardID),
+    });
+}
+
+function handleCardIDError(error) {
+    console.error("Fehler beim Abrufen oder Aktualisieren der nextCardID:", error);
+}
+
 async function newTask(event) {
-    event.preventDefault(); // Verhindert das Neuladen der Seite
-
-    const titleInput = document.getElementById('inputTitle');
-    const dueDateInput = document.getElementById('inputDueDate');
-
+    event.preventDefault();
     if (!validateTitle() || !validateDueDate() || !validateCategory()) {
-        return; // Abbruch, wenn irgendeine Validierung fehlschlägt
+        return;
     }
-
-    let title = titleInput.value;
-    let description = document.getElementById('inputDescription').value;
-    let assignedId = assignedTo;
-    let dueDate = dueDateInput.value;
-    let priority = selectedPriority || 'Medium'; // Fallback-Priorität
-    
     try {
-        const cardID = await getCardID();
-
-        let newTask = {
-            title: title,
-            description: description,
-            assignedTo: assignedId,
-            dueDate: dueDate,
-            priority: priority,
-            category: selectedCategory,
-            subtasks: subtasks,
-            status: selectedTaskStatus,
-            id: cardID,
-        };
-
+        const newTask = await createNewTask();
         console.log("Neuer Task wird erstellt:", newTask);
-
         addTask(newTask);
         showTaskAddedToBoard();
         resetErrorState();
-        setTimeout(async function () {
-            clearAddTask();
-            location.href = 'board.html';
-          }, 3000);
+        redirectToBoard();
     } catch (error) {
         console.error("Fehler beim Erstellen des Tasks:", error);
     }
+}
+
+async function createNewTask() {
+    const cardID = await getCardID();
+    const taskDetails = getTaskDetails();
+    return { ...taskDetails, id: cardID };
+}
+
+function getTaskDetails() {
+    return {
+        title: getTitle(),
+        description: getDescription(),
+        assignedTo: getAssignedId(),
+        dueDate: getDueDate(),
+        priority: getPriority(),
+        category: selectedCategory,
+        subtasks: subtasks,
+        status: selectedTaskStatus,
+    };
+}
+
+function getTitle() {
+    return document.getElementById('inputTitle').value;
+}
+
+function getDescription() {
+    return document.getElementById('inputDescription').value;
+}
+
+function getAssignedId() {
+    return assignedTo;
+}
+
+function getDueDate() {
+    return document.getElementById('inputDueDate').value;
+}
+
+function getPriority() {
+    return selectedPriority || 'Medium';
+}
+
+function redirectToBoard() {
+    setTimeout(function () {
+        clearAddTask();
+        location.href = 'board.html';
+    }, 3000);
 }
 
 async function addTask(task) {
@@ -116,7 +140,6 @@ async function loadData() {
     try {
         let response = await fetch(BASE_URL + "/contacts.json");
         let responseToJson = await response.json();
-        // console.log(responseToJson);
         
         contacts = responseToJson;
 
@@ -130,7 +153,6 @@ async function loadData() {
 function renderUsers(contacts) {
     let usersRef = document.getElementById('users');
     usersRef.innerHTML = '';
-
     let contactKeys = Object.keys(contacts);
 
     for (let i = 0; i < contactKeys.length; i++) {
@@ -150,24 +172,37 @@ function showUsers() {
     const border = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
     const selectedUsers = document.getElementById('assignedUsers');
 
-    if (usersElement.style.display === 'none' || usersElement.style.display === '') {
-        usersElement.style.display = 'block';
-        arrowDown.style.display = 'none';
-        arrowUp.style.display = 'block';
-        selectedUsers.style.display = 'none';
-        if (border) {
-            border.style.border = '1px solid #26ace3';
-        }
+    if (isUsersElementHidden(usersElement)) {
+        showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
     } else {
-        usersElement.style.display = 'none';
-        arrowDown.style.display = 'block';
-        arrowUp.style.display = 'none';
-        selectedUsers.style.display = 'flex';
-        if (border) {
-            border.style.border = '';
-        }
+        hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
     }
 }
+
+function isUsersElementHidden(usersElement) {
+    return usersElement.style.display === 'none' || usersElement.style.display === '';
+}
+
+function showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border) {
+    usersElement.style.display = 'block';
+    arrowDown.style.display = 'none';
+    arrowUp.style.display = 'block';
+    selectedUsers.style.display = 'none';
+    if (border) {
+        border.style.border = '1px solid #26ace3';
+    }
+}
+
+function hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border) {
+    usersElement.style.display = 'none';
+    arrowDown.style.display = 'block';
+    arrowUp.style.display = 'none';
+    selectedUsers.style.display = 'flex';
+    if (border) {
+        border.style.border = '';
+    }
+}
+
 
 function getInitials(name) {
     let nameParts = name.split(" ");
@@ -178,21 +213,17 @@ function getInitials(name) {
 function handleUserClick(userId) {
     const userElement = document.getElementById(`user-${userId}`);
     const checkbox = document.getElementById(`select-${userId}`);
-
     if (userElement.classList.contains("selected")) {
         userElement.classList.remove("selected");
         checkbox.checked = false;
-
         assignedTo = assignedTo.filter(id => id !== userId);
     } else {
         userElement.classList.add("selected");
         checkbox.checked = true;
-
         if (!assignedTo.includes(userId)) {
             assignedTo.push(userId);
         }
     }
-
     showAssignedUsers();
 }
 
@@ -202,18 +233,13 @@ function handleCheckboxChange(userId) {
 
     if (checkbox.checked) {
         userElement.classList.add("selected");
-
         if (!assignedTo.includes(userId)) {
             assignedTo.push(userId);
         }
     } else {
         userElement.classList.remove("selected");
-
         assignedTo = assignedTo.filter(id => id !== userId);
     }
-
-    console.log(assignedTo);
-    
 
     showAssignedUsers();
 }
@@ -247,48 +273,50 @@ function initializeCategory() {
 }
 
 function showCategorys() {
-    const categorysElement = document.getElementById('category')
+    const categorysElement = document.getElementById('category');
     const arrowDown = document.getElementById('categoryArrowDown');
     const arrowUp = document.getElementById('categoryArrowUp');
     const border = document.getElementsByClassName('add-task-assigned-to-input-field')[1];
 
     if (categorysElement.style.display === 'none' || categorysElement.style.display === '') {
-        categorysElement.style.display = 'block';
-        arrowDown.style.display = 'none';
-        arrowUp.style.display = 'block';
-        if (border) {
-            border.style.border = '1px solid #26ace3';
-        }
+        showCategorysList(categorysElement, arrowDown, arrowUp, border);
     } else {
-        categorysElement.style.display = 'none';
-        arrowDown.style.display = 'block';
-        arrowUp.style.display = 'none';
-        if (border) {
-            border.style.border = '';
-        }
+        hideCategorysList(categorysElement, arrowDown, arrowUp, border);
+    }
+}
+
+function showCategorysList(categorysElement, arrowDown, arrowUp, border) {
+    categorysElement.style.display = 'block';
+    arrowDown.style.display = 'none';
+    arrowUp.style.display = 'block';
+    if (border) {
+        border.style.border = '1px solid #26ace3';
+    }
+}
+
+function hideCategorysList(categorysElement, arrowDown, arrowUp, border) {
+    categorysElement.style.display = 'none';
+    arrowDown.style.display = 'block';
+    arrowUp.style.display = 'none';
+    if (border) {
+        border.style.border = '';
     }
 }
 
 function selectCategory(event, category) {
     event.stopPropagation();
-
     selectedCategory = category;
 
     const border = document.getElementsByClassName('add-task-assigned-to-input-field')[1];
     border.style.border = '';
-
     const selectedCategoryElement = document.getElementById('selectedCategory');
     selectedCategoryElement.textContent = selectedCategory;
-
     const categorysElement = document.getElementById('category');
     categorysElement.style.display = 'none';
-
     const arrowDown = document.getElementById('categoryArrowDown');
     const arrowUp = document.getElementById('categoryArrowUp');
     arrowDown.style.display = 'block';
     arrowUp.style.display = 'none';
-
-    console.log(`Selected category: ${selectedCategory}`); // Optional: Zur Überprüfung in der Konsole
 }
 
 function showTaskAddedToBoard() {

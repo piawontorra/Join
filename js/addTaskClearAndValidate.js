@@ -1,18 +1,34 @@
 function clearAddTask() {
-    let title = document.getElementById('inputTitle');
-    let description = document.getElementById('inputDescription');
-    let dueDate = document.getElementById('inputDueDate');
+    clearFormFields();
+    resetAssignedUsers();
+    resetPriority();
+    resetCategory();
+    resetSubtasks();
+}
 
-    title.value = '';
-    description.value = '';
+function clearFormFields() {
+    document.getElementById('inputTitle').value = '';
+    document.getElementById('inputDescription').value = '';
+    document.getElementById('inputDueDate').value = '';
+}
+
+function resetAssignedUsers() {
     assignedTo = [];
     showAssignedUsers();
     clearAssignedCheckboxes();
-    dueDate.value = '';
+}
+
+function resetPriority() {
     selectedPriority = "Medium";
     selectPriority(selectedPriority);
+}
+
+function resetCategory() {
     selectedCategory = "Select task category";
     initializeCategory();
+}
+
+function resetSubtasks() {
     subtasks = [];
     renderSubtasks();
 }
@@ -22,13 +38,9 @@ function clearAssignedCheckboxes() {
 
     checkboxes.forEach(checkbox => {
         const userId = checkbox.id.split('-')[1];
-
         checkbox.checked = false;
-
         handleCheckboxChange(userId);
     });
-
-    console.log("Alle Assigned-To-Checkboxen und zugehörige Stile wurden zurückgesetzt.");
 }
 
 function validateCategory() {
@@ -52,43 +64,65 @@ function validateTitle() {
     const titleInput = document.getElementById('inputTitle');
     const titleErrorMessage = document.getElementById('inputTitleError');
 
-    if (titleInput.value.trim() === "") {
-        titleInput.classList.add('error');
-        titleInput.style.marginBottom = '';
-        titleErrorMessage.style.display = 'block';
-
-        setTimeout(function () {
-            titleInput.classList.remove('error');
-            titleErrorMessage.style.display = 'none';
-        }, 2000);
-
+    if (isTitleEmpty(titleInput)) {
+        showTitleError(titleInput, titleErrorMessage);
         return false;
     } else {
-        titleInput.classList.remove('error');
-        titleErrorMessage.style.display = 'none';
+        hideTitleError(titleInput, titleErrorMessage);
         return true;
     }
+}
+
+function isTitleEmpty(titleInput) {
+    return titleInput.value.trim() === "";
+}
+
+function showTitleError(titleInput, titleErrorMessage) {
+    titleInput.classList.add('error');
+    titleInput.style.marginBottom = '';
+    titleErrorMessage.style.display = 'block';
+    
+    setTimeout(function () {
+        titleInput.classList.remove('error');
+        titleErrorMessage.style.display = 'none';
+    }, 2000);
+}
+
+function hideTitleError(titleInput, titleErrorMessage) {
+    titleInput.classList.remove('error');
+    titleErrorMessage.style.display = 'none';
 }
 
 function validateDueDate() {
     const dueDateInput = document.getElementById('inputDueDate');
     const dueDateErrorMessage = document.getElementById('inputDueDateError');
 
-    if (dueDateInput.value.trim() === "") {
-        dueDateInput.classList.add('error');
-        dueDateErrorMessage.style.display = 'block';
-
-        setTimeout(function () {
-            dueDateInput.classList.remove('error');
-            dueDateErrorMessage.style.display = 'none';
-        }, 2000);
-
+    if (isDueDateEmpty(dueDateInput)) {
+        showDueDateError(dueDateInput, dueDateErrorMessage);
         return false;
     } else {
-        dueDateInput.classList.remove('error');
-        dueDateErrorMessage.style.display = 'none';
+        hideDueDateError(dueDateInput, dueDateErrorMessage);
         return true;
     }
+}
+
+function isDueDateEmpty(dueDateInput) {
+    return dueDateInput.value.trim() === "";
+}
+
+function showDueDateError(dueDateInput, dueDateErrorMessage) {
+    dueDateInput.classList.add('error');
+    dueDateErrorMessage.style.display = 'block';
+    
+    setTimeout(function () {
+        dueDateInput.classList.remove('error');
+        dueDateErrorMessage.style.display = 'none';
+    }, 2000);
+}
+
+function hideDueDateError(dueDateInput, dueDateErrorMessage) {
+    dueDateInput.classList.remove('error');
+    dueDateErrorMessage.style.display = 'none';
 }
 
 function resetErrorState() {
