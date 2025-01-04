@@ -95,7 +95,7 @@ a {
 
 .btn {
     font-size: 21px;
-    font-weight: 500;
+    font-weight: 700;
     border-radius: 10px;
     border: unset;
 }
@@ -120,7 +120,7 @@ a {
     background-color: #FFFFFF;
     color: #2A3647;
     border-color: #2A3647;
-    border: solid 0.8px #2A3647;
+    border: solid 1px #2A3647;
 }
 
 .btn2:hover {
