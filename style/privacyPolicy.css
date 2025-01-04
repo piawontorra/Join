@@ -41,3 +41,20 @@ body, html {
     justify-content: space-between;
     align-items: center;
   }
+
+  
+@media (max-width: 900px){
+
+
+  main{
+    margin-left: 0;
+  }
+
+  #header{
+    left: 0;
+  }
+
+  .header-content{
+    height: 80px;
+  }
+}
