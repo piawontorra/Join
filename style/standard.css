@@ -78,11 +78,11 @@ a {
 
 .section-head {
     padding-top: calc(206px - 96px);
-    padding-right: 104px;
-    padding-bottom: 75px;
+    padding-right: 96px;
+    padding-bottom: 56px;
     padding-left: calc(328px - 232px);
     display: flex;
-    justify-content: row;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 30px;

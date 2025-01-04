@@ -314,11 +314,6 @@ input[type="checkbox"] {
     }
 }
 
-/* Musste Klasse hier noch einmal anlegen, weil sie von der standard.css nicht genommen wird. */
-.d-none {
-    display: none;
-}
-
 body.overlay-active {
     overflow: hidden;
 }

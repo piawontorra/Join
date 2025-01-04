@@ -142,12 +142,12 @@ header {
     .user-menu {
         transition: transform 100ms ease-in-out;
     }
-    
-/* 
-    Das Ein- und Ausfliegen des Menues für mobile funktioniert noch nicht. Irgendwo gehört "overflow-x: hidden" hin. */
-    /* .menu-closed {
+
+
+    /* Das Ein- und Ausfliegen des Menues für mobile funktioniert noch nicht. Irgendwo gehört "overflow-x: hidden" hin. */
+    .menu-closed {
         display: flex;
-    } */
+    }
 
     .btn-help {
         display: none;
