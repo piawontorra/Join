@@ -97,6 +97,26 @@ select {
     cursor: pointer;
 }
 
+.add-task-category-input-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 16px;
+    background-color: white;
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+    font-size: 20px;
+    position: relative;
+}
+
+.add-task-category-input-field:hover {
+    cursor: pointer;
+}
+
+
 .task-prio {
     display: flex;
     flex-direction: column;

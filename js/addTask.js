@@ -203,7 +203,6 @@ function hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border) {
     }
 }
 
-
 function getInitials(name) {
     let nameParts = name.split(" ");
     let initials = nameParts.map(part => part[0].toUpperCase()).join("");
@@ -276,7 +275,7 @@ function showCategorys() {
     const categorysElement = document.getElementById('category');
     const arrowDown = document.getElementById('categoryArrowDown');
     const arrowUp = document.getElementById('categoryArrowUp');
-    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[1];
+    const border = document.getElementsByClassName('add-task-category-input-field')[0];
 
     if (categorysElement.style.display === 'none' || categorysElement.style.display === '') {
         showCategorysList(categorysElement, arrowDown, arrowUp, border);
@@ -307,7 +306,7 @@ function selectCategory(event, category) {
     event.stopPropagation();
     selectedCategory = category;
 
-    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[1];
+    const border = document.getElementsByClassName('add-task-category-input-field')[0];
     border.style.border = '';
     const selectedCategoryElement = document.getElementById('selectedCategory');
     selectedCategoryElement.textContent = selectedCategory;
