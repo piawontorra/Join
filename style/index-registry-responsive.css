@@ -1,0 +1,142 @@
+@media (max-width: 816px) {
+    .content-add {
+        padding: 37px 38px 0 38px;
+        flex-direction: column;
+    }
+
+    .join-logo {
+        width: 64px;
+        height: 78.03px;
+    }
+
+    .logo-animation {
+        background: #2A3647;
+        animation: moveLogoMobile 0.8s ease-in-out forwards;
+    }
+
+    .logo-animation-delay {
+        z-index: 1000;
+        height: 121.97px;
+        width: 100.03px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: calc(50vh - 121.97px/2);
+        padding-right: calc(50% - 100.03px/2);
+        padding-bottom: calc(50vh - 121.97px/2);
+        padding-left: calc(50% - 100.03px/2);
+        background: #2A3647;
+        transition: background 0.2s ease-in-out;
+    }
+
+    @keyframes moveLogoMobile {
+        0% {
+            top: 0;
+            left: 0;
+            height: 121.97px;
+            width: 100.03px;
+            padding-top: calc(50vh - 121.97px/2);
+            padding-right: calc(50% - 100.03px/2);
+            padding-bottom: calc(50vh - 121.97px/2);
+            padding-left: calc(50% - 100.03px/2);
+            background: #2A3647;
+        }
+
+        100% {
+            top: 40px;
+            left: 40px;
+            height: 78.03px;
+            width: 64px;
+            padding: 0;
+            background: #F6F7F8;
+        }
+    }
+
+    .form-position {
+        min-height: calc(100vh - 115px - 109px);
+    }
+
+    .form {
+        width: 396px;
+        padding: 32px 0;
+    }
+
+    .h1-underline {
+        width: 88px;
+        padding-bottom: 16px;
+    }
+
+    .form-input-fields {
+        width: 364px;
+        gap: 32px;
+    }
+
+    .btn-variant {
+        width: 180px;
+        height: 51px;
+        padding: 4px 0;
+    }
+
+    .centered-position {
+        gap: 21px;
+        padding: 37px 38px;
+    }
+
+    .login-buttons {
+        gap: 21px;
+        flex-direction: column;
+    }
+
+    .registry-link {
+        display: none;
+    }
+
+    .registry-link-mobile {
+        display: flex;
+        justify-content: center;
+        padding-top: 48px;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 416px) {
+    .form {
+        width: 288px;
+        padding: 24px 0;
+    }
+
+    .form-input-fields {
+        width: 272px;
+        gap: 21px;
+    }
+
+    .input-field {
+        padding: 6px 8px;
+        line-height: 24px;
+    }
+
+    .input-field input {
+        font-size: 16px;
+    }
+
+    .input-field img {
+        right: 8px;
+    }
+
+    .conditional-elements {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .registry-link-mobile {
+        padding-top: 32px;
+    }
+}
+
+@media (max-width: 360px) {
+    .registry-link-mobile {
+        padding-top: 21px;
+        flex-direction: column;
+        gap: 21px;
+    }
+}

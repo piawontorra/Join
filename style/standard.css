@@ -50,7 +50,7 @@ img:hover {
     height: 56px;
 }
 
-.user-icon:hover{
+.user-icon:hover {
     cursor: pointer;
 }
 
@@ -94,8 +94,9 @@ a {
 }
 
 .btn {
-    font-size: 21px;
     font-weight: 700;
+    font-size: 21px;
+    line-height: 25.2px;
     border-radius: 10px;
     border: unset;
 }
@@ -158,8 +159,20 @@ a {
     margin-right: 10px;
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
     .content-fixed {
         margin-left: 0;
+    }
+}
+
+@media (max-width: 816px) {
+    h1 {
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+
+    .btn {
+        font-size: 16px;
+        line-height: 19.2px;
     }
 }
