@@ -16,7 +16,7 @@
         padding-bottom: calc(50vh - 121.97px/2);
         padding-left: calc(50% - 100.03px/2);
         background: #2A3647;
-        transition: background 0.2s ease-in-out; 
+        transition: background 0.2s ease-in-out;
     }
 
     @keyframes moveLogoMobile {
@@ -51,5 +51,29 @@
         justify-content: center;
         align-items: center;
         gap: 35px;
+    }
+}
+
+
+@media (max-width: 428px) {
+.form {
+    width: 396px;
+    padding: 32px 0;
+}
+
+
+
+    .btn-variant {
+        width: 180px;
+        height: 51px;
+        padding: 4px 0;
+    }
+
+    .centered-position-without-padding {
+        flex-direction: column;
+    }
+
+    .centered-position {
+        gap: 21px;
     }
 }
