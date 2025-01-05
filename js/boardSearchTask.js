@@ -13,6 +13,21 @@ function searchTasks() {
     toggleErrorMessage(foundTasks);
 }
 
+function searchTasksMobile() {
+    const searchQuery = document.getElementById('searchInputMobile').value.trim().toLowerCase();
+    
+    if (shouldShowAllTasks(searchQuery)) {
+        showAllTasks();
+        hideErrorMessageMobile();
+        return;
+    }
+
+    const taskCards = document.querySelectorAll('.task-card');
+    let foundTasks = filterTasks(taskCards, searchQuery);
+
+    toggleErrorMessageMobile(foundTasks);
+}
+
 function shouldShowAllTasks(searchQuery) {
     return searchQuery.length < 3;
 }
@@ -26,6 +41,10 @@ function showAllTasks() {
 
 function hideErrorMessage() {
     document.getElementById('errorTaskFound').style.display = 'none';
+}
+
+function hideErrorMessageMobile() {
+    document.getElementById('errorTaskFoundMobile').style.display = 'none';
 }
 
 function filterTasks(taskCards, searchQuery) {
@@ -60,6 +79,15 @@ function matchesSearchQuery(title, description, searchQuery) {
 
 function toggleErrorMessage(foundTasks) {
     const errorMessage = document.getElementById('errorTaskFound');
+    if (foundTasks) {
+        errorMessage.style.display = 'none';
+    } else {
+        errorMessage.style.display = 'block';
+    }
+}
+
+function toggleErrorMessageMobile(foundTasks) {
+    const errorMessage = document.getElementById('errorTaskFoundMobile');
     if (foundTasks) {
         errorMessage.style.display = 'none';
     } else {

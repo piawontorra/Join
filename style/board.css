@@ -5,7 +5,6 @@
 }
 
 .board-header {
-    /* height: 232px; */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -293,7 +292,7 @@
         padding: 0 16px;
         padding-left: 10px;
         gap: 8px;
-        height: 1400px;
+        height: 1500px;
     }
 
     .tasks-content {
@@ -354,6 +353,10 @@
 
     .input-box {
         width: 100%;
+    }
+
+    .no-tasks-found-message {
+        padding-left: 4px;
     }
 }
 
