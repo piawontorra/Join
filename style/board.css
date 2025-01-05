@@ -16,7 +16,7 @@
     padding-bottom: 48px;
 }
 
-h1 {
+.board-header h1 {
     font-size: 61px;
     font-weight: 700;
 }
@@ -25,6 +25,12 @@ h1 {
     display: flex;
     flex-direction: row;
     gap: 32px;
+}
+
+.input-box-responsive {
+    display: none;
+    padding: 0px 16px;
+    padding-bottom: 24px;
 }
 
 .input-box {
@@ -269,8 +275,8 @@ h1 {
     }
 
     .board-header {
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
         padding-top: 32px;
         padding-bottom: 32px;
     }
@@ -279,13 +285,15 @@ h1 {
         max-width: none;
         overflow-x: hidden;
         overflow-y: auto;
+        scrollbar-width: none;
     }
 
     .board-categorys {
         flex-direction: column;
         padding: 0 16px;
+        padding-left: 10px;
         gap: 8px;
-        height: 1300px;
+        height: 1400px;
     }
 
     .tasks-content {
@@ -310,6 +318,70 @@ h1 {
         padding: 8px;
         overflow-y: hidden;
         overflow-x: auto;
+        width: 100vw;
+    }
+}
+
+@media (max-width: 760px) {
+    .board-header button {
+        width: 48px;
+    }
+
+    .add-task-btn-text {
+        display: none;
+    }
+
+    .board-header button img {
+        padding-left: 0px;
+    }
+}
+
+@media (max-width: 630px) {
+    .board-header {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 32px;
+        padding-bottom: 16px;
+    }
+
+    .input-box-desktop {
+        display: none;
+    }
+
+    .input-box-responsive {
+        display: block;
+    }
+
+    .input-box {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .board-header {
+        padding-top: 16px;
+    }
+
+    .board-header h1 {
+        font-size: 48px;
+    }
+
+    .board-header {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .board-header button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .input-box-responsive {
+        padding: 0px 16px;
+        padding-bottom: 24px;
+    }
+
+    .board-categorys {
+        padding-left: 10px;
     }
 }

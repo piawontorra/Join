@@ -177,6 +177,10 @@
     cursor: pointer;
 }
 
+.subtask-checkbox:focus {
+    outline: none !important;
+}
+
 .subtask-checkbox:checked {
     background-color: white;
 }
@@ -223,6 +227,51 @@
     cursor: pointer;
     transform: scale(1.05);
     transition: .1s;
+}
+
+@media (max-width: 500px) {
+    .detail-task-card {
+        font-size: 16px;
+        gap: 16px;
+    }
+
+    .task-detail-content {
+        padding: 32px 24px;
+        border-radius: 30px;
+    }
+
+    .detail-task-category {
+        padding: 4px 16px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .task-detail-headline {
+        font-size: 36px;
+    }
+
+    .detail-task-description {
+        font-size: 16px;
+    }
+
+    .detail-task-user-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .detail-task-subtask-item {
+        color: black !important;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .detail-delete-edit img {
+        height: 18px;
+    }
+
+    .detail-delete-edit p {
+        font-size: 16px;
+    }
 }
 
 

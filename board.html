@@ -42,7 +42,7 @@
                 <div class="board-header">
                     <h1>Board</h1>
                     <div class="board-header-right">
-                        <div>
+                        <div class="input-box-desktop">
                             <div class="input-box">
                                 <input onkeyup="searchTasks()" id="searchInput" type="text" placeholder="Find Task">
                                 <div class="input-box-right">
@@ -56,10 +56,23 @@
                                 Ergebnisse gefunden</span>
                         </div>
                         <button onclick="openAddTask('todo')">
-                            Add task
+                            <span class="add-task-btn-text">Add task</span>
                             <img src="./assets/img/plus_white_icon.png" alt="">
                         </button>
                     </div>
+                </div>
+                <div class="input-box-responsive">
+                    <div class="input-box">
+                        <input onkeyup="searchTasks()" id="searchInput" type="text" placeholder="Find Task">
+                        <div class="input-box-right">
+                            <div class="seperator"></div>
+                            <div class="input-search-icon">
+                                <img src="./assets/img/search_icon.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <span id="errorTaskFound" class="no-tasks-found-message" style="display: none;">Keine
+                        Ergebnisse gefunden</span>
                 </div>
                 <div class="board-categorys-container">
                     <div id="tasksContainer" class="board-categorys">
