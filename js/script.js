@@ -26,7 +26,7 @@ function initLogin() {
  */
 function logoAnimation() {
     const logo = document.getElementById('logo-animation');
-    
+
     if (sessionStorage.getItem('logoAnimated') !== 'true') {
         setLogoBasedOnScreenSize();
         checkAndRemoveLogoAnimation(logo);
@@ -113,6 +113,36 @@ function resetLogoForMobileDevices(logo) {
             logo.src = './assets/img/join_logo_login.png';
         }
     }, 400);
+}
+
+/**
+ * Toggles the visibility of the "Remember me" checkbox based on whether the email 
+ * and/or password input fields are filled out.
+ * 
+ * If either the email or password field is not empty, the "Remember me" checkbox 
+ * will be displayed. Otherwise, it will be hidden.
+ * 
+ * This function assumes that the HTML elements for the email, password, and "Remember me" checkbox 
+ * exist in the DOM.
+ * 
+ * @function
+ * @returns {void} This function does not return any value.
+ */
+function toggleRememberMe() {
+    let emailRef = document.getElementById('email');
+    let passwordRef = document.getElementById('password');
+    
+    if (emailRef && passwordRef) {
+        let emailValue = emailRef.value.trim();
+        let passwordValue = passwordRef.value.trim();
+        let rememberRef = document.getElementById('remember-div');
+
+        if (emailValue !== "" || passwordValue !== "") {
+            rememberRef.classList.remove('d-none');
+        } else {
+            rememberRef.classList.add('d-none');
+        }
+    }
 }
 
 /**

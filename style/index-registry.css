@@ -1,9 +1,9 @@
 .min-height {
-    min-height: calc(100vh - 102px);
+    min-height: calc(100vh - 116px);
 }
 
 .content-add {
-    padding: 40px 40px 0 40px;
+    padding: 67px 67px 0 67px;
     flex-direction: column;
 }
 
@@ -14,30 +14,41 @@
     align-items: flex-start;
 }
 
+.logo-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-logo {
+    width: 100.03px;
+    height: 121.97px;
+}
+
 .logo-animation {
     z-index: 1000;
-    height: 334px;
-    width: 274px;
     position: absolute;
-    top: calc(345px - 280px);
-    left: calc(583px - 446px);
+    max-width: 1440px;
     box-sizing: unset;
-    padding: 178px 446px;
     background: #F6F7F8;
     animation: moveLogo 0.7s ease-in-out forwards;
 }
 
 @keyframes moveLogo {
     0% {
-        top: calc(50vh - 167px - 280px);
-        left: calc(1440px/2 - 137px - 446px);
+        top: 0;
+        left: 0;
         height: 334px;
         width: 274px;
-        padding: 280px 446px;
+        padding-top: calc(50vh - 334px/2);
+        padding-right: calc(50% - 274px/2);
+        padding-bottom: calc(50vh - 334px/2);
+        padding-left: calc(50% - 274px/2);
     }
+
     100% {
-        top: 40px;
-        left: 40px;
+        top: 67px;
+        left: 67px;
         height: 121.97px;
         width: 100.03px;
         padding: 0;
@@ -50,38 +61,47 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    gap: 24px;
+    gap: 35px;
     padding-bottom: 87px;
+}
+
+.registry-link-mobile {
+    display: none;
 }
 
 .user-question {
     font-size: 20px;
     font-weight: 400;
+    line-height: 24px;
 }
 
 .btn-fontsize {
     font-size: 16px;
 }
 
+.btn-sign-up {
+    padding: 15px 16px;
+    line-height: 19.2px;
+    border-radius: 8px;
+}
+
 .form-position {
-    min-height: calc(100vh - 262px);
+    min-height: calc(100vh - 121.97px - 67px - 116px);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .form {
     background-color: #FFFFFF;
-    width: 598px;
+    width: 652px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 32px;
     border: unset;
     border-radius: 30px;
-    padding: 48px 88px 48px 56px;
+    padding: 48px 115px;
     box-shadow: 0 0 14px 0 rgba(248, 248, 249, 0.6);
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -90,6 +110,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -99,6 +120,8 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 0;
+    padding: 48px 88px 48px 56px;
+    width: 598px;
 }
 
 .return-btn {
@@ -131,6 +154,12 @@
     gap: 32px;
 }
 
+.main-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
 .form-headline {
     display: flex;
     flex-direction: column;
@@ -139,51 +168,116 @@
 }
 
 .h1-underline {
-    border-bottom: solid 3px #26ace3;
+    border-bottom: solid 3px #29ABE2;
     width: 150px;
-    padding-bottom: 10px;
+    padding-bottom: 16px;
 }
 
 .form-input-fields {
     display: flex;
     flex-direction: column;
     width: 422px;
-    gap: 16px;
-}
-
-.fields-variant {
-    gap: 20px;
+    gap: 32px;
 }
 
 .input-field {
     position: relative;
     width: 100%;
+    padding: 12px 21px;
 }
 
 .input-field input {
     width: 100%;
-    padding-right: 30px;
-    padding: 2px;
-    border-radius: 8px;
     border: unset;
+    padding: 0;
 }
 
 .input-field img {
     position: absolute;
-    right: 8px;
+    right: 21px;
     top: 50%;
     transform: translateY(-50%);
-    height: 16px;
+    height: 24px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
 
-.check-policy {
+.msg-box {
+    color: #FF8190;
+    padding-top: 8px;
+    /* muss ich erst runterladen */
+    /* font-family: 'Poppins'; */
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.4px;
+}
+
+.red-border {
+    border-color: #FF001F;
+}
+
+.password-msg {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.conditional-elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+    gap: 32px;
+}
+
+.check-item {
+    height: 24px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 6px;
+    position: relative;
+}
+
+.customized-checkbox-container {
+    position: relative;
+    display: inline;
+}
+
+input[type="checkbox"] {
+    height: 24px;
+    aspect-ratio: 1 / 1;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 80px;
+    cursor: pointer;
+}
+
+.checkbox-img {
+    height: 24px;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    top: 0;
+    left: 80px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.invisible-checkbox {
+    position: absolute;
+    top: -2px;
+    left: -28px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.remember-checkbox-img {
+    top: -2px;
+    left: -28px;
 }
 
 .additional-links {
@@ -191,46 +285,19 @@
     font-size: 16px;
     line-height: 19.2px;
     color: #29ABE2;
+    padding: 0;
 }
 
 .additional-links:hover {
     text-decoration: underline;
 }
 
-.remember-me {
-    position: relative;
-    display: inline-block;
+.remember-text {
+    color: #000000;
 }
 
-.customized-checkbox-container {
-    /* display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px; */
-    position: relative;
-    display: inline-block;
-}
-
-input[type="checkbox"] {
-    height: 22px;
-    aspect-ratio: 1 / 1;
-    opacity: 0;
-}
-
-.invisible-checkbox {
-    /* position: absolute;
-    top: 0;
-    left: 0; */
-    /* width: 100%;
-    height: 100%; */
-    opacity: 0;
-    cursor: pointer;
-}
-
-.checkbox-img {
-    height: 22px;
-    aspect-ratio: 1 / 1;
+.accept-text {
+    color: #A8A8A8;
 }
 
 .btn-variant {
@@ -252,12 +319,17 @@ input[type="checkbox"] {
     justify-content: center;
     align-items: center;
     gap: 35px;
-    padding: 40px;
+    padding: 40px 67px;
+}
+
+.centered-position-without-padding {
+    padding: 0;
 }
 
 .btn-without-formatting {
     background-color: #F6F7F8;
     color: #A8A8A8;
+    padding: 8px;
 }
 
 .btn-without-formatting:hover {
@@ -317,13 +389,3 @@ input[type="checkbox"] {
 body.overlay-active {
     overflow: hidden;
 }
-
-.msg-box {
-    color: #FF8190;
-    height: 14px;
-}
-
-.red-border {
-    border-color: #FF001F;
-}
-

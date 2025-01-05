@@ -20,16 +20,17 @@
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="stylesheet" href="./style/index-registry.css">
+    <link rel="stylesheet" href="./style/index-regristry-responsive.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
 <body onload="initRegistry()">
     <div class="min-height">
         <div class="content content-add max-width">
-            <img class="join-logo-menu" src="./assets/img/join_logo_login.png" alt="Logo">
+            <img class="join-logo" src="./assets/img/join_logo_login.png" alt="Logo">
 
             <div class="form-position">
-                <form id="registration-form" onsubmit="addUser(); return false;" class="form registration-form">
+                <form class="form registration-form" id="registration-form" onsubmit="addUser(); return false;">
                     <button class="btn return-btn" onclick="returnToLogIn()">
                         <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
                     </button>
@@ -62,11 +63,11 @@
                                 </div>
                                 <div class="msg-box" id="msg-box"></div>
                             </div>
-                            <div class="check-policy">
-                                <input type="checkbox" id="accepted-policy" name="accepted-policy" required>
+                            <div class="check-item">
+                                <input type="checkbox" class="checkbox-remove" id="accepted-policy" name="accepted-policy" required>
                                     <img class="checkbox-img" id="checkbox-img" src="./assets/img/unchecked.png"
                                         alt="checkbox" onclick="toggleCheckboxImg()">
-                                    I accept the
+                                    <p class="accept-text">I accept the</p>
                                     <a class="additional-links" href="privacy_policy_internal.html">Privacy Policy.</a>
                             </div>
                         </div>
