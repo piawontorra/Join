@@ -15,8 +15,6 @@ header {
     align-items: center;
     padding: 20px 40px;
     padding-left: 348px;
-    /* position: relative;
-    overflow-x: hidden; */
 }
 
 .tool-headline {
@@ -120,49 +118,29 @@ header {
 }
 
 @media (max-width: 1024px) {
-    .header-content {
-        padding-left: 40px;
-    }
-}
-
-@media (max-width: 1000px)
-{
-    .user-menu {
-        display: block; /*statt Display none*/
-        transform: translateX(0);
-        visibility: visible; /*sichtbar*/
-        transition: all 0.3s ease-in-out; /*fade in*/
-        position: fixed; /*pisition fix*/
-        top: 77px;
-        right: 29px;
-    }
-    
-    .menu-closed {
-        visibility: hidden; /*unsichtbar*/
-        transform: translateX(150%);
-        transition: all 0.3s ease-in-out; /*fade out*/
-    }
-}
-
-@media (max-width: 864px) {
-    .tool-headline {
-        display: none;
+    .header-logo {
+        display: flex;
     }
 
-    .header-content {
-        justify-content: flex-end;
-        padding: 20px 28px 20px 348px;
-    }
-}
-
-@media (max-width: 480px) {
     .header-content {
         justify-content: space-between;
         padding: 20px 16px;
     }
 
-    .header-logo {
-        display: flex;
+    .user-menu {
+        display: block;
+        transform: translateX(0);
+        visibility: visible;
+        transition: all 0.3s ease-in-out;
+        position: fixed;
+        top: 96px;
+        right: 16px;
+    }
+    
+    .menu-closed {
+        visibility: hidden;
+        transform: translateX(135%);
+        transition: all 0.3s ease-in-out;
     }
 
     .btn-help {
@@ -171,5 +149,11 @@ header {
 
     .help-info {
         display: flex;
+    }
+}
+
+@media (max-width: 520px) {
+    .tool-headline {
+        display: none;
     }
 }
