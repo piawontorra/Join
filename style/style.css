@@ -55,6 +55,10 @@ header {
     box-shadow: 0px 1px 4px 0px rgba(246, 247, 248);
 }
 
+.menu-closed {
+    display: none;
+}
+
 .user-menu-btn {
     width: 130px;
     border: unset;
@@ -76,11 +80,6 @@ header {
     line-height: 19.2px;
     color: #CDCDCD;
     width: 100%;
-}
-
-.menu-closed {
-    transform: translateX(132%);
-    display: none;
 }
 
 .user-initials-header {
@@ -126,6 +125,25 @@ header {
     }
 }
 
+@media (max-width: 1000px)
+{
+    .user-menu {
+        display: block; /*statt Display none*/
+        transform: translateX(0);
+        visibility: visible; /*sichtbar*/
+        transition: all 0.3s ease-in-out; /*fade in*/
+        position: fixed; /*pisition fix*/
+        top: 77px;
+        right: 29px;
+    }
+    
+    .menu-closed {
+        visibility: hidden; /*unsichtbar*/
+        transform: translateX(150%);
+        transition: all 0.3s ease-in-out; /*fade out*/
+    }
+}
+
 @media (max-width: 864px) {
     .tool-headline {
         display: none;
@@ -144,15 +162,6 @@ header {
     }
 
     .header-logo {
-        display: flex;
-    }
-
-    .user-menu {
-        transition: transform 100ms ease-in-out;
-    }
-
-    /* Das Ein- und Ausfliegen des Menues für mobile funktioniert noch nicht. Irgendwo gehört "overflow-x: hidden" hin. */
-    .menu-closed {
         display: flex;
     }
 
