@@ -1,53 +1,18 @@
-.min-height {
-    min-height: calc(100vh - 115px);
-}
-
 .content-add {
-    padding: 67px 67px 0 67px;
     flex-direction: column;
 }
 
 .login-headline {
-    height: 136.2px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    padding: 80px 77px 0 77px;
 }
 
 .join-logo {
     width: 100.03px;
     height: 121.97px;
-}
-
-.logo-animation {
-    z-index: 1000;
-    position: absolute;
-    max-width: 1440px;
-    box-sizing: unset;
-    background: #F6F7F8;
-    animation: moveLogo 0.7s ease-in-out forwards;
-}
-
-@keyframes moveLogo {
-    0% {
-        top: 0;
-        left: 0;
-        height: 334px;
-        width: 274px;
-        padding-top: calc(50vh - 334px/2);
-        padding-right: calc(50% - 274px/2);
-        padding-bottom: calc(50vh - 334px/2);
-        padding-left: calc(50% - 274px/2);
-    }
-
-    100% {
-        top: 67px;
-        left: 67px;
-        height: 121.97px;
-        width: 100.03px;
-        padding: 0;
-    }
 }
 
 .registry-link {
@@ -58,6 +23,7 @@
     align-items: center;
     gap: 35px;
     padding-bottom: 87px;
+    transform: translateY(-24px);
 }
 
 .registry-link-mobile {
@@ -81,11 +47,14 @@
 }
 
 .form-position {
-    min-height: calc(100vh - 211px - 115px);
+    min-height: calc(100vh - 216.2px - 107.16px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.registration-form-position {
+    min-height: calc(100vh - 202px - 107.16px);
 }
 
 .form {
@@ -125,8 +94,6 @@
 }
 
 .return-btn {
-    height: 32px;
-    aspect-ratio: 1 / 1;
     background-color: #FFFFFF;
     border-radius: 50%;
     display: flex;
@@ -144,8 +111,8 @@
 
 .return-btn img {
     color: #26ABE2;
-    width: 21.33px;
-    height: 20.74px;
+    height: 32px;
+    aspect-ratio: 1 / 1;
 }
 
 .form-content {
@@ -262,7 +229,7 @@ input[type="checkbox"] {
     opacity: 0;
     position: absolute;
     top: 0;
-    left: 80px;
+    left: 84px;
     cursor: pointer;
 }
 
@@ -280,8 +247,8 @@ input[type="checkbox"] {
     position: absolute;
     top: -2px;
     left: -28px;
-    opacity: 0;
-    cursor: pointer;
+    /* opacity: 0; */
+    /* cursor: pointer; */
 }
 
 .remember-checkbox-img {
@@ -344,7 +311,7 @@ input[type="checkbox"] {
     justify-content: center;
     align-items: center;
     gap: 35px;
-    padding: 40px 67px;
+    padding: 32px 77px 40px 77px;
 }
 
 .centered-position-without-padding {
