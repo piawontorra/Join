@@ -25,59 +25,60 @@
 </head>
 
 <body onload="initRegistry()">
-    <div class="min-height">
-        <div class="content content-add max-width">
+    <div class="content content-add max-width">
+        <div class="login-headline">
             <img class="join-logo" src="./assets/img/join_logo_login.png" alt="Logo">
+        </div>
 
-            <div class="form-position">
-                <form class="form registration-form" id="registration-form" onsubmit="addUser(); return false;">
-                    <button class="btn return-btn" onclick="returnToLogIn()">
-                        <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
-                    </button>
-                    <div class="form-content">
-                        <div class="form-headline">
-                            <h1 class="h1-variant">Sign up</h1>
-                            <div class="h1-underline"></div>
-                        </div>
-                        <div class="form-input-fields">
-                            <div class="input-box input-field">
-                                <input type="text" id="name" name="username" required placeholder="Name">
-                                <img src="./assets/img/user_icon.png" alt="person icon">
-                            </div>
-                            <div class="input-box input-field">
-                                <input type="email" id="email" name="email" required placeholder="Email">
-                                <img src="./assets/img/mail_icon.png" alt="email icon">
-                            </div>
-                            <div class="input-box input-field password-field">
-                                <input type="password" id="password" name="password" autocomplete="new-password"
-                                    required placeholder="Password" oninput="changePasswordImg(this)">
-                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
-                                    id="password-img" onclick="togglePasswordVisibility(this)">
-                            </div>
-                            <div>
-                                <div class="input-box input-field password-field" id="input-password-confirmation">
-                                    <input type="password" id="password-confirmation" name="password" required
-                                        placeholder="Confirm Password" oninput="changePasswordImg(this)">
-                                    <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
-                                        id="password-confirmation-img" onclick="togglePasswordVisibility(this)">
-                                </div>
-                                <div class="msg-box" id="msg-box"></div>
-                            </div>
-                            <div class="check-item">
-                                <input type="checkbox" class="checkbox-remove" id="accepted-policy" name="accepted-policy" required>
-                                    <img class="checkbox-img" id="checkbox-img" src="./assets/img/unchecked.png"
-                                        alt="checkbox" onclick="toggleCheckboxImg()">
-                                    <p class="accept-text">I accept the</p>
-                                    <a class="additional-links" href="privacy_policy_internal.html">Privacy Policy.</a>
-                            </div>
-                        </div>
-                        <button class="btn btn1 btn-variant" id="registry-btn">Sign up</button>
+        <div class="form-position">
+            <form class="form registration-form" id="registration-form" onsubmit="addUser(); return false;">
+                <button class="btn return-btn" onclick="returnToLogIn()">
+                    <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
+                </button>
+                <div class="form-content">
+                    <div class="form-headline">
+                        <h1 class="h1-variant">Sign up</h1>
+                        <div class="h1-underline"></div>
                     </div>
-                </form>
-            </div>
-            <div class="grey-overlay max-width-login-registry d-none" id="grey-overlay">
-                <div class="msg-box-animated" id="success-msg"></div>
-            </div>
+                    <div class="form-input-fields registration-fields">
+                        <div class="input-box input-field">
+                            <input type="text" id="name" name="username" required placeholder="Name">
+                            <img src="./assets/img/user_icon.png" alt="person icon">
+                        </div>
+                        <div class="input-box input-field">
+                            <input type="email" id="email" name="email" required placeholder="Email">
+                            <img src="./assets/img/mail_icon.png" alt="email icon">
+                        </div>
+                        <div class="input-box input-field password-field">
+                            <input type="password" id="password" name="password" autocomplete="new-password" required
+                                placeholder="Password" oninput="changePasswordImg(this)">
+                            <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
+                                id="password-img" onclick="togglePasswordVisibility(this)">
+                        </div>
+                        <div>
+                            <div class="input-box input-field password-field" id="input-password-confirmation">
+                                <input type="password" id="password-confirmation" name="password" required
+                                    placeholder="Confirm Password" oninput="changePasswordImg(this)">
+                                <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
+                                    id="password-confirmation-img" onclick="togglePasswordVisibility(this)">
+                            </div>
+                            <div class="msg-box" id="msg-box"></div>
+                        </div>
+                        <div class="check-item">
+                            <input type="checkbox" class="checkbox-remove" id="accepted-policy" name="accepted-policy"
+                                required>
+                            <img class="checkbox-img" id="checkbox-img" src="./assets/img/unchecked.png" alt="checkbox"
+                                onclick="toggleCheckboxImg()">
+                            <p class="additional-links accept-text">I accept the</p>
+                            <a class="additional-links" href="privacy_policy_internal.html">Privacy Policy.</a>
+                        </div>
+                    </div>
+                    <button class="btn btn1 btn-variant" id="registry-btn">Sign up</button>
+                </div>
+            </form>
+        </div>
+        <div class="grey-overlay max-width d-none" id="grey-overlay">
+            <div class="msg-box-animated" id="success-msg"></div>
         </div>
     </div>
 

@@ -15,6 +15,11 @@
     src: url('../assets/fonts/OpenSans.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins.ttf') format('truetype');
+}
+
 .max-width {
     max-width: 1440px;
     width: 100%;
@@ -39,6 +44,10 @@ body {
 
 main {
     background-color: #F6F7F8;
+}
+
+img {
+    object-fit: cover;
 }
 
 img:hover {
@@ -103,7 +112,8 @@ a {
 
 .btn:hover {
     cursor: pointer;
-    box-shadow: 0 5px 5px rgb(184, 183, 183);
+    /* Shadows müssen immer transparent sein, blur- und spread-Wert bitte noch kontrollieren */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .btn1 {
