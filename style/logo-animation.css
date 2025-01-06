@@ -1,0 +1,74 @@
+.logo-animation {
+    z-index: 1000;
+    position: absolute;
+    max-width: 1440px;
+    box-sizing: unset;
+    background: #F6F7F8;
+    animation: moveLogo 0.7s ease-in-out forwards;
+}
+
+@keyframes moveLogo {
+    0% {
+        top: 0;
+        left: 0;
+        height: 334px;
+        width: 274px;
+        padding-top: calc(50vh - 334px/2);
+        padding-right: calc(50% - 274px/2);
+        padding-bottom: calc(50vh - 334px/2);
+        padding-left: calc(50% - 274px/2);
+    }
+
+    100% {
+        top: 67px;
+        left: 67px;
+        height: 121.97px;
+        width: 100.03px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 816px) {
+    .logo-animation {
+        background: #2A3647;
+        animation: moveLogoMobile 0.8s ease-in-out forwards;
+    }
+
+    .logo-animation-delay {
+        z-index: 1000;
+        height: 121.97px;
+        width: 100.03px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding-top: calc(50vh - 121.97px/2);
+        padding-right: calc(50% - 100.03px/2);
+        padding-bottom: calc(50vh - 121.97px/2);
+        padding-left: calc(50% - 100.03px/2);
+        background: #2A3647;
+        transition: background 0.2s ease-in-out;
+    }
+
+    @keyframes moveLogoMobile {
+        0% {
+            top: 0;
+            left: 0;
+            height: 121.97px;
+            width: 100.03px;
+            padding-top: calc(50vh - 121.97px/2);
+            padding-right: calc(50% - 100.03px/2);
+            padding-bottom: calc(50vh - 121.97px/2);
+            padding-left: calc(50% - 100.03px/2);
+            background: #2A3647;
+        }
+
+        100% {
+            top: 40px;
+            left: 40px;
+            height: 78.03px;
+            width: 64px;
+            padding: 0;
+            background: #F6F7F8;
+        }
+    }
+}
