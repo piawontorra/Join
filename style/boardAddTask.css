@@ -430,6 +430,14 @@ select {
     font-size: 16px;
 }
 
+.info-line-mobile {
+    display: none;
+    font-size: 16px;
+    width: 100%;
+    background-color: white;
+    padding-top: 8px;
+}
+
 .add-task-finish-buttons {
     display: flex;
     flex-direction: row;
@@ -662,6 +670,9 @@ select {
         gap: 0px;
         max-height: 910px;
         overflow-y: auto;
+        scrollbar-width: none;
+        padding-left: 1px;
+        padding-right: 1px;
     }
 
     .add-task-form-seperator {
@@ -673,6 +684,10 @@ select {
         right: 16px;
         bottom: 97px;
         padding-left: 32px;
+    }
+
+    .edit-images {
+        display: flex;
     }
 }
 
@@ -711,16 +726,21 @@ select {
         font-size: 16px;
     }
 
+    .add-task-input-fields {
+        font-size: 16px;
+    }
+
     .prio-button {
         width: 112px;
     }
 
-    .created-subtasks-container {
-        padding-bottom: 220px;
-    }
-
     .info-line {
         display: none;
+    }
+
+    .info-line-mobile {
+        display: flex;
+        padding-bottom: 88px;
     }
 
     .add-task-form-bottom {
@@ -728,11 +748,24 @@ select {
         padding-top: 8px;
         background-color: white;
     }
+
+    .add-subtask-buttons {
+        top: 37px !important;
+    }
+
+    .padding-top-six {
+        padding-top: 6px;
+    }
 }
 
 @media (max-width: 414px) {
     .board-add-task-overlay {
         z-index: 0;
+    }
+
+    .board-add-task-section-header {
+        padding-top: 8px;
+        padding-bottom: 16px;
     }
 
     .add-task-input-fields {
@@ -747,8 +780,7 @@ select {
     }
 
     .created-subtasks-container {
-        padding-bottom: 320px;
-        overflow-y: hidden;
+        scrollbar-width: none;
     }
 
     .clear-task-btn {
@@ -760,6 +792,17 @@ select {
         width: 181px;
         height: 59px;
     }
+
+    .info-line-mobile {
+        padding-bottom: 40px;
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 390px) {
+    .info-line-mobile {
+        padding-bottom: 100px;
+    }
 }
 
 @media (max-width: 375px) {
@@ -768,7 +811,52 @@ select {
         padding-bottom: 16px;
     }
 
-    .created-subtasks-container {
-        padding-bottom: 420px;
+    .clear-task-btn {
+        font-size: 16px;
+        justify-content: center;
+        width: 96px;
+        height: 50px;
+    }
+
+    .create-task-btn {
+        font-size: 16px;
+        justify-content: center;
+        width: 157px;
+        height: 50px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 272px;
+    }
+
+    .add-task-form-bottom {
+        padding-left: 106px;
+    }
+
+    .add-task-finish-buttons {
+        align-items: center;
+    }
+}
+
+@media (max-width: 350px) {
+    .add-task-form-bottom {
+        padding-left: 56px;
+    }
+
+    .board-add-task-section-header h1 {
+        font-size: 36px;
+    }
+
+    .add-task-close-btn {
+        padding-top: 8px;
+    }
+
+    .add-task-input-fields {
+        max-width: 280px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 332px;
+        padding-top: 16px;
     }
 }
