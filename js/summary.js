@@ -119,7 +119,7 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
         .forEach(task => {
             const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
             const diffTime = dueDate - today;
-            if (dueDate > today && (selectedDateDiff === null || diffTime < selectedDateDiff)) {
+            if (dueDate >= today && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
                 selectedTask = task;
                 selectedDateDiff = diffTime;
             }
