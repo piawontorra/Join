@@ -1,18 +1,25 @@
-:root {
+/* :root {
     --sidebar-width: 232px;
     --wrapper-contacts-width: 456px;
     --wrapper-contactCard-width: 640px;
     --infobox-offset: calc(100% - var(--sidebar-width) - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
-  }
+  } */
 
 #contactDetails{
     display: flex;
+    /* flex-wrap: wrap; */
 }
 
 #sidebar{
     background-color: rgb(42, 54, 71);
     height: 100vh;
     width: 232px;
+}
+
+.contacts-fixed{
+    position: fixed;
+    top: 100px;
+    left: 232px;
 }
 
 #wrapperContacts{
@@ -68,11 +75,12 @@
     display: flex;
     flex-direction: column;
     margin-left: 64px;
+    width: 100%;
 }
 
 #contactCard{
     height: 364px;
-    width: 600px;
+    /* width: 600px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -91,7 +99,7 @@
     background-color: lightgray;
 }
 
-.infobox{
+/* .infobox{
     position: fixed;
     top: 260px;
     height: 100%;
@@ -102,7 +110,7 @@
 
 .infobox.open{
     right: var(--infobox-offset);
-  }
+  } */
 
 
 #contactCardHeader{
@@ -238,6 +246,12 @@
 .vl{
     border-left: 4px solid rgb(41, 171, 226);
     height: 60px;
+}
+
+#blueLine{
+    width: 3px;
+    height: 76px;
+    background-color: rgb(41, 171, 226);
 }
 
 #span_contacts{
@@ -524,14 +538,65 @@ Dialog.open {
 }
 
 /* Media Querry */
-@media (max-width: 1000px){
+@media (max-width: 1300px){
     #contactDetailsContainer{
         margin-left: 18px;
     }
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1200px){
+    #contactDetailsHeader{
+        height: auto;
+        align-items: start;
+        flex-direction: column;
+    }
+
+    #blueLine{
+        background-color: rgb(41, 171, 226);
+        height: 3px;
+        width: 76px;
+        margin: 8px 0 8px 0;
+    }
+
+    #span_better{
+        margin: 0;
+    }
+
+    #userName{
+        font-size: 36px;
+    }
+
+    .userInitials.circle{
+        height: 90px;
+        width: 90px;
+        margin-right: 26px;
+        font-size: 36px;
+    }
+}
+@media (max-width: 1025px){
+    .contacts-fixed{
+        left: 0;
+    }
+}
+
+@media (max-width: 800px){
+    #contactDetailsContainer{
+        display: none;
+    }
+
+    #wrapperContacts{
+        width: 100%;
+    }
+
+    #btn_addNewContact{
+        display: none;
+    }
+}
+
+
+
+/* @media (max-width: 1000px){
     :root {
         --infobox-offset: calc(100% - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
       }
-}
+} */
