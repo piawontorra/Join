@@ -73,7 +73,6 @@ box-shadow: 0px 5px 6px rgb(128 128 128);
 display: none;
 }
 
-
 #btn_addNewContact img{
     padding-left: 15px;
 }
@@ -95,7 +94,6 @@ display: none;
 
 #contactCard{
     height: 364px;
-    /* width: 600px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -501,6 +499,10 @@ display: none;
     margin-bottom: 65px;
 }
 
+#responsiveClose{
+    display: none;
+}
+
 .chosen{
     background-color: rgb(42, 54, 71);
     color: white;
@@ -610,6 +612,106 @@ Dialog.open {
     #btn_addNewContactResponsive{
         display: block;
     }
+
+    /*///////////////////////////////////// Modal Responsive /////////////////////////////////////////*/
+
+    #newContactContent{
+        width: 100%;
+        height: 760px;
+        width: 396px;
+    }
+
+    #cancelImgContainer{
+        display: none;
+    }
+
+    #addContactHeaderContainer{
+        height: 352px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    #addContactHeader img{
+        display: none;
+    }
+
+    #addContactHeader p{
+        font-size: 47px;
+    }
+
+    #addContactHeader span{
+        font-size: 20px;
+    }
+
+    #circleContainer{    
+        justify-content: center;
+        display: block;
+        top: 39%;
+        left: 35%;
+        margin: 0;
+        height: auto;
+        position: absolute;
+    }
+
+    #circle{
+        background-color: rgb(209, 209, 209);
+    }
+
+    #formContainer{
+        display: block;
+        padding: 0 16px 0 16px;
+    }
+
+    #newContactFormContainer{
+        position: absolute;
+        top: 450px;
+        width: 396px;
+        left: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    #btnCancel{
+        display: none;
+    }
+
+    #btnContainer{
+        justify-content: center;
+        padding: 0;
+    }
+
+    #newUserForm{
+        height: 200px;
+    }
+
+    #newUserForm input{
+        width: 100%;
+        height: 41px;
+        margin-bottom: 15px;
+    }
+
+    Dialog{
+        top: 100vh;
+        left: -50%;
+        transform: translateX(100%);
+        
+    }
+
+    Dialog.open {
+        transform: translate(-50%, -115%);
+    }
+
+    #responsiveClose{
+        display: block;
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        color: white;
+        font-weight: 600;
+        font-size: larger;
+    }
+
+
 }
 
 

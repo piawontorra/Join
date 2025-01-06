@@ -60,6 +60,7 @@ function newContactTemplate() {
   return /*html*/`
       <div id="newContactContent">
         <div id="addContactHeaderContainer">
+            <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>
             <div id="addContactHeader">
                 <div id="joinLogo">
                     <img src="assets/img/join_logo_menu.png" alt="">

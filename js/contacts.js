@@ -341,3 +341,8 @@ function closeDialog(dialogSelector) {
     modal.close();
   }, 500);
 }
+
+function openResponsiveDialog(){
+  let modal = document.querySelector('#responsiveContactDialog');
+  modal.showModal();
+}
