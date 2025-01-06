@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="./style/standard.css" />
     <link rel="stylesheet" href="./style/navigation.css" />
     <link rel="stylesheet" href="./style/privacyPolicy.css" />
-    <link rel="stylesheet" href="./style/external.css" />
+    <link rel="stylesheet" href="./style/internal.css" />
     <link rel="icon" href="./assets/img/join_logo_login.png">
   </head>
 
   <body onload="includeHTML();">
     <div class="content">
-      <div id="sidebar" w3-include-html="./assets/templates/navigation-external.html"></div>
+      <div w3-include-html="./assets/templates/navigation.html"></div>
 
       <main>
-        <div id="header" w3-include-html="./assets/templates/header.html"></div>
+        <div w3-include-html="./assets/templates/header.html"></div>
           <div class="max-width" id="privacyPolicyText">
             <div class="headline"><h1>Privacy Policy</h1><img src="assets/img/arrow_left_icon.png" alt="" onclick="window.history.go(-1); return false;"></div>
               <h2>1. Controller</h2>

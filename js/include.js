@@ -15,4 +15,5 @@ async function includeHTML() {
     }
     markCurrentTab();
     setTimeout(getCurrentUserName, 0);
+    checkForLimitedContentPage();
 }

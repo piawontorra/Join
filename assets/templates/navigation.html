@@ -3,7 +3,7 @@
     <div class="side-menu-top">
         <img class="join-logo-menu" src="./assets/img/join_logo_menu.png" alt="Join Logo">
 
-        <div class="menu-components">
+        <div class="menu-components" id="mainTabs">
             <button class="menu-component active" id="summary" onclick="switchTab('summary')">
                 <img class="menu-icon" src="./assets/img/summary_icon.png" alt="Summary Icon">
                 <p>Summary</p>
@@ -21,14 +21,21 @@
                 <p>Contacts</p>
             </button>
         </div>
+        <div class="d-none" id="loginReference">
+            <button class="menu-component" id="index" onclick="switchTab('index')">
+                <img class="menu-icon" src="./assets/img/login.png" alt="Login Icon">
+                <p>Log In</p>
+            </button>
+        </div>
+
     </div>
 
     <div class="imprint-content">
         <div class="imprint-links">
-            <button class="menu-component btn-imprint-links" id="privacy_policy_internal" onclick="switchTab('privacy_policy_internal')">
+            <button class="menu-component btn-imprint-links" id="privacy-policy" onclick="switchTab('privacy-policy')">
                 <p class="imprint-link">Privacy Policy</p>
             </button>
-            <button class="menu-component btn-imprint-links" id="legal_notice_internal" onclick="switchTab('legal_notice_internal')">
+            <button class="menu-component btn-imprint-links" id="legal-notice" onclick="switchTab('legal-notice')">
                 <p class="imprint-link">Legal Notice</p>
             </button>
         </div>

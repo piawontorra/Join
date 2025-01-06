@@ -3,6 +3,7 @@ let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
+let isGuestUser = false;
 
 /**
  * Initializes the login page by calling necessary functions for logo animation, user credentials loading, 
@@ -49,7 +50,7 @@ function loadUserCredentials() {
 function toggleRememberMe() {
     let emailRef = document.getElementById('email');
     let passwordRef = document.getElementById('password');
-    
+
     if (emailRef && passwordRef) {
         let emailValue = emailRef.value.trim();
         let passwordValue = passwordRef.value.trim();
@@ -173,8 +174,9 @@ function login() {
     if (user) {
         sessionStorage.setItem('loggedInUserName', user.user.name);
         rememberMeEffects();
-        transferToSummary();
         resetFields();
+        transferToSummary();
+        checkForLimitedContentPage();
     }
     else {
         adaptFields();
@@ -219,6 +221,7 @@ function adaptFields() {
 
 /**
  * Simulates a guest login by using predefined guest credentials.
+ * Sets the global variable 'isGuestUser' to true.
  */
 function guestLogIn() {
     const guestLoginData = {
@@ -226,7 +229,9 @@ function guestLogIn() {
         password: '000'
     };
 
+    isGuestUser = true;
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
+    checkForLimitedContentPage();
 }
 
 /**
@@ -408,5 +413,46 @@ function markCurrentTab() {
     const activeTabBtn = document.getElementById(tabName);
     if (activeTabBtn) {
         activeTabBtn.classList.add('active');
+    }
+}
+
+function checkForLimitedContentPage() {
+    const loggedInUser = sessionStorage.getItem('loggedInUserName');
+
+    if (!loggedInUser && !isGuestUser) {
+        adjustSidebarForLimitedContent();
+    } else {
+        restoreSidebarForFullContent();
+    }
+
+    const currentUrl = window.location.pathname;
+    if (currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html')) {
+        adjustSidebarForLimitedContent();
+    } else {
+        restoreSidebarForFullContent();
+    }
+}
+
+function adjustSidebarForLimitedContent() {
+    const mainContent = document.getElementById('mainTabs');
+    const linkToLogin = document.getElementById('loginReference');
+
+    if (mainContent && linkToLogin) {
+        mainContent.classList.add('d-none');
+        linkToLogin.classList.remove('d-none');
+    } else {
+        setTimeout(adjustSidebarForLimitedContent, 100);
+    }
+}
+
+function restoreSidebarForFullContent() {
+    const mainContent = document.getElementById('mainTabs');
+    const linkToLogin = document.getElementById('loginReference');
+
+    if (mainContent && linkToLogin) {
+        mainContent.classList.remove('d-none');
+        linkToLogin.classList.add('d-none');
+    } else {
+        setTimeout(restoreSidebarForFullContent, 100);
     }
 }
