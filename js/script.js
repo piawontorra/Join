@@ -3,7 +3,6 @@ let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
-let isGuestUser = false;
 
 /**
  * Initializes the login page by calling necessary functions for logo animation, user credentials loading, 
@@ -229,7 +228,6 @@ function guestLogIn() {
         password: '000'
     };
 
-    isGuestUser = true;
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
     checkForLimitedContentPage();
 }
@@ -245,7 +243,12 @@ async function loginWithGuestData(email, password) {
     let users = await loadUsers("users");
     let user = Object.values(users).find(u => u.email === email && u.password === password);
 
-    user ? transferToSummary() : document.getElementById('msg-box').innerHTML = 'Error logging in as guest. Please try again.';
+    if (user) {
+        sessionStorage.setItem('guestUser', 'G');
+        transferToSummary();
+    } else {
+        document.getElementById('msg-box').innerHTML = 'Error logging in as guest. Please try again.';
+    }
 }
 
 /**
@@ -372,6 +375,7 @@ function displayGuestInitial() {
  */
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
+    const guestUserName = sessionStorage.getItem('guestUser');
     const userInitialsRef = document.getElementById('userInitialsHeader');
     const guestInitialsRef = document.getElementById('guestInitialsHeader');
     const unloggedIconRef = document.getElementById('unloggedIcon');
@@ -381,9 +385,11 @@ function logout() {
         unloggedIconRef.classList.remove('d-none');
         sessionStorage.removeItem('loggedInUserName');
         sessionStorage.setItem('logoAnimated', false);
-    } else {
+    } else if (guestUserName) {
         guestInitialsRef.classList.add('d-none');
         unloggedIconRef.classList.remove('d-none');
-    }
+        sessionStorage.removeItem('guestUser');
+        sessionStorage.setItem('logoAnimated', false);
+    } 
     window.location.href = 'index.html';
 }

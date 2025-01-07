@@ -37,10 +37,8 @@ function markCurrentTab() {
  */
 function checkForLimitedContentPage() {
     const loggedInUser = sessionStorage.getItem('loggedInUserName');
-    !loggedInUser && !isGuestUser ? adjustSidebarForLimitedContent() : restoreSidebarForFullContent();
-
-    const currentUrl = window.location.pathname;
-    currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html') ? adjustSidebarForLimitedContent() : restoreSidebarForFullContent();
+    const guestUser = sessionStorage.getItem('guestUser');
+    !loggedInUser && !guestUser ? adjustSidebarForLimitedContent() : restoreSidebarForFullContent();
 }
 
 /**
