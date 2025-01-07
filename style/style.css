@@ -117,7 +117,7 @@ header {
     display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
     .header-logo {
         display: flex;
     }
