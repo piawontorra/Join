@@ -1,5 +1,12 @@
 /**
- * function to include html files e.g. header.html and sidebar-navigation.html
+ * Asynchronously loads and includes external HTML content into elements with the `w3-include-html` attribute.
+ * It fetches the HTML content from the file specified in the attribute, and inserts it into the element's innerHTML.
+ * If the file is not found or there is an error, it displays a 'Page not found' message.
+ * 
+ * After loading the content, it calls other helper functions to perform additional actions.
+ * 
+ * @async
+ * @returns {Promise<void>} A promise that resolves when all HTML content has been loaded and included.
  */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -14,6 +21,6 @@ async function includeHTML() {
         }
     }
     markCurrentTab();
-    setTimeout(getCurrentUserName, 0);
+    setTimeout(getLoggedInUser, 0);
     checkForLimitedContentPage();
 }

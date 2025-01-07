@@ -43,7 +43,6 @@ function loadUserCredentials() {
  * This function assumes that the HTML elements for the email, password, and "Remember me" checkbox 
  * exist in the DOM.
  * 
- * @function
  * @returns {void} This function does not return any value.
  */
 function toggleRememberMe() {
@@ -175,7 +174,6 @@ function login() {
         rememberMeEffects();
         resetFields();
         transferToSummary();
-        checkForLimitedContentPage();
     }
     else {
         adaptFields();
@@ -220,7 +218,6 @@ function adaptFields() {
 
 /**
  * Simulates a guest login by using predefined guest credentials.
- * Sets the global variable 'isGuestUser' to true.
  */
 function guestLogIn() {
     const guestLoginData = {
@@ -229,7 +226,6 @@ function guestLogIn() {
     };
 
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
-    checkForLimitedContentPage();
 }
 
 /**
@@ -309,25 +305,26 @@ function toggleUserMenu() {
 }
 
 /**
- * Retrieves the current logged-in user's name from sessionStorage and displays the appropriate user icon 
- * or guest initials in the header. If a user is logged in, their initials are shown; otherwise, a general guest initial
- * ("G" for "guest") is displayed (look at displayGuestInitial()).
+ * Checks if a user or guest is logged in and displays their initials accordingly.
+ * If a user is logged in, it displays the user's initials in the header.
+ * If a guest is logged in, it displays a "G" as the guest's initials.
  */
-function getCurrentUserName() {
+function getLoggedInUser() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
-    const unloggedIconRef = document.getElementById('unloggedIcon');
-    const guestInitialsRef = document.getElementById('guestInitialsHeader');
+    const guestInitialRef = sessionStorage.getItem('guestUser');
 
-    if (unloggedIconRef && guestInitialsRef) {
-        currentUserName ? displayUserInitialsHeader(currentUserName) : displayGuestInitial();
+    if (currentUserName) {
+        displayUserInitialsHeader(currentUserName);
+    } else if (guestInitialRef) {
+        displayGuestInitial(guestInitialRef);
     }
 }
 
 /**
- * Displays the logged-in user's initials in the header. The unlogged icon is hidden, 
- * and the user's initials are displayed.
+ * Displays the initials of the logged-in user in the header.
+ * It hides the unlogged icon and shows the user's initials.
  *
- * @param {string} currentUserName - The name of the currently logged-in user.
+ * @param {string} currentUserName - The full name of the logged-in user.
  */
 function displayUserInitialsHeader(currentUserName) {
     const unloggedIconRef = document.getElementById('unloggedIcon');
@@ -342,11 +339,11 @@ function displayUserInitialsHeader(currentUserName) {
 }
 
 /**
- * Extracts and returns the initials from the user's full name. The initials are derived 
- * from the first character of each part of the user's name.
+ * Extracts the initials from a full name.
+ * The initials are the first letter of each name part in uppercase.
  *
  * @param {string} currentUserName - The full name of the logged-in user.
- * @returns {string} A string of the user's initials (e.g., 'FB' for "Frodo Beutlin").
+ * @returns {string} The initials of the user.
  */
 function getUserInitials(currentUserName) {
     const nameParts = currentUserName.split(' ');
@@ -355,41 +352,60 @@ function getUserInitials(currentUserName) {
 }
 
 /**
- * Displays the guest initials ("G") in the header. The unlogged icon is hidden, and the guest initials are shown.
+ * Displays the initials "G" for a guest user in the header.
+ * It hides the unlogged icon and shows the guest initials.
  */
 function displayGuestInitial() {
     const unloggedIconRef = document.getElementById('unloggedIcon');
-    const guestInitialsRef = document.getElementById('guestInitialsHeader');
+    const guestInitialRef = document.getElementById('guestInitialHeader');
 
-    if (unloggedIconRef && guestInitialsRef) {
+    if (unloggedIconRef && guestInitialRef) {
         unloggedIconRef.classList.add('d-none');
-        guestInitialsRef.classList.remove('d-none');
-        guestInitialsRef.textContent = "G";
+        guestInitialRef.classList.remove('d-none');
+        guestInitialRef.textContent = "G";
     }
 }
 
 /**
- * Logs the user out by removing the logged-in user's name from sessionStorage, hiding user initials, 
- * and displaying the unlogged icon. If the user is logged out, the guest icon is displayed. 
- * The page is then redirected to the login (index.html).
+ * Logs out the user or guest and redirects to the login page.
+ * Clears sessionStorage for either the logged-in user or the guest.
+ * Redirects to the login page and sets the 'logoAnimated' item in sessionStorage to false.
  */
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
     const guestUserName = sessionStorage.getItem('guestUser');
-    const userInitialsRef = document.getElementById('userInitialsHeader');
-    const guestInitialsRef = document.getElementById('guestInitialsHeader');
-    const unloggedIconRef = document.getElementById('unloggedIcon');
 
     if (currentUserName) {
-        userInitialsRef.classList.add('d-none');
-        unloggedIconRef.classList.remove('d-none');
-        sessionStorage.removeItem('loggedInUserName');
-        sessionStorage.setItem('logoAnimated', false);
+        logoutUser();
     } else if (guestUserName) {
-        guestInitialsRef.classList.add('d-none');
-        unloggedIconRef.classList.remove('d-none');
-        sessionStorage.removeItem('guestUser');
-        sessionStorage.setItem('logoAnimated', false);
-    } 
+        logoutGuest();
+    }
     window.location.href = 'index.html';
+    sessionStorage.setItem('logoAnimated', false);
+}
+
+/**
+ * Logs out the logged-in user by hiding their initials and displaying the unlogged icon.
+ * Removes the 'loggedInUserName' from sessionStorage.
+ */
+function logoutUser() {
+    const userInitialsRef = document.getElementById('userInitialsHeader');
+    const unloggedIconRef = document.getElementById('unloggedIcon');
+
+    userInitialsRef.classList.add('d-none');
+    unloggedIconRef.classList.remove('d-none');
+    sessionStorage.removeItem('loggedInUserName');
+}
+
+/**
+ * Logs out the guest user by hiding the "G" initial and displaying the unlogged icon.
+ * Removes the 'guestUser' from sessionStorage.
+ */
+function logoutGuest() {
+    const guestInitialsRef = document.getElementById('guestInitialHeader');
+    const unloggedIconRef = document.getElementById('unloggedIcon');
+
+    guestInitialsRef.classList.add('d-none');
+    unloggedIconRef.classList.remove('d-none');
+    sessionStorage.removeItem('guestUser');
 }
