@@ -132,7 +132,7 @@ async function getDetailTaskCardTemplate(task) {
                 </div>
                 <div class="seperator"></div>
                 <div onclick="renderTaskEditor(this.dataset.task)" data-task='${JSON.stringify(task)}' class="detail-delete-edit">
-                    <img class="width32" src="./assets/img/edit_icon.svg">
+                    <img class="width28" src="./assets/img/edit_icon.svg">
                     <p>Edit</p>
                 </div>
             </div>
@@ -157,81 +157,83 @@ function getTaskEditorTemplate(task) {
                         <img src="./assets/img/cancel_icon.png" onclick="closeTaskEditor()">
                     </div>
                 </div>
-                <div class="add-task-form-left">
-                    <div>
-                        <label for="inputTitle">
-                            <p class="editor-title">Title</p>
+                <div class="edit-task-content">
+                    <div class="add-task-form-left">
+                        <div>
+                            <label for="inputTitle">
+                                <p class="editor-title">Title</p>
+                                <p class="rosa-font">*</p>
+                            </label>
+                            <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
+                                autocomplete="off" value="${task.title}">
+                            <span id="inputTitleError" class="error-message" style="display: none;">This field is required</span>
+                        </div>
+                        <div class="task-description">
+                            <label for="inputDescription">Description</label>
+                            <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px"
+                                placeholder="Enter a Description">${task.description}</textarea>
+                        </div>
+                        <label for="inputDueDate">
+                            <p>Due date</p>
                             <p class="rosa-font">*</p>
                         </label>
-                        <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title"
-                            autocomplete="off" value="${task.title}">
-                        <span id="inputTitleError" class="error-message" style="display: none;">This field is required</span>
-                    </div>
-                    <div class="task-description">
-                        <label for="inputDescription">Description</label>
-                        <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px"
-                            placeholder="Enter a Description">${task.description}</textarea>
-                    </div>
-                    <label for="inputDueDate">
-                        <p>Due date</p>
-                        <p class="rosa-font">*</p>
-                    </label>
-                    <div class="task-due-date">
-                        <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
-                        <img src="./assets/img/calendar_icon.png" alt="">
-                    </div>
-                    <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>
-                    <div class="task-prio">
-                        <p class="add-task-input-headline">Priority</p>
-                        <div class="prio-buttons">
-                            <div id="urgentPrio" class="prio-button ${task.priority === 'Urgent' ? 'selected' : ''}" onclick="selectPriority('Urgent')">
-                                <p>Urgent</p>
-                                <img src="./assets/img/urgent_icon.png" alt="">
-                            </div>
-                            <div id="mediumPrio" class="prio-button ${task.priority === 'Medium' ? 'selected' : ''}" onclick="selectPriority('Medium')">
-                                <p>Medium</p>
-                                <img src="./assets/img/medium_icon.png" alt="">
-                            </div>
-                            <div id="lowPrio" class="prio-button ${task.priority === 'Low' ? 'selected' : ''}" onclick="selectPriority('Low')">
-                                <p>Low</p>
-                                <img src="./assets/img/low_icon.png" alt="">
-                            </div>
+                        <div class="task-due-date">
+                            <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
+                            <img src="./assets/img/calendar_icon.png" alt="">
                         </div>
-                    </div>
-                    <div class="task-assignement-and-category">
-                        <p class="add-task-input-headline">Assigned to</p>
-                        <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field">
-                            <p>Select contacts to assign</p>
-                            <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                            <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
-                                style="display: none;">
-                        </div>
-                        <div id="users" class="users" style="display: none;">
-                        </div>
-                        <div class="assigned-users-container" id="assignedUsers"></div>
-                    </div>
-                </div>
-                <div class="task-subtask">
-                        <p class="add-task-input-headline">Subtasks</p>
-                        <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
-                            class="add-task-input-fields" type="text" id="inputSubtask"
-                            placeholder="Add new subtask">
-                        <div id="containerButtons" class="add-subtask-buttons">
-                            <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons">
-                                <img src="./assets/img/plus_dark_icon.svg" alt="">
-                            </div>
-                            <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
-                                <div onclick="resetButtons()" class="subtask-buttons">
-                                    <img src="./assets/img/cancel_icon.svg" alt="">
+                        <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>
+                        <div class="task-prio">
+                            <p class="add-task-input-headline">Priority</p>
+                            <div class="prio-buttons">
+                                <div id="urgentPrio" class="prio-button ${task.priority === 'Urgent' ? 'selected' : ''}" onclick="selectPriority('Urgent')">
+                                    <p>Urgent</p>
+                                    <img src="./assets/img/urgent_icon.png" alt="">
                                 </div>
-                                <div class="subtask-seperator"></div>
-                                <div onclick="addEditorSubtask()" class="subtask-buttons">
-                                    <img src="./assets/img/check_dark_icon.svg" alt="">
+                                <div id="mediumPrio" class="prio-button ${task.priority === 'Medium' ? 'selected' : ''}" onclick="selectPriority('Medium')">
+                                    <p>Medium</p>
+                                    <img src="./assets/img/medium_icon.png" alt="">
+                                </div>
+                                <div id="lowPrio" class="prio-button ${task.priority === 'Low' ? 'selected' : ''}" onclick="selectPriority('Low')">
+                                    <p>Low</p>
+                                    <img src="./assets/img/low_icon.png" alt="">
                                 </div>
                             </div>
                         </div>
+                        <div class="task-assignement-and-category">
+                            <p class="add-task-input-headline">Assigned to</p>
+                            <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field">
+                                <p>Select contacts to assign</p>
+                                <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
+                                    style="display: none;">
+                            </div>
+                            <div id="users" class="users" style="display: none;">
+                            </div>
+                            <div class="assigned-users-container" id="assignedUsers"></div>
+                        </div>
+                    </div>
+                    <div class="task-subtask">
+                            <p class="add-task-input-headline">Subtasks</p>
+                            <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
+                                class="add-task-input-fields" type="text" id="inputSubtask"
+                                placeholder="Add new subtask">
+                            <div id="containerButtons" class="add-subtask-buttons">
+                                <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons padding-top-six">
+                                    <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                </div>
+                                <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
+                                    <div onclick="resetButtons()" class="subtask-buttons">
+                                        <img src="./assets/img/cancel_icon.svg" alt="">
+                                    </div>
+                                    <div class="subtask-seperator"></div>
+                                    <div onclick="addEditorSubtask()" class="subtask-buttons">
+                                        <img src="./assets/img/check_dark_icon.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div id="subtask" class="created-subtasks-container"></div>
                 </div>
-                <div id="subtask" class="created-subtasks-container"></div>
                 <div class="change-edit-task-btn-container">
                     <button class="change-edit-task-btn" onclick="updateCurrentTask(event)">
                         <span>Ok</span>

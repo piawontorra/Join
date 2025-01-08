@@ -268,7 +268,7 @@
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
     .board-content {
         left: 0;
     }

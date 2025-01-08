@@ -641,7 +641,7 @@ select {
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
     .board-add-task-overlay {
         background-color: rgba(0, 0, 0, 0);
     }
@@ -722,6 +722,10 @@ select {
         font-size: 16px;
     }
 
+    .add-task-input-headline {
+        font-size: 16px;
+    }
+
     label {
         font-size: 16px;
     }
@@ -755,6 +759,20 @@ select {
 
     .padding-top-six {
         padding-top: 6px;
+    }
+}
+
+@media (max-width: 431px) {
+    .prio-button {
+        font-size: 16px;
+    }
+
+    .add-task-assigned-to-input-field {
+        font-size: 16px;
+    }
+
+    .contact-name {
+        font-size: 16px;
     }
 }
 
@@ -858,5 +876,9 @@ select {
     .info-line-mobile {
         padding-bottom: 332px;
         padding-top: 16px;
+    }
+
+    .prio-button {
+        width: 90px;
     }
 }
