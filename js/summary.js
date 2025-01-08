@@ -73,7 +73,7 @@ async function loadTasks(path = "") {
         let response = await fetch(BASE_URL + path + ".json");
         if (!response.ok) throw new Error('Failed to fetch tasks data');
         const data = await response.json();
-        return data ? Object.values(data).filter(task => task && task.status !== 'done') : [];
+        return data ? Object.values(data).filter(task => task && task.status) : [];
     } catch (error) {
         console.error('Error loading tasks:', error);
         return [];
@@ -106,26 +106,32 @@ function updateSummaryStatusCount(tasksData) {
 }
 
 /**
- * Finds the nearest urgent task's deadline.
+ * Finds the nearest urgent task's deadline based on yesterday's date.
  * 
  * @param {Array} tasksData - The list of tasks.
  * @returns {Date|null} - The nearest due date of an urgent task or null if none is found.
  */
 function findUrgentTaskWithNearestDeadline(tasksData) {
     const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
     let selectedTask = null;
     let selectedDateDiff = null;
+
     tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done')
         .forEach(task => {
             const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
-            const diffTime = dueDate - today;
-            if (dueDate >= today && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
+            const diffTime = dueDate - yesterday;
+            if (dueDate >= yesterday && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
                 selectedTask = task;
                 selectedDateDiff = diffTime;
             }
         });
+
     return selectedTask ? new Date(selectedTask.dueDate.split('/').reverse().join('/')) : null;
 }
+
 
 /**
  * Updates the urgent task deadline displayed on the page by using the US date standard.
@@ -133,8 +139,10 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
  * @param {Date} dueDate - The due date of the urgent task.
  */
 function updateUrgentTaskDeadline(dueDate) {
+    const today = new Date();
+    const yesterday = new Date(today);
     const deadlineElement = document.getElementById('next-deadline-date');
-    if (!dueDate || dueDate < new Date()) {
+    if (!dueDate || dueDate < yesterday.setDate(today.getDate() - 1)) {
         deadlineElement.textContent = '';
         return;
     }
@@ -157,7 +165,7 @@ function countValidTasks(tasksData) {
  * @param {number} totalTasks - The total number of valid tasks.
  */
 function updateGeneralTasksCount(totalTasks) {
-    document.getElementById('general-tasks-count').textContent = totalTasks;
+    document.getElementById('general-tasks-count').innerText = totalTasks;
 }
 
 /**
