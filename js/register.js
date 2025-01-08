@@ -2,7 +2,7 @@
  * Initializes the registration process by including HTML content and setting up the registration form.
  */
 function initRegistry() {
-    includeHTML();
+    includeFooter();
     setupRegistrationForm();
 }
 

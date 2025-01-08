@@ -1,30 +1,32 @@
 /**
- * Checks the current page and user status to adjust the sidebar and content visibility.
- * - If the user is logged in or a guest, the full content and sidebar are restored.
- * - If no user is logged in and the current page is a limited-content page (privacy-policy or legal-notice),
- *   the sidebar is adjusted to show limited content and a login link.
- * - If the user is not logged in and they attempt to visit pages with restricted content,
- *   they are redirected to the login page.
+ * Determines the visibility of page content and manages redirection based on the user's login status 
+ * and the current page URL. The function checks if the user is logged in or is a guest and adjusts 
+ * the display or redirects accordingly.
+ * 
+ * - If the user is not logged in and the current page is a limited content page (privacy policy or legal notice),
+ *   the sidebar is adjusted to show limited content.
+ * - If the user is not logged in and tries to access restricted pages (such as addTask, board, contacts, etc.),
+ *   the user is redirected to the login page.
+ * - Default: If the a user or a guest user is logged in, the complete content with all mainTabs will be shown as designed.
  * 
  * @function checkForLimitedContentPage
- * @returns {void} No return value.
+ * @returns {void} This function does not return any value, it performs DOM manipulation and redirects.
  */
 function checkForLimitedContentPage() {
     const loggedInUser = sessionStorage.getItem('loggedInUserName');
     const guestUser = sessionStorage.getItem('guestUser');
     const currentUrl = window.location.pathname;
 
-    if (loggedInUser || guestUser) {
-        restoreSidebarForFullContent();
+    switch (true) {
+        case (!loggedInUser && !guestUser && (currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html'))):
+            adjustSidebarForLimitedContent();
+            break;
+        case (!loggedInUser && !guestUser && (currentUrl.includes('addTask.html') || currentUrl.includes('board.html') || currentUrl.includes('contacts.html') || currentUrl.includes('help.html') || currentUrl.includes('summary.html'))):
+            window.location.href = 'index.html';
+            break;
+        default:
+            break;
     }
-
-    else if (!loggedInUser && !guestUser && (currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html'))) {
-        adjustSidebarForLimitedContent();
-    }
-    // (Optional) Redirect to login if not logged in and on a restricted page (commented out)
-    // else if (!loggedInUser && !guestUser && (currentUrl.includes('addTask.html') || currentUrl.includes('board.html') || currentUrl.includes('contacts.html') || currentUrl.includes('help.html') || currentUrl.includes('summary.html'))) {
-    //     returnToLogIn();  // Redirect to login page
-    // }
 }
 
 /**
@@ -43,25 +45,6 @@ function adjustSidebarForLimitedContent() {
         linkToLogin.classList.remove('d-none');
     } else {
         setTimeout(adjustSidebarForLimitedContent, 100);
-    }
-}
-
-/**
- * Restores the sidebar and main content for logged-in users by showing the main content and hiding the login link.
- * This is used when a user is logged in or a guest is logged in.
- * 
- * @function restoreSidebarForFullContent
- * @returns {void} No return value.
- */
-function restoreSidebarForFullContent() {
-    const mainContent = document.getElementById('mainTabs');
-    const linkToLogin = document.getElementById('loginReference');
-
-    if (mainContent && linkToLogin) {
-        mainContent.classList.remove('d-none');
-        linkToLogin.classList.add('d-none');
-    } else {
-        setTimeout(restoreSidebarForFullContent, 100);
     }
 }
 
