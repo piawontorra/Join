@@ -307,7 +307,8 @@ function toggleUserMenu() {
 /**
  * Checks if a user or guest is logged in and displays their initials accordingly.
  * If a user is logged in, it displays the user's initials in the header.
- * If a guest is logged in, it displays a "G" as the guest's initials.
+ * If a guest is logged in, it displays a "G" as the guest's initial.
+ * If either a user nor a guest is logged in, an icon for a unlogged user will be shown.
  */
 function getLoggedInUser() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');

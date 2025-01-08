@@ -1,4 +1,15 @@
 /**
+ * Initializes the reset password process by including the footer HTML content.
+ * This function calls the `includeFooter` function to load the footer content, which might be necessary 
+ * for the reset password page layout or functionality.
+ * 
+ * @returns {Promise<void>} This function returns a Promise that resolves when the footer has been successfully included.
+ */
+function initResetPassword() {
+    includeFooter();
+}
+
+/**
  * Saves the new password of the user if it matches the confirmation.
  * 
  * This function checks the congruence of the new password and its confirmation. If they match, 
@@ -6,7 +17,6 @@
  * After the successful update, an overlay message is displayed.
  *
  * @async
- * @function
  * @returns {Promise<void>} Returns a promise that resolves once the password update is completed.
  */
 async function saveNewPassword() {
@@ -31,7 +41,6 @@ async function saveNewPassword() {
  * 
  * This function extracts the email address from the URL parameters that were passed when the page was called.
  *
- * @function
  * @returns {string|null} Returns the email address from the URL, or null if no email is present in the URL.
  */
 function getEmailFromURL() {
@@ -46,7 +55,6 @@ function getEmailFromURL() {
  * If the user is found, it returns the user data along with the user ID.
  * 
  * @async
- * @function
  * @param {string} email - The email address of the user which was retrieved from the URL parameters in getEmailFromURL().
  * @returns {Promise<{userId: string, user: Object}|null>} Returns an object containing the user ID and the user data, 
  *          or null if no user with this email address is found.
@@ -63,7 +71,6 @@ async function getUserByEmail(email) {
  * This function takes the user ID and new password, and updates the password of the user in the database.
  * 
  * @async
- * @function
  * @param {string} userId - The user ID of the user whose password needs to be updated.
  * @param {string} newPassword - The new password to be set for the user.
  * @returns {Promise<void>} Returns a promise that resolves once the password update is complete.

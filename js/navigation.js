@@ -7,9 +7,8 @@
  *   the sidebar is adjusted to show limited content.
  * - If the user is not logged in and tries to access restricted pages (such as addTask, board, contacts, etc.),
  *   the user is redirected to the login page.
- * - Default: If the a user or a guest user is logged in, the complete content with all mainTabs will be shown as designed.
+ * - Default: If the a user or a guest user is logged in, the complete content with all mainTabs will be shown.
  * 
- * @function checkForLimitedContentPage
  * @returns {void} This function does not return any value, it performs DOM manipulation and redirects.
  */
 function checkForLimitedContentPage() {
@@ -21,10 +20,12 @@ function checkForLimitedContentPage() {
         case (!loggedInUser && !guestUser && (currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html'))):
             adjustSidebarForLimitedContent();
             break;
-        case (!loggedInUser && !guestUser && (currentUrl.includes('addTask.html') || currentUrl.includes('board.html') || currentUrl.includes('contacts.html') || currentUrl.includes('help.html') || currentUrl.includes('summary.html'))):
+        case (!loggedInUser && !guestUser && !(currentUrl.includes('privacy-policy.html') || currentUrl.includes('legal-notice.html'))):
             window.location.href = 'index.html';
             break;
         default:
+            mobileUserSidebar();
+            // Manchmal reload notwendig, damit die Anzeige beim Bildschirmvergrößern und -verkleinern richtig ist. 'resize' bereitet anderes Problem.
             break;
     }
 }
@@ -33,7 +34,6 @@ function checkForLimitedContentPage() {
  * Adjusts the sidebar and main content for limited-content pages by hiding the main content and showing a login link.
  * This is used when the user is not logged in and is viewing pages like privacy-policy or legal-notice.
  * 
- * @function adjustSidebarForLimitedContent
  * @returns {void} No return value.
  */
 function adjustSidebarForLimitedContent() {
@@ -45,6 +45,23 @@ function adjustSidebarForLimitedContent() {
         linkToLogin.classList.remove('d-none');
     } else {
         setTimeout(adjustSidebarForLimitedContent, 100);
+    }
+}
+
+/**
+ * Adjusts the visibility of the "imprintContent" element based on the window width.
+ * If the window width is less than 1000px, the "imprintContent" element is hidden by adding the "d-none" class.
+ * Otherwise, the "d-none" class is removed, making the element visible.
+ * 
+ * @returns {void} No return value.
+ */
+function mobileUserSidebar() {
+    const imprintContentRef = document.getElementById('imprintContent');
+
+    if (window.innerWidth < 1000) {
+        imprintContentRef.classList.add('d-none');
+    } else {
+        imprintContentRef.classList.remove('d-none');
     }
 }
 
