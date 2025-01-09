@@ -335,7 +335,7 @@ function displayUserInitialsHeader(currentUserName) {
         const initials = getUserInitials(currentUserName);
         unloggedIconRef.classList.add('d-none');
         userInitialsRef.classList.remove('d-none');
-        userInitialsRef.textContent = initials;
+        userInitialsRef.innerText = initials;
     }
 }
 
@@ -363,7 +363,7 @@ function displayGuestInitial() {
     if (unloggedIconRef && guestInitialRef) {
         unloggedIconRef.classList.add('d-none');
         guestInitialRef.classList.remove('d-none');
-        guestInitialRef.textContent = "G";
+        guestInitialRef.innerText = "G";
     }
 }
 

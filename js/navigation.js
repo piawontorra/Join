@@ -11,7 +11,7 @@
  * 
  * @returns {void} This function does not return any value, it performs DOM manipulation and redirects.
  */
-function checkForLimitedContentPage() {
+function checkForLimitedContent() {
     const loggedInUser = sessionStorage.getItem('loggedInUserName');
     const guestUser = sessionStorage.getItem('guestUser');
     const currentUrl = window.location.pathname;
