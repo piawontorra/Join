@@ -1,3 +1,5 @@
+let urgentUnfinishedTasks = [];
+
 /**
  * Initializes the summary page by including HTML, greeting the user, and showing the current task counts.
  */
@@ -19,7 +21,7 @@ function greetUser() {
     greetingTextRef.innerHTML = '';
     userNameRef.innerHTML = '';
 
-    userName ? greetingTextRef.innerHTML = greeting + ', ' : greetingTextRef.innerHTML = greeting;
+    userName ? greetingTextRef.innerHTML = greeting + ', ' : greetingTextRef.innerHTML = greeting + '!';
 
     if (userName) {
         userNameRef.innerHTML = userName;
@@ -62,6 +64,19 @@ function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
     imgRef.src = isHovered ? hoverSrc : originalSrc;
 }
 
+async function showCurrentTasksCount() {
+    let tasksData = await loadTasks("tasks");
+    if (tasksData && tasksData.length > 0) {
+        updateSummaryStatusCount(tasksData);
+        const selectedTask = updateUrgentTaskDeadline(tasksData);
+        updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks)
+    } else {
+        updateSummaryStatusCount([]);
+        updateUrgentTaskDeadline([]);
+        updateUrgentTasksCount(null, []);
+    }
+}
+
 /**
  * Loads the tasks data from the given path.
  * 
@@ -81,9 +96,9 @@ async function loadTasks(path = "") {
 }
 
 /**
- * Counts the number of tasks in each status category: 'todo', 'done', 'in-progress', 'await-feedback' starting by 0.
- * 
- * @param {Array} tasksData - The list of tasks.
+ * Counts the number of tasks by their status.
+ *
+ * @param {Array} tasksData - The list of tasks to count.
  * @returns {Object} - An object containing the count of tasks by status.
  */
 function countTasksByStatus(tasksData) {
@@ -93,151 +108,95 @@ function countTasksByStatus(tasksData) {
 }
 
 /**
- * Updates the summary status count displayed on the page.
- * 
- * @param {Array} tasksData - The list of tasks.
+ * Updates the summary status count in the DOM.
+ *
+ * @param {Array} tasksData - The list of tasks to check.
+ * @returns {void}
  */
 function updateSummaryStatusCount(tasksData) {
     const statusCount = countTasksByStatus(tasksData);
-    document.getElementById('to-do-count').textContent = statusCount['todo'];
-    document.getElementById('done-count').textContent = statusCount['done'];
-    document.getElementById('in-progress-count').textContent = statusCount['in-progress'];
-    document.getElementById('awaiting-feedback-count').textContent = statusCount['await-feedback'];
+    document.getElementById('to-do-count').innerText = statusCount['todo'];
+    document.getElementById('done-count').innerText = statusCount['done'];
+    document.getElementById('in-progress-count').innerText = statusCount['in-progress'];
+    document.getElementById('awaiting-feedback-count').innerText = statusCount['await-feedback'];
+    document.getElementById('every-status-count').innerHTML = tasksData.length;
 }
 
 /**
- * Finds the nearest urgent task's deadline based on yesterday's date.
- * 
- * @param {Array} tasksData - The list of tasks.
- * @returns {Date|null} - The nearest due date of an urgent task or null if none is found.
+ * Updates the urgent task deadline and displays it in the DOM.
+ *
+ * @param {Array} tasksData - The list of tasks to check.
+ * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
+ */
+function updateUrgentTaskDeadline(tasksData) {
+    const selectedTask = findUrgentTaskWithNearestDeadline(tasksData);
+
+    if (selectedTask) {
+        const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
+        document.getElementById('next-deadline-date').innerHTML = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        return selectedTask;  // selectedTask zurückgeben
+    } else {
+        document.getElementById('next-deadline-date').innerHTML = 'No urgent tasks available';
+        return null;
+    }
+}
+
+/**
+ * Finds the urgent task with the nearest deadline.
+ *
+ * @param {Array} tasksData - The list of tasks to check.
+ * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
  */
 function findUrgentTaskWithNearestDeadline(tasksData) {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-
     let selectedTask = null;
     let selectedDateDiff = null;
 
-    tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done')
-        .forEach(task => {
-            const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
-            const diffTime = dueDate - yesterday;
-            if (dueDate >= yesterday && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
-                selectedTask = task;
-                selectedDateDiff = diffTime;
-            }
-        });
+    // Filter urgent and unfinished tasks
+    urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
 
-    return selectedTask ? new Date(selectedTask.dueDate.split('/').reverse().join('/')) : null;
-}
-
-
-/**
- * Updates the urgent task deadline displayed on the page by using the US date standard.
- * 
- * @param {Date} dueDate - The due date of the urgent task.
- */
-function updateUrgentTaskDeadline(dueDate) {
-    const today = new Date();
-    const yesterday = new Date(today);
-    const deadlineElement = document.getElementById('next-deadline-date');
-    if (!dueDate || dueDate < yesterday.setDate(today.getDate() - 1)) {
-        deadlineElement.textContent = '';
-        return;
-    }
-    deadlineElement.textContent = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
-/**
- * Counts the number of valid tasks (those that have a status).
- * 
- * @param {Array} tasksData - The list of tasks.
- * @returns {number} - The count of valid tasks.
- */
-function countValidTasks(tasksData) {
-    return tasksData.filter(task => task && task.status).length;
-}
-
-/**
- * Updates the general task count displayed on the page.
- * 
- * @param {number} totalTasks - The total number of valid tasks.
- */
-function updateGeneralTasksCount(totalTasks) {
-    document.getElementById('general-tasks-count').innerText = totalTasks;
-}
-
-/**
- * Filters the urgent, unfinished tasks from the tasks data.
- * 
- * @param {Array} tasksData - The list of tasks.
- * @returns {Array} - The filtered list of urgent, unfinished tasks.
- */
-function filterUrgentUnfinishedTasks(tasksData) {
-    return tasksData.filter(task => task && task.priority === 'Urgent' && task.status !== 'done' && task.dueDate);
-}
-
-/**
- * Finds the nearest due date among the urgent, unfinished tasks.
- * 
- * @param {Array} urgentTasks - The filtered urgent tasks.
- * @returns {Date|null} - The nearest due date or null if not found.
- */
-function findNearestUrgentTaskDueDate(urgentTasks) {
-    return findUrgentTaskWithNearestDeadline(urgentTasks);
-}
-
-/**
- * Calculates the count of urgent tasks that have a due date before or on the nearest due date.
- * 
- * @param {Array} urgentTasks - The filtered urgent tasks.
- * @param {Date} nearestDueDate - The nearest due date.
- * @returns {number} - The count of urgent tasks with a due date before or on the nearest due date.
- */
-function countUrgentTasksBeforeDueDate(urgentTasks, nearestDueDate) {
-    return urgentTasks.filter(task => {
+    urgentUnfinishedTasks.forEach(task => {
         const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
-        return dueDate <= nearestDueDate;
+        const diffTime = dueDate - yesterday;
+        if (dueDate >= yesterday && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
+            selectedTask = task;
+            selectedDateDiff = diffTime;
+        }
+    });
+
+    return selectedTask;
+}
+
+/**
+ * Counts the number of urgent tasks before the given due date.
+ *
+ * @param {Array} urgentUnfinishedTasks - The list of urgent, unfinished tasks.
+ * @param {Date} nearestDueDate - The date by which tasks should be counted.
+ * @returns {number} - The number of tasks.
+ */
+function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
+    return urgentUnfinishedTasks.filter(task => {
+        const taskDueDate = new Date(task.dueDate.split('/').reverse().join('/'));
+        return taskDueDate <= nearestDueDate;
     }).length;
 }
 
 /**
- * Updates the count of urgent tasks displayed on the page.
- * 
- * @param {Array} tasksData - The list of all tasks.
+ * Updates the count of urgent tasks before the nearest deadline.
+ *
+ * @param {Object|null} selectedTask - The selected urgent task with the nearest deadline.
+ * @param {Array} tasksData - The list of tasks to check.
+ * @returns {void}
  */
-function updateUrgentTasksCount(tasksData) {
-    const urgentUnfinishedTasks = filterUrgentUnfinishedTasks(tasksData);
-    if (urgentUnfinishedTasks.length === 0) {
-        document.getElementById('urgent-count').textContent = 0;
-        return;
-    }
-
-    const nearestDueDate = findNearestUrgentTaskDueDate(urgentUnfinishedTasks);
-    if (!nearestDueDate) {
-        document.getElementById('urgent-count').textContent = 0;
-        return;
-    }
-
-    const urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate);
-    document.getElementById('urgent-count').textContent = urgentCount;
-}
-
-/**
- * Displays the current task counts on the summary page.
- */
-async function showCurrentTasksCount() {
-    let tasksData = await loadTasks("tasks");
-    if (tasksData && tasksData.length > 0) {
-        updateSummaryStatusCount(tasksData);
-        updateGeneralTasksCount(countValidTasks(tasksData));
-        const urgentUnfinishedTask = findUrgentTaskWithNearestDeadline(tasksData);
-        updateUrgentTaskDeadline(urgentUnfinishedTask);
-        updateUrgentTasksCount(tasksData);
+function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
+    if (selectedTask) {
+        const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
+        
+        const urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, dueDate);
+        document.getElementById('urgent-count').innerText = urgentCount;
     } else {
-        updateGeneralTasksCount(0);
-        updateUrgentTaskDeadline(0);
-        updateUrgentTasksCount([]);
+        document.getElementById('urgent-count').innerText = 0;
     }
 }
