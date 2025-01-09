@@ -36,7 +36,17 @@
     }
 
     .return-btn-mobile {
+        display: block;
+        margin-top: 6px;
+        transform: translateX(-40px);
+    }
+
+    .return-headline {
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        transform: translateX(-22.5px);
+
     }
 
     .form-input-fields {
@@ -50,7 +60,7 @@
     }
 
     .policy-checkbox {
-        left: -52px;
+        transform: translate(-27px, -2px);
     }
 
     .policy-checkbox-img {
@@ -98,6 +108,12 @@
         gap: 21px;
     }
 
+    .return-btn-mobile {
+        display: block;
+        margin-top: 6px;
+        transform: translateX(-8px);
+    }
+
     .h1-underline-reset {
         width: 176px;
     }
@@ -129,7 +145,7 @@
     }
 
     .policy-checkbox {
-        left: -52px;
+        transform: translate(-72px, -3px);
     }
 
     .policy-checkbox-img {

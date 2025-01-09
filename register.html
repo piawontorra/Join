@@ -33,10 +33,12 @@
                 </button>
                 <div class="form-content">
                     <div class="form-headline">
-                        <button class="btn return-btn return-btn-mobile d-none" onclick="returnToLogIn()">
-                            <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
-                        </button>
-                        <h1 class="h1-variant">Sign up</h1>
+                        <div class="return-headline">
+                            <button class="btn return-btn return-btn-mobile" onclick="returnToLogIn()">
+                                <img src="./assets/img/arrow_left_icon.png" alt="arrow-to-login">
+                            </button>
+                            <h1 class="h1-variant">Sign up</h1>
+                        </div>
                         <div class="h1-underline"></div>
                     </div>
                     <div class="form-input-fields registration-fields">
@@ -55,7 +57,8 @@
                                 id="password-img" onclick="togglePasswordVisibility(this)">
                         </div>
                         <div>
-                            <div class="input-box input-field password-field registration-input" id="input-password-confirmation">
+                            <div class="input-box input-field password-field registration-input"
+                                id="input-password-confirmation">
                                 <input type="password" id="password-confirmation" name="password" required
                                     placeholder="Confirm Password" oninput="changePasswordImg(this)">
                                 <img src="./assets/img/lock-icon.png" alt="locked lock icon" class="password-img"
@@ -66,8 +69,8 @@
                         <div class="check-item check-item-registry">
                             <input type="checkbox" class="policy-checkbox" id="accepted-policy" name="accepted-policy"
                                 required>
-                            <img class="checkbox-img policy-checkbox-img" id="checkbox-img" src="./assets/img/unchecked.png" alt="checkbox"
-                                onclick="toggleCheckboxImg()">
+                            <img class="checkbox-img policy-checkbox-img" id="checkbox-img"
+                                src="./assets/img/unchecked.png" alt="checkbox" onclick="toggleCheckboxImg()">
                             <p class="additional-links accept-text">I accept the</p>
                             <a class="additional-links" href="privacy-policy.html">Privacy Policy.</a>
                         </div>
