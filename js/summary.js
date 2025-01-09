@@ -64,12 +64,22 @@ function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
     imgRef.src = isHovered ? hoverSrc : originalSrc;
 }
 
+/**
+ * Fetches the current tasks from firebase and updates the task counts.
+ *
+ * This function loads the tasks data asynchronously, processes it, and updates the 
+ * status counts, urgent task deadlines, and urgent task counts in the DOM. 
+ * If no tasks are found, it updates the DOM with default values.
+ *
+ * @async
+ * @returns {void}
+ */
 async function showCurrentTasksCount() {
     let tasksData = await loadTasks("tasks");
     if (tasksData && tasksData.length > 0) {
         updateSummaryStatusCount(tasksData);
         const selectedTask = updateUrgentTaskDeadline(tasksData);
-        updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks)
+        updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks);
     } else {
         updateSummaryStatusCount([]);
         updateUrgentTaskDeadline([]);
@@ -79,7 +89,11 @@ async function showCurrentTasksCount() {
 
 /**
  * Loads the tasks data from the given path.
- * 
+ *
+ * Fetches the tasks data from a remote source (firebase) and processes it by filtering out 
+ * tasks that are missing a status.
+ *
+ * @async
  * @param {string} [path=""] - The path to the tasks data.
  * @returns {Promise<Array>} - A promise that resolves to an array of tasks.
  */
@@ -98,6 +112,9 @@ async function loadTasks(path = "") {
 /**
  * Counts the number of tasks by their status.
  *
+ * Iterates through the tasks array and counts the number of tasks for each 
+ * status: 'todo', 'done', 'in-progress', and 'await-feedback'.
+ *
  * @param {Array} tasksData - The list of tasks to count.
  * @returns {Object} - An object containing the count of tasks by status.
  */
@@ -109,6 +126,10 @@ function countTasksByStatus(tasksData) {
 
 /**
  * Updates the summary status count in the DOM.
+ *
+ * Displays the task count for each status in the DOM elements with the 
+ * corresponding ids ('to-do-count', 'done-count', etc.).
+ * The element with the id 'every-status-count' represents the sum of tasks of every status.
  *
  * @param {Array} tasksData - The list of tasks to check.
  * @returns {void}
@@ -125,6 +146,10 @@ function updateSummaryStatusCount(tasksData) {
 /**
  * Updates the urgent task deadline and displays it in the DOM.
  *
+ * Finds the task with the nearest deadline from the list of tasks and 
+ * displays its due date. If no urgent task is found, it displays a message 
+ * indicating no urgent tasks are available.
+ *
  * @param {Array} tasksData - The list of tasks to check.
  * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
  */
@@ -134,7 +159,7 @@ function updateUrgentTaskDeadline(tasksData) {
     if (selectedTask) {
         const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
         document.getElementById('next-deadline-date').innerHTML = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        return selectedTask;  // selectedTask zurückgeben
+        return selectedTask;
     } else {
         document.getElementById('next-deadline-date').innerHTML = 'No urgent tasks available';
         return null;
@@ -144,8 +169,11 @@ function updateUrgentTaskDeadline(tasksData) {
 /**
  * Finds the urgent task with the nearest deadline.
  *
+ * Filters the tasks to find urgent tasks that are not marked as 'done' 
+ * and have a due date. It returns the task with the closest due date to today.
+ *
  * @param {Array} tasksData - The list of tasks to check.
- * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
+ * @returns {Object|null} - The task with the nearest deadline, or null if no urgent task is found.
  */
 function findUrgentTaskWithNearestDeadline(tasksData) {
     const today = new Date();
@@ -154,7 +182,6 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
     let selectedTask = null;
     let selectedDateDiff = null;
 
-    // Filter urgent and unfinished tasks
     urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
 
     urgentUnfinishedTasks.forEach(task => {
@@ -172,9 +199,12 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
 /**
  * Counts the number of urgent tasks before the given due date.
  *
+ * Filters the list of urgent, unfinished tasks to find those that have 
+ * a due date earlier than or equal to the provided due date.
+ *
  * @param {Array} urgentUnfinishedTasks - The list of urgent, unfinished tasks.
  * @param {Date} nearestDueDate - The date by which tasks should be counted.
- * @returns {number} - The number of tasks.
+ * @returns {number} - The number of tasks before the given due date.
  */
 function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
     return urgentUnfinishedTasks.filter(task => {
@@ -186,8 +216,12 @@ function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
 /**
  * Updates the count of urgent tasks before the nearest deadline.
  *
+ * Displays the count of urgent tasks that have a due date before or 
+ * equal to the selected task's due date in the DOM element with the 
+ * id 'urgent-count'.
+ *
  * @param {Object|null} selectedTask - The selected urgent task with the nearest deadline.
- * @param {Array} tasksData - The list of tasks to check.
+ * @param {Array} urgentUnfinishedTasks - The list of urgent, unfinished tasks.
  * @returns {void}
  */
 function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
