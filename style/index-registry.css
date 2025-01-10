@@ -130,7 +130,7 @@
 
 .return-btn-reset {
     z-index: 10;
-    transform: translateX(-172px);
+    transform: translateX(-128px);
 }
 
 .form-content {
@@ -334,17 +334,15 @@ input[type="checkbox"] {
     padding: 0;
 }
 
-.btn-without-formatting {
-    background-color: #F6F7F8;
+.footer-links {
     color: #A8A8A8;
     font-weight: 400;
     padding: 8px;
 }
 
-.btn-without-formatting:hover {
+.footer-links:hover {
     color: #26ace3;
     font-weight: 700;
-    box-shadow: none;
 }
 
 .grey-overlay {

@@ -154,6 +154,10 @@
 }
 
 @media (max-width: 376px) {
+    .form-position {
+        min-height: calc(100vh - 115.03px - 63px);
+    }
+
     .registry-link-mobile {
         flex-direction: column;
         gap: 16px;
