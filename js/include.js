@@ -46,11 +46,11 @@ async function includeFooter() {
  */
 async function includeHTML() {
     await includeW3Code();
-    markCurrentTab();
     setTimeout(() => {
         getLoggedInUser();
         checkForLimitedContent();
     }, 50);
+    markCurrentTab();
 }
 
 
