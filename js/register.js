@@ -15,7 +15,8 @@ function setupRegistrationForm() {
 
 /**
  * Handles the form submission event by validating the input.
- * If the password matches with its confirmation, a new user is added to the firebase database.
+ * If the password matches with its confirmation and the two names (first and last name) are only composed of letters,
+ * a new user is added to the firebase database.
  * Afterwards the function to clear the input fields is called.
  * 
  * @async
@@ -29,10 +30,29 @@ async function handleRegistrationFormSubmit(event) {
     let password = document.getElementById('password').value;
     let passwordConfirmation = document.getElementById('password-confirmation').value;
 
-    if (checkPasswordCongruence(password, passwordConfirmation)) {
+    if (checkNameValidity(name) && checkPasswordCongruence(password, passwordConfirmation)) {
         let newUser = addNewUserObject(name, email, password);
-        await addUser(newUser);
+        await addUserToFirebase(newUser);
         resetRegistrationForm();
+    }
+}
+
+/**
+ * Validates the user's name input to ensure it consists of exactly two names, each consisting of only letters, and exactly one space between them.
+ * If the name is invalid, it displays an error message and adds a red border to the name input field.
+ *
+ * @param {string} name - The name input provided by the user.
+ * @returns {boolean} - Returns `true` if the name is valid, otherwise `false`.
+ */
+function checkNameValidity(name) {
+    const userNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+
+    if (!userNameRegex.test(name)) {
+        document.getElementById('msg-box').innerText = "Please enter exactly two names with a single space between them (letters only).";
+        document.getElementById('input-user-name').classList.add('red-border');
+        return false;
+    } else {
+        return true;
     }
 }
 
@@ -103,7 +123,7 @@ function toggleCheckboxImg() {
  * @param {string} user.email - The email of the new user.
  * @param {string} user.password - The password of the new user.
  */
-async function addUser(user) {
+async function addUserToFirebase(user) {
     let existingUsers = await loadUsers("users");
 
     if (!existingUsers) {
@@ -197,7 +217,7 @@ function renderOverlay(message) {
  */
 function handleScrollbar() {
     let greyOverlayRef = document.getElementById('grey-overlay');
-    greyOverlayRef.classList.contains('d-none') ? 
+    greyOverlayRef.classList.contains('d-none') ?
         document.body.classList.remove('overlay-active') : document.body.classList.add('overlay-active');
 }
 
