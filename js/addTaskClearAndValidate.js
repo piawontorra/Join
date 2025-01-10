@@ -98,7 +98,13 @@ function validateDueDate() {
     const dueDateErrorMessage = document.getElementById('inputDueDateError');
 
     if (isDueDateEmpty(dueDateInput)) {
-        showDueDateError(dueDateInput, dueDateErrorMessage);
+        showDueDateError(dueDateInput, dueDateErrorMessage, "This field is required.");
+        return false;
+    } else if (!isValidDateFormat(dueDateInput.value)) {
+        showDueDateError(dueDateInput, dueDateErrorMessage, "Invalid date format. Use dd/mm/yyyy.");
+        return false;
+    } else if (isDateInPast(dueDateInput.value)) {
+        showDueDateError(dueDateInput, dueDateErrorMessage, "The date cannot be in the past.");
         return false;
     } else {
         hideDueDateError(dueDateInput, dueDateErrorMessage);
@@ -110,8 +116,23 @@ function isDueDateEmpty(dueDateInput) {
     return dueDateInput.value.trim() === "";
 }
 
-function showDueDateError(dueDateInput, dueDateErrorMessage) {
+function isValidDateFormat(date) {
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    return dateRegex.test(date);
+}
+
+function isDateInPast(date) {
+    const [day, month, year] = date.split("/").map(Number);
+    const enteredDate = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return enteredDate < today;
+}
+
+function showDueDateError(dueDateInput, dueDateErrorMessage, message) {
     dueDateInput.classList.add('error');
+    dueDateErrorMessage.textContent = message;
     dueDateErrorMessage.style.display = 'block';
     
     setTimeout(function () {
