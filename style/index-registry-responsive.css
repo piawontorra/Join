@@ -27,18 +27,19 @@
         padding-bottom: 16px;
     }
 
-    .h1-underline-reset {
-        width: 264px;
-    }
-
     .return-btn {
         display: none;
     }
 
-    .return-btn-mobile {
+    .return-btn-registry {
         display: block;
         margin-top: 6px;
         transform: translateX(-40px);
+    }
+
+    .return-btn-reset {
+        display: block;
+        transform: translateX(-80px);
     }
 
     .return-headline {
@@ -46,7 +47,6 @@
         flex-direction: row;
         align-items: center;
         transform: translateX(-22.5px);
-
     }
 
     .form-input-fields {
@@ -108,14 +108,14 @@
         gap: 21px;
     }
 
-    .return-btn-mobile {
+    .return-btn-registry {
         display: block;
         margin-top: 6px;
         transform: translateX(-8px);
     }
 
-    .h1-underline-reset {
-        width: 176px;
+    .return-btn-reset {
+        transform: translateX(-32px);
     }
 
     .input-field {
