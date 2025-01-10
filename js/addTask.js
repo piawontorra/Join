@@ -5,6 +5,7 @@ let assignedTo = [];
 let selectedTaskStatus = 'todo';
 let selectedCategory = "Select task category";
 let selectedPriority = "Medium"; // Standardpriorität
+let isUsersOpen = false;
 
 window.onload = function () {
     selectPriority(selectedPriority);
@@ -174,8 +175,29 @@ function showUsers() {
 
     if (isUsersElementHidden(usersElement)) {
         showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
+        isUsersOpen = true;
+        document.addEventListener('click', handleOutsideClick); // Hinzufügen des Listeners
     } else {
         hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
+        isUsersOpen = false;
+        document.removeEventListener('click', handleOutsideClick); // Entfernen des Listeners
+    }
+}
+
+function handleOutsideClick(event) {
+    const usersElement = document.getElementById('users');
+    const dropdownButton = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
+    
+    if (!usersElement.contains(event.target) && !dropdownButton.contains(event.target)) {
+        hideUserList(
+            usersElement,
+            document.getElementById('userArrowDown'),
+            document.getElementById('userArrowUp'),
+            document.getElementById('assignedUsers'),
+            dropdownButton
+        );
+        isUsersOpen = false;
+        document.removeEventListener('click', handleOutsideClick);
     }
 }
 
