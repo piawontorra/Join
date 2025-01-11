@@ -49,7 +49,7 @@ function checkNameValidity(name) {
 
     if (!userNameRegex.test(name)) {
         document.getElementById('msg-box').innerText = "Please enter exactly two names with a single space between them (letters only).";
-        document.getElementById('input-user-name').classList.add('red-border');
+        document.getElementById('input-registry-name').classList.add('red-border');
         return false;
     } else {
         return true;

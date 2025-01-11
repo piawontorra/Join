@@ -1,74 +1,129 @@
-.logo-animation {
-    z-index: 1000;
-    position: absolute;
-    max-width: 1440px;
-    box-sizing: unset;
+.logo-animation-div {
+    z-index: 2000;
+    position: relative;
+    height: 100vh;
+    opacity: 1;
     background: #F6F7F8;
+}
+
+.logo-animation {
+    position: absolute;
+    z-index: 3000;
     animation: moveLogo 0.7s ease-in-out forwards;
 }
 
 @keyframes moveLogo {
     0% {
-        top: 0;
-        left: 0;
+        top: calc(50vh - 334px/2);
+        left: calc(50% - 274px/2);
         height: 334px;
         width: 274px;
-        padding-top: calc(50vh - 334px/2);
-        padding-right: calc(50% - 274px/2);
-        padding-bottom: calc(50vh - 334px/2);
-        padding-left: calc(50% - 274px/2);
+    }
+
+    15% {
+        top: calc(50vh - 334px/2);
+        left: calc(50% - 274px/2);
+        height: 334px;
+        width: 274px;
     }
 
     100% {
-        top: 67px;
-        left: 67px;
+        top: 80px;
+        left: 77px;
         height: 121.97px;
         width: 100.03px;
-        padding: 0;
+    }
+}
+
+.logo-animation-mobile {
+    display: none;
+}
+
+.content-add {
+    animation: fadeContentIn 0.7s ease-in forwards;
+}
+
+@keyframes fadeContentIn {
+    0% {
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 
 @media (max-width: 816px) {
-    .logo-animation {
-        background: #2A3647;
-        animation: moveLogoMobile 0.8s ease-in-out forwards;
+    .logo-animation-div {
+        animation: backgroundChange 0.8s ease-in-out;
     }
 
-    .logo-animation-delay {
-        z-index: 1000;
-        height: 121.97px;
-        width: 100.03px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding-top: calc(50vh - 121.97px/2);
-        padding-right: calc(50% - 100.03px/2);
-        padding-bottom: calc(50vh - 121.97px/2);
-        padding-left: calc(50% - 100.03px/2);
-        background: #2A3647;
-        transition: background 0.2s ease-in-out;
-    }
-
-    @keyframes moveLogoMobile {
+    @keyframes backgroundChange {
         0% {
-            top: 0;
-            left: 0;
-            height: 121.97px;
-            width: 100.03px;
-            padding-top: calc(50vh - 121.97px/2);
-            padding-right: calc(50% - 100.03px/2);
-            padding-bottom: calc(50vh - 121.97px/2);
-            padding-left: calc(50% - 100.03px/2);
+            background: #2A3647;
+        }
+
+        15% {
             background: #2A3647;
         }
 
         100% {
-            top: 40px;
-            left: 40px;
+            background: #F6F7F8;
+        }
+    }
+
+    .logo-animation {
+        display: none;
+    }
+
+    .logo-animation-mobile {
+        display: flex;
+        animation: moveLogoMobile 0.8s ease-in-out forwards;
+    }
+
+    @keyframes moveLogoMobile {
+        0% {
+            top: calc(50vh - 121.97px/2);
+            left: calc(50% - 100.03px/2);
+            height: 121.97px;
+            width: 100.03px;
+        }
+
+        15% {
+            top: calc(50vh - 121.97px/2);
+            left: calc(50% - 100.03px/2);
+            height: 121.97px;
+            width: 100.03px;
+        }
+
+        100% {
+            top: 37px;
+            left: 38px;
             height: 78.03px;
             width: 64px;
             padding: 0;
-            background: #F6F7F8;
+        }
+    }
+
+    .content-add {
+        animation: fadeContentInMobile 0.8s ease-in forwards;
+    }
+
+    @keyframes fadeContentInMobile {
+        0% {
+            opacity: 0;
+        }
+
+        15% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
         }
     }
 }
