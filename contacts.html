@@ -29,6 +29,7 @@
         <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()"></dialog>
         <dialog editContactDialog id="editContactDialog"></dialog>
         <dialog id="responsiveContactDialog"></dialog>
+        <dialog id="moreResponsive"></dialog>
       <div id="statusAlert" class="">Contact succesfull created</div>
       <div w3-include-html="./assets/templates/header.html"></div>
       <div id="contactDetails" class="max-width contacts-fixed">
@@ -39,7 +40,7 @@
         </div>
         <div id="contactDetailsContainer">
           <div id="contactDetailsHeader">
-            <span id="span_contacts">Contacts</span>
+            <span id="span_contacts">Contacts<div id="arrowBack"><img src="assets/img/arrow_left_icon.png" alt="arrowBack" onclick="closeDetailsResponsive()"></div></span>
             <div id="blueLine"></div>
             <span id="span_better"> Better with a team</span>
           </div>

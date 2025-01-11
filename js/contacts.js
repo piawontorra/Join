@@ -194,11 +194,37 @@ function openContactDetailsCard(infoboxId) {
   let contactCard = document.getElementById('contactCard');
   if (contactCard) {
     if (contactCard.classList.contains("open")) {
-      return
+      return;
     }
     document.querySelector(`#${infoboxId}`).classList.add("open");
+    showDetailsResponsive(infoboxId);
   }
 }
+
+function showDetailsResponsive(){
+  let contactDetailsContainer = document.getElementById('contactDetailsContainer');
+  let wrapperContacts = document.getElementById('wrapperContacts');
+  let contactCard = document.getElementById('contactCard')
+  if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
+    contactDetailsContainer.style.display = "block"; // Beispiel: "block" für Sichtbarkeit
+    // wrapperContacts.style.display = "none";
+    contactCard.classList.add("open");
+  }
+}
+
+function closeDetailsResponsive(){
+  let contactDetailsContainer = document.getElementById('contactDetailsContainer');
+  let wrapperContacts = document.getElementById('wrapperContacts');
+  let contactCard = document.getElementById('contactCard')
+
+  if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
+    contactDetailsContainer.style.display = "none"; // Beispiel: "block" für Sichtbarkeit
+    // wrapperContacts.style.display = "flex";
+    contactCard.classList.remove("open");
+
+  }
+}
+
 
   /**
    * gets the html template for creating a new contact
@@ -251,21 +277,35 @@ async function nextIdToDatabase(nextID){
  * 
  * @param {number} entryId 
  */
-async function deleteContact(entryId){
-  let dbRef = (BASE_URL + path + "/" + entryId);
-  let response = await fetch(dbRef + ".json", {
-    method: "DELETE", 
+  async function deleteContact(entryId) {
+    let dbRef = (BASE_URL + path + "/" + entryId);
+    let response = await fetch(dbRef + ".json", {
+      method: "DELETE",
     });
-    closeContactDetailsCard();
-    getContacts(path);
+  
+    if (window.innerWidth < 800) {
+      closeDetailsResponsive(); // Für mobile Ansicht
+    } else {
+      closeContactDetailsCard(); // Karte schließen und Inhalt leeren
+    }
+  
+    getContacts(path); // Kontakte neu laden
   }
 
 /**
  * closes the contact details card overlay
  */
 function closeContactDetailsCard() {
+  // let contactCard = document.getElementById('contactCard');
+  // contactCard = "";
+  // contactCard.classList.remove("open");
+
+
   let contactCard = document.getElementById('contactCard');
-  contactCard.classList.remove("open");
+  if (contactCard) {
+    contactCard.classList.remove("open"); // Karte schließen
+    contactCard.innerHTML = ""; // Inhalt löschen
+  }
 }
 
 /**
@@ -283,7 +323,7 @@ function openDialog(){
   modal.showModal();
   setTimeout(() => {
     modal.classList.add('open');
-  }, 10);
+  }, 0);
   renderNewContactForm();
 }
 
@@ -301,9 +341,7 @@ function renderNewContactForm() {
               console.log("Form is invalid");
           }
       });
-  } else {
-      console.error("Form element not found!");
-  }
+  } 
 }
 
 function openEditDialog(user, id) {
@@ -313,6 +351,11 @@ function openEditDialog(user, id) {
     modal.classList.add('open');
   }, 10);
   renderEditContactForm(user, id);
+}
+
+function openMoreDialog(){
+  let modal = document.getElementById('moreResponsive');
+  modal.showModal();
 }
 
 function renderEditContactForm(user, id) {
@@ -329,8 +372,6 @@ function renderEditContactForm(user, id) {
         console.log("Form is invalid");
       }
     });
-  } else {
-    console.error("Form element not found in edit dialog!");
   }
 }
 
@@ -342,7 +383,7 @@ function closeDialog(dialogSelector) {
   }, 500);
 }
 
-function openResponsiveDialog(){
-  let modal = document.querySelector('#responsiveContactDialog');
-  modal.showModal();
-}
+// function openResponsiveDialog(){
+//   let modal = document.querySelector('#responsiveContactDialog');
+//   modal.showModal();
+// }

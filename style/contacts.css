@@ -1,13 +1,5 @@
-/* :root {
-    --sidebar-width: 232px;
-    --wrapper-contacts-width: 456px;
-    --wrapper-contactCard-width: 640px;
-    --infobox-offset: calc(100% - var(--sidebar-width) - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
-  } */
-
 #contactDetails{
     display: flex;
-    /* flex-wrap: wrap; */
 }
 
 #sidebar{
@@ -47,7 +39,6 @@
 #btn_addNewContact{
     background-color: rgb(42, 54, 71);
     height: 52px;
-    /* width: 352px; */
     width: 90%;
     border-radius: 12px;
     border: 1px solid rgb(42, 54, 71);
@@ -61,17 +52,45 @@
 }
 
 #btn_addNewContactResponsive{
-position: absolute;
-bottom: 43px;
-right: 50px;
-width: 78px;
-aspect-ratio: 1;
-border: none;
-background-color: #2A3647;
-border-radius: 90%;
-box-shadow: 0px 5px 6px rgb(128 128 128);
-display: none;
+    position: absolute;
+    bottom: 26px;
+    right: 14px;
+    width: 56px;
+    aspect-ratio: 1;
+    border: none;
+    background-color: #2A3647;
+    border-radius: 90%;
+    box-shadow: 0px 5px 6px rgb(128 128 128);
+    display: none;
 }
+
+.btn_menuResponsive{
+    position: absolute;
+    bottom: 26px;
+    right: 32px;
+    border: none;
+    border-radius: 90%;
+    background-color: #2A3647;
+    width: 56px;
+    aspect-ratio: 1;
+    box-shadow: 0px 5px 6px rgb(128 128 128);
+}
+
+#moreResponsive{
+    width: 150px;
+    height: 150px;
+    background-color: aqua;
+    /* position: fixed;
+    top: 50%;
+    left: 100vw;
+    transform: translateY(-50%); */
+    animation-direction: reverse;
+}
+
+/* #moreResponsive.open{
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
 
 #btn_addNewContact img{
     padding-left: 15px;
@@ -98,7 +117,6 @@ display: none;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 34px;
-    
 }
 
 #seperatorContainer{
@@ -111,20 +129,6 @@ display: none;
     width: 100%;
     background-color: lightgray;
 }
-
-/* .infobox{
-    position: fixed;
-    top: 260px;
-    height: 100%;
-    right: -600px;
-    width: 200px;
-    transition: right 0.75s ease-in-out;
-  }
-
-.infobox.open{
-    right: var(--infobox-offset);
-  } */
-
 
 #contactCardHeader{
     height: 120px;
@@ -243,6 +247,14 @@ display: none;
     box-sizing: border-box;
 }
 
+#arrowBack{
+    width: auto;
+    position: absolute;
+    left: 80%;
+    top: 10%;
+    display: none;
+}
+
 #cardTop{
     width: 100%;
     height: 120px;
@@ -285,12 +297,7 @@ display: none;
     border-radius: 12px;
 }
 
-.d-none{
-    display: none !important;
-}
-
 .singleEntry{
-    /* width: 352px; */
     height: 78px;
     margin-top: 5px;
     display: flex;
@@ -313,7 +320,6 @@ display: none;
     align-items: center;
     justify-content: center;
     margin-right: 25px;
-    /* margin-left: 25px; */
     border: 2px solid white;
 }
 
@@ -336,7 +342,6 @@ display: none;
     margin-top: 16px;
     margin-bottom: 8px;
     color: #333;
-    /* margin-left: 25px; */
 }
 
 #form{
@@ -599,6 +604,9 @@ Dialog.open {
 @media (max-width: 800px){
     #contactDetailsContainer{
         display: none;
+        position: absolute;
+        background-color: white;
+        height: 100%;
     }
 
     #wrapperContacts{
@@ -621,6 +629,10 @@ Dialog.open {
         width: 396px;
     }
 
+    #arrowBack{
+        display: block;
+    }
+
     #cancelImgContainer{
         display: none;
     }
@@ -641,6 +653,7 @@ Dialog.open {
 
     #addContactHeader span{
         font-size: 20px;
+        width: auto;
     }
 
     #circleContainer{    
@@ -690,16 +703,26 @@ Dialog.open {
         margin-bottom: 15px;
     }
 
-    Dialog{
-        top: 100vh;
-        left: -50%;
-        transform: translateX(100%);
-        
+    Dialog {
+        /* position: fixed; */
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        /* z-index: 10;
+        padding: 0;
+        border-radius: 25px 25px 25px 25px;
+        box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
+        border: none !important;
+        transition: all 0.6s ease-in-out; */
     }
+      
+    /* Dialog.open {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } */
 
-    Dialog.open {
-        transform: translate(-50%, -115%);
-    }
+      
+      
 
     #responsiveClose{
         display: block;
@@ -710,14 +733,4 @@ Dialog.open {
         font-weight: 600;
         font-size: larger;
     }
-
-
 }
-
-
-
-/* @media (max-width: 1000px){
-    :root {
-        --infobox-offset: calc(100% - var(--wrapper-contacts-width) - var(--wrapper-contactCard-width));
-      }
-} */

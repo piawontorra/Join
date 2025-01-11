@@ -52,12 +52,13 @@ function contactCardDetailsTemplate(id, contact) {
                     <p>Phone</p>
                     <div id="contactPhoneNr">${contact.phone || "no phone number available"}</div>
                 </div>
+                <button class="btn_menuResponsive" onclick="openMoreDialog()"><img src="assets/img/more_vert.svg" alt=""></button>
             </div>
     `;
 }
 
 function newContactTemplate() {
-  return /*html*/`
+  return `
       <div id="newContactContent">
         <div id="addContactHeaderContainer">
             <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>
