@@ -8,11 +8,11 @@
     <script src="./js/include.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/navigation.js"></script>
-    <script src="./js/board.js"></script>
     <script src="./js/summary.js"></script>
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/summary.css">
+    <link rel="stylesheet" href="./style/summary-responsive.css">
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="stylesheet" href="./style/index-registry.css">
@@ -26,16 +26,17 @@
 
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
-            <div class="section-min-height content-fixed">
+            <div class="section-min-height content-fixed" id="section-min-height">
 
-                <div class="section-head max-width-calced">
+                <div class="section-head max-width-calced" id="summary-head">
                     <h1>Join 360</h1>
                     <div class="separator"></div>
                     <h2 class="section-subhead">Key Metrics at a Glance</h2>
+                    <div class="h1-underline"></div>
                 </div>
 
-                <section class="summary max-width-calced">
-                    <div class="summary-content">
+                <section class="summary max-width-calced" id="greeting-min-height">
+                    <div class="summary-content" id="summary-content">
                         <div class="summary-rows">
                             <button class="btn summary-btn summary-row1" onclick="transferToBoard()" onmouseover="toggleImage(true, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')" onmouseout="toggleImage(false, 'to-do-img', 'assets/img/pencil-white-background.png', 'assets/img/to-do-summary-icon.png')">
                                 <img class="status-img" id="to-do-img" src="./assets/img/to-do-summary-icon.png" alt="To do">
@@ -90,8 +91,8 @@
                         </div>
                     </div>
 
-                    <div class="welcome-user">
-                        <text id="greet">
+                    <div class="welcome-user" id="summary-greeting">
+                        <text class="welcome flex" id="greet">
                             <span class="greeting-text" id="greeting-text">Good morning</span>
                             <span class="user-name" id="user-name"></span>
                         </text>

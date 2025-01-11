@@ -1,13 +1,41 @@
 let urgentUnfinishedTasks = [];
+const today = new Date();
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+let selectedTask = null;
+let selectedDateDiff = null;
 
 /**
  * Initializes the summary page by including HTML, greeting the user, and showing the current task counts.
  */
 function initSummary() {
     includeHTML();
-    greetUser();
-    showCurrentTasksCount();
+    summaryRepresentation();
 }
+
+
+function summaryRepresentation() {
+    if (innerWidth < 1000) {
+        document.getElementById('summary-head').classList.add('d-none');
+        document.getElementById('summary-content').classList.add('d-none');
+        document.getElementById('greeting-min-height').classList.add('tab-min-height');
+        greetUser();
+
+        setTimeout(() => {
+            document.getElementById('summary-greeting').classList.add('d-none');
+            document.getElementById('summary-head').classList.remove('d-none');
+            document.getElementById('summary-content').classList.remove('d-none');
+            document.getElementById('greeting-min-height').classList.remove('tab-min-height');
+            document.getElementById('section-min-height').classList.add('tab-min-height');
+            showCurrentTasksCount();
+        }, 1100);
+    } else {
+        greetUser();
+        showCurrentTasksCount();
+    }
+}
+
+
 
 /**
  * Greets the user based on the time of day and displays her/his name if logged in.
@@ -176,12 +204,6 @@ function updateUrgentTaskDeadline(tasksData) {
  * @returns {Object|null} - The task with the nearest deadline, or null if no urgent task is found.
  */
 function findUrgentTaskWithNearestDeadline(tasksData) {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    let selectedTask = null;
-    let selectedDateDiff = null;
-
     urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
 
     urgentUnfinishedTasks.forEach(task => {
@@ -227,7 +249,7 @@ function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
 function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
     if (selectedTask) {
         const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
-        
+
         const urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, dueDate);
         document.getElementById('urgent-count').innerText = urgentCount;
     } else {

@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.h1-underline {
+    display: none;
+}
+
 .summary {
     display: flex;
     flex-direction: row;
@@ -135,6 +139,10 @@
     align-items: center;
 }
 
+.welcome {
+    flex-direction: column;
+}
+
 .greeting-text {
     font-weight: 500;
     font-size: 47px;
@@ -149,8 +157,3 @@
     color: #29ABE2;
 }
 
-@media (max-width: 480px) {
-    .content-fixed {
-        margin-left: 0;
-    }
-}
