@@ -91,7 +91,7 @@ async function editContact(id){
   let updatedData = getUpdatedData();
   let key = id;
   await updateData(updatedData, "contacts", key);
-  const index = usersArray.findIndex(contact => contact.userId === key);
+  const index = usersArray.findIndex(contact => contact.userId == key);
   if (index !== -1) {
     usersArray[index] = { ...usersArray[index], ...updatedData };
   }
@@ -206,7 +206,7 @@ function showDetailsResponsive(){
   let wrapperContacts = document.getElementById('wrapperContacts');
   let contactCard = document.getElementById('contactCard')
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
-    contactDetailsContainer.style.display = "block"; // Beispiel: "block" für Sichtbarkeit
+    contactDetailsContainer.style.display = "block";
     // wrapperContacts.style.display = "none";
     contactCard.classList.add("open");
   }
@@ -218,13 +218,11 @@ function closeDetailsResponsive(){
   let contactCard = document.getElementById('contactCard')
 
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
-    contactDetailsContainer.style.display = "none"; // Beispiel: "block" für Sichtbarkeit
+    contactDetailsContainer.style.display = "none";
     // wrapperContacts.style.display = "flex";
     contactCard.classList.remove("open");
-
   }
 }
-
 
   /**
    * gets the html template for creating a new contact
@@ -284,27 +282,21 @@ async function nextIdToDatabase(nextID){
     });
   
     if (window.innerWidth < 800) {
-      closeDetailsResponsive(); // Für mobile Ansicht
+      closeDetailsResponsive();
     } else {
-      closeContactDetailsCard(); // Karte schließen und Inhalt leeren
+      closeContactDetailsCard();
     }
-  
-    getContacts(path); // Kontakte neu laden
+    getContacts(path);
   }
 
 /**
  * closes the contact details card overlay
  */
 function closeContactDetailsCard() {
-  // let contactCard = document.getElementById('contactCard');
-  // contactCard = "";
-  // contactCard.classList.remove("open");
-
-
   let contactCard = document.getElementById('contactCard');
   if (contactCard) {
-    contactCard.classList.remove("open"); // Karte schließen
-    contactCard.innerHTML = ""; // Inhalt löschen
+    contactCard.classList.remove("open");
+    contactCard.innerHTML = "";
   }
 }
 
@@ -359,6 +351,8 @@ function openMoreDialog(){
 }
 
 function renderEditContactForm(user, id) {
+  console.log(user[0].id);
+  
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
@@ -366,8 +360,8 @@ function renderEditContactForm(user, id) {
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (form.checkValidity()) {
-        saveEditedContact(user, id);
-        setTimeout(() => {toggleAlert()}, 300);
+        editContact(user[0].id);
+        // saveEditedContact(user, id);
       } else {
         console.log("Form is invalid");
       }

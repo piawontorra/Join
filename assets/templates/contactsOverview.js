@@ -112,7 +112,7 @@ function editContactTemplate(user, id){
   let initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
   let arrayID = id;
   let userId = user[0].userId;
-    return `
+    return /*html*/`
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
               <div id="addContactHeader">
@@ -136,23 +136,26 @@ function editContactTemplate(user, id){
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name}" required>
+                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name || ''}" required>
                               <img src="./assets/img/user_icon.png" alt="">
                           </div>
                           <div class="inputField">
-                              <input type="email" id="newUserEmail" placeholder="Email" value="${user[0].email}" required>
+                              <input type="email" id="newUserEmail" placeholder="Email" value="${user[0].email || ''}" required>
                               <img src="./assets/img/mail_icon.png" alt="">
                           </div>
                           <div class="inputField">
-                              <input type="tel" id="newUserPhone" placeholder="Phone" value="${user[0].phone}" required>
+                              <input type="tel" id="newUserPhone" placeholder="Phone" value="${user[0].phone  || ''}" required>
                               <img src="./assets/img/phone_icon.png" alt="">
                           </div>
                       </form>
                   </div>
               </div>
               <div id="btnContainer">
+                <!-- <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
+                <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button> -->
+
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
-                <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button>
+                <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Save<img src="./assets/img/check_icon.png" alt=""></button>
               </div>
           </div>
         
