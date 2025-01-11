@@ -52,9 +52,10 @@ function chooseNewContact(key){
 }
 
 /**
- @param {Object} data - The data to be stored.
- * @param {string} path - The database path where the data should be stored.
- * @param {string} key - The unique key under which the data will be stored.
+ * pushes new Data to firebase database
+ * @param {Object} data - The data that will be stored
+ * @param {string} path - The database path
+ * @param {string} key - a key under which the data will be stored
  * @returns {Promise<void>} A promise that resolves when the record is successfully added.
  */
  async function addNewData(data, path, key){
@@ -224,14 +225,6 @@ function closeDetailsResponsive(){
   }
 }
 
-  /**
-   * gets the html template for creating a new contact
-   */
-function newUserCard() {
-  let newContactContainer = document.getElementById("newContactContainer");
-  newContactContainer.innerHTML = newContactTemplate();
-}
-
 /**
  * 
  * @returns a background color for the new user out of preset colors
@@ -275,19 +268,18 @@ async function nextIdToDatabase(nextID){
  * 
  * @param {number} entryId 
  */
-  async function deleteContact(entryId) {
-    let dbRef = (BASE_URL + path + "/" + entryId);
-    let response = await fetch(dbRef + ".json", {
-      method: "DELETE",
-    });
-  
-    if (window.innerWidth < 800) {
-      closeDetailsResponsive();
-    } else {
-      closeContactDetailsCard();
-    }
-    getContacts(path);
+async function deleteContact(entryId) {
+  let dbRef = (BASE_URL + path + "/" + entryId);
+  let response = await fetch(dbRef + ".json", {
+    method: "DELETE",
+  });
+  if (window.innerWidth < 800) {
+    closeDetailsResponsive();
+  } else {
+    closeContactDetailsCard();
   }
+  getContacts(path);
+}
 
 /**
  * closes the contact details card overlay
@@ -329,8 +321,6 @@ function renderNewContactForm() {
           if (form.checkValidity()) {
               newContact();
               toggleAlert();
-          } else {
-              console.log("Form is invalid");
           }
       });
   } 
@@ -351,8 +341,6 @@ function openMoreDialog(){
 }
 
 function renderEditContactForm(user, id) {
-  console.log(user[0].id);
-  
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
@@ -361,9 +349,6 @@ function renderEditContactForm(user, id) {
       event.preventDefault();
       if (form.checkValidity()) {
         editContact(user[0].id);
-        // saveEditedContact(user, id);
-      } else {
-        console.log("Form is invalid");
       }
     });
   }

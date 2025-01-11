@@ -250,7 +250,8 @@
 #arrowBack{
     width: auto;
     position: absolute;
-    left: 80%;
+    /* left: 80%; */
+    left: calc(100vw - 80px);
     top: 10%;
     display: none;
 }
@@ -354,6 +355,7 @@
 
 #addContactHeaderContainer{
     width: 467px;
+    min-width: 395px;
     background-color: rgb(42, 54, 71);
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -409,14 +411,24 @@
     justify-content: space-between;
 }
 
-#circleContainer{
+/* #circleContainer{
     width: 120px;
     height: 500px;
     margin-left: 24px;
     margin-right: 24px;
     display: flex;
-    align-items: center;
-}
+    align-items: center; */
+
+    #circleContainer {
+        width: calc(10% + 80px); /* Breite passt sich an, mit einer Mindestgröße */
+        height: calc(50vh - 50px); /* Höhe passt sich relativ zur Viewport-Höhe an */
+        margin-left: 2%; /* Dynamischer Rand, relativ zur Breite des Elterncontainers */
+        margin-right: 2%;
+        display: flex;
+        align-items: center;
+        max-width: 120px; /* Optional: Begrenzung der maximalen Breite */
+        max-height: 500px; /* Optional: Begrenzung der maximalen Höhe */
+    }
 
 #circle{
     height: 120px;
@@ -461,11 +473,13 @@
     height: 24px;
     width: 24px;
 }
-
+/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 .inputField {
     position: relative;
     padding: 0;
 }
+
+
 
 .inputField img {
     position: absolute;
@@ -476,6 +490,10 @@
 .inputField input{
     width: 422px;
 }
+
+
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #btnContainer{
     display: flex;
@@ -539,6 +557,8 @@
 #newContactContent{
     display: flex;
     height: 100%;
+    width: 1200px;
+    height: 592px;
 }
 
 Dialog {

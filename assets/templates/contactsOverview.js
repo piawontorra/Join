@@ -58,7 +58,7 @@ function contactCardDetailsTemplate(id, contact) {
 }
 
 function newContactTemplate() {
-  return `
+  return /*html*/`
       <div id="newContactContent">
         <div id="addContactHeaderContainer">
             <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>
@@ -84,7 +84,7 @@ function newContactTemplate() {
                     </div>
                     <form id="newUserForm">
                         <div class="inputField">
-                            <input type="text" id="newUserName" placeholder="Name" required>
+                            <input type="text" id="newUserName" placeholder="Name" required pattern="[a-zA-Z\s]+ [a-zA-Z\s]+" >
                             <img src="./assets/img/user_icon.png" alt="">
                         </div>
                         <div class="inputField">
@@ -112,7 +112,7 @@ function editContactTemplate(user, id){
   let initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
   let arrayID = id;
   let userId = user[0].userId;
-    return /*html*/`
+    return `
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
               <div id="addContactHeader">
@@ -136,7 +136,7 @@ function editContactTemplate(user, id){
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name || ''}" required>
+                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
                               <img src="./assets/img/user_icon.png" alt="">
                           </div>
                           <div class="inputField">
