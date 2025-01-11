@@ -25,7 +25,6 @@
     width: 100%;
 }
 
-/* Ist hier calculated gemeint?  */
 .max-width-calced {
     max-width: 1208px;
     width: 100%;
@@ -168,7 +167,6 @@ a {
     display: flex !important;
 }
 
-/* Abkürzungen sind bei manchen DA-Mentoren nicht beliebt */
 .mr-10 {
     margin-right: 10px;
 }
@@ -177,12 +175,22 @@ a {
     .content-fixed {
         margin-left: 0;
     }
+
+    .section-head {
+        padding: 32px 16px;
+        gap: 16px;
+    }
 }
 
 @media (max-width: 816px) {
     h1 {
         font-size: 47px;
         line-height: 56.4px;
+    }
+
+    h2 {
+        font-size: 20px;
+        line-height: 24px; 
     }
 
     .btn {
