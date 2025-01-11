@@ -3,7 +3,6 @@
  * If the window width is greater than or equal to 816px, the desktop logo animation is applied.
  * Otherwise, the mobile logo animation is applied.
  * 
- * @function
  * @returns {void} 
  */
 function logoAnimation() {
@@ -16,7 +15,6 @@ function logoAnimation() {
  * If not, it adds the animation class to the desktop logo and hides the "no-animation" element.
  * Once the animation is complete, the session storage is updated to reflect that the animation has been triggered.
  * 
- * @function
  * @returns {void} 
  */
 function checkLogoAnimationDesktop() {
@@ -40,7 +38,6 @@ function checkLogoAnimationDesktop() {
  * If not, it adds the animation class to the mobile logo, triggers the logo change during the animation,
  * and hides the "no-animation" element. Once the animation is complete, the session storage is updated.
  * 
- * @function
  * @returns {void} 
  */
 function checkLogoAnimationMobile() {
@@ -65,7 +62,6 @@ function checkLogoAnimationMobile() {
  * This function changes the source of the mobile logo after a short delay (450ms).
  * It is used to switch from the mobile version of the logo to the default desktop logo.
  * 
- * @function
  * @returns {void} 
  */
 function changeLogoDuringAnimation() {
