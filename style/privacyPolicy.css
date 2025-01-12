@@ -1,70 +1,75 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  .content {
-    display: flex;
-    height: 100%;
-  }
-  
-  #sidebar {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  
-  #header {
-    height: 96px;
-    position: fixed;
-    top: 0;
-    left: 232px;
-    right: 0;
-    z-index: 1000;
-  }
-  
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+}
+
+#sidebar {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header-right {
+  display: none;
+}
+
+#header {
+  height: 96px;
+  position: fixed;
+  top: 0;
+  left: 232px;
+  right: 0;
+  z-index: 1000;
+}
+
+main {
+  margin-top: 96px;
+  margin-left: 232px;
+  height: calc(100% - 96px);
+  overflow-y: auto;
+  padding: 20px;
+  /* box-sizing: border-box; */
+}
+
+.headline {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+
+
   main {
-    margin-top: 96px;
-    margin-left: 232px;
-    height: calc(100% - 96px);
-    overflow-y: auto;
-    padding: 20px;
-    /* box-sizing: border-box; */
-  }
-
-  .headline{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  
-@media (max-width: 1000px){
-
-
-  main{
     margin-left: 0;
   }
 
-  #header{
+  #header {
     left: 0;
   }
 
-  .header-content{
+  .header-content {
     height: 80px;
   }
 
-  #privacyPolicyText{
+  #privacyPolicyText {
     margin-bottom: 90px;
   }
 }
 
-@media (max-width: 670px){
-  h1{
+@media (max-width: 670px) {
+  h1 {
     font-size: 47px;
   }
 }
