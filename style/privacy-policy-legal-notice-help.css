@@ -1,0 +1,72 @@
+body,
+html {
+  padding: 0;
+  overflow: hidden;
+}
+
+.headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-help {
+  display: none;
+}
+
+.return-btn-help {
+  background-color: #F6F7F8;
+  margin-top: 0;
+}
+
+.return-btn-help:hover {
+  background-color: #EEEEEE;
+}
+
+a,
+.name-highlight {
+  color: #26ABE2;
+}
+
+.h1-legal {
+  padding-bottom: 30px;
+}
+
+.h2-legal {
+  font-weight: 700;
+  font-size: 27px;
+  line-height: 32.4px;
+  color: #000000;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+
+.h3-legal {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24.2px;
+  color: #000000;
+  padding-top: 30px;
+}
+
+.p-legal {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
+}
+
+@media (max-width: 1000px) {
+  .h1-legal {
+    padding-bottom: 20px;
+  }
+
+  .h2-legal {
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+
+  .h3-legal {
+    padding-top: 24px;
+  }
+}
