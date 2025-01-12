@@ -176,11 +176,11 @@ function showUsers() {
     if (isUsersElementHidden(usersElement)) {
         showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
         isUsersOpen = true;
-        document.addEventListener('click', handleOutsideClick); // Hinzufügen des Listeners
+        document.addEventListener('click', handleOutsideClick);
     } else {
         hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
         isUsersOpen = false;
-        document.removeEventListener('click', handleOutsideClick); // Entfernen des Listeners
+        document.removeEventListener('click', handleOutsideClick);
     }
 }
 
@@ -189,13 +189,7 @@ function handleOutsideClick(event) {
     const dropdownButton = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
     
     if (!usersElement.contains(event.target) && !dropdownButton.contains(event.target)) {
-        hideUserList(
-            usersElement,
-            document.getElementById('userArrowDown'),
-            document.getElementById('userArrowUp'),
-            document.getElementById('assignedUsers'),
-            dropdownButton
-        );
+        hideUserList(usersElement, document.getElementById('userArrowDown'), document.getElementById('userArrowUp'), document.getElementById('assignedUsers'), dropdownButton);
         isUsersOpen = false;
         document.removeEventListener('click', handleOutsideClick);
     }
