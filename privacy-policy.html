@@ -1,94 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <script src="./js/include.js"></script>
-    <script src="./js/script.js"></script>
-    <script src="./js/navigation.js"></script>
-    <link rel="stylesheet" href="./style/style.css" />
-    <link rel="stylesheet" href="./style/standard.css" />
-    <link rel="stylesheet" href="./style/navigation.css" />
-    <link rel="stylesheet" href="./style/privacyPolicy.css" />
-    <link rel="icon" href="./assets/img/join_logo_login.png">
-  </head>
 
-  <body onload="includeHTML();">
-    <div class="content">
-      <div w3-include-html="./assets/templates/navigation.html"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <script src="./js/include.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/navigation.js"></script>
+  <link rel="stylesheet" href="./style/style.css" />
+  <link rel="stylesheet" href="./style/standard.css" />
+  <link rel="stylesheet" href="./style/navigation.css" />
+  <link rel="stylesheet" href="./style/privacy-policy-legal-notice.css" />
+  <link rel="icon" href="./assets/img/join_logo_login.png">
+</head>
 
-      <main>
-        <div w3-include-html="./assets/templates/header.html"></div>
-          <div class="max-width-calced" id="privacyPolicyText">
-            <div class="headline"><h1>Privacy Policy</h1></div>
-              <h2>1. Controller</h2>
-              <p>The controller responsible for data processing within this project is:</p>
-              <p>Bastian Geppert<br>
-              Contact: <a href="mailto:bastigepp@googlemail.com">bastigepp@googlemail.com</a></p><br>
+<body onload="includeHTML();">
+  <div class="content">
+    <div w3-include-html="./assets/templates/navigation.html"></div>
 
-              <h2>2. General Information on Data Processing</h2>
-              <p>We process personal data only in accordance with applicable data protection laws, particularly the General Data Protection Regulation (GDPR). This privacy policy provides information about the type, scope, and purpose of the processing of personal data within our project.</p><br>
-
-              <h2>3. Purpose of Data Processing</h2>
-              <ul>
-                  <li>Managing tasks (Kanban system).</li>
-                  <li>Storing user data, tasks, and contacts.</li>
-                  <li>Ensuring smooth application functionality.</li>
-              </ul><br>
-
-              <h2>4. Data Processed</h2>
-              <ul>
-                  <li><strong>User Data:</strong> Name, email address, and other profile details, if applicable.</li>
-                  <li><strong>Tasks:</strong> Title, description, status, deadlines.</li>
-                  <li><strong>Contacts:</strong> Name, phone number, email address.</li>
-              </ul><br>
-
-              <h2>5. Legal Basis for Processing</h2>
-              <p>The processing of personal data is based on the following legal grounds:</p>
-              <ul>
-                  <li><strong>Art. 6(1)(b) GDPR:</strong> Performance of a contract or pre-contractual measures.</li>
-                  <li><strong>Art. 6(1)(f) GDPR:</strong> Legitimate interests, such as optimizing the application.</li>
-                  <li><strong>Art. 6(1)(a) GDPR:</strong> Consent, if explicitly given.</li>
-              </ul><br>
-
-              <h2>6. Data Sharing</h2>
-              <p>Personal data will not be shared with third parties unless:</p>
-              <ul>
-                  <li>Explicit consent has been given.</li>
-                  <li>There is a legal obligation to do so.</li>
-                  <li>Sharing is necessary for the performance of a contract.</li>
-              </ul><br>
-
-              <h2>7. Data Storage</h2>
-              <p>The data is stored in a Firebase database. Firebase is a service provided by Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. We use the Firebase Realtime Database located in "Europe-West1" (Belgium) to ensure GDPR-compliant data storage within the EU.</p>
-              <p>More information on Firebase's data processing can be found here: <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>.</p><br>
-
-              <h2>8. Data Retention Period</h2>
-              <p>Personal data is retained only as long as necessary for the stated purposes or as required by legal retention periods.</p><br>
-
-              <h2>9. Rights of Data Subjects</h2>
-              <p>Data subjects have the following rights:</p>
-              <ul>
-                  <li><strong>Right of Access (Art. 15 GDPR):</strong> You can request information about your personal data processed by us.</li>
-                  <li><strong>Right to Rectification (Art. 16 GDPR):</strong> You can request the correction of inaccurate or incomplete data.</li>
-                  <li><strong>Right to Erasure (Art. 17 GDPR):</strong> You can request the deletion of your personal data, provided there are no legal retention obligations.</li>
-                  <li><strong>Right to Restriction of Processing (Art. 18 GDPR):</strong> You can request the restriction of processing your data.</li>
-                  <li><strong>Right to Data Portability (Art. 20 GDPR):</strong> You can request that your data be provided in a structured, commonly used, and machine-readable format.</li>
-                  <li><strong>Right to Object (Art. 21 GDPR):</strong> You can object to the processing of your data, provided it is based on legitimate interests.</li>
-                  <li><strong>Right to Lodge a Complaint:</strong> You can lodge a complaint with a supervisory authority if you believe that the processing of your data violates the GDPR.</li>
-              </ul><br>
-
-              <h2>10. Data Security</h2>
-              <p>We implement appropriate technical and organizational measures to ensure the security of your data and protect it from unauthorized access, loss, or manipulation.</p><br>
-
-              <h2>11. Updates to this Privacy Policy</h2>
-              <p>We reserve the right to update this privacy policy to reflect changes in legal requirements or technical developments. The latest version will always be available within the application.</p><br>
-
-              <h2>Contact</h2>
-              <p>If you have any questions about data protection, feel free to contact us: <a href="mailto:bastigepp@googlemail.com">bastigepp@googlemail.com</a></p><br>
+    <main>
+      <div w3-include-html="./assets/templates/header.html"></div>
+      <div class="max-width-calced content-fixed section-head">
+        <div>
+          <div class="headline">
+            <h1>Privacy Policy</h1>
           </div>
-      </main>
-    </div>
-  </body>
+          <h2>1. Controller</h2>
+          <p>The controller responsible for data processing within this project is:</p>
+          <p>Bastian Geppert<br>
+            Contact: <a href="mailto:bastigepp@googlemail.com">bastigepp@googlemail.com</a></p><br>
+
+          <h2>2. General Information on Data Processing</h2>
+          <p>We process personal data only in accordance with applicable data protection laws, particularly the General
+            Data Protection Regulation (GDPR). This privacy policy provides information about the type, scope, and
+            purpose of the processing of personal data within our project.</p><br>
+
+          <h2>3. Purpose of Data Processing</h2>
+          <ul>
+            <li>Managing tasks (Kanban system).</li>
+            <li>Storing user data, tasks, and contacts.</li>
+            <li>Ensuring smooth application functionality.</li>
+          </ul><br>
+
+          <h2>4. Data Processed</h2>
+          <ul>
+            <li><strong>User Data:</strong> Name, email address, and other profile details, if applicable.</li>
+            <li><strong>Tasks:</strong> Title, description, status, deadlines.</li>
+            <li><strong>Contacts:</strong> Name, phone number, email address.</li>
+          </ul><br>
+
+          <h2>5. Legal Basis for Processing</h2>
+          <p>The processing of personal data is based on the following legal grounds:</p>
+          <ul>
+            <li><strong>Art. 6(1)(b) GDPR:</strong> Performance of a contract or pre-contractual measures.</li>
+            <li><strong>Art. 6(1)(f) GDPR:</strong> Legitimate interests, such as optimizing the application.</li>
+            <li><strong>Art. 6(1)(a) GDPR:</strong> Consent, if explicitly given.</li>
+          </ul><br>
+
+          <h2>6. Data Sharing</h2>
+          <p>Personal data will not be shared with third parties unless:</p>
+          <ul>
+            <li>Explicit consent has been given.</li>
+            <li>There is a legal obligation to do so.</li>
+            <li>Sharing is necessary for the performance of a contract.</li>
+          </ul><br>
+
+          <h2>7. Data Storage</h2>
+          <p>The data is stored in a Firebase database. Firebase is a service provided by Google LLC, 1600 Amphitheatre
+            Parkway, Mountain View, CA 94043, USA. We use the Firebase Realtime Database located in "Europe-West1"
+            (Belgium) to ensure GDPR-compliant data storage within the EU.</p>
+          <p>More information on Firebase's data processing can be found here: <a
+              href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>.</p>
+          <br>
+
+          <h2>8. Data Retention Period</h2>
+          <p>Personal data is retained only as long as necessary for the stated purposes or as required by legal
+            retention periods.</p><br>
+
+          <h2>9. Rights of Data Subjects</h2>
+          <p>Data subjects have the following rights:</p>
+          <ul>
+            <li><strong>Right of Access (Art. 15 GDPR):</strong> You can request information about your personal data
+              processed by us.</li>
+            <li><strong>Right to Rectification (Art. 16 GDPR):</strong> You can request the correction of inaccurate or
+              incomplete data.</li>
+            <li><strong>Right to Erasure (Art. 17 GDPR):</strong> You can request the deletion of your personal data,
+              provided there are no legal retention obligations.</li>
+            <li><strong>Right to Restriction of Processing (Art. 18 GDPR):</strong> You can request the restriction of
+              processing your data.</li>
+            <li><strong>Right to Data Portability (Art. 20 GDPR):</strong> You can request that your data be provided in
+              a structured, commonly used, and machine-readable format.</li>
+            <li><strong>Right to Object (Art. 21 GDPR):</strong> You can object to the processing of your data, provided
+              it is based on legitimate interests.</li>
+            <li><strong>Right to Lodge a Complaint:</strong> You can lodge a complaint with a supervisory authority if
+              you believe that the processing of your data violates the GDPR.</li>
+          </ul><br>
+
+          <h2>10. Data Security</h2>
+          <p>We implement appropriate technical and organizational measures to ensure the security of your data and
+            protect it from unauthorized access, loss, or manipulation.</p><br>
+
+          <h2>11. Updates to this Privacy Policy</h2>
+          <p>We reserve the right to update this privacy policy to reflect changes in legal requirements or technical
+            developments. The latest version will always be available within the application.</p><br>
+
+          <h2>Contact</h2>
+          <p>If you have any questions about data protection, feel free to contact us: <a
+              href="mailto:bastigepp@googlemail.com">bastigepp@googlemail.com</a></p><br>
+        </div>
+    </main>
+  </div>
+</body>
+
 </html>

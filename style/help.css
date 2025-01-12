@@ -1,7 +1,19 @@
-/* #btn_help{
+body,
+html {
+  padding: 0;
+  overflow: hidden;
+}
+
+.headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-help{
     display: none;
 }
-wird so nicht funktionieren */
 
 .return-btn-help {
     background-color: #F6F7F8;
