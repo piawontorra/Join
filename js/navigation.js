@@ -57,10 +57,12 @@ function adjustSidebarForLimitedContent() {
 function mobileUserSidebar() {
     const imprintContentRef = document.getElementById('imprintContent');
 
-    if (window.innerWidth < 1000) {
-        imprintContentRef.classList.add('d-none');
-    } else {
-        imprintContentRef.classList.remove('d-none');
+    if (imprintContentRef) {
+        if (window.innerWidth < 1000) {
+            imprintContentRef.classList.add('d-none');
+        } else {
+            imprintContentRef.classList.remove('d-none');
+        }
     }
 }
 
