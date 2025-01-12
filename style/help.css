@@ -1,3 +1,13 @@
-#btn_help{
+/* #btn_help{
     display: none;
+}
+wird so nicht funktionieren */
+
+.return-btn-help {
+    background-color: #F6F7F8;
+    margin-top: 0;
+}
+
+.return-btn-help:hover {
+    background-color: #EEEEEE;
 }
