@@ -270,6 +270,7 @@
 
 @media (max-width: 1000px) {
     .board-content {
+        top: 80px;
         left: 0;
     }
 

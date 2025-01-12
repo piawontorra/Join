@@ -648,7 +648,6 @@ select {
 
     .board-add-task-content {
         display: block;
-        padding-top: 14px;
         padding-bottom: 76px;
         width: 100vw;
         height: calc(100vh - 180px);
@@ -656,13 +655,14 @@ select {
 
     .board-add-task-modal {
         border-radius: 0px;
-        height: calc(100vh - 180px);
+        height: calc(100vh - 170px);
         max-width: 1024px;
         padding: 0 16px;
     }
 
     .board-add-task-section-header {
-        padding-top: 40px;
+        padding-top: 34px;
+        padding-bottom: 34px;
     }
 
     .add-task-form {
@@ -697,8 +697,8 @@ select {
     }
 
     .board-add-task-overlay {
-        height: calc(100% - 115px);
-        margin-top: 57px;
+        height: calc(100% - 160px);
+        margin-top: 80px;
         z-index: 8;
     }
 }

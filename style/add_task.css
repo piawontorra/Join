@@ -766,7 +766,7 @@ select {
 
     .add-task-form {
         padding-left: 16px;
-        max-height: 529px;
+        max-height: 553px;
     }
 
     label {
@@ -828,7 +828,7 @@ select {
 
 @media (max-width: 390px) {
     .add-task-form {
-        max-height: 461px;
+        max-height: 506px;
     }
 
     .section-head-add-task {
@@ -839,13 +839,11 @@ select {
     .add-task-assigned-to-input-field {
         padding: 0px 10px;
     }
+}
 
+@media (max-width: 380px) {
     .add-task-form {
-        max-height: 320px;
-    }
-
-    .add-task-form-bottom {
-        bottom: 84px;
+        max-height: 330px;
     }
 }
 
