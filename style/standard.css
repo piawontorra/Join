@@ -30,6 +30,11 @@
     width: 100%;
 }
 
+.max-width-calculated {
+    max-width: 1208px;
+    /* für help, Legal Notice und Privacy Policy ohne width: 100% nötig!!! */
+}
+
 body {
     width: 100%;
     background-color: #F6F7F8;
@@ -171,6 +176,12 @@ a {
     margin-right: 10px;
 }
 
+@media (max-width: 1310px) {
+    .section-head {
+        padding-left: 24px;
+    }
+}
+
 @media (max-width: 1000px) {
     .content-fixed {
         margin-top: 80px;
@@ -191,7 +202,7 @@ a {
 
     h2 {
         font-size: 20px;
-        line-height: 24px; 
+        line-height: 24px;
     }
 
     .btn {
