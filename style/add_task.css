@@ -402,6 +402,12 @@ select {
     font-size: 16px;
 }
 
+.info-line-responsive {
+    display: none;
+    align-items: flex-end;
+    font-size: 16px;
+}
+
 .add-task-finish-buttons {
     display: flex;
     flex-direction: row;
@@ -588,6 +594,10 @@ select {
     animation: myAddAnim 1s ease 0s 1 normal forwards;
 }
 
+.pad-btm-8 {
+    padding-bottom: 0px;
+}
+
 @keyframes myAddAnim {
 	0% {
 		opacity: 0;
@@ -734,6 +744,7 @@ select {
         flex-direction: column;
         gap: 0px;
         overflow-y: auto;
+        scrollbar-width: none;
         max-height: 613px;
     }
 
@@ -745,5 +756,121 @@ select {
 
     .add-task-form-seperator {
         display: none;
+    }
+}
+
+@media (max-width: 520px) {
+    .section-head-add-task {
+        padding-left: calc(248px - 232px);
+    }
+
+    .add-task-form {
+        padding-left: 16px;
+        max-height: 529px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    .add-task-input-headline {
+        font-size: 16px;
+    }
+
+    .add-task-assigned-to-input-field {
+        font-size: 16px;
+    }
+
+    .add-task-category-input-field {
+        font-size: 16px;
+    }
+
+    .add-task-input-fields {
+        font-size: 16px;
+    }
+
+    .add-subtask-buttons {
+        top: 38px !important;
+    }
+
+    .pad-top-4 {
+        padding-top: 4px;
+    }
+
+    .category {
+        font-size: 16px;
+    }
+
+    .add-task-form-bottom {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .add-task-finish-buttons {
+        padding-right: 16px;
+    }    
+
+    .info-line {
+        display: none;
+    }
+
+    .info-line-responsive {
+        display: flex;
+    }
+}
+
+@media (max-width: 414px) {
+    .section-head-add-task {
+        padding-top: calc(126px - 96px);
+        padding-bottom: 30px;
+    }
+}
+
+@media (max-width: 390px) {
+    .add-task-form {
+        max-height: 461px;
+    }
+
+    .section-head-add-task {
+        padding-top: calc(116px - 96px);
+        padding-bottom: 20px;
+    }
+
+    .add-task-assigned-to-input-field {
+        padding: 0px 10px;
+    }
+
+    .add-task-form {
+        max-height: 320px;
+    }
+
+    .add-task-form-bottom {
+        bottom: 84px;
+    }
+}
+
+@media (max-width: 360px) {
+    .add-task-form-left {
+        width: 290px;
+    }
+
+    .add-task-form-right {
+        width: 290px;
+    }
+
+    .contact-name {
+        font-size: 16px;
+    }
+
+    .prio-button {
+        font-size: 16px;
+    }
+
+    .clear-task-btn {
+        font-size: 16px;
+    }
+
+    .create-task-btn {
+        font-size: 16px;
     }
 }
