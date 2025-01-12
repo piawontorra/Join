@@ -59,9 +59,7 @@ function mobileUserSidebar() {
 
     if (window.innerWidth < 1000) {
         imprintContentRef.classList.add('d-none');
-    }
-    
-    if (window.innerWidth >= 1000) {
+    } else {
         imprintContentRef.classList.remove('d-none');
     }
 }
@@ -74,7 +72,7 @@ function mobileUserSidebar() {
  * @listens resize
  */
 window.addEventListener('resize', function() {
-    mobileUserSidebar();
+    checkForLimitedContent();
 });
 
 /**
