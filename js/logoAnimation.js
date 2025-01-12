@@ -26,6 +26,7 @@ function checkLogoAnimationDesktop() {
         logoDesktopRef.classList.add('logo-animation');
         sessionStorage.setItem('logoAnimated', 'true');
     } else {
+        noAnimationRef.classList.remove('d-none');
         logoDesktopRef.classList.remove('logo-animation');
         logoDesktopRef.classList.add('d-none');
         document.getElementById('content-add').setAttribute('style', 'animation: none');
@@ -50,6 +51,7 @@ function checkLogoAnimationMobile() {
         changeLogoDuringAnimation();
         sessionStorage.setItem('logoAnimated', 'true');
     } else {
+        noAnimationRef.classList.remove('d-none');
         logoMobileRef.classList.remove('logo-animation-mobile');
         logoMobileRef.classList.add('d-none');
         document.getElementById('logo-animation-div').setAttribute('style', 'animation: none');
@@ -71,3 +73,14 @@ function changeLogoDuringAnimation() {
         logoMobileRef.src = './assets/img/join_logo_login.png';
     }, 450);
 }
+
+/**
+ * Event listener for resizing the window.
+ * This listener calls the `logoAnimation()` function whenever the window is resized.
+ * The function adjusts the visibility of the imprint content based on the window width.
+ * 
+ * @listens resize
+ */
+window.addEventListener('resize', function() {
+    logoAnimation();
+});

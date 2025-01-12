@@ -73,7 +73,7 @@ function mobileUserSidebar() {
  * 
  * @listens resize
  */
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     checkForLimitedContent();
 });
 
