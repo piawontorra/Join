@@ -272,6 +272,7 @@
     .board-content {
         top: 80px;
         left: 0;
+        width: 100%;
     }
 
     .board-header {

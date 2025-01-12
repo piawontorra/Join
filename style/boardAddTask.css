@@ -716,12 +716,12 @@ select {
 
     .add-task-form-left {
         width: 100%;
-        max-width: 380px;
+        max-width: 396px;
     }
 
     .add-task-form-right {
         width: 100%;
-        max-width: 380px;
+        max-width: 396px;
     }
 
     .add-task-form p {
@@ -756,6 +756,7 @@ select {
     .add-task-form-bottom {
         padding-left: 110px;
         padding-top: 8px;
+        right: 0;
         background-color: white;
     }
 
@@ -798,7 +799,8 @@ select {
     }
 
     .add-task-form-bottom {
-        padding-left: 80px;
+        padding-left: 104px;
+        right: 16px;
         height: 80px;
         bottom: 76px;
     }
@@ -824,6 +826,10 @@ select {
 }
 
 @media (max-width: 390px) {
+    .add-task-form-bottom {
+        padding-left: 82px;
+    }
+
     .info-line-mobile {
         padding-bottom: 100px;
     }
