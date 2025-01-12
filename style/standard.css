@@ -112,7 +112,6 @@ a {
 
 .btn:hover {
     cursor: pointer;
-    /* Shadows müssen immer transparent sein, blur- und spread-Wert bitte noch kontrollieren */
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
