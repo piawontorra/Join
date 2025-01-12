@@ -52,6 +52,3 @@ async function includeHTML() {
     }, 50);
     markCurrentTab();
 }
-
-
-// Es ist leider notwendig die Funktionen zu trennen, sonst gibt es eine Dauerschleife beim Login.

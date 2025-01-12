@@ -66,7 +66,7 @@ function mobileUserSidebar() {
 
 /**
  * Event listener for resizing the window.
- * This listener calls the `mobileUserSidebar()` function whenever the window is resized.
+ * This listener calls the `checkForLimitedContent()` function whenever the window is resized.
  * The function adjusts the visibility of the imprint content based on the window width.
  * 
  * @listens resize
