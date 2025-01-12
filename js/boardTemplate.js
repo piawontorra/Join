@@ -38,8 +38,15 @@ async function getTaskCardTemplate(task) {
     const categoryColor = categoryColors[task.category] || "#CCCCCC";
 
     return `<div class="task-card" data-task-id="${task.id}" draggable="true" ondragstart="dragTask(${task.id})" onclick="openTaskDetail('${task.id}')">
-                <div class="task-category">
-                    <p style="background-color: ${categoryColor};">${task.category}</p>
+                <div class="task-card-head">
+                    <div class="task-category">
+                        <p style="background-color: ${categoryColor};">${task.category}</p>
+                    </div>
+                    <div>
+                        <div onclick="showMoveTo(event)" class="task-card-menu">
+                            <img src="./assets/img/more_vert_icon.svg">
+                        </div>
+                    </div>
                 </div>
                 <div class="task-card-header">
                     <p class="task-title">${task.title}</p>
@@ -51,6 +58,12 @@ async function getTaskCardTemplate(task) {
                     ${assignedToHTML}
                     </div>
                     <img src="${icon}"> 
+                </div>
+                <div class="task-card-menu-pop-up" id="task-menu-pop-up-${task.id}">
+                            <p>To Do</p>
+                            <p>In progress</p>
+                            <p>Await feedback</p>
+                            <p>Done</p>
                 </div>
             </div>`;
 }
