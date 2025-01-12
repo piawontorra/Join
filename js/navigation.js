@@ -25,7 +25,6 @@ function checkForLimitedContent() {
             break;
         default:
             mobileUserSidebar();
-            // Manchmal reload notwendig, damit die Anzeige beim Bildschirmvergrößern und -verkleinern richtig ist. 'resize' bereitet anderes Problem.
             break;
     }
 }
@@ -60,10 +59,23 @@ function mobileUserSidebar() {
 
     if (window.innerWidth < 1000) {
         imprintContentRef.classList.add('d-none');
-    } else {
+    }
+    
+    if (window.innerWidth >= 1000) {
         imprintContentRef.classList.remove('d-none');
     }
 }
+
+/**
+ * Event listener for resizing the window.
+ * This listener calls the `mobileUserSidebar()` function whenever the window is resized.
+ * The function adjusts the visibility of the imprint content based on the window width.
+ * 
+ * @listens resize
+ */
+window.addEventListener('resize', function() {
+    mobileUserSidebar();
+});
 
 /**
  * Switches the current view to the specified tab by changing the window location.
