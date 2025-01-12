@@ -136,7 +136,7 @@ header {
         top: 80px;
         right: 16px;
     }
-    
+
     .menu-closed {
         visibility: hidden;
         transform: translateX(135%);
@@ -155,5 +155,16 @@ header {
 @media (max-width: 520px) {
     .tool-headline {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-initials-header {
+        width: 40px;
+        height: 40px;
+    }
+
+    .user-menu {
+        top: 60px;
     }
 }
