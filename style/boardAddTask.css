@@ -695,6 +695,12 @@ select {
     .add-task-form {
         max-height: 710px;
     }
+
+    .board-add-task-overlay {
+        height: calc(100% - 115px);
+        margin-top: 57px;
+        z-index: 8;
+    }
 }
 
 @media (max-width: 800px) {
