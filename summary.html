@@ -26,13 +26,13 @@
 
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
-            <div class="section-min-height content-fixed" id="section-min-height">
+            <div class="content-fixed flex summary-page" id="section-min-height">
 
                 <div class="section-head max-width-calced" id="summary-head">
                     <h1>Join 360</h1>
                     <div class="separator"></div>
                     <h2 class="section-subhead">Key Metrics at a Glance</h2>
-                    <div class="h1-underline"></div>
+                    <div class="h1-underline h1-underline-summary"></div>
                 </div>
 
                 <section class="summary max-width-calced" id="greeting-min-height">
@@ -73,19 +73,19 @@
                             <button class="btn summary-btn square-btn" onclick="transferToBoard()">
                                 <div class="task-count-status">
                                     <span class="task-count" id="every-status-count">0</span>
-                                    <text class="status">Tasks In Board</text>
+                                    <text class="status status-width">Tasks In Board</text>
                                 </div>
                             </button>
                             <button class="btn summary-btn square-btn" onclick="transferToBoard()">
                                 <div class="task-count-status">
                                     <span class="task-count" id="in-progress-count">0</span>
-                                    <text class="status">Tasks In Progress</text>
+                                    <text class="status status-width status-in-progress">Tasks In Progress</text>
                                 </div>
                             </button>
                             <button class="btn summary-btn square-btn" onclick="transferToBoard()">
                                 <div class="task-count-status">
                                     <span class="task-count" id="awaiting-feedback-count">0</span>
-                                    <text class="status">Awaiting Feedback</text>
+                                    <text class="status status-width">Awaiting Feedback</text>
                                 </div>
                             </button>
                         </div>

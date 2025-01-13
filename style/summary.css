@@ -1,3 +1,13 @@
+.summary-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#summary-head {
+    padding-bottom: 40px;
+}
+
 .separator {
     height: 59px;
     width: 3px;
@@ -12,27 +22,26 @@
 .summary {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
-    padding: 0 96px;
+    padding: 16px 79px;
+    gap: 72px;
 }
 
 .summary-content {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    gap: 29px;
 }
 
 .summary-rows {
     width: 560px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 29px;
 }
 
 .summary-btn {
-    padding: 38px 19px;
     border-radius: 30px;
     border: unset;
     display: flex;
@@ -43,10 +52,11 @@
     background-color: #FFFFFF;
     color: #2A3647;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    height: 168px;
 }
 
 .summary-btn:hover {
-    transform: scale(1.08);
+    transform: scale(1.06);
     background-color: #2A3647;
 }
 
@@ -63,7 +73,7 @@
 }
 
 .summary-row1 {
-    width: calc(50% - 13px/2);
+    width: calc(50% - 29px/2);
 }
 
 .summary-row2 {
@@ -71,10 +81,8 @@
 }
 
 .square-btn {
-    padding: 25px;
-    gap: 13px;
-    width: calc(33.333% - 26px/3);
-    aspect-ratio: 1 / 1;
+    width: calc(33.333% - 58px/3);
+    height: 168px;
 }
 
 .status-img {
@@ -110,10 +118,16 @@
     line-height: 19.2px;
 }
 
+.status-urgent-img {
+    height: 60px;
+}
+
 .separator-variant {
     height: 102.02px;
     width: 2px;
     background-color: #D1D1D1;
+    margin-left: 43px;
+    margin-right: 43px;
 }
 
 .urgent-deadline {
@@ -130,13 +144,22 @@
     color: #2A3647;
 }
 
+.status-width {
+    max-width: 93px;
+}
+
+.status-in-progress {
+    font-family: 'open-sans';
+    font-size: 21px;
+    line-height: 25.2px;
+}
+
 .welcome-user {
-    height: 562px;
-    width: 385px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    max-width: 385px;
 }
 
 .welcome {
@@ -156,4 +179,3 @@
     line-height: 76.8px;
     color: #29ABE2;
 }
-

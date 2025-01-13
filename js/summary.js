@@ -30,12 +30,12 @@ function summaryRepresentation() {
             showCurrentTasksCount();
         }, 1100);
     } else {
+        document.getElementById('summary-head').classList.remove('d-none');
+        document.getElementById('summary-greeting').classList.remove('d-none');
         greetUser();
         showCurrentTasksCount();
     }
 }
-
-
 
 /**
  * Greets the user based on the time of day and displays her/his name if logged in.
@@ -256,3 +256,14 @@ function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
         document.getElementById('urgent-count').innerText = 0;
     }
 }
+
+/**
+ * Event listener for resizing the window.
+ * This listener calls the `summaryRepresentation()` function whenever the window is resized.
+ * The function adjusts the visibility of the imprint content based on the window width.
+ * 
+ * @listens resize
+ */
+window.addEventListener('resize', function () {
+    summaryRepresentation();
+});
