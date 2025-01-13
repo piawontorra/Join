@@ -52,6 +52,7 @@ function checkNameValidity(name) {
         document.getElementById('input-registry-name').classList.add('red-border');
         return false;
     } else {
+        document.getElementById('input-registry-name').classList.remove('red-border');
         return true;
     }
 }
@@ -69,6 +70,7 @@ function checkPasswordCongruence(password, passwordConfirmation) {
         document.getElementById('input-password-confirmation').classList.add('red-border');
         return false;
     } else {
+        document.getElementById('input-password-confirmation').classList.remove('red-border');
         return true;
     }
 }
@@ -186,12 +188,10 @@ async function putUser(path = "", users = {}) {
 
 /**
  * Displays a grey overlay on the page to indicate a background process.
- * Additionally, it handles the overlay state and displays a success message.
  */
 function addGreyOverlay() {
     let greyOverlayRef = document.getElementById('grey-overlay');
     greyOverlayRef.classList.remove('d-none');
-    renderOverlay();
     handleScrollbar();
 }
 

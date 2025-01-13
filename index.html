@@ -10,6 +10,7 @@
     <script src="./js/logoAnimation.js"></script>
     <script src="./js/register.js"></script>
     <script src="./js/loginRegisterTemplate.js"></script>
+    <script src="./js/rememberMe.js"></script>
     <script src="./js/forgottenPassword.js"></script>
     <script src="./js/board.js"></script>
     <link rel="stylesheet" href="./style/style.css">
@@ -24,10 +25,11 @@
 <body onload="initLogin()">
     <div class="logo-animation-div max-width" id="logo-animation-div">
         <img class="join-logo logo-animation" id="logo-animation" src="./assets/img/join_logo_login.png" alt="Logo">
-        <img class="join-logo logo-animation logo-animation-mobile" id="logo-animation-mobile" src="./assets/img/mobile-logo.png" alt="Logo">
+        <img class="join-logo logo-animation logo-animation-mobile" id="logo-animation-mobile"
+            src="./assets/img/mobile-logo.png" alt="Logo">
         <div class="content content-add max-width" id="content-add">
 
-            <div class="login-headline">
+            <div class="flex login-headline">
                 <img class="join-logo" id="logo-no-animation" src="./assets/img/join_logo_login.png" alt="Logo">
                 <div class="registry-link">
                     <span class="user-question">Not a Join user?</span>
@@ -35,10 +37,10 @@
                 </div>
             </div>
 
-            <div class="form-position">
-                <form class="form" id="login-form" onsubmit="login(); return false;">
-                    <div class="main-form">
-                        <div class="form-headline">
+            <div class="flex form-position">
+                <form class="flex form" id="login-form" onsubmit="login(); return false;">
+                    <div class="flex main-form">
+                        <div class="flex form-headline">
                             <h1 class="h1-variant">Log in</h1>
                             <div class="h1-underline"></div>
                         </div>

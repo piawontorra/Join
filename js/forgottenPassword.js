@@ -30,10 +30,35 @@ async function saveNewPassword() {
         if (user) {
             const { userId } = user;
             await updateUserPassword(userId, newPassword);
-            addGreyOverlay();
-            renderOverlay('Your password was resetted.');
+            confirmPasswordReset();
         }
     }
+}
+
+/**
+ * Resets the password reset form and provides user feedback upon successful password reset.
+ * 
+ * This function performs the following actions:
+ * - Resets the login form, clearing any user input.
+ * - Removes the red border from the password confirmation input field (if present).
+ * - Clears any messages displayed in the message box.
+ * - Adds a grey overlay to the screen to provide visual feedback.
+ * - Displays a message overlay to inform the user that the password has been reset.
+ * 
+ * @returns {void} This function does not return any value; it performs DOM manipulation and updates UI elements.
+ */
+function confirmPasswordReset() {
+    document.getElementById('login-form').reset();
+
+    const passwordConfirmationInput = document.getElementById('input-password-confirmation');
+
+    if (passwordConfirmationInput.classList.contains('red-border')) {
+        passwordConfirmationInput.classList.remove('red-border');
+    }
+    
+    document.getElementById('msg-box').innerHTML = '';
+    addGreyOverlay();
+    renderOverlay('Your password was resetted.');
 }
 
 /**
