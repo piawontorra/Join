@@ -58,7 +58,7 @@ function contactCardDetailsTemplate(id, contact) {
 }
 
 function newContactTemplate() {
-  return /*html*/`
+  return `
       <div id="newContactContent">
         <div id="addContactHeaderContainer">
             <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>

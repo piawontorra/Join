@@ -67,8 +67,8 @@
 
 .btn_menuResponsive{
     position: absolute;
-    bottom: 26px;
-    right: 32px;
+    bottom: 190px;
+    right: 8%;
     border: none;
     border-radius: 90%;
     background-color: #2A3647;
@@ -77,21 +77,26 @@
     box-shadow: 0px 5px 6px rgb(128 128 128);
 }
 
-/* #moreResponsive{
-    width: 150px;
-    height: 150px;
-    background-color: aqua; */
-    /* position: fixed;
-    top: 50%;
+#moreResponsive{
+    z-index: 1;
+    width: 116px;
+    height: 100px;
+    background-color: white;
+    position: fixed;
+    bottom: 40px;
     left: 100vw;
-    transform: translateY(-50%); */
-    /* animation-direction: reverse;
-} */
+    transform: translateY(-50%);
+    transition: all 0.4s ease-in-out;
+    animation-direction: reverse;
+    box-shadow: 0px 4px 7px 0px rgb(168 165 165);
+    border-radius: 20px 20px 0 20px;
+}
 
-/* #moreResponsive.open{
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
+#moreResponsive.open{
+    left: 84%;
+    transform: translateY(-50%);
+    transition: all 0.4s ease-in-out;
+}
 
 #btn_addNewContact img{
     padding-left: 15px;
@@ -651,6 +656,8 @@ Dialog.open {
         position: absolute;
         background-color: white;
         height: 100%;
+        margin: 0;
+        padding: 0 30px 0 30px;
     }
 
     #wrapperContacts{

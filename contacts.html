@@ -29,7 +29,9 @@
         <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()"></dialog>
         <dialog editContactDialog id="editContactDialog"></dialog>
         <dialog id="responsiveContactDialog"></dialog>
-        <dialog id="moreResponsive"></dialog>
+        <dialog id="moreResponsive">
+          <button onclick="closeMoreDialog()" id="closeMoreResponsive">close</button>
+        </dialog>
       <div id="statusAlert" class="">Contact succesfull created</div>
       <div w3-include-html="./assets/templates/header.html"></div>
       <div id="contactDetails" class="max-width contacts-fixed">

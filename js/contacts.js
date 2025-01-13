@@ -335,10 +335,53 @@ function openEditDialog(user, id) {
   renderEditContactForm(user, id);
 }
 
-function openMoreDialog(){
-  let modal = document.getElementById('moreResponsive');
+
+
+
+
+function openMoreDialog() {
+  const modal = document.querySelector('#moreResponsive');
   modal.showModal();
+  modal.classList.add('open');
+
+  // Verzögerte Aktivierung des Event-Listeners
+  setTimeout(() => {
+    document.addEventListener('click', outsideClickHandler);
+  }, 0);
 }
+
+function closeMoreDialog() {
+  const modal = document.querySelector('#moreResponsive');
+  modal.classList.remove('open');
+  
+  // Entferne den Event-Listener
+  document.removeEventListener('click', outsideClickHandler);
+  
+  // Schließe den Dialog nach einer Verzögerung (für Animation)
+  setTimeout(() => {
+    modal.close();
+  }, 400);
+}
+
+function outsideClickHandler(event) {
+  const modal = document.querySelector('#moreResponsive');
+  
+  // Debugging: Ausgabe von event.target
+  console.log('Clicked element:', event.target);
+console.log('Modal element:', modal);
+  
+  // Prüfen, ob der Klick außerhalb des Dialogs war
+  if (event.target === modal || modal.contains(event.target)) {
+    console.log('Click detected inside the dialog. Ignoring.');
+    return; // Verlasse die Funktion, wenn der Klick innerhalb des Dialogs war
+  }
+  console.log('Click detected outside the dialog. Closing modal.');
+  closeMoreDialog();
+}
+
+
+
+
 
 function renderEditContactForm(user, id) {
   const container = document.getElementById('editContactDialog');
@@ -365,4 +408,4 @@ function closeDialog(dialogSelector) {
 // function openResponsiveDialog(){
 //   let modal = document.querySelector('#responsiveContactDialog');
 //   modal.showModal();
-// }
+// 
