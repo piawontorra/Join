@@ -49,7 +49,7 @@ function adjustSidebarForLimitedContent() {
 
 /**
  * Adjusts the visibility of the "imprintContent" element based on the window width.
- * If the window width is less than 1000px, the "imprintContent" element is hidden by adding the "d-none" class.
+ * If the window width is less than 1065px, the "imprintContent" element is hidden by adding the "d-none" class.
  * Otherwise, the "d-none" class is removed, making the element visible.
  * 
  * @returns {void} No return value.
@@ -58,7 +58,7 @@ function mobileUserSidebar() {
     const imprintContentRef = document.getElementById('imprintContent');
 
     if (imprintContentRef) {
-        if (window.innerWidth < 1000) {
+        if (window.innerWidth < 1065) {
             imprintContentRef.classList.add('d-none');
         } else {
             imprintContentRef.classList.remove('d-none');
