@@ -140,10 +140,9 @@
 .board-categorys {
     display: flex;
     flex-direction: row;
-    /* gap: 26px; */
     padding: 0px 48px;
     height: calc(100vh - 301.2px);
-    min-width: 1208px;
+    min-width: 1150px;
 }
 
 .tasks-content {
@@ -295,6 +294,7 @@
         padding-left: 10px;
         gap: 8px;
         height: 1500px;
+        min-width: unset;
     }
 
     .tasks-content {
