@@ -648,14 +648,6 @@ select {
         gap: 32px;
     }
 
-    .add-task-form-left {
-        width: 335px;
-    }
-
-    .add-task-form-right {
-        width: 335px;
-    }
-
     .prio-button {
         width: 104px;
     }
@@ -665,7 +657,7 @@ select {
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1065px) {
     .add-task-form-left {
         width: 400px;
     }
