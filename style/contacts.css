@@ -54,8 +54,8 @@
 
 #btn_addNewContactResponsive{
     position: absolute;
-    bottom: 26px;
-    right: 14px;
+    bottom: 190px;
+    right: 8%;
     width: 56px;
     aspect-ratio: 1;
     border: none;
@@ -253,7 +253,7 @@
     position: absolute;
     /* left: 80%; */
     left: calc(100vw - 80px);
-    top: 10%;
+    top: 6%;
     display: none;
 }
 
@@ -616,13 +616,36 @@ Dialog.open {
         font-size: 36px;
     }
 }
-@media (max-width: 1025px){
+@media (max-width: 1065px){
     .contacts-fixed{
         left: 0;
     }
 }
 
+@media (max-width: 1000px){
+    .contacts-fixed{
+        top: 80px;
+    }
+}
+
 @media (max-width: 800px){
+
+    #contactText{
+        height: 40px;
+    }
+
+    #userName{
+        font-weight: 700;
+    }
+
+    #contactCard{
+        display: block;
+    }
+    
+    .action{
+        display: none;
+    }
+
     #contactDetailsContainer{
         display: none;
         position: absolute;
@@ -753,5 +776,15 @@ Dialog.open {
         color: white;
         font-weight: 600;
         font-size: larger;
+    }
+}
+
+@media (max-width: 360px){
+    #span_contacts{
+        font-size: 50px;
+    }
+
+    #userName{
+        font-size: 32px;
     }
 }
