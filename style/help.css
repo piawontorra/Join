@@ -1,0 +1,25 @@
+body,
+html {
+  padding: 0;
+  overflow: hidden;
+}
+
+.headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-help{
+    display: none;
+}
+
+.return-btn-help {
+    background-color: #F6F7F8;
+    margin-top: 0;
+}
+
+.return-btn-help:hover {
+    background-color: #EEEEEE;
+}
