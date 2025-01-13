@@ -1,10 +1,10 @@
 async function getTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
-    const assignedUserData = task.assignedTo && Array.isArray(task.assignedTo) 
+    const assignedUserData = task.assignedTo && Array.isArray(task.assignedTo)
         ? await getAssignedUserInitialsAndColor(task.assignedTo)
         : [];
-        
+
     let assignedToHTML = assignedUserData
         .map(user =>
             `<div class="task-user-icon" style="background-color: ${user.color};">
@@ -60,10 +60,10 @@ async function getTaskCardTemplate(task) {
                     <img src="${icon}"> 
                 </div>
                 <div class="task-card-menu-pop-up" id="task-menu-pop-up-${task.id}">
-                            <p>To Do</p>
-                            <p>In progress</p>
-                            <p>Await feedback</p>
-                            <p>Done</p>
+                    <p onclick="moveTaskToCategory(event, '${task.id}', 'todo')">To Do</p>
+                    <p onclick="moveTaskToCategory(event, '${task.id}', 'in-progress')">In Progress</p>
+                    <p onclick="moveTaskToCategory(event, '${task.id}', 'await-feedback')">Await Feedback</p>
+                    <p onclick="moveTaskToCategory(event, '${task.id}', 'done')">Done</p>
                 </div>
             </div>`;
 }
@@ -124,7 +124,7 @@ async function getDetailTaskCardTemplate(task) {
                 <p class="navyblue-font">Subtasks</p>
                 <div class="detail-task-subtasks-container">
                     ${(task.subtasks || [])
-                        .map((subtask, index) => `
+            .map((subtask, index) => `
                             <label class="detail-task-subtask-item">
                                 <input 
                                     type="checkbox" 
@@ -135,7 +135,7 @@ async function getDetailTaskCardTemplate(task) {
                                 ${subtask.text}
                             </label>
                         `)
-                        .join("")}
+            .join("")}
                 </div>
             </div>
             <div class="detail-delete-edit-content">
@@ -152,7 +152,7 @@ async function getDetailTaskCardTemplate(task) {
         </div>
     `;
 }
-  
+
 function getNoTasksTemplate(status) {
     return `
         <div class="no-tasks-message">
@@ -258,7 +258,7 @@ function getTaskEditorTemplate(task) {
     `;
 }
 
-function getEditorSubtaskTemplate(subtask,i) {    
+function getEditorSubtaskTemplate(subtask, i) {
     return `
         <div class="subtask-list" id="mainSubtask-container${i}">
             <input

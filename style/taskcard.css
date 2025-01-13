@@ -140,7 +140,7 @@
     z-index: 1;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1065px) {
     .task-card-menu {
         display: block;
     }

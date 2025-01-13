@@ -75,20 +75,39 @@ function dropTask(event, newStatus) {
 }
 
 function checkAndUpdateNoTasksMessage(container) {
-  const statusMapping = {
-    toDo: 'To Do',
-    inProgress: 'In Progress',
-    awaitFeedback: 'Await Feedback',
-    done: 'Done',
-  };
-  
-  const taskCards = container.querySelectorAll('.task-card');
+    const taskCards = container.querySelectorAll('.task-card');
 
-  if (taskCards.length === 0) {
-    const readableStatus = statusMapping[container.id];
-    container.innerHTML = getNoTasksTemplate(readableStatus);
-  }
-}    
+    if (taskCards.length === 0) {
+        addNoTasksMessageMoveTo(container);
+    } else {
+        removeNoTasksMessage(container);
+    }
+}
+
+function addNoTasksMessageMoveTo(container) {
+    const noTasksMessage = container.querySelector('.no-tasks-message');
+    if (!noTasksMessage) {
+        const readableStatus = getReadableStatus(container.id);
+        container.innerHTML = getNoTasksTemplate(readableStatus);
+    }
+}
+
+function removeNoTasksMessage(container) {
+    const noTasksMessage = container.querySelector('.no-tasks-message');
+    if (noTasksMessage) {
+        noTasksMessage.remove();
+    }
+}
+
+function getReadableStatus(statusId) {
+    const statusMapping = {
+        toDo: "To Do",
+        inProgress: "In Progress",
+        awaitFeedback: "Await Feedback",
+        done: "Done",
+    };
+    return statusMapping[statusId];
+}
 
 function resetContainerHighlight(event) {
   const targetContainer = event.target.closest('.task-content-split');

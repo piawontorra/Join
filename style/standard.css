@@ -182,7 +182,7 @@ a {
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1065px) {
     .content-fixed {
         margin-top: 80px;
         margin-left: 0;
