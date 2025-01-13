@@ -15,25 +15,31 @@ function initSummary() {
 
 
 function summaryRepresentation() {
-    if (innerWidth < 1000) {
-        document.getElementById('summary-head').classList.add('d-none');
-        document.getElementById('summary-content').classList.add('d-none');
-        document.getElementById('greeting-min-height').classList.add('tab-min-height');
-        greetUser();
+    let summaryHeadRef = document.getElementById('summary-head');
+    let summaryContentRef = document.getElementById('summary-content');
 
-        setTimeout(() => {
-            document.getElementById('summary-greeting').classList.add('d-none');
-            document.getElementById('summary-head').classList.remove('d-none');
-            document.getElementById('summary-content').classList.remove('d-none');
-            document.getElementById('greeting-min-height').classList.remove('tab-min-height');
-            document.getElementById('section-min-height').classList.add('tab-min-height');
+    if (summaryHeadRef || summaryContentRef) {
+        if (innerWidth < 1000) {
+            summaryHeadRef.classList.add('d-none');
+            summaryContentRef.classList.add('d-none');
+            document.getElementById('greeting-min-height').classList.add('tab-min-height');
+            greetUser();
+
+            setTimeout(() => {
+                document.getElementById('summary-greeting').classList.add('d-none');
+                summaryHeadRef.classList.remove('d-none');
+                summaryContentRef.classList.remove('d-none');
+                document.getElementById('greeting-min-height').classList.remove('tab-min-height');
+                document.getElementById('section-min-height').classList.add('tab-min-height');
+                showCurrentTasksCount();
+            }, 1100);
+        } else {
+            summaryHeadRef.classList.remove('d-none');
+            summaryContentRef.classList.remove('d-none');
+            document.getElementById('summary-greeting').classList.remove('d-none');
+            greetUser();
             showCurrentTasksCount();
-        }, 1100);
-    } else {
-        document.getElementById('summary-head').classList.remove('d-none');
-        document.getElementById('summary-greeting').classList.remove('d-none');
-        greetUser();
-        showCurrentTasksCount();
+        }
     }
 }
 
