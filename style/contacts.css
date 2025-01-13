@@ -1,5 +1,6 @@
 #contactDetails{
     display: flex;
+    height: 100%;
 }
 
 #sidebar{
@@ -10,7 +11,7 @@
 
 .contacts-fixed{
     position: fixed;
-    top: 100px;
+    top: 96px;
     left: 232px;
 }
 
@@ -76,16 +77,16 @@
     box-shadow: 0px 5px 6px rgb(128 128 128);
 }
 
-#moreResponsive{
+/* #moreResponsive{
     width: 150px;
     height: 150px;
-    background-color: aqua;
+    background-color: aqua; */
     /* position: fixed;
     top: 50%;
     left: 100vw;
     transform: translateY(-50%); */
-    animation-direction: reverse;
-}
+    /* animation-direction: reverse;
+} */
 
 /* #moreResponsive.open{
     left: 50%;
