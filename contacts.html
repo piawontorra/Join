@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="./style/contacts.css" />
   <link rel="stylesheet" href="./style/navigation.css" />
   <link rel="stylesheet" href="./style/add_task.css" />
+  <link rel="stylesheet" href="./style/contacts-responsive.css" />
   <link rel="icon" href="./assets/img/join_logo_login.png" />
 </head>
 
@@ -26,8 +27,8 @@
   <div class="content">
     <div w3-include-html="./assets/templates/navigation.html"></div>
     <main>
-        <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()"></dialog>
-        <dialog editContactDialog id="editContactDialog"></dialog>
+        <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()" class="dialogDesktop"></dialog>
+        <dialog editContactDialog id="editContactDialog" class="dialogDesktop"></dialog>
         <dialog id="responsiveContactDialog"></dialog>
         <dialog id="moreResponsive">
           <button onclick="closeMoreDialog()" id="closeMoreResponsive">close</button>

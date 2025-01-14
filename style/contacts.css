@@ -3,11 +3,11 @@
     height: 100%;
 }
 
-#sidebar{
+/* #sidebar{
     background-color: rgb(42, 54, 71);
     height: 100vh;
     width: 232px;
-}
+} */
 
 .contacts-fixed{
     position: fixed;
@@ -256,7 +256,6 @@
 #arrowBack{
     width: auto;
     position: absolute;
-    /* left: 80%; */
     left: calc(100vw - 80px);
     top: 6%;
     display: none;
@@ -351,6 +350,11 @@
     color: #333;
 }
 
+.dialogDesktop{
+    width: 1200px;
+    max-width: 95%;
+}
+
 #form{
     display: flex;
     height: auto;
@@ -361,7 +365,7 @@
 
 #addContactHeaderContainer{
     width: 467px;
-    min-width: 395px;
+    min-width: 350px;
     background-color: rgb(42, 54, 71);
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
@@ -401,7 +405,7 @@
     justify-content: center;
 }
 
-#overlay{
+/* #overlay{
     height: 100vh;
     width: 100vw;
     position: fixed;
@@ -409,21 +413,13 @@
     left: 0;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.2);
-  }
+  } */
 
 #formContainer{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
-/* #circleContainer{
-    width: 120px;
-    height: 500px;
-    margin-left: 24px;
-    margin-right: 24px;
-    display: flex;
-    align-items: center; */
 
     #circleContainer {
         width: calc(10% + 80px); /* Breite passt sich an, mit einer Mindestgröße */
@@ -479,13 +475,10 @@
     height: 24px;
     width: 24px;
 }
-/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 .inputField {
     position: relative;
     padding: 0;
 }
-
-
 
 .inputField img {
     position: absolute;
@@ -496,10 +489,6 @@
 .inputField input{
     width: 422px;
 }
-
-
-
-/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #btnContainer{
     display: flex;
@@ -562,8 +551,7 @@
 
 #newContactContent{
     display: flex;
-    height: 100%;
-    width: 1200px;
+    width: 100%;
     height: 592px;
 }
 
@@ -583,215 +571,4 @@ Dialog {
 Dialog.open {
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-/* Media Querry */
-@media (max-width: 1300px){
-    #contactDetailsContainer{
-        margin-left: 18px;
-    }
-}
-
-@media (max-width: 1200px){
-    #contactDetailsHeader{
-        height: auto;
-        align-items: start;
-        flex-direction: column;
-    }
-
-    #blueLine{
-        background-color: rgb(41, 171, 226);
-        height: 3px;
-        width: 76px;
-        margin: 8px 0 8px 0;
-    }
-
-    #span_better{
-        margin: 0;
-    }
-
-    #userName{
-        font-size: 36px;
-    }
-
-    .userInitials.circle{
-        height: 90px;
-        width: 90px;
-        margin-right: 26px;
-        font-size: 36px;
-    }
-}
-@media (max-width: 1065px){
-    .contacts-fixed{
-        left: 0;
-    }
-}
-
-@media (max-width: 1000px){
-    .contacts-fixed{
-        top: 80px;
-    }
-}
-
-@media (max-width: 800px){
-
-    #contactText{
-        height: 40px;
-    }
-
-    #userName{
-        font-weight: 700;
-    }
-
-    #contactCard{
-        display: block;
-    }
-    
-    .action{
-        display: none;
-    }
-
-    #contactDetailsContainer{
-        display: none;
-        position: absolute;
-        background-color: white;
-        height: 100%;
-        margin: 0;
-        padding: 0 30px 0 30px;
-    }
-
-    #wrapperContacts{
-        width: 100%;
-    }
-
-    #btn_addNewContact{
-        display: none;
-    }
-
-    #btn_addNewContactResponsive{
-        display: block;
-    }
-
-    /*///////////////////////////////////// Modal Responsive /////////////////////////////////////////*/
-
-    #newContactContent{
-        width: 100%;
-        height: 760px;
-        width: 396px;
-    }
-
-    #arrowBack{
-        display: block;
-    }
-
-    #cancelImgContainer{
-        display: none;
-    }
-
-    #addContactHeaderContainer{
-        height: 352px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    #addContactHeader img{
-        display: none;
-    }
-
-    #addContactHeader p{
-        font-size: 47px;
-    }
-
-    #addContactHeader span{
-        font-size: 20px;
-        width: auto;
-    }
-
-    #circleContainer{    
-        justify-content: center;
-        display: block;
-        top: 39%;
-        left: 35%;
-        margin: 0;
-        height: auto;
-        position: absolute;
-    }
-
-    #circle{
-        background-color: rgb(209, 209, 209);
-    }
-
-    #formContainer{
-        display: block;
-        padding: 0 16px 0 16px;
-    }
-
-    #newContactFormContainer{
-        position: absolute;
-        top: 450px;
-        width: 396px;
-        left: 0;
-        padding: 0;
-        margin: 0;
-    }
-
-    #btnCancel{
-        display: none;
-    }
-
-    #btnContainer{
-        justify-content: center;
-        padding: 0;
-    }
-
-    #newUserForm{
-        height: 200px;
-    }
-
-    #newUserForm input{
-        width: 100%;
-        height: 41px;
-        margin-bottom: 15px;
-    }
-
-    Dialog {
-        /* position: fixed; */
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
-        /* z-index: 10;
-        padding: 0;
-        border-radius: 25px 25px 25px 25px;
-        box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
-        border: none !important;
-        transition: all 0.6s ease-in-out; */
-    }
-      
-    /* Dialog.open {
-        left: 50%;
-        transform: translate(-50%, -50%);
-    } */
-
-      
-      
-
-    #responsiveClose{
-        display: block;
-        position: absolute;
-        top: 40px;
-        right: 40px;
-        color: white;
-        font-weight: 600;
-        font-size: larger;
-    }
-}
-
-@media (max-width: 360px){
-    #span_contacts{
-        font-size: 50px;
-    }
-
-    #userName{
-        font-size: 32px;
-    }
 }
