@@ -27,35 +27,7 @@
     }
 }
 
-@media (max-width: 1065px){
-
-    .contacts-fixed{
-        left: 0;
-    }
-
-    .contacts-fixed{
-        top: 80px;
-    }
-
-    .dialogDesktop{
-        width: 396px;
-    }
-
-    #contactText{
-        height: 40px;
-    }
-
-    #userName{
-        font-weight: 700;
-    }
-
-    #contactCard{
-        display: block;
-    }
-    
-    .action{
-        display: none;
-    }
+@media (max-width: 800px){
 
     #contactDetailsContainer{
         display: none;
@@ -78,16 +50,45 @@
         display: block;
     }
 
-    /*///////////////////////////////////// Modal Responsive /////////////////////////////////////////*/
+    #arrowBack{
+        display: block;
+    }
+
+    #userName{
+        font-weight: 700;
+    }
+
+    #contactText{
+        height: 40px;
+    }
+
+    .btn_menuResponsive{
+        display: block;
+    }
+}
+
+@media (max-width: 1065px){
+
+    .contacts-fixed{
+        left: 0;
+    }
+
+    .contacts-fixed{
+        top: 80px;
+    }
+
+    .dialogDesktop{
+        width: 396px;
+    }
+
+    .action{
+        display: none;
+    }
 
     #newContactContent{
         width: 100%;
         height: 760px;
         width: 396px;
-    }
-
-    #arrowBack{
-        display: block;
     }
 
     #cancelImgContainer{
