@@ -227,7 +227,7 @@ function getTaskEditorTemplate(task) {
                     </div>
                     <div class="task-subtask">
                             <p class="add-task-input-headline">Subtasks</p>
-                            <input onkeydown="handleKeyPress(event)" onclick="changeButtons()"
+                            <input onkeydown="handleKeyPressEditor(event)" onclick="changeButtons()"
                                 class="add-task-input-fields" type="text" id="inputSubtask"
                                 placeholder="Add new subtask">
                             <div id="containerButtons" class="add-subtask-buttons">
@@ -266,6 +266,7 @@ function getEditorSubtaskTemplate(subtask, i) {
                 type="text"
                 id="subtaskList${i}"
                 value="${subtask.text}"
+                onkeydown="handleKeyPressEditEditor(event, ${i})"
             />
             <div class="edit-images" id="edit-images${i}">
                 <img onclick="editEditorSubtask(${i})" id="editEditorSubtask${i}" src="./assets/img/edit_icon.svg" alt="">

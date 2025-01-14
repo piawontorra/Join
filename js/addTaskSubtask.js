@@ -45,9 +45,17 @@ function addSubtask() {
 }
 
 function handleKeyPress(event) {
-    if (event.key === "Enter") {
-        addSubtask();
-    }
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addSubtask();
+  }
+}
+
+function handleKeyPressEdit(event, i) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    checkSubtask(i);
+  }
 }
   
 function deleteSubtask(i) {

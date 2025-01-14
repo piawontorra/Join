@@ -116,10 +116,24 @@ function addEditorSubtask() {
         currentTask.subtasks = [];
     }
 
-    currentTask.subtasks.push({ text: input, completed: false }); // Füge die Subtask hinzu
-    renderEditorSubtasks(); // Aktualisiere die Anzeige
-    document.getElementById('inputSubtask').value = ''; // Leere das Eingabefeld
-    resetButtons(); // Setze die Buttons zurück
+    currentTask.subtasks.push({ text: input, completed: false });
+    renderEditorSubtasks();
+    document.getElementById('inputSubtask').value = '';
+    resetButtons();
+}
+
+function handleKeyPressEditor(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addEditorSubtask();
+    }
+}
+  
+function handleKeyPressEditEditor(event, i) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      checkEditorSubtask(i);
+    }
 }
 
 function closeTaskEditor() {

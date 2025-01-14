@@ -4,7 +4,7 @@ let contacts = {};
 let assignedTo = [];
 let selectedTaskStatus = 'todo';
 let selectedCategory = "Select task category";
-let selectedPriority = "Medium"; // Standardpriorität
+let selectedPriority = "Medium";
 let isUsersOpen = false;
 
 window.onload = function () {

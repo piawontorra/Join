@@ -36,6 +36,7 @@ function getSubtaskTemplate(i) {
                 type="text"
                 id="subtaskList${i}"
                 value="${subtasks[i].text}"
+                onkeydown="handleKeyPressEdit(event, ${i})"
                 />
                 <div class="edit-images" id="edit-images${i}">
                   <img onclick="editSubtask(${i})" id="editSubtask${i}" src="./assets/img/edit_icon.svg" alt="">
@@ -56,5 +57,5 @@ function editSubtaskHTML(i) {
             <img onclick="checkSubtask(${i})" id="checkSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="">
         </div>
       `;
-  }
+}
 
