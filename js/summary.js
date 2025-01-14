@@ -13,34 +13,88 @@ function initSummary() {
     summaryRepresentation();
 }
 
-
+/**
+ * Controls the display of summary content based on the screen width.
+ * If the screen width is less than 1065px, the mobile layout is applied.
+ * Otherwise, the desktop layout is applied.
+ *
+ * @returns {void} This function does not return any value, it performs DOM manipulation based on the screen size.
+ */
 function summaryRepresentation() {
     let summaryHeadRef = document.getElementById('summary-head');
     let summaryContentRef = document.getElementById('summary-content');
 
     if (summaryHeadRef || summaryContentRef) {
-        if (innerWidth < 1000) {
-            summaryHeadRef.classList.add('d-none');
-            summaryContentRef.classList.add('d-none');
-            document.getElementById('greeting-min-height').classList.add('tab-min-height');
-            greetUser();
-
-            setTimeout(() => {
-                document.getElementById('summary-greeting').classList.add('d-none');
-                summaryHeadRef.classList.remove('d-none');
-                summaryContentRef.classList.remove('d-none');
-                document.getElementById('greeting-min-height').classList.remove('tab-min-height');
-                document.getElementById('section-min-height').classList.add('tab-min-height');
-                showCurrentTasksCount();
-            }, 1100);
+        if (innerWidth < 1065) {
+            summaryMobile();
         } else {
-            summaryHeadRef.classList.remove('d-none');
-            summaryContentRef.classList.remove('d-none');
-            document.getElementById('summary-greeting').classList.remove('d-none');
-            greetUser();
-            showCurrentTasksCount();
+            summaryDesktop();
         }
     }
+}
+
+/**
+ * Applies the mobile layout for the summary content.
+ * This function hides the summary header and content, adjusts the greeting height, 
+ * and displays the greeting. Afterward, it invokes the `greetingComesAtFirst` function 
+ * to manage the transition of the greeting display.
+ *
+ * @returns {void} This function does not return any value, it manipulates the DOM to adjust the layout for mobile view.
+ */
+function summaryMobile() {
+    let summaryHeadRef = document.getElementById('summary-head');
+    let summaryContentRef = document.getElementById('summary-content');
+    let greetingHeightRef = document.getElementById('greeting-min-height');
+
+    summaryHeadRef.classList.add('d-none');
+    summaryContentRef.classList.add('d-none');
+    greetingHeightRef.classList.add('tab-min-height');
+    greetUser();
+    greetingComesAtFirst();
+}
+
+/**
+ * Handles the greeting display transition for mobile layout.
+ * After a short delay, this function hides the greeting, reveals the summary header 
+ * and content, and adjusts the layout by removing and adding the appropriate classes.
+ * It also invokes the `showCurrentTasksCount` function to display the current tasks count.
+ *
+ * @returns {void} This function does not return any value, it manipulates the DOM elements to manage the greeting transition.
+ */
+function greetingComesAtFirst() {
+    let summaryHeadRef = document.getElementById('summary-head');
+    let summaryContentRef = document.getElementById('summary-content');
+    let greetingHeightRef = document.getElementById('greeting-min-height');
+    let summaryGreetingRef = document.getElementById('summary-greeting');
+
+    setTimeout(() => {
+        summaryGreetingRef.classList.add('d-none');
+        summaryHeadRef.classList.remove('d-none');
+        summaryContentRef.classList.remove('d-none');
+        greetingHeightRef.classList.remove('tab-min-height');
+        document.getElementById('section-min-height').classList.add('tab-min-height');
+        showCurrentTasksCount();
+    }, 1200);
+}
+
+/**
+ * Applies the desktop layout for the summary content.
+ * This function ensures that the summary header, content, and greeting are visible.
+ * It also calls the `greetUser` and `showCurrentTasksCount` functions to display the user greeting 
+ * and the current tasks count.
+ *
+ * @returns {void} This function does not return any value, it manipulates the DOM to adjust the layout for desktop view.
+ */
+function summaryDesktop() {
+    let summaryHeadRef = document.getElementById('summary-head');
+    let summaryContentRef = document.getElementById('summary-content');
+    let summaryGreetingRef = document.getElementById('summary-greeting');
+
+    summaryHeadRef.classList.remove('d-none');
+    summaryContentRef.classList.remove('d-none');
+    summaryGreetingRef.classList.remove('d-none');
+    greetUser();
+    showCurrentTasksCount();
 }
 
 /**
@@ -266,7 +320,7 @@ function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
 /**
  * Event listener for resizing the window.
  * This listener calls the `summaryRepresentation()` function whenever the window is resized.
- * The function adjusts the visibility of the imprint content based on the window width.
+ * The function adjusts the visibility of the imprint summary based on the window width.
  * 
  * @listens resize
  */

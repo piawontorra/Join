@@ -10,7 +10,6 @@ const msgBox = document.getElementById('msg-box');
  */
 function initLogin() {
     logoAnimation();
-    includeFooter();
     loadUserCredentials();
     checkRememberMe();
     usersPush();

@@ -43,6 +43,10 @@ a {
   word-wrap: break-word;
 }
 
+.h2-legal-top {
+  padding-top: 0;
+}
+
 .h3-legal {
   font-weight: 700;
   font-size: 24px;
@@ -59,14 +63,21 @@ a {
   word-wrap: break-word;
 }
 
+.spaced {
+  padding-right: 24px;
+}
+
+.spaced-1 {
+  padding-right: 10px;
+}
+
+.spaced-2 {
+  padding-left: 48px;
+}
+
 @media (max-width: 1000px) {
   .h1-legal {
     padding-bottom: 20px;
-  }
-
-  .h2-legal {
-    padding-top: 30px;
-    padding-bottom: 10px;
   }
 
   .h3-legal {
@@ -88,5 +99,13 @@ a {
   .h3-legal {
     font-size: 20px;
     line-height: 20.2px;
+  }
+
+  .spaced {
+    padding-right: 16px;
+  }
+
+  .spaced-2 {
+    padding-left: 32px;
   }
 }
