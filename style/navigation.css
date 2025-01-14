@@ -16,6 +16,7 @@
     align-items: center;
     padding-top: 64px;
     gap: 144px;
+    width: 100%;
 }
 
 .join-logo-menu {
@@ -61,7 +62,8 @@
     height: 317px;
     width: 100%;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
     padding-bottom: 64px;
 }
 
@@ -69,6 +71,7 @@
     color: #CDCDCD;
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .imprint-link {
@@ -90,13 +93,15 @@
 
 .menu-component.active {
     background-color: #091931;
+    color: #FFFFFF;
+    width: 232px;
 }
 
 .btn-imprint-links:hover {
     background-color: #2A3647;
 }
 
-@media (max-width: 1065px){
+@media (max-width: 1065px) {
     .side-menu-content {
         width: 100%;
         height: 80px;
@@ -123,32 +128,53 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 0 64px;
+        padding: 0 15px;
     }
 
     .menu-component {
         flex-direction: column;
-        gap: 5px;
+        gap: 4px;
         padding: 0;
         height: 76px;
         width: 80px;
-        border-radius: 12px;
+        border-radius: 16px;
         display: flex;
         justify-content: center;
         font-family: 'open-sans';
     }
 
-    .menu-component p{
+    .menu-component p {
         font-family: 'open-sans';
+        font-size: 14px;
+        line-height: 16.8px;
+    }
+
+    .menu-component.active {
+        width: 80px;
     }
 
     .imprint-content {
         height: 76px;
         padding-bottom: 0;
+        flex-direction: row;
+        padding-right: 15px;
     }
 
     .imprint-links {
         flex-direction: row;
+    }
+
+    .btn-imprint-links {
+        width: 112px;
+    }
+
+    .btn-imprint-links.active {
+        width: 112px;
+    }
+
+    .imprint-link:hover {
+        color: #CDCDCD;
+        font-weight: 400;
     }
 
     .menu-icon {
@@ -163,7 +189,7 @@
     }
 }
 
-@media (max-width: 450px){
+@media (max-width: 450px) {
     .menu-component {
         font-size: 14px;
     }
@@ -173,8 +199,18 @@
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 376px) {
     .menu-components {
         padding: 0 4px;
+    }
+
+    .btn-imprint-links {
+        width: 80px;
+        padding: 8px;
+    }
+
+    .btn-imprint-links.active {
+        width: 80px;
+        padding: 8px;
     }
 }
