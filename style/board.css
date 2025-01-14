@@ -235,7 +235,6 @@
 
     .board-header {
         padding-left: 24px;
-        padding-right: 250px;
     }
 }
 
@@ -246,6 +245,10 @@
         overflow-x: auto;
         overflow-y: hidden;
         height: calc(100vh - 301.2px);
+    }
+
+    .board-header {
+        padding-right: 250px;
     }
 }
 

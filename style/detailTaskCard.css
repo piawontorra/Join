@@ -26,6 +26,10 @@
     animation: myAnim 1s ease 0s 1 normal forwards;
 }
 
+.task-detail-content.hidden {
+    animation: myAnimOut 1s ease 0s 1 normal forwards;
+}
+
 @keyframes myAnim {
 	0% {
 		opacity: 0;
@@ -36,6 +40,17 @@
 		opacity: 1;
 		transform: translateX(0);
 	}
+}
+
+@keyframes myAnimOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(550px);
+    }
 }
 
 .detail-task-card {

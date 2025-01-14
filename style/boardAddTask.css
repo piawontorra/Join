@@ -21,6 +21,11 @@
     background-color: white;
     border-radius: 30px;
     padding: 80px 74px;
+    animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+.board-add-task-modal.hidden {
+    animation: myAnimOut 1s ease 0s 1 normal forwards;
 }
 
 .board-add-task-section-header {
@@ -124,7 +129,6 @@ select {
     margin-bottom: 13px;
     margin-left: 4px;
     display: block;
-    /* Standardmäßig nicht anzeigen */
 }
 
 .add-task-assigned-to-input-field {

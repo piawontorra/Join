@@ -187,9 +187,13 @@ function openAddTask(status) {
 }
 
 function closeAddTask() {
-  let contentRef = document.getElementById('boardAddTask');
-  
-  contentRef.style.display = 'none';
+  const contentRef = document.getElementById('boardAddTask');
+  const modalContent = contentRef.querySelector('.board-add-task-modal');
+
+  modalContent.classList.add('hidden');
+
+  setTimeout(() => {
+      contentRef.style.display = 'none';
+      modalContent.classList.remove('hidden');
+  }, 800);
 }
-
-

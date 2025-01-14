@@ -16,7 +16,14 @@ async function openTaskDetail(taskId) {
   
 function closeTaskDetail() {
   const modal = document.getElementById('taskDetailModal');
-  modal.style.display = 'none';
+  const content = modal.querySelector('.task-detail-content');
+
+  content.classList.add('hidden');
+
+  setTimeout(() => {
+      modal.style.display = 'none';
+      content.classList.remove('hidden');
+  }, 900);
 }
 
 function handleSubtaskCheckboxChange(event, task, subtaskIndex) {
