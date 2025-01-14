@@ -188,7 +188,7 @@ a {
     }
 
     .section-head {
-        padding: 32px 16px;
+        padding: 32px 16px 112px 16px;
         gap: 16px;
     }
 }
