@@ -23,7 +23,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 239px 79px 16px 79px;
+    padding: 239px 79px 64px 79px;
     gap: 72px;
 }
 
@@ -203,7 +203,7 @@
     }
 
     .summary {
-        padding-top: 184px;
+        padding-top: 152px;
         flex-direction: column-reverse;
     }
 
@@ -247,7 +247,11 @@
     .summary {
         justify-content: center;
         align-items: center;
-        padding: 228px 16px 112px 16px;
+        padding: 112px 16px;
+    }
+
+    .summary-content {
+        padding-top: 104px;
     }
 
     .tab-min-height {
@@ -264,8 +268,12 @@
 }
 
 @media (max-width: 816px) {
-    .summary {
-        padding-top: 233px;
+    #summary-head {
+        padding-bottom: 16px;
+    }
+
+    .summary-content {
+        padding-top: 64px;
     }
 
     .h1-underline-summary {
@@ -275,10 +283,6 @@
 }
 
 @media (max-width: 616px) {
-    .summary-content {
-        gap: 24px;
-    }
-
     .summary-rows {
         width: 396px;
         gap: 24px;
@@ -365,7 +369,7 @@
     }
 
     .summary-rows {
-        width: 300px;
+        width: 288px;
         gap: 12px;
     }
 
