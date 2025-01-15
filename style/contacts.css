@@ -27,8 +27,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     width: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 0 30px 0 30px;
 }
 
 #btn_addNewContact{
@@ -44,32 +43,6 @@
     display: flex;
     justify-content: center;
     align-items: center; 
-}
-
-#btn_addNewContactResponsive{
-    position: absolute;
-    bottom: 190px;
-    right: 8%;
-    width: 56px;
-    aspect-ratio: 1;
-    border: none;
-    background-color: #2A3647;
-    border-radius: 90%;
-    box-shadow: 0px 5px 6px rgb(128 128 128);
-    display: none;
-}
-
-.btn_menuResponsive{
-    display: none;
-    position: absolute;
-    bottom: 190px;
-    right: 8%;
-    border: none;
-    border-radius: 90%;
-    background-color: #2A3647;
-    width: 56px;
-    aspect-ratio: 1;
-    box-shadow: 0px 5px 6px rgb(128 128 128);
 }
 
 #btn_addNewContact img{
@@ -179,26 +152,15 @@
 }
 
 #contactText{
-    height: 70px;
-    width: 100%;
     font-size: 20px;
 }
 
-#contactCardEmail{
+#contactCardEmail, #contactCardPhone, #contactText{
     width: 100%;
     height: 70px;
 }
 
-#contactCardPhone{
-    width: 100%;
-    height: 70px;
-}
-
-#contactPhoneNr{
-    margin-top: 7px;
-}
-
-#contactEmailAdr{
+#contactPhoneNr, #contactEmailAdr{
     margin-top: 7px;
 }
 
@@ -228,24 +190,14 @@
     box-sizing: border-box;
 }
 
-#arrowBack{
-    width: auto;
-    position: absolute;
-    left: calc(100vw - 80px);
-    top: 6%;
-    display: none;
-}
-
 #cardTop{
     width: 100%;
     height: 120px;
-    background-color: aqua;
 }
 
 #cardBottom{
     width: 100%;
     height: auto;
-    background-color: aquamarine;
     flex-grow: 1;
 }
 
@@ -387,8 +339,7 @@
 
 #circleContainer {
     width: calc(10% + 80px);
-    margin-left: 2%;
-    margin-right: 2%;
+    margin: 0 2%;
     display: flex;
     align-items: center;
     max-width: 120px;
@@ -478,10 +429,6 @@
     justify-content: end;
     display: flex;
     padding-bottom: 82px;
-}
-
-#responsiveClose{
-    display: none;
 }
 
 .chosen{

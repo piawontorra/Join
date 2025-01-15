@@ -123,67 +123,6 @@ async function editContact(id){
 }
 
 /**
- * * Fetches user data from the specified database path and logs it to the console.
- * 
- * This function sends a GET request to retrieve all user data from the provided database path
- * and converts the response to JSON format.
- * @param {string} path - The path of the database
- */
-async function getUsers(path){
-  let response = await fetch(BASE_URL + path + ".json");
-  let responseToJson = await response.json();
-}
-
-/**
- * Asynchronously fetches contact data from a given path, sorts the contacts by name,
- * and renders them in the UI.
- *
- * @async
- * @function getContacts
- * @param {string} path - The relative path to fetch contact data from the API.
- * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
- *
- */
-async function getContacts(path) {
-  let response = await fetch(BASE_URL + path + ".json");
-  let contactsJson = await response.json();
-  let contactsArray = [];
-  for (let key in contactsJson){
-    contactsArray.push({id: key, ...contactsJson[key]})
-  }
-  usersArray = contactsArray.sort((current, next) =>
-    current.name > next.name ? 1 : next.name > current.name ? -1 : 0
-  );
-  renderContacts(usersArray);
-}
-
-/**
- * Renders a list of contacts into the "contactsOverview" container in the DOM.
- *
- * @function renderContacts
- * @param {Array<Object>} contacts - An array of contact objects to be rendered.
- * Each contact object should have at least a `name` property.
- * @returns {void}
- *
- */
-function renderContacts(contacts) {
-  document.getElementById("contactsOverview").innerHTML = "";
-  let currentLetter = "";
-  for (let i = 0; i < contacts.length; i++) {
-    if (contacts[i] && contacts[i].name) {
-      let firstLetter = contacts[i].name.charAt(0);
-      let secondLetter = contacts[i].name.charAt(
-        contacts[i].name.indexOf(" ") + 1
-      );
-      if (firstLetter !== currentLetter) {
-        currentLetter = firstLetter;
-        contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
-      }
-      document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts,i,firstLetter,secondLetter);}
-    }
-}
-
-/**
  * opens a contact detail card by adding "open" class. 
  * @param {string} infoboxId the id of the element to open
  * @descripton
@@ -202,6 +141,10 @@ function openContactDetailsCard(infoboxId) {
   }
 }
 
+/**
+ * opens the contact detail container in mobile view
+ * checks if the viewport is < 800
+ */
 function showDetailsResponsive(){
   let contactDetailsContainer = document.getElementById('contactDetailsContainer');
   let wrapperContacts = document.getElementById('wrapperContacts');
@@ -212,6 +155,9 @@ function showDetailsResponsive(){
   }
 }
 
+/**
+ * closes the contact detail container
+ */
 function closeDetailsResponsive(){
   let contactDetailsContainer = document.getElementById('contactDetailsContainer');
   let wrapperContacts = document.getElementById('wrapperContacts');
@@ -261,9 +207,7 @@ async function nextIdToDatabase(nextID){
 /**
  * 
  * deletes a specific entry with the given id in the firebase database
- * close the Detail Card
- * reload the contacts
- * 
+ * close the Detail Card, reload the contacts
  * @param {number} entryId 
  */
 async function deleteContact(entryId) {
@@ -300,6 +244,9 @@ function addBackground(id){
   document.getElementById(`${id}`).classList.add('chosen');;
 }
 
+/**
+ * open up the dialog for new contact form
+ */
 function openDialog(){
   let modal = document.querySelector("[newContactDialog]");
   modal.showModal();
@@ -309,6 +256,9 @@ function openDialog(){
   renderNewContactForm();
 }
 
+/**
+ * renders the new contact form into the dialog
+ */
 function renderNewContactForm() {
   const container = document.getElementById('contactDialog');
   container.innerHTML = newContactTemplate();
@@ -324,6 +274,11 @@ function renderNewContactForm() {
   } 
 }
 
+/**
+ * open up the edit dialog for editing contact informations
+ * @param {array} user 
+ * @param {string} id 
+ */
 function openEditDialog(user, id) {
   const modal = document.querySelector("[editContactDialog]");
   modal.showModal();
@@ -333,6 +288,10 @@ function openEditDialog(user, id) {
   renderEditContactForm(user, id);
 }
 
+/**
+ * open up the a dialog in mobile view for further funtions
+ * functions: edit and delete
+ */
 function openMenuDialog(){
   let modal = document.getElementById('moreResponsive');
   modal.classList.remove('closed');
@@ -341,6 +300,9 @@ function openMenuDialog(){
   }, 10);
 }
 
+/**
+ * close the more options dialog in mobile view
+ */
 function closeMoreDialog() {
   let modal = document.getElementById('moreResponsive');
   document.removeEventListener('click', outsideClickHandler);
@@ -349,6 +311,11 @@ function closeMoreDialog() {
   }, 400);
 }
 
+/**
+ * Checks if a click event occurs outside the dialog
+ * if the event is detected, the dialog closes 
+ * @param {click} event 
+ */
 function outsideClickHandler(event) {
   let modal = document.getElementById('moreResponsive');
   let rect = modal.getBoundingClientRect();
@@ -362,6 +329,11 @@ function outsideClickHandler(event) {
     }
 }
 
+/**
+ * renders the edit contact form into modal and validate the user inputs
+ * @param {array} user 
+ * @param {string} id 
+ */
 function renderEditContactForm(user, id) {
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user, id);
@@ -376,6 +348,10 @@ function renderEditContactForm(user, id) {
   }
 }
 
+/**
+ * closes the new contact or edit contact dialog 
+ * @param {string} dialogSelector 
+ */
 function closeDialog(dialogSelector) {
   const modal = document.querySelector(dialogSelector);
   modal.classList.remove('open');
@@ -384,6 +360,9 @@ function closeDialog(dialogSelector) {
   }, 500);
 }
 
+/**
+ * removes the closed class to showup the dialog
+ */
 function removeClosed(){
   let contactDetails = document.getElementById('contactCard');
   contactDetails.classList.remove('infoboxClosed');
