@@ -1,0 +1,259 @@
+@media (max-width: 1150px) {
+    .board-add-task-modal {
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .board-add-task-overlay {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .board-add-task-content {
+        display: block;
+        padding-bottom: 76px;
+        width: 100vw;
+        height: calc(100vh - 180px);
+    }
+
+    .board-add-task-modal {
+        border-radius: 0px;
+        height: calc(100vh - 170px);
+        max-width: 1024px;
+        padding: 0 16px;
+    }
+
+    .board-add-task-section-header {
+        padding-top: 34px;
+        padding-bottom: 34px;
+    }
+
+    .add-task-form {
+        flex-direction: column;
+        gap: 0px;
+        max-height: 910px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        padding-left: 1px;
+        padding-right: 1px;
+    }
+
+    .add-task-form-seperator {
+        display: none;
+    }
+
+    .add-task-form-bottom {
+        position: fixed;
+        right: 16px;
+        bottom: 97px;
+        padding-left: 32px;
+    }
+
+    .edit-images {
+        display: flex;
+    }
+}
+
+@media (max-width: 900px) {
+    .add-task-form {
+        max-height: 710px;
+    }
+
+    .board-add-task-overlay {
+        height: calc(100% - 160px);
+        margin-top: 80px;
+        z-index: 8;
+    }
+}
+
+@media (max-width: 800px) {
+    .add-task-form {
+        max-height: 600px;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-task-form {
+        max-height: 300px;
+    }
+
+    .add-task-form-left {
+        width: 100%;
+        max-width: 396px;
+    }
+
+    .add-task-form-right {
+        width: 100%;
+        max-width: 396px;
+    }
+
+    .add-task-form p {
+        font-size: 16px;
+    }
+
+    .add-task-input-headline {
+        font-size: 16px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    .add-task-input-fields {
+        font-size: 16px;
+    }
+
+    .prio-button {
+        width: 112px;
+    }
+
+    .info-line {
+        display: none;
+    }
+
+    .info-line-mobile {
+        display: flex;
+        padding-bottom: 88px;
+    }
+
+    .add-task-form-bottom {
+        padding-left: 110px;
+        padding-top: 8px;
+        right: 0;
+        background-color: white;
+    }
+
+    .add-subtask-buttons {
+        top: 37px !important;
+    }
+
+    .padding-top-six {
+        padding-top: 6px;
+    }
+}
+
+@media (max-width: 431px) {
+    .prio-button {
+        font-size: 16px;
+    }
+
+    .add-task-assigned-to-input-field {
+        font-size: 16px;
+    }
+
+    .contact-name {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 414px) {
+    .board-add-task-overlay {
+        z-index: 0;
+    }
+
+    .board-add-task-section-header {
+        padding-top: 8px;
+        padding-bottom: 16px;
+    }
+
+    .add-task-input-fields {
+        max-width: 390px;
+        width: 100%;
+    }
+
+    .add-task-form-bottom {
+        padding-left: 104px;
+        right: 16px;
+        height: 80px;
+        bottom: 76px;
+    }
+
+    .created-subtasks-container {
+        scrollbar-width: none;
+    }
+
+    .clear-task-btn {
+        width: 111px;
+        height: 59px;
+    }
+
+    .create-task-btn {
+        width: 181px;
+        height: 59px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 40px;
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 390px) {
+    .add-task-form-bottom {
+        padding-left: 82px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 100px;
+    }
+}
+
+@media (max-width: 375px) {
+    .board-add-task-section-header {
+        padding-top: 8px;
+        padding-bottom: 16px;
+    }
+
+    .clear-task-btn {
+        font-size: 16px;
+        justify-content: center;
+        width: 96px;
+        height: 50px;
+    }
+
+    .create-task-btn {
+        font-size: 16px;
+        justify-content: center;
+        width: 157px;
+        height: 50px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 272px;
+    }
+
+    .add-task-form-bottom {
+        padding-left: 106px;
+    }
+
+    .add-task-finish-buttons {
+        align-items: center;
+    }
+}
+
+@media (max-width: 350px) {
+    .add-task-form-bottom {
+        padding-left: 56px;
+    }
+
+    .board-add-task-section-header h1 {
+        font-size: 36px;
+    }
+
+    .add-task-close-btn {
+        padding-top: 8px;
+    }
+
+    .add-task-input-fields {
+        max-width: 280px;
+    }
+
+    .info-line-mobile {
+        padding-bottom: 332px;
+        padding-top: 16px;
+    }
+
+    .prio-button {
+        width: 90px;
+    }
+}

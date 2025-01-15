@@ -104,7 +104,7 @@
 .no-tasks-found-message {
     color: red;
     font-size: 12px;
-    display: block; /* Standardmäßig nicht anzeigen */
+    display: block;
     padding-top: 4px;
     position: fixed;
 }
@@ -114,12 +114,10 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-
     background-color: #2A3647;
     color: white;
     font-size: 21px;
     font-weight: 500;
-
     width: 160px;
     height: 48px;
     border-radius: 10px;
