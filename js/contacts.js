@@ -208,7 +208,6 @@ function showDetailsResponsive(){
   let contactCard = document.getElementById('contactCard')
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
     contactDetailsContainer.style.display = "block";
-    // wrapperContacts.style.display = "none";
     contactCard.classList.add("open");
   }
 }
@@ -220,7 +219,6 @@ function closeDetailsResponsive(){
 
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
     contactDetailsContainer.style.display = "none";
-    // wrapperContacts.style.display = "flex";
     contactCard.classList.remove("open");
   }
 }
@@ -384,4 +382,9 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
+}
+
+function removeClosed(){
+  let contactDetails = document.getElementById('contactCard');
+  contactDetails.classList.remove('infoboxClosed');
 }
