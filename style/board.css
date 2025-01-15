@@ -295,8 +295,8 @@
         flex-direction: column;
         padding: 0 16px;
         padding-left: 10px;
-        gap: 8px;
-        height: 1500px;
+        gap: 16px;
+        height: 100%;
         min-width: unset;
     }
 
@@ -304,7 +304,7 @@
         display: flex;
         align-items: flex-start;
         gap: 8px;
-        height: 400px;
+        height: auto;
     }
 
     .task-header {
@@ -323,6 +323,7 @@
         overflow-y: hidden;
         overflow-x: auto;
         width: 100vw;
+        height: 100%;
     }
 }
 
@@ -391,5 +392,9 @@
 
     .board-categorys {
         padding-left: 10px;
+    }
+
+    .done-tasks-content {
+        padding-bottom: 32px;
     }
 }
