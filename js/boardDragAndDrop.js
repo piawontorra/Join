@@ -15,6 +15,13 @@ function hideAllNoTasksMessages() {
   });
 }
 
+function showAllNoTasksMessages() {
+  const noTasksMessages = document.querySelectorAll('.no-tasks-message');
+  noTasksMessages.forEach(message => {
+      message.style.display = 'flex';
+  });
+}
+
 function highlightDropTargets(taskId) {
   const task = findTaskById(taskId);
   if (task) {
@@ -71,7 +78,8 @@ function dropTask(event, newStatus) {
   Object.keys(statusContainers).forEach(status => {
     checkAndUpdateNoTasksMessage(statusContainers[status]);
   });
-  resetContainerHighlight(event);
+
+  showAllNoTasksMessages();
 }
 
 function checkAndUpdateNoTasksMessage(container) {
@@ -107,13 +115,6 @@ function getReadableStatus(statusId) {
         done: "Done",
     };
     return statusMapping[statusId];
-}
-
-function resetContainerHighlight(event) {
-  const targetContainer = event.target.closest('.task-content-split');
-  if (targetContainer) {
-      targetContainer.style.backgroundColor = '';
-  }
 }
   
 function moveTaskCardInDOM(taskId, newStatus) {
