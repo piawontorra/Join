@@ -335,30 +335,24 @@ function openEditDialog(user, id) {
   renderEditContactForm(user, id);
 }
 
-
-
-
-
-function openMoreDialog() {
-  let modal = document.querySelector('#moreResponsive');
-  modal.showModal();
-  modal.classList.add('open');
+function openMenuDialog(){
+  let modal = document.getElementById('moreResponsive');
+  modal.classList.remove('closed');
   setTimeout(() => {
     document.addEventListener('click', outsideClickHandler);
-  }, 0);
+  }, 10);
 }
 
 function closeMoreDialog() {
-  let modal = document.querySelector('#moreResponsive');
-  modal.classList.remove('open');
+  let modal = document.getElementById('moreResponsive');
   document.removeEventListener('click', outsideClickHandler);
   setTimeout(() => {
-    modal.close();
+    modal.classList.add('closed');
   }, 400);
 }
 
 function outsideClickHandler(event) {
-  let modal = document.querySelector('#moreResponsive');
+  let modal = document.getElementById('moreResponsive');
   let rect = modal.getBoundingClientRect();
     if (
       event.clientX < rect.left ||
@@ -369,10 +363,6 @@ function outsideClickHandler(event) {
       closeMoreDialog();
     }
 }
-
-
-
-
 
 function renderEditContactForm(user, id) {
   const container = document.getElementById('editContactDialog');
@@ -395,8 +385,3 @@ function closeDialog(dialogSelector) {
     modal.close();
   }, 500);
 }
-
-// function openResponsiveDialog(){
-//   let modal = document.querySelector('#responsiveContactDialog');
-//   modal.showModal();
-// 

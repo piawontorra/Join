@@ -52,7 +52,19 @@ function contactCardDetailsTemplate(id, contact) {
                     <p>Phone</p>
                     <div id="contactPhoneNr">${contact.phone || "no phone number available"}</div>
                 </div>
-                <button class="btn_menuResponsive" onclick="openMoreDialog()"><img src="assets/img/more_vert.svg" alt=""></button>
+                <div id="buttonMenuContainer">
+                    <button class="btn_menuResponsive" onclick="openMenuDialog()"><img src="assets/img/more_vert.svg" alt=""></button>
+                    <div id="moreResponsive" class="closed">
+                        <div id="edit" onclick="openEditDialog(currentUser, ${id})">
+                            <img src="assets/img/edit_icon.svg" alt="Image edit">
+                            <span>Edit</span>
+                        </div>
+                        <div id="delete" onclick="deleteContact(${contact.id})">
+                            <img src="assets/img/delete_icon.svg" alt="Image delete">
+                            <span>Delete</span>
+                        </div>
+                    </div>
+                </div>
             </div>
     `;
 }
@@ -92,7 +104,7 @@ function newContactTemplate() {
                             <img src="./assets/img/mail_icon.png" alt="">
                         </div>
                         <div class="inputField">
-                            <input type="tel" id="newUserPhone" placeholder="Phone" required>
+                            <input type="number" id="newUserPhone" placeholder="Phone" required>
                             <img src="./assets/img/phone_icon.png" alt="">
                         </div>
                     </form>
@@ -144,16 +156,13 @@ function editContactTemplate(user, id){
                               <img src="./assets/img/mail_icon.png" alt="">
                           </div>
                           <div class="inputField">
-                              <input type="tel" id="newUserPhone" placeholder="Phone" value="${user[0].phone  || ''}" required>
+                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user[0].phone  || ''}" required>
                               <img src="./assets/img/phone_icon.png" alt="">
                           </div>
                       </form>
                   </div>
               </div>
               <div id="btnContainer">
-                <!-- <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
-                <button id="btnCreate" class="create-task-btn" type="button" onclick="editContact(${user[0].userId})">Save<img src="./assets/img/check_icon.png" alt=""></button> -->
-
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
                 <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Save<img src="./assets/img/check_icon.png" alt=""></button>
               </div>

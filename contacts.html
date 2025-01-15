@@ -30,16 +30,6 @@
         <dialog newContactDialog id="contactDialog" onshow="renderNewContactForm()" class="dialogDesktop dialogNorm"></dialog>
         <dialog editContactDialog id="editContactDialog" class="dialogDesktop dialogNorm"></dialog>
         <dialog id="responsiveContactDialog"></dialog>
-        <dialog id="moreResponsive">
-            <div id="edit" onclick="openEditDialog(currentUser, ${id})">
-              <img src="assets/img/edit_icon.svg" alt="Image edit">
-              <span>Edit</span>
-            </div>
-            <div id="delete" onclick="deleteContact(${contact.id})">
-              <img src="assets/img/delete_icon.svg" alt="Image delete">
-              <span>Delete</span>
-            </div>
-        </dialog>
       <div id="statusAlert" class="">Contact succesfull created</div>
       <div w3-include-html="./assets/templates/header.html"></div>
       <div id="contactDetails" class="max-width contacts-fixed">
