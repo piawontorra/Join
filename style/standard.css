@@ -5,6 +5,11 @@
     font-family: 'Inter';
 }
 
+body {
+    width: 100%;
+    background-color: #F6F7F8;
+}
+
 @font-face {
     font-family: 'Inter';
     src: url('../assets/fonts/inter.ttf') format('truetype');
@@ -28,16 +33,6 @@
 .max-width-calced {
     max-width: 1208px;
     width: 100%;
-}
-
-.max-width-calculated {
-    max-width: 1208px;
-    /* für help, Legal Notice und Privacy Policy ohne width: 100% nötig!!! */
-}
-
-body {
-    width: 100%;
-    background-color: #F6F7F8;
 }
 
 .content {
@@ -104,6 +99,12 @@ a {
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
+    width: 100%;
+    position: fixed;
+    top: 96px;
+    left: 232px;
+    z-index: 8;
+    background-color: #F6F7F8;
 }
 
 .btn {
@@ -151,6 +152,10 @@ a {
     color: #ff8190;
 }
 
+.max-width-calculated {
+    max-width: 1208px;
+}
+
 .width32 {
     width: 32px;
 }
@@ -188,8 +193,10 @@ a {
     }
 
     .section-head {
-        padding: 32px 16px 112px 16px;
+        padding: 32px 16px;
         gap: 16px;
+        top: 80px;
+        left: 0;
     }
 }
 

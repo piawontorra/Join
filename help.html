@@ -22,13 +22,15 @@
 
     <main>
       <div w3-include-html="./assets/templates/header.html"></div>
-      <div class="max-width-calculated content-fixed section-head">
-        <div>
+      <div class="max-width-calculated content-fixed">
+        <div class="section-head legal-head">
           <div class="headline">
             <h1 class="h1-legal">Help</h1>
             <img class="btn return-btn return-btn-help" src="assets/img/arrow_left_icon.png" alt="back"
               onclick="window.history.go(-1); return false;">
           </div>
+        </div>
+        <div class="legal-body">
           <p class="p-legal">Welcome to the help page for <span class="name-highlight">Join</span>, your guide to using
             our kanban project management tool.
             Here, we’ll provide an overview of what <span class="name-highlight">Join</span> is, how it can benefit you,
@@ -95,4 +97,9 @@
 
           <h2 class="h2-legal">Enjoy using Join!</h2>
         </div>
+      </div>
     </main>
+  </div>
+</body>
+
+</html>
