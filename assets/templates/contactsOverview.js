@@ -2,7 +2,7 @@ let currentUser = [];
 
 function overviewTemplate(contacts, i, firstLetter, secondLetter) {
   return `
-            <div id="${i}" class="singleEntry" onclick="removeClosed(),  contactDetailCard(id), addBackground(id)">
+            <div id="${i}" class="singleEntry" onclick="removeClosed(), showDetailsResponsive(), contactDetailCard(id), addBackground(id)">
                 <div class="userInitialsOverview" style="background-color: ${contacts[i].userColor};">${firstLetter}${secondLetter}</div>    
                 <div>
                     <div id="entryInfoName">${contacts[i].name}</div>
