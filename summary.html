@@ -20,12 +20,15 @@
 
 <body onload="initSummary()">
     <div class="content">
-
         <div w3-include-html="./assets/templates/navigation.html"></div>
 
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
+
             <div class="content-fixed flex summary-page" id="section-min-height">
+                <div class="landscape-message d-none" id="landscape-message">
+                    <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+                </div>
 
                 <div class="section-head max-width-calced" id="summary-head">
                     <h1>Join 360</h1>

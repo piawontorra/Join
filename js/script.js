@@ -332,3 +332,43 @@ function logoutGuest() {
     unloggedIconRef.classList.remove('d-none');
     sessionStorage.removeItem('guestUser');
 }
+
+/**
+ * Initializes the orientation change listener and adjusts the layout based on the device's orientation.
+ * This function runs on DOMContentLoaded and ensures that the layout is adjusted properly when the page is loaded.
+ * 
+ * @returns {void} This function doesn't return any value, it sets up event listeners and adjusts the layout.
+ */
+function initializeOrientationListener() {
+    window.addEventListener("orientationchange", function () {
+        adjustLayoutForOrientation();
+    });
+
+    adjustLayoutForOrientation();
+}
+
+/**
+ * Adjusts the layout based on the current device orientation.
+ * If the device is in landscape mode (width > height) and the screen width is less than 1065px,
+ * it will display a message prompting the user to rotate the device to portrait mode.
+ * If the screen width is larger than 1065px or the device is in portrait mode, 
+ * the landscape message will be hidden.
+ * 
+ * @returns {void} This function does not return any value, it manipulates the DOM to show or hide the landscape message.
+ */
+function adjustLayoutForOrientation() {
+    const landscapeMessage = document.getElementById('landscape-message');
+
+    if (!landscapeMessage) {
+        return;
+    }
+
+    if (landscapeMessage) {
+        if (window.innerWidth < 1065) {
+            window.innerWidth > window.innerHeight ? landscapeMessage.classList.remove('d-none') : landscapeMessage.classList.add('d-none');
+        }
+        else {
+            landscapeMessage.classList.add('d-none');
+        }
+    }
+}

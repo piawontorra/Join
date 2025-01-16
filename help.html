@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join</title>
   <script src="./js/include.js"></script>
+  <script src="./js/initPortraitMode.js"></script>
   <script src="./js/script.js"></script>
   <script src="./js/navigation.js"></script>
   <link rel="stylesheet" href="./style/style.css">
@@ -16,7 +17,7 @@
   <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="includeHTML();">
+<body onload="includeHTML(), initPortraitMode()">
   <div class="content">
     <div w3-include-html="./assets/templates/navigation.html"></div>
 
@@ -29,6 +30,9 @@
             <img class="btn return-btn return-btn-help" src="assets/img/arrow_left_icon.png" alt="back"
               onclick="window.history.go(-1); return false;">
           </div>
+        </div>
+        <div class="landscape-message d-none" id="landscape-message">
+          <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
         </div>
         <div class="legal-body">
           <p class="p-legal">Welcome to the help page for <span class="name-highlight">Join</span>, your guide to using

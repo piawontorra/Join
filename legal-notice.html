@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join</title>
   <script src="./js/include.js"></script>
+  <script src="./js/initPortraitMode.js"></script>
   <script src="./js/script.js"></script>
   <script src="./js/navigation.js"></script>
   <link rel="stylesheet" href="./style/style.css" />
@@ -16,7 +17,7 @@
   <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
-<body onload="includeHTML();">
+<body onload="includeHTML(), initPortraitMode()">
   <div class="content">
     <div w3-include-html="./assets/templates/navigation.html"></div>
 
@@ -27,6 +28,9 @@
           <div class="headline">
             <h1 class="h1-legal">Legal Notice</h1>
           </div>
+        </div>
+        <div class="landscape-message d-none" id="landscape-message">
+          <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
         </div>
         <div class="legal-body">
           <h2 class="h2-legal h2-legal-top">Imprint</h2>
@@ -96,6 +100,23 @@
       </div>
     </main>
   </div>
+
+  <script>
+    /**
+   * Initializes the orientation change listener and adjusts the layout based on the device's orientation.
+   * This function runs on DOMContentLoaded and ensures that the layout is adjusted properly when the page is loaded.
+   * 
+   * @returns {void} This function doesn't return any value, it sets up event listeners and adjusts the layout.
+   */
+    function initializeOrientationListener() {
+      window.addEventListener("orientationchange", function () {
+        adjustLayoutForOrientation();
+      });
+
+      adjustLayoutForOrientation();
+    }
+  </script>
+
 </body>
 
 </html>

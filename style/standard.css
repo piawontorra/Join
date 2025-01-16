@@ -103,7 +103,7 @@ a {
     position: fixed;
     top: 96px;
     left: 232px;
-    z-index: 8;
+    z-index: 300;
     background-color: #F6F7F8;
 }
 
@@ -214,5 +214,32 @@ a {
     .btn {
         font-size: 16px;
         line-height: 19.2px;
+    }
+}
+
+@media (orientation: landscape) {
+    body {
+        overflow: hidden;
+        background-color: #F6F7F8;
+    }
+
+    .landscape-message {
+        z-index: 500;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 152px);
+        width: 100%;
+        background-color: #FFFFFF;
+    }
+
+    .device-portrait {
+        font-size: 20px;
+        line-height: 24.4px;
+        font-weight: 400;
+        text-align: center;
+        color: #2A3647;
+        padding: 16px;
     }
 }
