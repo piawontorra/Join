@@ -6,12 +6,12 @@
 async function openTaskDetail(taskId) {
   taskId = Number(taskId);
   const task = tasksData.find(t => t.id === taskId);
-  
+
   if (!task) {
     console.warn(`Aufgabe mit ID "${taskId}" nicht gefunden.`);
     return;
   }
-  
+
   const detailHTML = await getDetailTaskCardTemplate(task);
   document.getElementById('taskDetail').innerHTML = detailHTML;
 
@@ -44,7 +44,7 @@ function closeTaskDetail() {
 function handleSubtaskCheckboxChange(event, task, subtaskIndex) {
   const isChecked = event.target.checked;
   task.subtasks[subtaskIndex].completed = isChecked;
-  
+
   updateSubtaskInFirebase(task.id, subtaskIndex, isChecked);
   updateProgressBar(task);
 }
@@ -160,7 +160,7 @@ function updateLocalDataAfterDeletion(taskId, taskStatus) {
 
   const statusContainers = getStatusContainers();
   if (statusContainers && statusContainers[taskStatus]) {
-      addNoTasksMessage(statusContainers[taskStatus]);
+      addNoTasksMessage(statusContainers);
   }
 }
 
