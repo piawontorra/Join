@@ -1,7 +1,3 @@
-/**
- * The currently edited task object.
- * @type {Object|null}
- */
 let currentTask = null;
 
 /**

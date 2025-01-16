@@ -21,7 +21,9 @@
     <script src="./js/addTask.js"></script>
     <script src="./js/addTaskSubtask.js"></script>
     <script src="./js/addTaskClearAndValidate.js"></script>
+    <script src="./js/addTaskAssignedTo.js"></script>
     <script src="./js/addTaskTemplate.js"></script>
+    <script src="./js/initPortraitMode.js"></script>
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/taskcard.css">
@@ -43,6 +45,9 @@
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
             <div class="board-content max-width">
+                <div class="landscape-message d-none" id="landscape-message">
+                    <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+                </div>
                 <div class="board-header">
                     <h1>Board</h1>
                     <div class="board-header-right">
