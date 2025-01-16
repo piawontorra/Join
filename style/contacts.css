@@ -491,3 +491,7 @@ Dialog.dialogNorm.open {
 dialog.contactDialog{
     width: 396px;
 }
+
+.landscape-message{
+    height: 100vh;
+}

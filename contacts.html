@@ -12,6 +12,7 @@
   <script src="./js/contacts.js"></script>
   <script src="./js/summary.js"></script>
   <script src="./js/addTask.js"></script>
+  <script src="./js/initPortraitMode.js"></script>
   <script src="./assets/templates/contactsOverview.js"></script>
   <link rel="stylesheet" href="./style/style.css" />
   <link rel="stylesheet" href="./style/board.css" />
@@ -25,7 +26,7 @@
   <link rel="icon" href="./assets/img/join_logo_login.png" />
 </head>
 
-<body onload="initContacts()">
+<body onload="initContacts(), initPortraitMode()">
   <div class="content">
     <div w3-include-html="./assets/templates/navigation.html"></div>
     <main>
@@ -34,6 +35,9 @@
         <dialog id="responsiveContactDialog"></dialog>
       <div id="statusAlert" class="">Contact succesfull created</div>
       <div w3-include-html="./assets/templates/header.html"></div>
+      <div class="landscape-message d-none" id="landscape-message">
+        <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+      </div>
       <div id="contactDetails" class="max-width contacts-fixed">
         <div id="wrapperContacts">
           <div id="btn_addNewContact" onclick="openDialog()"; data-infobox="contactCard">Add new contact<img src="assets/img/add_contact_icon.png" alt="Add Contact Icon" /></div>
