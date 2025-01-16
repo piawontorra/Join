@@ -269,6 +269,12 @@
     }
 }
 
+@media (max-width: 400px){
+    #contactsOverview {
+        padding: 0 10px 0 10px;
+    }
+}   
+
 @media (max-width: 360px){
     #span_contacts{
         font-size: 50px;
