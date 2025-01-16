@@ -25,6 +25,7 @@ async function initAddTask() {
     includeHTML();
     initializeCategory();
     await loadData();
+    initPortraitMode();
 }
 
 /**
