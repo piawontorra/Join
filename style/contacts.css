@@ -487,3 +487,7 @@ Dialog.dialogNorm.open {
 .infoboxClosed{
     transform: translateX(100vw);
 }
+
+dialog.contactDialog{
+    width: 396px;
+}

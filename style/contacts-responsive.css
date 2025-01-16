@@ -257,6 +257,18 @@
     #contactCard{
         height: 326px;
     }
+
+    #newContactFormContainer{
+        width: 100%;
+    }
+
+    #newContactContent{
+        width: 100%;
+    }
+
+    #addContactHeaderContainer{
+        min-width: 0;
+    }
 }
 
 @media (max-width: 428px){
