@@ -1,3 +1,17 @@
+/**
+ * Generates the HTML for a task card to be displayed on the task board.
+ * @async
+ * @param {Object} task - The task object containing the necessary data.
+ * @param {number} task.id - The unique ID of the task.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.priority - The priority level of the task (e.g., "Urgent", "Medium", "Low").
+ * @param {string} task.category - The category of the task (e.g., "User Story", "Technical Task").
+ * @param {Array<Object>} [task.assignedTo] - The list of users assigned to the task.
+ * @param {Array<Object>} [task.subtasks] - The list of subtasks associated with the task.
+ * @param {boolean} task.subtasks[].completed - Whether a subtask is completed.
+ * @returns {Promise<string>} The HTML string for the task card.
+ */
 async function getTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
@@ -68,6 +82,25 @@ async function getTaskCardTemplate(task) {
             </div>`;
 }
 
+/**
+ * Generates the HTML for a detailed task card to be displayed in a modal or detail view.
+ * @async
+ * @param {Object} task - The task object containing detailed information.
+ * @param {number} task.id - The unique ID of the task.
+ * @param {string} task.title - The title of the task.
+ * @param {string} [task.description] - The description of the task.
+ * @param {string} [task.priority] - The priority level of the task (e.g., "Urgent", "Medium", "Low").
+ * @param {string} [task.category] - The category of the task (e.g., "User Story", "Technical Task").
+ * @param {string} [task.dueDate] - The due date of the task.
+ * @param {Array<Object>} [task.assignedTo] - The list of users assigned to the task.
+ * @param {string} task.assignedTo[].name - The name of the assigned user.
+ * @param {string} task.assignedTo[].color - The color associated with the assigned user.
+ * @param {string} task.assignedTo[].initials - The initials of the assigned user.
+ * @param {Array<Object>} [task.subtasks] - The list of subtasks associated with the task.
+ * @param {string} task.subtasks[].text - The text of the subtask.
+ * @param {boolean} task.subtasks[].completed - Whether a subtask is completed.
+ * @returns {Promise<string>} The HTML string for the detailed task card.
+ */
 async function getDetailTaskCardTemplate(task) {
     let icon = priorityIcons[task.priority];
 
@@ -153,6 +186,11 @@ async function getDetailTaskCardTemplate(task) {
     `;
 }
 
+/**
+ * Generates the HTML template for displaying a message when there are no tasks in a given status.
+ * @param {string} status - The status of the tasks (e.g., "To Do", "In Progress", "Done").
+ * @returns {string} The HTML string for the "no tasks" message.
+ */
 function getNoTasksTemplate(status) {
     return `
         <div class="no-tasks-message">
@@ -161,6 +199,17 @@ function getNoTasksTemplate(status) {
     `;
 }
 
+/**
+ * Generates the HTML template for the task editor form, allowing users to edit task details.
+ * 
+ * @param {Object} task - The task object containing the details to populate the editor form.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.dueDate - The due date of the task in dd/mm/yyyy format.
+ * @param {string} task.priority - The priority level of the task (e.g., "Urgent", "Medium", "Low").
+ * @param {Array} task.assignedTo - List of users assigned to the task.
+ * @returns {string} The HTML string for the task editor form.
+ */
 function getTaskEditorTemplate(task) {
     return `
         <form id="add-task-form">
@@ -258,6 +307,14 @@ function getTaskEditorTemplate(task) {
     `;
 }
 
+/**
+ * Generates the HTML template for a subtask item in the task editor, allowing users to edit or delete the subtask.
+ * 
+ * @param {Object} subtask - The subtask object to populate the subtask editor template.
+ * @param {string} subtask.text - The text description of the subtask.
+ * @param {number} i - The index of the subtask, used to create unique identifiers for elements.
+ * @returns {string} The HTML string for the subtask editor item, including edit and delete icons.
+ */
 function getEditorSubtaskTemplate(subtask, i) {
     return `
         <div class="subtask-list" id="mainSubtask-container${i}">
@@ -276,6 +333,12 @@ function getEditorSubtaskTemplate(subtask, i) {
         </div>`;
 }
 
+/**
+ * Generates the HTML template for the subtask edit icons, allowing users to delete or mark the subtask as complete.
+ * 
+ * @param {number} i - The index of the subtask, used to create unique identifiers for elements.
+ * @returns {string} The HTML string for the subtask edit icons, including delete and check icons.
+ */
 function editEditorSubtaskHTML(i) {
     return `
         <div class="edit-icons">
@@ -287,6 +350,16 @@ function editEditorSubtaskHTML(i) {
         </div>`;
 }
 
+/**
+ * Generates the HTML template for the assigned user section in the task editor, including a checkbox to select the user.
+ * 
+ * @param {Object} contact - The contact information for the user.
+ * @param {string} contact.userId - The unique ID of the user.
+ * @param {string} contact.name - The name of the user.
+ * @param {string} contact.userColor - The background color for the user's initials.
+ * @param {boolean} isChecked - Indicates whether the user is currently selected (checked) or not.
+ * @returns {string} The HTML string for the assigned user section, including a checkbox.
+ */
 function getEditorAssignedToTemplate(contact, isChecked) {
     let initials = getInitials(contact.name);
     let userClass = isChecked ? 'user selected' : 'user';
@@ -309,9 +382,3 @@ function getEditorAssignedToTemplate(contact, isChecked) {
         </div>
     `;
 }
-
-
-
-
-
-

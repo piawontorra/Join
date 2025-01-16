@@ -1,13 +1,26 @@
+/**
+ * Initiates the drag operation for a task.
+ * 
+ * @param {string} taskId - The ID of the task being dragged.
+ */
 function dragTask(taskId) {
   setDraggedElement(taskId);
   hideAllNoTasksMessages();
   highlightDropTargets(taskId);
 }
 
+/**
+ * Sets the ID of the currently dragged element.
+ * 
+ * @param {string} taskId - The ID of the dragged task.
+ */
 function setDraggedElement(taskId) {
   draggedElementId = taskId;
 }
 
+/**
+ * Hides all "No Tasks" messages in the UI.
+ */
 function hideAllNoTasksMessages() {
   const noTasksMessages = document.querySelectorAll('.no-tasks-message');
   noTasksMessages.forEach(message => {
@@ -15,6 +28,9 @@ function hideAllNoTasksMessages() {
   });
 }
 
+/**
+ * Displays all "No Tasks" messages in the UI.
+ */
 function showAllNoTasksMessages() {
   const noTasksMessages = document.querySelectorAll('.no-tasks-message');
   noTasksMessages.forEach(message => {
@@ -22,6 +38,11 @@ function showAllNoTasksMessages() {
   });
 }
 
+/**
+ * Highlights the drop targets for the dragged task, excluding its current status.
+ * 
+ * @param {string} taskId - The ID of the dragged task.
+ */
 function highlightDropTargets(taskId) {
   const task = findTaskById(taskId);
   if (task) {
@@ -29,10 +50,21 @@ function highlightDropTargets(taskId) {
   }
 }
 
+/**
+ * Finds a task by its ID.
+ * 
+ * @param {string} taskId - The ID of the task.
+ * @returns {object|null} The task object if found, otherwise null.
+ */
 function findTaskById(taskId) {
   return Object.values(tasksData).find(task => task.id === taskId);
 }
 
+/**
+ * Highlights all status containers except the one corresponding to the current task's status.
+ * 
+ * @param {string} currentStatus - The current status of the task.
+ */
 function highlightContainersExceptCurrent(currentStatus) {
   const statusContainers = getStatusContainers();
   statusOrder.forEach(status => {
@@ -44,11 +76,21 @@ function highlightContainersExceptCurrent(currentStatus) {
       }
   });
 }
-  
+
+/**
+ * Allows the drop operation by preventing the default dragover behavior.
+ * 
+ * @param {DragEvent} event - The drag event.
+ */
 function allowDrop(event) {
   event.preventDefault();
 }
-  
+
+/**
+ * Displays a dashed box in the specified container to indicate a valid drop target.
+ * 
+ * @param {HTMLElement} container - The container element.
+ */
 function showDashedBox(container) {
   const dashedBox = document.createElement('div');
   dashedBox.className = 'dashed-box';
@@ -58,12 +100,21 @@ function showDashedBox(container) {
   dashedBox.dataset.dashedBox = 'true';
   container.appendChild(dashedBox);
 }
-  
+
+/**
+ * Removes all dashed boxes from the UI.
+ */
 function removeAllDashedBoxes() {
   const dashedBoxes = document.querySelectorAll('.dashed-box');
   dashedBoxes.forEach(box => box.remove());
 }
-  
+
+/**
+ * Handles the drop operation for a task, updating its status and DOM location.
+ * 
+ * @param {DragEvent} event - The drop event.
+ * @param {string} newStatus - The new status of the task.
+ */
 function dropTask(event, newStatus) {
   event.preventDefault();
   
@@ -82,6 +133,11 @@ function dropTask(event, newStatus) {
   showAllNoTasksMessages();
 }
 
+/**
+ * Checks if a status container has no tasks and updates the "No Tasks" message accordingly.
+ * 
+ * @param {HTMLElement} container - The container element.
+ */
 function checkAndUpdateNoTasksMessage(container) {
     const taskCards = container.querySelectorAll('.task-card');
 
@@ -92,6 +148,11 @@ function checkAndUpdateNoTasksMessage(container) {
     }
 }
 
+/**
+ * Adds a "No Tasks" message to the specified container.
+ * 
+ * @param {HTMLElement} container - The container element.
+ */
 function addNoTasksMessageMoveTo(container) {
     const noTasksMessage = container.querySelector('.no-tasks-message');
     if (!noTasksMessage) {
@@ -100,6 +161,11 @@ function addNoTasksMessageMoveTo(container) {
     }
 }
 
+/**
+ * Removes the "No Tasks" message from the specified container.
+ * 
+ * @param {HTMLElement} container - The container element.
+ */
 function removeNoTasksMessage(container) {
     const noTasksMessage = container.querySelector('.no-tasks-message');
     if (noTasksMessage) {
@@ -107,6 +173,12 @@ function removeNoTasksMessage(container) {
     }
 }
 
+/**
+ * Converts a status ID to a human-readable status name.
+ * 
+ * @param {string} statusId - The status ID.
+ * @returns {string} The human-readable status name.
+ */
 function getReadableStatus(statusId) {
     const statusMapping = {
         toDo: "To Do",
@@ -116,7 +188,13 @@ function getReadableStatus(statusId) {
     };
     return statusMapping[statusId];
 }
-  
+
+/**
+ * Moves a task card to a new status container in the DOM.
+ * 
+ * @param {string} taskId - The ID of the task.
+ * @param {string} newStatus - The new status of the task.
+ */
 function moveTaskCardInDOM(taskId, newStatus) {
   const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
   if (taskCard) {
@@ -135,16 +213,31 @@ function moveTaskCardInDOM(taskId, newStatus) {
     }
   }
 }
-  
+
+/**
+ * Removes dashed boxes when a drag operation ends.
+ */
 document.addEventListener('dragend', () => {
   removeAllDashedBoxes();
 });
 
+/**
+ * Updates the status of a task locally.
+ * 
+ * @param {number} taskIndex - The index of the task in the local data.
+ * @param {string} newStatus - The new status of the task.
+ */
 function updateTaskStatus(taskIndex, newStatus) {
   const task = Object.values(tasksData)[taskIndex];
   task.status = newStatus;
 }
 
+/**
+ * Updates the task status in Firebase Realtime Database.
+ * 
+ * @param {string} taskId - The ID of the task.
+ * @param {string} newStatus - The new status of the task.
+ */
 async function updateTaskStatusInFirebase(taskId, newStatus) {
   const path = `tasks/${taskId}`;
   const updateData = { status: newStatus };

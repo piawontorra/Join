@@ -1,3 +1,8 @@
+/**
+ * Renders the task editor for a given task.
+ * 
+ * @param {string} stringTask - The stringified task object.
+ */
 async function renderTaskEditor(stringTask) {
     let task = JSON.parse(stringTask);
     currentTask = task;
@@ -15,6 +20,11 @@ async function renderTaskEditor(stringTask) {
     await renderEditorSubtasks();
 }
 
+/**
+ * Loads contact data and prepares the editor with assigned users.
+ * 
+ * @param {object} task - The current task object.
+ */
 async function loadEditorContactData(task) {
     try {
         let assignedUserIds = [];
@@ -26,10 +36,16 @@ async function loadEditorContactData(task) {
         renderEditorUsers(contacts, assignedUserIds);
         renderEditorAssignedUsers(currentTask);
     } catch (error) {
-        console.error("Fehler beim Laden der Daten:", error);
+        console.error("Error loading contact data:", error);
     }
 }
 
+/**
+ * Updates the assigned users list based on user selection.
+ * 
+ * @param {number} userId - The ID of the user.
+ * @param {boolean} isChecked - Whether the user is selected or not.
+ */
 function updateAssignedUsers(userId, isChecked) {
     if (isChecked) {
         if (!currentTask.assignedTo.includes(userId)) {
@@ -40,6 +56,12 @@ function updateAssignedUsers(userId, isChecked) {
     }
 }
 
+/**
+ * Updates the visual class of a user element based on selection.
+ * 
+ * @param {number} userId - The ID of the user.
+ * @param {boolean} isChecked - Whether the user is selected or not.
+ */
 function updateUserElementClass(userId, isChecked) {
     const userElement = document.getElementById(`user-${userId}`);
     if (userElement) {
@@ -51,6 +73,12 @@ function updateUserElementClass(userId, isChecked) {
     }
 }
 
+/**
+ * Renders the list of users in the task editor.
+ * 
+ * @param {object} contacts - The list of contact objects.
+ * @param {Array<string>} assignedUserIds - The IDs of assigned users.
+ */
 function renderEditorUsers(contacts, assignedUserIds) {
     let usersRef = document.getElementById('users');
     usersRef.innerHTML = '';
@@ -66,6 +94,11 @@ function renderEditorUsers(contacts, assignedUserIds) {
     }
 }
 
+/**
+ * Renders the assigned users in the task editor.
+ * 
+ * @param {object} task - The current task object.
+ */
 async function renderEditorAssignedUsers(task) {
     const assignedUserData = await getEditorAssignedUserInitialsAndColor(task.assignedTo || []);
     let assignedToHTML = assignedUserData.length > 0
@@ -83,6 +116,9 @@ async function renderEditorAssignedUsers(task) {
     document.getElementById("assignedUsers").innerHTML = assignedToHTML;
 }
 
+/**
+ * Renders the subtasks in the task editor.
+ */
 async function renderEditorSubtasks() {
     const subtaskContainer = document.getElementById('subtask');
     subtaskContainer.innerHTML = '';
@@ -97,6 +133,11 @@ async function renderEditorSubtasks() {
     }
 }
 
+/**
+ * Updates the current task with edited details.
+ * 
+ * @param {Event} event - The event triggered by form submission.
+ */
 function updateCurrentTask(event) {
     console.log("updateCurrentTask triggered");
     event.preventDefault();
@@ -108,6 +149,11 @@ function updateCurrentTask(event) {
     updateTaskInFirebase(currentTask);
 }
 
+/**
+ * Updates the task in Firebase Realtime Database.
+ * 
+ * @param {object} task - The task object to update.
+ */
 async function updateTaskInFirebase(task) {
     try {
         const taskUrl = `${BASE_URL}tasks/${task.id}.json`;
@@ -119,6 +165,12 @@ async function updateTaskInFirebase(task) {
     }
 }
 
+/**
+ * Sends the updated task data to Firebase.
+ * 
+ * @param {string} url - The Firebase URL for the task.
+ * @param {object} task - The task object to update.
+ */
 async function sendTaskToFirebase(url, task) {
     await fetch(url, {
         method: 'PUT',
@@ -137,6 +189,11 @@ async function sendTaskToFirebase(url, task) {
     });
 }
 
+/**
+ * Updates the local tasks data with the updated task details.
+ * 
+ * @param {object} task - The updated task object.
+ */
 function updateLocalTasksData(task) {
     const existingTask = tasksData.find(t => t.id === task.id);
     if (existingTask) {
@@ -146,12 +203,22 @@ function updateLocalTasksData(task) {
     }
 }
 
+/**
+ * Executes post-update actions such as refreshing the UI.
+ * 
+ * @param {object} task - The updated task object.
+ */
 function postUpdateActions(task) {
     refreshTaskCard(task);
     openTaskDetail(task.id);
     closeTaskEditor();
 }
 
+/**
+ * Refreshes the task card in the UI after updating.
+ * 
+ * @param {object} task - The updated task object.
+ */
 async function refreshTaskCard(task) {
     const taskCard = document.querySelector(`.task-card[data-task-id="${task.id}"]`);
     const newTaskCardHTML = await getTaskCardTemplate(task);

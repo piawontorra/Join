@@ -1,5 +1,14 @@
+/**
+ * The currently edited task object.
+ * @type {Object|null}
+ */
 let currentTask = null;
 
+/**
+ * Handles user click events in the editor, toggling selection of a user for task assignment.
+ *
+ * @param {number} userId - The ID of the user being clicked.
+ */
 function handleEditorUserClick(userId) {
     const userElement = getUserElement(userId);
     const checkbox = getCheckbox(userId);
@@ -15,30 +24,65 @@ function handleEditorUserClick(userId) {
     renderEditorAssignedUsers(currentTask);
 }
 
+/**
+ * Retrieves the DOM element of a user by their ID.
+ *
+ * @param {number} userId - The ID of the user.
+ * @returns {Element|null} The DOM element of the user, or null if not found.
+ */
 function getUserElement(userId) {
     return document.getElementById(`user-${userId}`);
 }
 
+/**
+ * Retrieves the checkbox element of a user by their ID.
+ *
+ * @param {number} userId - The ID of the user.
+ * @returns {Element|null} The checkbox element of the user, or null if not found.
+ */
 function getCheckbox(userId) {
     return document.getElementById(`select-${userId}`);
 }
 
+/**
+ * Ensures the `assignedTo` property exists in the `currentTask` object.
+ */
 function ensureAssignedToExists() {
     if (!currentTask.assignedTo) {
         currentTask.assignedTo = [];
     }
 }
 
+/**
+ * Checks if a user is currently selected.
+ *
+ * @param {Element} userElement - The DOM element of the user.
+ * @returns {boolean} True if the user is selected, false otherwise.
+ */
 function isUserSelected(userElement) {
     return userElement.classList.contains("selected");
 }
 
+/**
+ * Deselects a user, removing them from the task's assigned list.
+ *
+ * @param {Element} userElement - The DOM element of the user.
+ * @param {Element} checkbox - The checkbox element of the user.
+ * @param {number} userId - The ID of the user.
+ */
 function deselectUser(userElement, checkbox, userId) {
     userElement.classList.remove("selected");
     checkbox.checked = false;
     currentTask.assignedTo = currentTask.assignedTo.filter(id => id !== userId);
 }
 
+/**
+ * Selects a user, adding them to the task's assigned list.
+ *
+ * @param {Element} userElement - The DOM element of the user.
+ * @param {Element} checkbox - The checkbox element of the user.
+ * @param {number} userId - The ID of the user.
+ */
 function selectUser(userElement, checkbox, userId) {
     userElement.classList.add("selected");
     checkbox.checked = true;
@@ -47,6 +91,12 @@ function selectUser(userElement, checkbox, userId) {
     }
 }
 
+/**
+ * Handles checkbox state changes for user assignment.
+ *
+ * @param {number} userId - The ID of the user.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
+ */
 function handleEditorCheckboxChange(userId, isChecked) {
     userId = Number(userId);
     ensureAssignedToExists();
@@ -55,12 +105,12 @@ function handleEditorCheckboxChange(userId, isChecked) {
     renderEditorAssignedUsers(currentTask);
 }
 
-function ensureAssignedToExists() {
-    if (!currentTask.assignedTo) {
-        currentTask.assignedTo = [];
-    }
-}
-
+/**
+ * Retrieves user initials and color for assigned users.
+ *
+ * @param {number[]} assignedUserIds - The IDs of the assigned users.
+ * @returns {Object[]} An array of objects containing initials, color, and name for each user.
+ */
 async function getEditorAssignedUserInitialsAndColor(assignedUserIds) {
     return assignedUserIds.map(userId => {
         const contact = contacts[userId];
@@ -75,16 +125,31 @@ async function getEditorAssignedUserInitialsAndColor(assignedUserIds) {
     }).filter(Boolean);
 }
 
+/**
+ * Toggles the completion status of a subtask.
+ *
+ * @param {number} index - The index of the subtask to toggle.
+ */
 function toggleEditorSubtaskCompletion(index) {
     currentTask.subtasks[index].completed = !currentTask.subtasks[index].completed;
     renderEditorSubtasks();
 }
 
+/**
+ * Deletes a subtask at the specified index.
+ *
+ * @param {number} i - The index of the subtask to delete.
+ */
 function deleteEditorSubtask(i) {
     currentTask.subtasks.splice(i, 1);
     renderEditorSubtasks();
 }
 
+/**
+ * Enables editing mode for a specific subtask.
+ *
+ * @param {number} i - The index of the subtask to edit.
+ */
 function editEditorSubtask(i) {
     const subtaskInput = document.getElementById(`subtaskList${i}`);
     const editContainer = document.getElementById(`edit-images${i}`);
@@ -99,12 +164,20 @@ function editEditorSubtask(i) {
     editContainer.classList.add('flex');
 }
 
+/**
+ * Saves changes to a subtask after editing.
+ *
+ * @param {number} i - The index of the subtask being edited.
+ */
 function checkEditorSubtask(i) {
     const subtaskInput = document.getElementById(`subtaskList${i}`);
-    currentTask.subtasks[i].text = subtaskInput.value; // Speichere Änderungen
-    renderEditorSubtasks(); // Aktualisiere die Anzeige
+    currentTask.subtasks[i].text = subtaskInput.value;
+    renderEditorSubtasks();
 }
 
+/**
+ * Adds a new subtask to the task.
+ */
 function addEditorSubtask() {
     const input = document.getElementById('inputSubtask').value;
     if (input.trim() === '') {
@@ -122,28 +195,47 @@ function addEditorSubtask() {
     resetButtons();
 }
 
+/**
+ * Handles the "Enter" key press for adding a new subtask.
+ *
+ * @param {Event} event - The keypress event.
+ */
 function handleKeyPressEditor(event) {
     if (event.key === "Enter") {
-      event.preventDefault();
-      addEditorSubtask();
-    }
-}
-  
-function handleKeyPressEditEditor(event, i) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      checkEditorSubtask(i);
+        event.preventDefault();
+        addEditorSubtask();
     }
 }
 
+/**
+ * Handles the "Enter" key press for editing a subtask.
+ *
+ * @param {Event} event - The keypress event.
+ * @param {number} i - The index of the subtask being edited.
+ */
+function handleKeyPressEditEditor(event, i) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkEditorSubtask(i);
+    }
+}
+
+/**
+ * Closes the task editor and resets the UI.
+ */
 function closeTaskEditor() {
-    let contentRef = document.getElementById('editContainer');
-    let taskCard = document.getElementById('taskDetailCard');
+    const contentRef = document.getElementById('editContainer');
+    const taskCard = document.getElementById('taskDetailCard');
     contentRef.innerHTML = "";
     taskCard.style.display = 'block';
     contentRef.style.display = 'none';
 }
 
+/**
+ * Validates task input fields for title and due date.
+ *
+ * @returns {boolean} True if all inputs are valid, false otherwise.
+ */
 function validateInputs() {
     const title = document.getElementById('inputTitle').value.trim();
     const dueDate = document.getElementById('inputDueDate').value.trim();
@@ -154,6 +246,12 @@ function validateInputs() {
     return isValidTitle && isValidDueDate;
 }
 
+/**
+ * Validates the task title input field.
+ *
+ * @param {string} title - The task title.
+ * @returns {boolean} True if the title is valid, false otherwise.
+ */
 function validateTitle(title) {
     const titleError = document.getElementById('inputTitleError');
     if (!title) {
@@ -164,6 +262,12 @@ function validateTitle(title) {
     return true;
 }
 
+/**
+ * Validates the due date input field.
+ *
+ * @param {string} dueDate - The task due date.
+ * @returns {boolean} True if the due date is valid, false otherwise.
+ */
 function validateDueDate(dueDate) {
     const dueDateError = document.getElementById('inputDueDateError');
     if (!dueDate) {
@@ -174,6 +278,11 @@ function validateDueDate(dueDate) {
     return true;
 }
 
+/**
+ * Retrieves all subtasks from the DOM.
+ *
+ * @returns {Object[]} An array of subtask objects containing text and completion status.
+ */
 function getSubtasks() {
     const subtasks = [];
     document.querySelectorAll('.created-subtasks-container input').forEach((input, index) => {
@@ -185,6 +294,11 @@ function getSubtasks() {
     return subtasks;
 }
 
+/**
+ * Assigns updated properties to the current task object.
+ *
+ * @param {Object[]} subtasks - The subtasks to assign to the task.
+ */
 function assignTaskProperties(subtasks) {
     currentTask.title = document.getElementById('inputTitle').value.trim();
     currentTask.description = document.getElementById('inputDescription').value.trim();
@@ -194,12 +308,22 @@ function assignTaskProperties(subtasks) {
     currentTask.subtasks = subtasks;
 }
 
+/**
+ * Retrieves the list of assigned users for the current task.
+ *
+ * @returns {number[]} An array of user IDs.
+ */
 function getAssignedTo() {
     return currentTask.assignedTo && currentTask.assignedTo.length > 0
         ? currentTask.assignedTo
         : [];
 }
 
+/**
+ * Determines the selected priority level for the task.
+ *
+ * @returns {string|null} The selected priority level ("Urgent", "Medium", "Low"), or null if none is selected.
+ */
 function getSelectedPriority() {
     if (document.getElementById('urgentPrio').classList.contains('selected')) return 'Urgent';
     if (document.getElementById('mediumPrio').classList.contains('selected')) return 'Medium';
