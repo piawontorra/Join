@@ -6,8 +6,6 @@
 async function renderTaskEditor(stringTask) {
     let task = JSON.parse(stringTask);
     currentTask = task;
-    console.log(currentTask);
-
     let contentRef = document.getElementById('editContainer');
     let taskCard = document.getElementById('taskDetailCard');
     contentRef.innerHTML = "";
@@ -126,8 +124,6 @@ async function renderEditorSubtasks() {
     if (currentTask.subtasks && currentTask.subtasks.length > 0) {
         for (let i = 0; i < currentTask.subtasks.length; i++) {
             const subtask = currentTask.subtasks[i];
-            console.log(subtask);
-            
             subtaskContainer.innerHTML += getEditorSubtaskTemplate(subtask, i);
         }
     }
@@ -139,7 +135,6 @@ async function renderEditorSubtasks() {
  * @param {Event} event - The event triggered by form submission.
  */
 function updateCurrentTask(event) {
-    console.log("updateCurrentTask triggered");
     event.preventDefault();
 
     if (!validateInputs()) return;

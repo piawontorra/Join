@@ -7,17 +7,33 @@ let selectedCategory = "Select task category";
 let selectedPriority = "Medium";
 let isUsersOpen = false;
 
+/**
+ * Executes when the page is loaded. Calls `selectPriority` to display the selected priority,
+ * and starts the `newTask` function.
+ */
 window.onload = function () {
     selectPriority(selectedPriority);
     newTask();
 };
 
+/**
+ * Initializes the "Add Task" page by inserting HTML content and loading categories.
+ * 
+ * @async
+ */
 async function initAddTask() {
     includeHTML();
     initializeCategory();
     await loadData();
 }
 
+/**
+ * Loads tasks from the specified URL and returns them as JSON.
+ *
+ * @async
+ * @param {string} [path=""] - The path to load the tasks from.
+ * @returns {Promise<Object>} A JSON object containing the tasks.
+ */
 async function loadTasks(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     let responseAsJson = await response.json();
@@ -25,6 +41,13 @@ async function loadTasks(path = "") {
     return responseAsJson || {};
 }
 
+/**
+ * Retrieves the next card ID, updates the card ID, and returns it.
+ *
+ * @async
+ * @returns {Promise<number>} The next card ID.
+ * @throws {Error} If an error occurs while retrieving or updating the card ID.
+ */
 async function getCardID() {
     try {
         const nextCardID = await fetchNextCardID();
@@ -36,12 +59,24 @@ async function getCardID() {
     }
 }
 
+/**
+ * Retrieves the next card ID from the data source.
+ *
+ * @async
+ * @returns {Promise<number>} The next card ID.
+ */
 async function fetchNextCardID() {
     const response = await fetch(`${BASE_URL}/nextCardID.json`);
     const nextCardID = await response.json();
     return nextCardID === null ? 1 : nextCardID;
 }
 
+/**
+ * Updates the `nextCardID` in the data source.
+ *
+ * @async
+ * @param {number} newCardID - The new card ID.
+ */
 async function updateNextCardID(newCardID) {
     await fetch(`${BASE_URL}/nextCardID.json`, {
         method: 'PUT',
@@ -50,10 +85,23 @@ async function updateNextCardID(newCardID) {
     });
 }
 
+/**
+ * Error handling for retrieving or updating the card ID.
+ * Logs the error.
+ *
+ * @param {Error} error - The error that occurred.
+ */
 function handleCardIDError(error) {
-    console.error("Fehler beim Abrufen oder Aktualisieren der nextCardID:", error);
+    console.error("Error retrieving or updating the nextCardID:", error);
 }
 
+/**
+ * This function is executed when a new task is created. It validates the inputs
+ * and creates the task if all inputs are valid.
+ *
+ * @async
+ * @param {Event} event - The event triggered when the user creates a new task.
+ */
 async function newTask(event) {
     event.preventDefault();
     if (!validateTitle() || !validateDueDate() || !validateCategory()) {
@@ -61,22 +109,32 @@ async function newTask(event) {
     }
     try {
         const newTask = await createNewTask();
-        console.log("Neuer Task wird erstellt:", newTask);
         addTask(newTask);
         showTaskAddedToBoard();
         resetErrorState();
         redirectToBoard();
     } catch (error) {
-        console.error("Fehler beim Erstellen des Tasks:", error);
+        console.error("Error creating task:", error);
     }
 }
 
+/**
+ * Creates a new task with a unique ID and the entered details.
+ *
+ * @async
+ * @returns {Promise<Object>} The created task object.
+ */
 async function createNewTask() {
     const cardID = await getCardID();
     const taskDetails = getTaskDetails();
     return { ...taskDetails, id: cardID };
 }
 
+/**
+ * Returns the details of the task to be created.
+ *
+ * @returns {Object} The task details.
+ */
 function getTaskDetails() {
     return {
         title: getTitle(),
@@ -90,26 +148,55 @@ function getTaskDetails() {
     };
 }
 
+/**
+ * Returns the title of the task.
+ *
+ * @returns {string} The title of the task.
+ */
 function getTitle() {
     return document.getElementById('inputTitle').value;
 }
 
+/**
+ * Returns the description of the task.
+ *
+ * @returns {string} The description of the task.
+ */
 function getDescription() {
     return document.getElementById('inputDescription').value;
 }
 
+/**
+ * Returns the list of user IDs assigned to the task.
+ *
+ * @returns {Array<string>} An array of user IDs.
+ */
 function getAssignedId() {
     return assignedTo;
 }
 
+/**
+ * Returns the due date of the task.
+ *
+ * @returns {string} The due date of the task.
+ */
 function getDueDate() {
     return document.getElementById('inputDueDate').value;
 }
 
+/**
+ * Returns the priority of the task.
+ *
+ * @returns {string} The priority of the task.
+ */
 function getPriority() {
     return selectedPriority || 'Medium';
 }
 
+/**
+ * Redirects the user to the board after a short delay
+ * and resets the task creation area.
+ */
 function redirectToBoard() {
     setTimeout(function () {
         clearAddTask();
@@ -117,6 +204,12 @@ function redirectToBoard() {
     }, 3000);
 }
 
+/**
+ * Adds the new task to the data source.
+ *
+ * @async
+ * @param {Object} task - The task object to be added.
+ */
 async function addTask(task) {
     let existingTasks = await loadTasks("tasks");
     let newTaskId = task.id;
@@ -126,6 +219,14 @@ async function addTask(task) {
     await putTask("tasks", existingTasks);
 }
 
+/**
+ * Saves the tasks in the data source.
+ *
+ * @async
+ * @param {string} [path=""] - The path to save the tasks to.
+ * @param {Object} [tasks={}] - The tasks object to be saved.
+ * @returns {Promise<Object>} The response from the API.
+ */
 async function putTask(path = "", tasks = {}) {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "PUT",
@@ -137,6 +238,11 @@ async function putTask(path = "", tasks = {}) {
     return responseAsJson = await response.json();
 }
 
+/**
+ * Loads the contact data and displays it in the UI.
+ *
+ * @async
+ */
 async function loadData() {
     try {
         let response = await fetch(BASE_URL + "/contacts.json");
@@ -147,130 +253,15 @@ async function loadData() {
         renderUsers(contacts);
         showAssignedUsers();
     } catch (error) {
-        console.error("Fehler beim Laden der Daten:", error);
+        console.error("Error loading data:", error);
     }
 }
 
-function renderUsers(contacts) {
-    let usersRef = document.getElementById('users');
-    usersRef.innerHTML = '';
-    let contactKeys = Object.keys(contacts);
-
-    for (let i = 0; i < contactKeys.length; i++) {
-        let key = contactKeys[i];
-        let contact = contacts[key];
-
-        let contactTemplate = getAssignedToTemplate(contact);
-
-        usersRef.innerHTML += contactTemplate;
-    }
-}
-
-function showUsers() {
-    const usersElement = document.getElementById('users');
-    const arrowDown = document.getElementById('userArrowDown');
-    const arrowUp = document.getElementById('userArrowUp');
-    const border = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
-    const selectedUsers = document.getElementById('assignedUsers');
-
-    if (isUsersElementHidden(usersElement)) {
-        showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
-        isUsersOpen = true;
-        document.addEventListener('click', handleOutsideClick);
-    } else {
-        hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border);
-        isUsersOpen = false;
-        document.removeEventListener('click', handleOutsideClick);
-    }
-}
-
-function handleOutsideClick(event) {
-    const usersElement = document.getElementById('users');
-    const dropdownButton = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
-    
-    if (!usersElement.contains(event.target) && !dropdownButton.contains(event.target)) {
-        hideUserList(usersElement, document.getElementById('userArrowDown'), document.getElementById('userArrowUp'), document.getElementById('assignedUsers'), dropdownButton);
-        isUsersOpen = false;
-        document.removeEventListener('click', handleOutsideClick);
-    }
-}
-
-function isUsersElementHidden(usersElement) {
-    return usersElement.style.display === 'none' || usersElement.style.display === '';
-}
-
-function showUserList(usersElement, arrowDown, arrowUp, selectedUsers, border) {
-    usersElement.style.display = 'block';
-    arrowDown.style.display = 'none';
-    arrowUp.style.display = 'block';
-    selectedUsers.style.display = 'none';
-    if (border) {
-        border.style.border = '1px solid #26ace3';
-    }
-}
-
-function hideUserList(usersElement, arrowDown, arrowUp, selectedUsers, border) {
-    usersElement.style.display = 'none';
-    arrowDown.style.display = 'block';
-    arrowUp.style.display = 'none';
-    selectedUsers.style.display = 'flex';
-    if (border) {
-        border.style.border = '';
-    }
-}
-
-function getInitials(name) {
-    let nameParts = name.split(" ");
-    let initials = nameParts.map(part => part[0].toUpperCase()).join("");
-    return initials;
-}
-
-function handleUserClick(userId) {
-    const userElement = document.getElementById(`user-${userId}`);
-    const checkbox = document.getElementById(`select-${userId}`);
-    if (userElement.classList.contains("selected")) {
-        userElement.classList.remove("selected");
-        checkbox.checked = false;
-        assignedTo = assignedTo.filter(id => id !== userId);
-    } else {
-        userElement.classList.add("selected");
-        checkbox.checked = true;
-        if (!assignedTo.includes(userId)) {
-            assignedTo.push(userId);
-        }
-    }
-    showAssignedUsers();
-}
-
-function handleCheckboxChange(userId) {
-    const userElement = document.getElementById(`user-${userId}`);
-    const checkbox = document.getElementById(`select-${userId}`);
-
-    if (checkbox.checked) {
-        userElement.classList.add("selected");
-        if (!assignedTo.includes(userId)) {
-            assignedTo.push(userId);
-        }
-    } else {
-        userElement.classList.remove("selected");
-        assignedTo = assignedTo.filter(id => id !== userId);
-    }
-
-    showAssignedUsers();
-}
-
-function showAssignedUsers() {
-    const assignedUsersElement = document.getElementById('assignedUsers');
-    assignedUsersElement.innerHTML = '';
-
-    assignedTo.forEach(userId => {
-        const user = contacts[userId];
-        if (user) {
-            assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
-        }
-    });
-}
-
+/**
+ * Sets the priority for the task and marks the corresponding button as selected.
+ * 
+ * @param {string} priority - The priority of the task. Possible values: "Low", "Medium", "High".
+ */
 function selectPriority(priority) {
     document.querySelectorAll('.prio-button').forEach(button => {
         button.classList.remove('selected');
@@ -282,11 +273,17 @@ function selectPriority(priority) {
     selectedPriority = priority;
 }
 
+/**
+ * Initializes the display of the selected category.
+ */
 function initializeCategory() {
     const selectedCategoryElement = document.getElementById('selectedCategory');
     selectedCategoryElement.textContent = selectedCategory;
 }
 
+/**
+ * Toggles the visibility of the category list and changes the arrow direction.
+ */
 function showCategorys() {
     const categorysElement = document.getElementById('category');
     const arrowDown = document.getElementById('categoryArrowDown');
@@ -300,6 +297,14 @@ function showCategorys() {
     }
 }
 
+/**
+ * Displays the category list and changes the arrows.
+ * 
+ * @param {HTMLElement} categorysElement - The DOM element for the category list.
+ * @param {HTMLElement} arrowDown - The down arrow element.
+ * @param {HTMLElement} arrowUp - The up arrow element.
+ * @param {HTMLElement} border - The input field border.
+ */
 function showCategorysList(categorysElement, arrowDown, arrowUp, border) {
     categorysElement.style.display = 'block';
     arrowDown.style.display = 'none';
@@ -309,6 +314,14 @@ function showCategorysList(categorysElement, arrowDown, arrowUp, border) {
     }
 }
 
+/**
+ * Hides the category list and changes the arrows.
+ * 
+ * @param {HTMLElement} categorysElement - The DOM element for the category list.
+ * @param {HTMLElement} arrowDown - The down arrow element.
+ * @param {HTMLElement} arrowUp - The up arrow element.
+ * @param {HTMLElement} border - The input field border.
+ */
 function hideCategorysList(categorysElement, arrowDown, arrowUp, border) {
     categorysElement.style.display = 'none';
     arrowDown.style.display = 'block';
@@ -318,6 +331,12 @@ function hideCategorysList(categorysElement, arrowDown, arrowUp, border) {
     }
 }
 
+/**
+ * Selects a category and displays it in the input field.
+ * 
+ * @param {Event} event - The event triggered by clicking on a category.
+ * @param {string} category - The selected category.
+ */
 function selectCategory(event, category) {
     event.stopPropagation();
     selectedCategory = category;
@@ -334,6 +353,9 @@ function selectCategory(event, category) {
     arrowUp.style.display = 'none';
 }
 
+/**
+ * Displays a notification that the task has been successfully added to the board.
+ */
 function showTaskAddedToBoard() {
     let taskAddedToBoard = document.getElementById('taskAddedToBoard');
     let taskAddedToBoardModal = document.getElementById('taskAddedToBoardModal');
