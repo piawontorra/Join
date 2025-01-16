@@ -36,7 +36,7 @@ async function newContact(){
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
-  setTimeout(()=>{getContacts(path)}, 100);
+  setTimeout(()=>{getContacts(path)}, 200);
   setTimeout(()=>{chooseNewContact(key);}, 300);
 }
 
@@ -241,7 +241,7 @@ function closeContactDetailsCard() {
 function addBackground(id){
   let allEntries = document.querySelectorAll('.singleEntry');
   allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
-  document.getElementById(`${id}`).classList.add('chosen');;
+  document.getElementById(`${id}`).classList.add('chosen');
 }
 
 /**
@@ -277,7 +277,7 @@ function renderNewContactForm() {
 /**
  * open up the edit dialog for editing contact informations
  * @param {array} user 
- * @param {string} id 
+ * @param {string} id usersArray
  */
 function openEditDialog(user, id) {
   const modal = document.querySelector("[editContactDialog]");
@@ -339,10 +339,18 @@ function renderEditContactForm(user, id) {
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
   if (form) {
+    // form.addEventListener('submit', function (event) {
+    //   event.preventDefault();
+    //   if (form.checkValidity()) {
+    //     editContact(user.id);
+    //   }
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
+      console.log('Form submitted, validity:', form.checkValidity());
       if (form.checkValidity()) {
-        editContact(user[0].id);
+        console.log('Calling editContact with ID:', user.id);
+        editContact(user.id);
       }
     });
   }

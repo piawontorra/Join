@@ -4,8 +4,9 @@ function contactDetailCard(id) {
     let contact = usersArray[id];
     let contactCardContainer = document.getElementById("contactCard");
     contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
-    currentUser = [];
-    currentUser.push(contact);
+    // currentUser = [];
+    // currentUser.push(contact);
+    currentUser = contact;
   }
 
   /**
@@ -182,9 +183,9 @@ function newContactTemplate() {
 }
 
 function editContactTemplate(user, id){
-  let initials = user[0].name.charAt(0) + (user[0].name.split(" ")[1]?.charAt(0) || "");
-  let arrayID = id;
-  let userId = user[0].userId;
+  let initials = user.name.charAt(0) + (user.name.split(" ")[1]?.charAt(0) || "");
+//   let arrayID = id;
+  let userId = user.userId;
     return `
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
@@ -199,7 +200,7 @@ function editContactTemplate(user, id){
               </div>  
           </div>
           <div id="circleContainer">
-          <div class="userInitials circle no-margin" style="background-color: ${user[0].userColor}">${initials}</div>
+          <div class="userInitials circle no-margin" style="background-color: ${user.userColor}">${initials}</div>
           </div>
           <div id="newContactFormContainer">
               <div id="formContainer">
@@ -209,15 +210,15 @@ function editContactTemplate(user, id){
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                              <input type="text" id="newUserName" placeholder="Name" value="${user[0].name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
+                              <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
                               <img src="./assets/img/user_icon.png" alt="">
                           </div>
                           <div class="inputField">
-                              <input type="email" id="newUserEmail" placeholder="Email" value="${user[0].email || ''}" required>
+                              <input type="email" id="newUserEmail" placeholder="Email" value="${user.email || ''}" required>
                               <img src="./assets/img/mail_icon.png" alt="">
                           </div>
                           <div class="inputField">
-                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user[0].phone  || ''}" required>
+                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user.phone  || ''}" required>
                               <img src="./assets/img/phone_icon.png" alt="">
                           </div>
                       </form>
