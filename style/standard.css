@@ -234,6 +234,12 @@ a {
         background-color: #FFFFFF;
     }
 
+    .landscape-msg-half-height {
+        height: 100vh;
+        align-items: flex-start;
+        padding-top: 36px;
+    }
+
     .device-portrait {
         font-size: 20px;
         line-height: 24.4px;

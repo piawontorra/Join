@@ -16,14 +16,13 @@
 function initPortraitMode() {
     if (window.innerWidth < 1065) {
         window.addEventListener("orientationchange", function () {
-            adjustLayoutForOrientation();  // Adjust layout when orientation changes
+            adjustLayoutForOrientation();
         });
-        adjustLayoutForOrientation();  // Adjust layout immediately upon calling the function
+        adjustLayoutForOrientation();
     } else {
-        markCurrentTab();  // Call markCurrentTab for larger screens
+        markCurrentTab();
     }
 }
-
 
 /**
  * Event listener for resizing the window.

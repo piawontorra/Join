@@ -3,6 +3,7 @@
  */
 function initRegistry() {
     includeFooter();
+    noLandscapeMode();
     setupRegistrationForm();
 }
 

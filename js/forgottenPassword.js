@@ -7,6 +7,7 @@
  */
 function initResetPassword() {
     includeFooter();
+    noLandscapeMode();
 }
 
 /**

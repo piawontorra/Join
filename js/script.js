@@ -10,9 +10,26 @@ const msgBox = document.getElementById('msg-box');
  */
 function initLogin() {
     logoAnimation();
+    noLandscapeMode();
     loadUserCredentials();
     checkRememberMe();
     usersPush();
+}
+
+/**
+ * Adjusts the layout when the window is resized or the orientation changes.
+ * This function is called when the screen width is less than 1065px to ensure proper layout adjustments.
+ * 
+ * @returns {void} This function does not return any value. It adds event listeners to handle resizing and orientation changes.
+ */
+function noLandscapeMode() {
+    if (window.innerWidth < 1065) {
+        window.addEventListener("orientationchange", function () {
+            adjustLayoutForOrientation();
+        });
+
+        window.addEventListener('resize', adjustLayoutForOrientation);
+    }
 }
 
 /**
