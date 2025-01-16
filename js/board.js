@@ -17,6 +17,7 @@ async function initBoard() {
   await getTasksData();
   await initAddTask();
   await renderTasks();
+  initPortraitMode();
 }
 
 /**
