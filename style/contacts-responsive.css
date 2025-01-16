@@ -54,8 +54,8 @@
 #arrowBack{
     width: auto;
     position: absolute;
-    left: calc(100vw - 80px);
-    top: 6%;
+    left: calc(100vw - 50px);
+    top: 8%;
     display: none;
 }
 
@@ -193,6 +193,8 @@
         font-weight: 600;
         font-size: larger;
     }
+
+
 }
 
 @media (max-width: 800px){
@@ -239,6 +241,31 @@
 
     #delete{
         margin: 0;
+    }
+
+    .userInitials.circle{
+        width: 80px;
+        height: 80px;
+        margin-right: 30px;
+    }
+
+    .userInitials{
+        min-width: 80px;
+        font-size: 27px;
+    }
+
+    #contactCard{
+        height: 326px;
+    }
+}
+
+@media (max-width: 428px){
+    #span_contacts{
+        font-size: 47px;
+    }
+
+    #span_better{
+        font-size: 20px;
     }
 }
 
