@@ -11,7 +11,6 @@
 
 #wrapperContacts{
     width: 456px;
-    /* min-width: 380px; */
     background-color: rgb(255, 255, 255);
     box-shadow: 5px 5px 5px rgb(184, 183, 183);
     display: flex;
@@ -27,7 +26,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     width: 100%;
-    padding: 0 30px 0 30px;
+    padding: 0 20px 0 20px;
 }
 
 #btn_addNewContact{
