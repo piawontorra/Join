@@ -189,6 +189,7 @@ function editContactTemplate(user, id){
     return `
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
+              <div id="responsiveClose" onclick="closeDialog('[editContactDialog]')">X</div>
               <div id="addContactHeader">
                   <div id="joinLogo">
                       <img src="assets/img/join_logo_menu.png" alt="">
