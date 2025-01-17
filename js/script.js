@@ -376,10 +376,6 @@ function initializeOrientationListener() {
 function adjustLayoutForOrientation() {
     const landscapeMessage = document.getElementById('landscape-message');
 
-    if (!landscapeMessage) {
-        return;
-    }
-
     if (landscapeMessage) {
         if (window.innerWidth < 1065) {
             window.innerWidth > window.innerHeight ? landscapeMessage.classList.remove('d-none') : landscapeMessage.classList.add('d-none');
