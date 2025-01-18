@@ -217,9 +217,9 @@ a {
     }
 }
 
-@media (orientation: landscape) {
+/* @media (orientation: landscape) { */
+@media (max-width: 650px) {
     body {
-        overflow: hidden;
         background-color: #F6F7F8;
     }
 
