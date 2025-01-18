@@ -10,6 +10,7 @@ let selectedDateDiff = null;
  */
 function initSummary() {
     includeHTML();
+    initPortraitMode();
     summaryRepresentation();
 }
 
@@ -42,7 +43,6 @@ function summaryRepresentation() {
  * @returns {void} This function does not return any value, it manipulates the DOM to adjust the layout for mobile view.
  */
 function summaryMobile() {
-    adjustLayoutForOrientation();
     let summaryHeadRef = document.getElementById('summary-head');
     let summaryContentRef = document.getElementById('summary-content');
     let greetingHeightRef = document.getElementById('greeting-min-height');

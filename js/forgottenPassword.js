@@ -7,7 +7,7 @@
  */
 function initResetPassword() {
     includeFooter();
-    noLandscapeMode();
+    initPortraitMode();
 }
 
 /**
@@ -56,7 +56,7 @@ function confirmPasswordReset() {
     if (passwordConfirmationInput.classList.contains('red-border')) {
         passwordConfirmationInput.classList.remove('red-border');
     }
-    
+
     document.getElementById('msg-box').innerHTML = '';
     addGreyOverlay();
     renderOverlay('Your password was resetted.');

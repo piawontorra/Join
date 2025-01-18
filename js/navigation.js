@@ -24,7 +24,7 @@ function checkForLimitedContent() {
             window.location.href = 'index.html';
             break;
         default:
-            mobileUserSidebar();
+            adjustUserSidebar();
             break;
     }
 }
@@ -54,7 +54,7 @@ function adjustSidebarForLimitedContent() {
  * 
  * @returns {void} No return value.
  */
-function mobileUserSidebar() {
+function adjustUserSidebar() {
     const imprintContentRef = document.getElementById('imprintContent');
 
     if (imprintContentRef) {
