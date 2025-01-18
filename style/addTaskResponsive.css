@@ -46,6 +46,10 @@
 }
 
 @media (max-width: 1065px) {
+    .add-task-form {
+        min-height: unset;
+    }
+
     .add-task-form-left {
         width: 400px;
     }

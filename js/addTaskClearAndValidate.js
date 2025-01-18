@@ -144,7 +144,7 @@ function hideTitleError(titleInput, titleErrorMessage) {
 }
 
 /**
- * Validates the due date input. Checks if the date is empty, in an invalid format, or in the past.
+ * Validates the due date input.
  * 
  * @returns {boolean} Returns false if the due date is invalid, true otherwise.
  */
@@ -152,19 +152,63 @@ function validateDueDate() {
     const dueDateInput = document.getElementById('inputDueDate');
     const dueDateErrorMessage = document.getElementById('inputDueDateError');
 
+    if (!validateDueDatePresence(dueDateInput, dueDateErrorMessage)) {
+        return false;
+    }
+    if (!validateDueDateFormat(dueDateInput, dueDateErrorMessage)) {
+        return false;
+    }
+    if (!validateDueDatePast(dueDateInput, dueDateErrorMessage)) {
+        return false;
+    }
+    hideDueDateError(dueDateInput, dueDateErrorMessage);
+    return true;
+}
+
+/**
+ * Checks if the due date input is present.
+ * 
+ * @param {HTMLInputElement} dueDateInput - The due date input field.
+ * @param {HTMLElement} dueDateErrorMessage - The error message element.
+ * @returns {boolean} True if valid, false otherwise.
+ */
+function validateDueDatePresence(dueDateInput, dueDateErrorMessage) {
     if (isDueDateEmpty(dueDateInput)) {
         showDueDateError(dueDateInput, dueDateErrorMessage, "This field is required.");
         return false;
-    } else if (!isValidDateFormat(dueDateInput.value)) {
-        showDueDateError(dueDateInput, dueDateErrorMessage, "Invalid date format. Use dd/mm/yyyy.");
+    }
+    return true;
+}
+
+/**
+ * Checks if the due date input has a valid format.
+ * 
+ * @param {HTMLInputElement} dueDateInput - The due date input field.
+ * @param {HTMLElement} dueDateErrorMessage - The error message element.
+ * @returns {boolean} True if valid, false otherwise.
+ */
+function validateDueDateFormat(dueDateInput, dueDateErrorMessage) {
+    const dateValidationError = isValidDateFormat(dueDateInput.value);
+    if (dateValidationError) {
+        showDueDateError(dueDateInput, dueDateErrorMessage, dateValidationError);
         return false;
-    } else if (isDateInPast(dueDateInput.value)) {
+    }
+    return true;
+}
+
+/**
+ * Checks if the due date input is in the past.
+ * 
+ * @param {HTMLInputElement} dueDateInput - The due date input field.
+ * @param {HTMLElement} dueDateErrorMessage - The error message element.
+ * @returns {boolean} True if valid, false otherwise.
+ */
+function validateDueDatePast(dueDateInput, dueDateErrorMessage) {
+    if (isDateInPast(dueDateInput.value)) {
         showDueDateError(dueDateInput, dueDateErrorMessage, "The date cannot be in the past.");
         return false;
-    } else {
-        hideDueDateError(dueDateInput, dueDateErrorMessage);
-        return true;
     }
+    return true;
 }
 
 /**
@@ -178,14 +222,67 @@ function isDueDateEmpty(dueDateInput) {
 }
 
 /**
- * Checks whether the due date follows a valid format (dd/mm/yyyy).
+ * Checks whether the due date follows a valid format (dd/mm/yyyy) and represents a real date.
  * 
  * @param {string} date - The due date string.
- * @returns {boolean} Returns true if the date format is valid, false otherwise.
+ * @returns {string|null} Returns an error message if the date is invalid, or null if the date is valid.
  */
 function isValidDateFormat(date) {
+    if (!isMatchingDatePattern(date)) {
+        return "Invalid date format. Use dd/mm/yyyy.";
+    }
+
+    const [day, month, year] = date.split("/").map(Number);
+
+    if (!areDateComponentsRealistic(day, month, year)) {
+        return "Invalid date, this date is not possible or realistic.";
+    }
+
+    if (!isDateParsable(day, month, year)) {
+        return "Invalid date, this date is not possible.";
+    }
+
+    return null; // Date is valid
+}
+
+/**
+ * Checks if the date matches the pattern dd/mm/yyyy.
+ * 
+ * @param {string} date - The due date string.
+ * @returns {boolean} Returns true if the date matches the pattern, false otherwise.
+ */
+function isMatchingDatePattern(date) {
     const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
     return dateRegex.test(date);
+}
+
+/**
+ * Validates whether the date components are within a realistic range.
+ * 
+ * @param {number} day - The day of the date.
+ * @param {number} month - The month of the date.
+ * @param {number} year - The year of the date.
+ * @returns {boolean} Returns true if the components are realistic, false otherwise.
+ */
+function areDateComponentsRealistic(day, month, year) {
+    return month >= 1 && month <= 12 &&
+           day >= 1 && day <= 31 &&
+           year >= 1900 && year <= 2100;
+}
+
+/**
+ * Validates whether the date is parsable and represents a real date.
+ * 
+ * @param {number} day - The day of the date.
+ * @param {number} month - The month of the date.
+ * @param {number} year - The year of the date.
+ * @returns {boolean} Returns true if the date is valid, false otherwise.
+ */
+function isDateParsable(day, month, year) {
+    const parsedDate = new Date(year, month - 1, day);
+    return parsedDate.getFullYear() === year &&
+           parsedDate.getMonth() === month - 1 &&
+           parsedDate.getDate() === day;
 }
 
 /**

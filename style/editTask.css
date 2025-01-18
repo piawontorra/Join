@@ -12,6 +12,11 @@
     justify-content: flex-end;
 }
 
+.edit-task-content {
+    height: 800px;
+    overflow-y: auto;
+}
+
 .editor-title {
     font-weight: 400;
 }
@@ -31,6 +36,7 @@
 .change-edit-task-btn-container {
     display: flex;
     justify-content: flex-end;
+    padding-top: 16px;
 }
 
 .change-edit-task-btn {
@@ -78,7 +84,7 @@
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 390px) {
     .edit-task-form {
         max-width: 96vw;
         padding: 24px 16px;

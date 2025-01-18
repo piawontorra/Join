@@ -2,6 +2,7 @@
     position: fixed;
     top: 100px;
     left: 232px;
+    height: calc(100vh - 100px);
 }
 
 .board-header {

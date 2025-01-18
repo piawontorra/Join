@@ -19,13 +19,21 @@ async function getTaskCardTemplate(task) {
         ? await getAssignedUserInitialsAndColor(task.assignedTo)
         : [];
 
-    let assignedToHTML = assignedUserData
+    // Show only the first 4 users, and count the rest as '+X'
+    let assignedToHTML = assignedUserData.slice(0, 4)
         .map(user =>
             `<div class="task-user-icon" style="background-color: ${user.color};">
                 ${user.initials}
             </div>`
         )
         .join("");
+
+    if (assignedUserData.length > 4) {
+        const remainingUsersCount = assignedUserData.length - 4;
+        assignedToHTML += `<div class="task-user-icon more-users">
+                            +${remainingUsersCount}
+                          </div>`;
+    }
 
     let descriptionSection = task.description
         ? `<p class="task-description">${task.description}</p>`
@@ -241,7 +249,40 @@ function getTaskEditorTemplate(task) {
                         </label>
                         <div class="task-due-date">
                             <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
-                            <img src="./assets/img/calendar_icon.png" alt="">
+                            <img src="./assets/img/calendar_icon.png" alt="" id="calendarIcon">
+                            <div id="calendarPopup" class="calendar-popup">
+                                    <div id="calendarControls">
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedMonth">Januar</div>
+                                            <div class="select-items select-hide" id="monthSelect">
+                                                <div>Januar</div>
+                                                <div>Februar</div>
+                                                <div>März</div>
+                                                <div>April</div>
+                                                <div>Mai</div>
+                                                <div>Juni</div>
+                                                <div>Juli</div>
+                                                <div>August</div>
+                                                <div>September</div>
+                                                <div>Oktober</div>
+                                                <div>November</div>
+                                                <div>Dezember</div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedYear">2025</div>
+                                            <div class="select-items select-hide" id="yearSelect">
+                                                <div>2025</div>
+                                                <div>2026</div>
+                                                <div>2027</div>
+                                                <div>2028</div>
+                                                <div>2029</div>
+                                                <div>2030</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="calendarTable"></table>
+                                </div>
                         </div>
                         <span id="inputDueDateError" class="error-message" style="display: none;">This field is required</span>
                         <div class="task-prio">

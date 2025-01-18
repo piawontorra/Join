@@ -370,4 +370,3 @@ function showTaskAddedToBoard() {
         taskAddedToBoardModal.classList.remove('task-added-to-board-modal');
       }, 3000);
 }
-

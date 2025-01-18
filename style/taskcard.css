@@ -140,6 +140,10 @@
     z-index: 1;
 }
 
+.more-users {
+    background-color: gray
+}
+
 @media (max-width: 1065px) {
     .task-card-menu {
         display: block;

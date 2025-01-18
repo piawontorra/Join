@@ -16,6 +16,7 @@ async function renderTaskEditor(stringTask) {
 
     await renderEditorAssignedUsers(task);
     await renderEditorSubtasks();
+    initializeDatepicker();
 }
 
 /**
@@ -99,19 +100,73 @@ function renderEditorUsers(contacts, assignedUserIds) {
  */
 async function renderEditorAssignedUsers(task) {
     const assignedUserData = await getEditorAssignedUserInitialsAndColor(task.assignedTo || []);
-    let assignedToHTML = assignedUserData.length > 0
-        ? assignedUserData
-            .map(user =>
-                `<div class="editor-task-assigned-to">
-                    <div class="detail-task-user-icon" style="background-color: ${user.color};">
-                        ${user.initials}
-                    </div>
-                </div>`
-            )
-            .join("")
-        : "";
-
+    const assignedToHTML = generateAssignedUsersHTML(assignedUserData);
     document.getElementById("assignedUsers").innerHTML = assignedToHTML;
+}
+
+/**
+ * Generates the HTML for the assigned users, including a "+X" badge if there are more than 4.
+ * 
+ * @param {Array} assignedUserData - List of user data with initials and color.
+ * @returns {string} HTML string for the assigned users.
+ */
+function generateAssignedUsersHTML(assignedUserData) {
+    return assignedUserData.length > 4
+        ? generateLimitedUsersHTML(assignedUserData)
+        : generateAllUsersHTML(assignedUserData);
+}
+
+/**
+ * Generates the HTML for up to 4 assigned users with a "+X" badge for the rest.
+ * 
+ * @param {Array} assignedUserData - List of user data with initials and color.
+ * @returns {string} HTML string for the first 4 users and the "+X" badge.
+ */
+function generateLimitedUsersHTML(assignedUserData) {
+    const firstFourUsers = assignedUserData.slice(0, 4).map(generateUserHTML).join("");
+    const remainingCount = assignedUserData.length - 4;
+    const remainingBadge = generateRemainingBadgeHTML(remainingCount);
+    return firstFourUsers + remainingBadge;
+}
+
+/**
+ * Generates the HTML for all assigned users if there are 4 or fewer.
+ * 
+ * @param {Array} assignedUserData - List of user data with initials and color.
+ * @returns {string} HTML string for all users.
+ */
+function generateAllUsersHTML(assignedUserData) {
+    return assignedUserData.map(generateUserHTML).join("");
+}
+
+/**
+ * Generates the HTML for a single user icon.
+ * 
+ * @param {object} user - User object containing initials and color.
+ * @returns {string} HTML string for the user icon.
+ */
+function generateUserHTML(user) {
+    return `
+        <div class="editor-task-assigned-to">
+            <div class="detail-task-user-icon" style="background-color: ${user.color};">
+                ${user.initials}
+            </div>
+        </div>`;
+}
+
+/**
+ * Generates the HTML for the "+X" badge showing the number of remaining users.
+ * 
+ * @param {number} remainingCount - Number of users beyond the first 4.
+ * @returns {string} HTML string for the "+X" badge.
+ */
+function generateRemainingBadgeHTML(remainingCount) {
+    return `
+        <div class="editor-task-assigned-to">
+            <div class="detail-task-user-icon" style="background-color: #ccc;">
+                +${remainingCount}
+            </div>
+        </div>`;
 }
 
 /**

@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: row;
     gap: 47px;
+    min-height: 590px;
 }
 
 .add-task-form-left {
@@ -178,7 +179,7 @@ select {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-top: 160px;
+    padding-top: 16pxpx;
     padding-left: 104px;
     width: 100%;
     max-width: 1079px;
@@ -363,16 +364,27 @@ select {
     align-items: center;
     justify-content: center;
     gap: 12px;
-
     background-color: #2a3647;
     color: white;
     font-size: 20px;
     font-weight: 300;
-
     width: 300px;
     height: 70px;
     border-radius: 20px;
     animation: myAddAnim 1s ease 0s 1 normal forwards;
+}
+
+.initials-circle-if-to-much {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
 }
 
 @keyframes myAddAnim {

@@ -37,7 +37,7 @@ function renderSubtasks() {
   let subtask = document.getElementById('subtask');
   subtask.innerHTML = '';
   for (let i = 0; i < subtasks.length; i++) {
-      subtask.innerHTML += getSubtaskTemplate(i);
+    subtask.innerHTML += getSubtaskTemplate(i);
   }
 }
 
@@ -69,10 +69,10 @@ function addSubtask() {
 * @param {KeyboardEvent} event - The keyboard event triggered by the key press.
 */
 function handleKeyPress(event) {
-if (event.key === "Enter") {
-  event.preventDefault();
-  addSubtask();
-}
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addSubtask();
+  }
 }
 
 /**
@@ -83,10 +83,10 @@ if (event.key === "Enter") {
 * @param {number} i - The index of the subtask being edited.
 */
 function handleKeyPressEdit(event, i) {
-if (event.key === "Enter") {
-  event.preventDefault();
-  checkSubtask(i);
-}
+  if (event.key === "Enter") {
+    event.preventDefault();
+    checkSubtask(i);
+  }
 }
 
 /**
@@ -128,6 +128,15 @@ function editSubtask(i) {
 * @param {number} i - The index of the subtask to be updated.
 */
 function checkSubtask(i) {
-subtasks[i].text = document.getElementById(`subtaskList${i}`).value;
-renderSubtasks();
+  const subtaskInputContainer = document.getElementById(`mainSubtask-container${i}`)
+  const subtaskInput = document.getElementById(`subtaskList${i}`);
+  const subtaskText = subtaskInput.value;
+
+  if (subtaskText.trim() === '') {
+    subtaskInputContainer.style.borderColor = 'red';
+  } else {
+    subtaskInputContainer.style.borderColor = '';
+    subtasks[i].text = subtaskText;
+    renderSubtasks();
+  }
 }

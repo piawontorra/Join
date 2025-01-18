@@ -31,15 +31,15 @@
 }
 
 @keyframes myAnim {
-	0% {
-		opacity: 0;
-		transform: translateX(550px);
-	}
+    0% {
+        opacity: 0;
+        transform: translateX(550px);
+    }
 
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes myAnimOut {
@@ -47,6 +47,7 @@
         opacity: 1;
         transform: translateX(0);
     }
+
     100% {
         opacity: 0;
         transform: translateX(550px);
@@ -130,6 +131,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-height: 320px;
+    overflow-y: auto;
 }
 
 .detail-task-assigned-to {
@@ -294,5 +297,44 @@
     }
 }
 
+@media (max-width: 420px) {
+    .detail-task-assigned-user {
+        max-height: 184px;
+    }
+}
 
+@media (max-width: 400px) {
+    .detail-task-assigned-user {
+        gap: 8px;
+        max-height: 112px;
+    }
 
+    .detail-task-subtasks-container {
+        max-height: 64px;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 350px) {
+    .task-detail-content {
+        padding: 24px 24px;
+    }
+
+    .detail-task-card {
+        gap: 10px;
+    }
+
+    .detail-task-assigned-to {
+        padding-left: 8px;
+        gap: 12px;
+    }
+
+    .detail-task-subtasks-container {
+        gap: 8px;
+        padding-left: 8px;
+    }
+
+    .detail-task-subtask-item {
+        gap: 0px;
+    }
+}

@@ -20,6 +20,7 @@
     <script src="./js/summary.js"></script>
     <script src="./js/addTask.js"></script>
     <script src="./js/addTaskSubtask.js"></script>
+    <script src="./js/addTaskDueDatePicker.js"></script>
     <script src="./js/addTaskClearAndValidate.js"></script>
     <script src="./js/addTaskAssignedTo.js"></script>
     <script src="./js/addTaskTemplate.js"></script>
@@ -34,6 +35,7 @@
     <link rel="stylesheet" href="./style/boardAddTask.css">
     <link rel="stylesheet" href="./style/boardAddTaskResponsive.css">
     <link rel="stylesheet" href="./style/boardAddTaskSubCategoryAssigned.css">
+    <link rel="stylesheet" href="./style/addTaskDueDatePicker.css">
     <link rel="icon" href="./assets/img/join_logo_login.png">
 </head>
 
@@ -117,7 +119,8 @@
                             </div>
                             <div class="task-content-split" id="awaitFeedback"></div>
                         </div>
-                        <div class="tasks-content done-tasks-content" ondrop="dropTask(event, 'done')" ondragover="allowDrop(event)">
+                        <div class="tasks-content done-tasks-content" ondrop="dropTask(event, 'done')"
+                            ondragover="allowDrop(event)">
                             <div class="task-header">
                                 <p>Done</p>
                             </div>
@@ -185,7 +188,40 @@
                             <div class="task-due-date">
                                 <input class="add-task-input-fields" type="text" id="inputDueDate"
                                     placeholder="dd/mm/yyyy" maxlength="10">
-                                <img src="./assets/img/calendar_icon.png" alt="">
+                                <img src="./assets/img/calendar_icon.png" alt="" id="calendarIcon">
+                                <div id="calendarPopup" class="calendar-popup">
+                                    <div id="calendarControls">
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedMonth">Januar</div>
+                                            <div class="select-items select-hide" id="monthSelect">
+                                                <div>Januar</div>
+                                                <div>Februar</div>
+                                                <div>März</div>
+                                                <div>April</div>
+                                                <div>Mai</div>
+                                                <div>Juni</div>
+                                                <div>Juli</div>
+                                                <div>August</div>
+                                                <div>September</div>
+                                                <div>Oktober</div>
+                                                <div>November</div>
+                                                <div>Dezember</div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedYear">2025</div>
+                                            <div class="select-items select-hide" id="yearSelect">
+                                                <div>2025</div>
+                                                <div>2026</div>
+                                                <div>2027</div>
+                                                <div>2028</div>
+                                                <div>2029</div>
+                                                <div>2030</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="calendarTable"></table>
+                                </div>
                             </div>
                             <span id="inputDueDateError" class="error-message" style="display: none;">This field is
                                 required</span>
@@ -212,8 +248,7 @@
                                     <p>Category</p>
                                     <p class="rosa-font">*</p>
                                 </div>
-                                <div onclick="showCategorys()" id="categoryInput"
-                                    class="add-task-category-input-field">
+                                <div onclick="showCategorys()" id="categoryInput" class="add-task-category-input-field">
                                     <p id="selectedCategory"></p>
                                     <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
                                     <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
@@ -232,7 +267,8 @@
                                     class="add-task-input-fields" type="text" id="inputSubtask"
                                     placeholder="Add new subtask">
                                 <div id="containerButtons" class="add-subtask-buttons">
-                                    <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons padding-top-six">
+                                    <div onclick="changeButtons()" id="inputOffButton"
+                                        class="subtask-buttons padding-top-six">
                                         <img src="./assets/img/plus_dark_icon.svg" alt="">
                                     </div>
                                     <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">

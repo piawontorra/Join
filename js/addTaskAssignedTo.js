@@ -160,17 +160,42 @@ function handleCheckboxChange(userId) {
     showAssignedUsers();
 }
 
+// /**
+//  * Displays the list of assigned users in the UI.
+//  */
+// function showAssignedUsers() {
+//     const assignedUsersElement = document.getElementById('assignedUsers');
+//     assignedUsersElement.innerHTML = '';
+
+//     assignedTo.forEach(userId => {
+//         const user = contacts[userId];
+//         if (user) {
+//             assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
+//         }
+//     });
+// }
+
 /**
- * Displays the list of assigned users in the UI.
+ * Displays the list of assigned users in the UI with a limit of 4 icons and a "+n" indicator for additional users.
  */
 function showAssignedUsers() {
     const assignedUsersElement = document.getElementById('assignedUsers');
     assignedUsersElement.innerHTML = '';
+    const maxVisibleUsers = 4;
 
-    assignedTo.forEach(userId => {
+    assignedTo.slice(0, maxVisibleUsers).forEach(userId => {
         const user = contacts[userId];
         if (user) {
             assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
         }
     });
+
+    if (assignedTo.length > maxVisibleUsers) {
+        const extraUsersCount = assignedTo.length - maxVisibleUsers;
+        assignedUsersElement.innerHTML += `
+            <div class="initials-circle-if-to-much">
+                +${extraUsersCount}
+            </div>
+        `;
+    }
 }
