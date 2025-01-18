@@ -7,6 +7,11 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 80px 77px 0 77px;
+    width: 100%;
+}
+
+.login-headline-reset {
+    justify-content: flex-start;
 }
 
 .join-logo {

@@ -10,6 +10,12 @@ body {
     background-color: #F6F7F8;
 }
 
+.content-centering {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @font-face {
     font-family: 'Inter';
     src: url('../assets/fonts/inter.ttf') format('truetype');
