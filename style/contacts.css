@@ -439,7 +439,7 @@
 #statusAlert{
     height: 74px;
     width: 326px;
-    z-index: 99;
+    z-index: 999;
     background-color: rgb(42, 54, 71);
     color: white;
     font-size: 20px;
@@ -455,7 +455,7 @@
 }
 
 #statusAlert.open{
-    top: 50px;
+    top: 110px;
 }
 
 #newContactContent{
