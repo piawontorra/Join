@@ -248,6 +248,17 @@
     transition: .1s;
 }
 
+@media (max-width: 800px) {
+    .detail-task-assigned-user {
+        max-height: 206px;
+    }
+
+    .detail-task-subtasks-container {
+        max-height: 136px;
+        overflow-y: auto;
+    }
+}
+
 @media (max-width: 500px) {
     .detail-task-card {
         font-size: 16px;

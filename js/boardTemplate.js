@@ -228,7 +228,7 @@ function getTaskEditorTemplate(task) {
                     </div>
                 </div>
                 <div class="edit-task-content">
-                    <div class="add-task-form-left">
+                    <div class="edit-task-form-content">
                         <div>
                             <label for="inputTitle">
                                 <p class="editor-title">Title</p>
@@ -313,29 +313,29 @@ function getTaskEditorTemplate(task) {
                             <div id="users" class="users" style="display: none;">
                             </div>
                             <div class="assigned-users-container" id="assignedUsers"></div>
+                        </div>                  
+                        <div class="task-subtask">
+                                <p class="add-task-input-headline">Subtasks</p>
+                                <input onkeydown="handleKeyPressEditor(event)" onclick="changeButtons()"
+                                    class="add-task-input-fields" type="text" id="inputSubtask"
+                                    placeholder="Add new subtask">
+                                <div id="containerButtons" class="add-subtask-buttons">
+                                    <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons padding-top-six">
+                                        <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                    </div>
+                                    <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
+                                        <div onclick="resetButtons()" class="subtask-buttons">
+                                            <img src="./assets/img/cancel_icon.svg" alt="">
+                                        </div>
+                                        <div class="subtask-seperator"></div>
+                                        <div onclick="addEditorSubtask()" class="subtask-buttons">
+                                            <img src="./assets/img/check_dark_icon.svg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
+                        <div id="subtask" class="created-subtasks-container"></div>
                     </div>
-                    <div class="task-subtask">
-                            <p class="add-task-input-headline">Subtasks</p>
-                            <input onkeydown="handleKeyPressEditor(event)" onclick="changeButtons()"
-                                class="add-task-input-fields" type="text" id="inputSubtask"
-                                placeholder="Add new subtask">
-                            <div id="containerButtons" class="add-subtask-buttons">
-                                <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons padding-top-six">
-                                    <img src="./assets/img/plus_dark_icon.svg" alt="">
-                                </div>
-                                <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
-                                    <div onclick="resetButtons()" class="subtask-buttons">
-                                        <img src="./assets/img/cancel_icon.svg" alt="">
-                                    </div>
-                                    <div class="subtask-seperator"></div>
-                                    <div onclick="addEditorSubtask()" class="subtask-buttons">
-                                        <img src="./assets/img/check_dark_icon.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <div id="subtask" class="created-subtasks-container"></div>
                 </div>
                 <div class="change-edit-task-btn-container">
                     <button class="change-edit-task-btn" onclick="updateCurrentTask(event)">

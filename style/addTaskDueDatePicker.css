@@ -82,6 +82,7 @@
 
 .select-selected:after {
     content: "\25BC";
+    color: #2A3647;
     float: right;
     padding: 5px;
 }
