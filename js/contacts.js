@@ -166,6 +166,7 @@ function closeDetailsResponsive(){
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
     contactDetailsContainer.style.display = "none";
     contactCard.classList.remove("open");
+    contactCard.classList.add("infoboxClosed")
   }
 }
 
@@ -375,3 +376,33 @@ function removeClosed(){
   let contactDetails = document.getElementById('contactCard');
   contactDetails.classList.remove('infoboxClosed');
 }
+
+
+/**
+ * Checks if the contactCard has the infoboxClosed class
+ * If not, it makes `contactDetailsContainer` visible; otherwise, it hides it.
+ */
+function checkDetailsContainer(){
+  container = document.getElementById('contactCard');
+  detailCard = document.getElementById('contactDetailsContainer');
+    if (!container.classList.contains('infoboxClosed')) {
+      detailCard.style.display = "flex";
+    } else {
+      detailCard.style.display = "none";
+    }
+}
+
+/**
+ * Checks the window width on responsive, if smaller than 800px it fires 
+ * checkDetailsContainer function
+ */
+function handleResize() {
+  if (window.innerWidth < 800) {
+      checkDetailsContainer();
+}
+}
+
+/**
+ * Adds an event listener for handleResize
+ * */
+window.addEventListener("resize", handleResize);
