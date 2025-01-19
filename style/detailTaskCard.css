@@ -20,6 +20,7 @@
     background: white;
     border-radius: 24px;
     padding: 48px 40px;
+    padding-right: 16px;
     max-width: 530px;
     width: 90%;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
@@ -59,6 +60,9 @@
     flex-direction: column;
     gap: 24px;
     font-size: 20px;
+    max-height: 88vh;
+    padding-right: 16px;
+    overflow-y: auto;
 }
 
 .detail-task-header {
@@ -92,7 +96,7 @@
 }
 
 .task-detail-headline {
-    font-size: 65px;
+    font-size: 64px;
     font-weight: bold;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -131,8 +135,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-height: 320px;
-    overflow-y: auto;
 }
 
 .detail-task-assigned-to {
@@ -248,25 +250,16 @@
     transition: .1s;
 }
 
-@media (max-width: 800px) {
-    .detail-task-assigned-user {
-        max-height: 206px;
-    }
-
-    .detail-task-subtasks-container {
-        max-height: 136px;
-        overflow-y: auto;
-    }
-}
-
 @media (max-width: 500px) {
     .detail-task-card {
         font-size: 16px;
         gap: 16px;
+        padding-right: 8px;
     }
 
     .task-detail-content {
         padding: 32px 24px;
+        padding-right: 12px;
         border-radius: 30px;
     }
 
@@ -277,7 +270,7 @@
     }
 
     .task-detail-headline {
-        font-size: 36px;
+        font-size: 32px;
     }
 
     .detail-task-description {
@@ -308,21 +301,9 @@
     }
 }
 
-@media (max-width: 420px) {
-    .detail-task-assigned-user {
-        max-height: 184px;
-    }
-}
-
 @media (max-width: 400px) {
     .detail-task-assigned-user {
         gap: 8px;
-        max-height: 112px;
-    }
-
-    .detail-task-subtasks-container {
-        max-height: 64px;
-        overflow-y: auto;
     }
 }
 

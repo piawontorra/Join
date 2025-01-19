@@ -45,7 +45,7 @@
     .add-task-form-bottom {
         position: fixed;
         right: 16px;
-        bottom: 97px;
+        bottom: 12px;
         padding-left: 32px;
     }
 
@@ -56,7 +56,7 @@
 
 @media (max-width: 900px) {
     .add-task-form {
-        max-height: 710px;
+        max-height: 752px;
     }
 
     .board-add-task-overlay {
@@ -142,7 +142,7 @@
     }
 
     .contact-name {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 }
 
@@ -165,7 +165,6 @@
         padding-left: 104px;
         right: 16px;
         height: 80px;
-        bottom: 76px;
     }
 
     .created-subtasks-container {
@@ -184,13 +183,13 @@
 
     .info-line-mobile {
         padding-bottom: 40px;
-        padding-top: 24px;
     }
 }
 
 @media (max-width: 390px) {
     .add-task-form-bottom {
         padding-left: 82px;
+        bottom: 0;
     }
 
     .info-line-mobile {

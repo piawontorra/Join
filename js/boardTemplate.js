@@ -304,7 +304,7 @@ function getTaskEditorTemplate(task) {
                         </div>
                         <div class="task-assignement-and-category">
                             <p class="add-task-input-headline">Assigned to</p>
-                            <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field">
+                            <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field edit-task-assigned-to-input-field">
                                 <p>Select contacts to assign</p>
                                 <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
                                 <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""

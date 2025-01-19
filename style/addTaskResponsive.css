@@ -161,11 +161,23 @@
         font-size: 16px;
     }
 
-    .add-task-assigned-to-input-field {
+    .add-task-assigned-to-input-field p {
         font-size: 16px;
     }
 
-    .add-task-category-input-field {
+    .prio-button {
+        font-size: 16px;
+    }
+
+    .prio-button img {
+        height: 14.5px;
+    }
+
+    .prio-medium-img {
+        height: 8px !important;
+    }
+
+    .add-task-category-input-field p {
         font-size: 16px;
     }
 
@@ -232,6 +244,14 @@
 }
 
 @media (max-width: 360px) {
+    .add-task-form {
+        max-height: 240px;
+    }
+
+    .add-task-form-bottom {
+        bottom: 88px;
+    }
+
     .add-task-form-left {
         width: 290px;
     }

@@ -179,7 +179,7 @@ select {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-top: 16pxpx;
+    padding-top: 16px;
     padding-left: 104px;
     width: 100%;
     max-width: 1079px;

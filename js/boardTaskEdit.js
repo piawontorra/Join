@@ -161,15 +161,23 @@ function editEditorSubtask(i) {
 }
 
 /**
- * Saves changes to a subtask after editing.
- *
- * @param {number} i - The index of the subtask being edited.
- */
+* Saves the edited subtask and re-renders the subtasks list.
+* 
+* @param {number} i - The index of the subtask to be updated.
+*/
 function checkEditorSubtask(i) {
+    const subtaskInputContainer = document.getElementById(`mainSubtask-container${i}`)
     const subtaskInput = document.getElementById(`subtaskList${i}`);
-    currentTask.subtasks[i].text = subtaskInput.value;
-    renderEditorSubtasks();
-}
+    const subtaskText = subtaskInput.value;
+  
+    if (subtaskText.trim() === '') {
+      subtaskInputContainer.style.borderColor = 'red';
+    } else {
+      subtaskInputContainer.style.borderColor = '';
+      currentTask.subtasks[i].text = subtaskInput.value;
+      renderEditorSubtasks();
+    }
+  }
 
 /**
  * Adds a new subtask to the task.
