@@ -67,6 +67,8 @@ header {
     background-color: #2A3647;
     padding: 8px;
     text-align: left;
+    font-size: 16px;
+    color: rgb(205, 205, 205);
 }
 
 .user-menu-btn:hover {
