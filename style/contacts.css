@@ -433,7 +433,6 @@
 .chosen{
     background-color: rgb(42, 54, 71);
     color: white;
-    pointer-events: none;
 }
 
 #statusAlert{
