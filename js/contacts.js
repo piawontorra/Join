@@ -8,17 +8,6 @@ function initContacts() {
 }
 
 /**
- * Shows a popup notification when a new contact is created 
- */
-function toggleAlert(){
-  let overlay = document.getElementById('statusAlert');
-  overlay.classList.add('open');
-  setTimeout(() => {
-    overlay.classList.remove('open');
-}, 2000);
-}
-
-/**
  * creates a new contact and saves it in the database
  * colecting data from user input as name, email and phone number
  * update contact list and reload it
@@ -66,18 +55,6 @@ function chooseNewContact(key){
       },
       body: JSON.stringify(data)
   });
-}
-
-/**
- * gathers values from user input and returns it to the editContact function
- * @returns value of name, email and phone
- */
-function getUpdatedData() {
-  return {
-      name: document.getElementById('newUserName').value,
-      email: document.getElementById('newUserEmail').value,
-      phone: document.getElementById('newUserPhone').value
-  };
 }
 
 /**
@@ -171,17 +148,6 @@ function closeDetailsResponsive(){
 }
 
 /**
- * 
- * @returns a background color for the new user out of preset colors
- * 
- */
-function createUserColor(){
-  let randomNumber = Math.floor(Math.random()*15);
-  let userColor = userColorsPreset[randomNumber];
-  return userColor;
-}
-
-/**
  * fetches the database and lookin for the current userID
  * @returns the next available ID from the database 
  */
@@ -194,16 +160,6 @@ async function getNextID() {
   return nextID;
 }
 
-/**
- * writing the next available ID into the database
- * @param {number} nextID 
- */
-async function nextIdToDatabase(nextID){
-  await fetch(`${BASE_URL}/nextID.json`, {
-    method: 'PUT',
-    body: JSON.stringify(nextID + 1),
-  })
-}
 
 /**
  * 
@@ -257,22 +213,18 @@ function openDialog(){
   renderNewContactForm();
 }
 
-/**
- * renders the new contact form into the dialog
- */
 function renderNewContactForm() {
-  const container = document.getElementById('contactDialog');
-  container.innerHTML = newContactTemplate();
-  const form = document.getElementById('newUserForm');
+  document.getElementById('contactDialog').innerHTML = newContactTemplate();
+  let form = document.getElementById('newUserForm');
   if (form) {
-      form.addEventListener("submit", function (event) {
+      form.addEventListener("submit", (event) => {
           event.preventDefault();
-          if (form.checkValidity()) {
+          if (validateForm()) {
               newContact();
               toggleAlert();
           }
       });
-  } 
+  }
 }
 
 /**
@@ -340,20 +292,13 @@ function renderEditContactForm(user, id) {
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
   if (form) {
-    // form.addEventListener('submit', function (event) {
-    //   event.preventDefault();
-    //   if (form.checkValidity()) {
-    //     editContact(user.id);
-    //   }
-
-    form.addEventListener('submit', function (event) {
+    form.addEventListener("submit", (event) => {
       event.preventDefault();
-      console.log('Form submitted, validity:', form.checkValidity());
-      if (form.checkValidity()) {
-        console.log('Calling editContact with ID:', user.id);
-        editContact(user.id);
-      }
-    });
+      if (validateForm()) {
+          newContact();
+          toggleAlert();
+        }
+    })
   }
 }
 
@@ -376,7 +321,6 @@ function removeClosed(){
   let contactDetails = document.getElementById('contactCard');
   contactDetails.classList.remove('infoboxClosed');
 }
-
 
 /**
  * Checks if the contactCard has the infoboxClosed class

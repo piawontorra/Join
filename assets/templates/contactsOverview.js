@@ -90,11 +90,11 @@ function contactCardDetailsTemplate(id, contact) {
                     <div id="userName">${contact.name}</div>
                     <div class="action">
                             <div id="edit" onclick="openEditDialog(currentUser, ${id})">
-                                <img src="assets/img/edit_icon.svg" alt="Image edit">
+                                <img src="assets/img/edit_icon.svg" alt="edit icon">
                                 <span>Edit</span>
                             </div>
                             <div id="delete" onclick="deleteContact(${contact.id})">
-                                <img src="assets/img/delete_icon.svg" alt="Image delete">
+                                <img src="assets/img/delete_icon.svg" alt="delete icon">
                                 <span>Delete</span>
                             </div>
                     </div>
@@ -115,14 +115,14 @@ function contactCardDetailsTemplate(id, contact) {
                     <div id="contactPhoneNr">${contact.phone || "no phone number available"}</div>
                 </div>
                 <div id="buttonMenuContainer">
-                    <button class="btn_menuResponsive" onclick="openMenuDialog()"><img src="assets/img/more_vert.svg" alt=""></button>
+                    <button class="btn_menuResponsive" onclick="openMenuDialog()"><img src="assets/img/more_vert.svg" alt="open menu"></button>
                     <div id="moreResponsive" class="closed">
                         <div id="edit" onclick="openEditDialog(currentUser, ${id})">
-                            <img src="assets/img/edit_icon.svg" alt="Image edit">
+                            <img src="assets/img/edit_icon.svg" alt="edit icon">
                             <span>Edit</span>
                         </div>
                         <div id="delete" onclick="deleteContact(${contact.id})">
-                            <img src="assets/img/delete_icon.svg" alt="Image delete">
+                            <img src="assets/img/delete_icon.svg" alt="delete icon">
                             <span>Delete</span>
                         </div>
                     </div>
@@ -156,25 +156,28 @@ function newContactTemplate() {
                     <div id="cancelImgContainer">
                         <img src="./assets/img/cancel_icon.png" id="closingImg" alt="Cancel" onclick="closeDialog('[newContactDialog]');">
                     </div>
-                    <form id="newUserForm">
+                    <form id="newUserForm" novalidate>
                         <div class="inputField">
-                            <input type="text" id="newUserName" placeholder="Name" required pattern="[a-zA-Z\s]+ [a-zA-Z\s]+" >
-                            <img src="./assets/img/user_icon.png" alt="">
+                            <input type="text" id="newUserName" placeholder="Name" required>
+                            <img src="./assets/img/user_icon.png" alt="user icon">
+                            <div class="error-message" id="nameError"></div>
                         </div>
                         <div class="inputField">
                             <input type="email" id="newUserEmail" placeholder="Email" required>
-                            <img src="./assets/img/mail_icon.png" alt="">
+                            <img src="./assets/img/mail_icon.png" alt="mail icon">
+                            <div class="error-message" id="emailError"></div>
                         </div>
                         <div class="inputField">
                             <input type="number" id="newUserPhone" placeholder="Phone" required>
-                            <img src="./assets/img/phone_icon.png" alt="">
+                            <img src="./assets/img/phone_icon.png" alt="phone icon">
+                            <div class="error-message" id="phoneError"></div>
                         </div>
                     </form>
                 </div>
             </div>
             <div id="btnContainer">
-              <button id="btnCancel" class="clear-task-btn" type="button" onclick="closeDialog('[newContactDialog]');">Cancel<img src="./assets/img/cancel_icon.png" alt=""></button>
-              <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Create Contact<img src="./assets/img/check_icon.png" alt=""></button>
+              <button id="btnCancel" class="clear-task-btn" type="button" onclick="closeDialog('[newContactDialog]');">Cancel<img src="./assets/img/cancel_icon.png" alt="cancel icon"></button>
+              <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Create Contact<img src="./assets/img/check_icon.png" alt="create icon"></button>
             </div>
         </div>
         
@@ -184,7 +187,6 @@ function newContactTemplate() {
 
 function editContactTemplate(user, id){
   let initials = user.name.charAt(0) + (user.name.split(" ")[1]?.charAt(0) || "");
-//   let arrayID = id;
   let userId = user.userId;
     return `
             <div id="newContactContent">
@@ -212,22 +214,25 @@ function editContactTemplate(user, id){
                       <form id="newUserForm">
                           <div class="inputField">
                               <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
-                              <img src="./assets/img/user_icon.png" alt="">
+                              <img src="./assets/img/user_icon.png" alt="user icon">
+                              <div class="error-message" id="nameError"></div>
                           </div>
                           <div class="inputField">
                               <input type="email" id="newUserEmail" placeholder="Email" value="${user.email || ''}" required>
-                              <img src="./assets/img/mail_icon.png" alt="">
+                              <img src="./assets/img/mail_icon.png" alt="mail icon">
+                              <div class="error-message" id="emailError"></div>
                           </div>
                           <div class="inputField">
                               <input type="number" id="newUserPhone" placeholder="Phone" value="${user.phone  || ''}" required>
-                              <img src="./assets/img/phone_icon.png" alt="">
+                              <img src="./assets/img/phone_icon.png" alt="phone icon">
+                              <div class="error-message" id="phoneError"></div>
                           </div>
                       </form>
                   </div>
               </div>
               <div id="btnContainer">
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
-                <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Save<img src="./assets/img/check_icon.png" alt=""></button>
+                <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
               </div>
           </div>
         
