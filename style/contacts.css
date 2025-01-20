@@ -494,12 +494,6 @@ dialog.contactDialog{
     height: 100vh;
 }
 
-/* .error-message{
-    color: red;
-    height: 25px;
-    width: 100%;
-} */
-
 #addUserFormContainer .inputField{
     height: 70px;
 } 

@@ -42,14 +42,23 @@ async function nextIdToDatabase(nextID){
   }
   
   
-
+/**
+ * checks if the user name input is valid
+ * First name and last name
+ * @returns true/false
+ */
 function checkName() {
     let name = document.getElementById("newUserName");
     let isValid = /^[a-zA-ZäöüÄÖÜß\s]+ [a-zA-ZäöüÄÖÜß\s]+$/.test(name.value);
     if (!isValid) showError("nameError", "Please enter your full name", name);
     return isValid;
   }
-  
+
+ /**
+ * checks if the user email input is valid
+ * there must me a @ and a toplevel domain
+ * @returns true/false
+ */ 
 function checkEmail() {
     let email = document.getElementById("newUserEmail");
     let isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
@@ -57,17 +66,33 @@ function checkEmail() {
     return isValid;
   }
   
+/**
+ * checks if the user phonenumber input is valid
+ * there must be at least 7 digits
+ * @returns true/false
+ */  
 function checkPhone() {
     let phoneNr = document.getElementById("newUserPhone");
     let isValid = /^\d{7,15}$/.test(phoneNr.value);
     if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits)", phoneNr);
     return isValid;
   }
-  
+
+/**
+ * checks if all ist true
+ * @returns true/false
+ */
 function validateForm() {
     return checkName() & checkEmail() & checkPhone();
   }
-  
+
+/**
+ * Displays an error message for a specific input field
+ * The error message disappears after 2.5 seconds
+ * @param {string}
+ * @param {string}
+ * @param {HTMLElement}
+ */
 function showError(elementId, message, inputField) {
     let errorElement = document.getElementById(elementId);
     inputField.style.border = "1px solid red";
