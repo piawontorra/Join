@@ -355,6 +355,24 @@ function selectCategory(event, category) {
 }
 
 /**
+ * Closes the category dropdown if a click occurs outside of it.
+ */
+document.addEventListener('click', (event) => {
+    const categoryDropdown = document.getElementById('category');
+    const categoryField = document.getElementsByClassName('add-task-category-input-field')[0];
+
+    // Check if the click is outside the category dropdown and input field
+    if (categoryDropdown.style.display === 'block' && !categoryField.contains(event.target)) {
+        hideCategorysList(
+            categoryDropdown,
+            document.getElementById('categoryArrowDown'),
+            document.getElementById('categoryArrowUp'),
+            categoryField
+        );
+    }
+});
+
+/**
  * Displays a notification that the task has been successfully added to the board.
  */
 function showTaskAddedToBoard() {

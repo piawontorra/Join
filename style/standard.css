@@ -187,6 +187,27 @@ a {
     margin-right: 10px;
 }
 
+.bg-white {
+    background-color: white;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a8a8a8;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #969696;
+}
+
 @media (max-width: 1310px) {
     .section-head {
         padding-left: 24px;
