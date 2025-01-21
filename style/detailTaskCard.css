@@ -89,6 +89,7 @@
     border-radius: 45px;
     position: fixed;
     right: 32px;
+    background-color: white;
 }
 
 .close-btn:hover {
@@ -274,6 +275,10 @@
         font-size: 32px;
     }
 
+    .close-btn {
+        right: 16px;
+    }
+
     .detail-task-description {
         font-size: 16px;
     }
@@ -310,7 +315,7 @@
 
 @media (max-width: 350px) {
     .task-detail-content {
-        padding: 24px 24px;
+        padding: 24px 16px;
     }
 
     .detail-task-card {

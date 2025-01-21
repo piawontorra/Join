@@ -223,7 +223,7 @@ function getTaskEditorTemplate(task) {
         <form id="add-task-form">
             <div class="edit-task-form">
                 <div class="edit-task-header">
-                    <div class="close-btn">
+                    <div class="close-edit-btn">
                         <img src="./assets/img/cancel_icon.png" onclick="closeTaskEditor()">
                     </div>
                 </div>

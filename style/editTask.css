@@ -13,6 +13,20 @@
     justify-content: flex-end;
 }
 
+.close-edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 45px;
+}
+
+.close-edit-btn:hover {
+    background-color: #efefef;
+    cursor: pointer;
+}
+
 .edit-task-content {
     height: 800px;
     overflow-y: auto;
@@ -79,6 +93,7 @@
     .edit-task-form {
         height: calc(100vh - 100px);
         padding: 40px 32px;
+        padding-right: 16px;
         padding-bottom: 32px;
     }
 
@@ -104,6 +119,13 @@
 
     .add-task-assigned-to-input-field p {
         font-size: 16px;
+    }
+}
+
+@media (max-width: 425px) {
+    .edit-task-form-content {
+        width: 87vw;
+        padding-right: 10px;
     }
 }
 

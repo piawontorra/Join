@@ -63,7 +63,13 @@ function findTaskById(taskId) {
 /**
  * Highlights all status containers except the one corresponding to the current task's status.
  * 
- * @param {string} currentStatus - The current status of the task.
+ * This function performs the following actions:
+ * 1. Adds a dashed border to all status containers except the current one.
+ * 2. Attaches `dragover` and `dragleave` event listeners to the containers:
+ *    - `dragover`: Highlights the container under the mouse by changing the border color.
+ *    - `dragleave`: Resets the border color when the mouse leaves the container.
+ * 
+ * @param {string} currentStatus - The current status of the task that is being dragged.
  */
 function highlightContainersExceptCurrent(currentStatus) {
   const statusContainers = getStatusContainers();
@@ -75,6 +81,41 @@ function highlightContainersExceptCurrent(currentStatus) {
           }
       }
   });
+
+  Object.values(statusContainers).forEach(container => {
+    container.addEventListener('dragover', handleDragOver);
+    container.addEventListener('dragleave', handleDragLeave);
+  });
+}
+
+
+/**
+ * Handles the dragover event to highlight the nearest drop target.
+ * 
+ * @param {DragEvent} event - The dragover event.
+ */
+function handleDragOver(event) {
+  event.preventDefault();
+  const container = event.currentTarget;
+
+  const dashedBox = container.querySelector('.dashed-box');
+  if (dashedBox) {
+    dashedBox.style.borderColor = '#26ace3';
+  }
+}
+
+/**
+ * Handles the dragleave event to reset the border color of a drop target.
+ * 
+ * @param {DragEvent} event - The dragleave event.
+ */
+function handleDragLeave(event) {
+  const container = event.currentTarget;
+
+  const dashedBox = container.querySelector('.dashed-box');
+  if (dashedBox) {
+    dashedBox.style.borderColor = '#aaa';
+  }
 }
 
 /**
@@ -214,9 +255,6 @@ function moveTaskCardInDOM(taskId, newStatus) {
   }
 }
 
-/**
- * Removes dashed boxes when a drag operation ends.
- */
 document.addEventListener('dragend', () => {
   removeAllDashedBoxes();
 });

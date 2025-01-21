@@ -261,7 +261,7 @@ function updateLocalTasksData(task) {
 function postUpdateActions(task) {
     refreshTaskCard(task);
     openTaskDetail(task.id);
-    closeTaskEditor();
+    closeTaskEditorSubmit();
 }
 
 /**

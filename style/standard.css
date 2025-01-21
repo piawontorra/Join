@@ -196,7 +196,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-    background: white;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -307,5 +307,11 @@ a {
     .btn {
         font-size: 16px;
         line-height: 19.2px;
+    }
+}
+
+@media (max-width: 480px) {
+    ::-webkit-scrollbar {
+        width: 4px;
     }
 }

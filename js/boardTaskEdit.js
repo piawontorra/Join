@@ -227,13 +227,67 @@ function handleKeyPressEditEditor(event, i) {
 /**
  * Closes the task editor and resets the UI.
  */
-function closeTaskEditor() {
+function closeTaskEditorSubmit() {
     const contentRef = document.getElementById('editContainer');
     const taskCard = document.getElementById('taskDetailCard');
     contentRef.innerHTML = "";
     taskCard.style.display = 'block';
     contentRef.style.display = 'none';
 }
+
+/**
+ * Closes the task editor with an animation and also closes the task detail view.
+ */
+function closeTaskEditor() {
+    const contentRef = document.getElementById('editContainer');
+    const taskCard = document.getElementById('taskDetailCard');
+    const modal = document.getElementById('taskDetailModal');
+    const content = modal.querySelector('.task-detail-content');
+
+    animateTaskEditorClose(contentRef);
+    closeTaskDetailView(modal, content);
+    resetTaskEditorAfterAnimation(contentRef, taskCard, 900);
+}
+
+/**
+ * Animates the closing of the task editor.
+ * 
+ * @param {HTMLElement} contentRef - The content container of the task editor.
+ */
+function animateTaskEditorClose(contentRef) {
+    contentRef.style.animation = "myAnimOut 1s ease 0s 1 normal forwards";
+}
+
+/**
+ * Closes the task detail view with a delay to match the animation.
+ * 
+ * @param {HTMLElement} modal - The modal element containing the task details.
+ * @param {HTMLElement} content - The content element inside the modal.
+ */
+function closeTaskDetailView(modal, content) {
+    content.classList.add('hidden');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        content.classList.remove('hidden');
+    }, 900);
+}
+
+/**
+ * Resets the task editor UI after the closing animation finishes.
+ * 
+ * @param {HTMLElement} contentRef - The content container of the task editor.
+ * @param {HTMLElement} taskCard - The task card element to reset.
+ * @param {number} delay - The delay in milliseconds before resetting the UI.
+ */
+function resetTaskEditorAfterAnimation(contentRef, taskCard, delay) {
+    setTimeout(() => {
+        contentRef.style.animation = ""; // Remove the animation
+        contentRef.innerHTML = "";       // Clear the content
+        taskCard.style.display = 'block';
+        contentRef.style.display = 'none';
+    }, delay);
+}
+
 
 /**
  * Validates task input fields for title and due date.
