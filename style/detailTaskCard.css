@@ -60,9 +60,10 @@
     flex-direction: column;
     gap: 24px;
     font-size: 20px;
-    max-height: 88vh;
+    max-height: 77vh;
     padding-right: 16px;
     overflow-y: auto;
+    position: relative;
 }
 
 .detail-task-header {
@@ -86,13 +87,13 @@
     width: 32px;
     height: 32px;
     border-radius: 45px;
+    position: fixed;
+    right: 32px;
 }
 
 .close-btn:hover {
     background-color: #efefef;
     cursor: pointer;
-    transform: scale(1.05);
-    transition: .2s;
 }
 
 .task-detail-headline {
