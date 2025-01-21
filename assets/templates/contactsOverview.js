@@ -232,7 +232,7 @@ function editContactTemplate(user, id){
               </div>
               <div id="btnContainer">
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
-                <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm">Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
+                <button id="btnCreate" class="create-task-btn" onclick="editContact(${id}, ${userId})">Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
               </div>
           </div>
         

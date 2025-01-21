@@ -27,6 +27,7 @@ async function newContact(){
   nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 200);
   setTimeout(()=>{chooseNewContact(key);}, 300);
+  location.reload();
 }
 
 /**
@@ -65,9 +66,10 @@ function chooseNewContact(key){
  * 
  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
-async function editContact(id){
+async function editContact(id, key){
   let updatedData = getUpdatedData();
-  let key = id;
+  // let key = id;
+  
   await updateData(updatedData, "contacts", key);
   const index = usersArray.findIndex(contact => contact.userId == key);
   if (index !== -1) {
@@ -90,11 +92,9 @@ async function editContact(id){
  * 
  */
  async function updateData(data, path, key){
-  let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
+  await fetch(`${BASE_URL}${path}/${key}.json`,{
       method: "PATCH",
-      headers: {
-          "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
   });
 }
@@ -229,7 +229,7 @@ function renderNewContactForm() {
 /**
  * open up the edit dialog for editing contact informations
  * @param {array} user 
- * @param {string} id usersArray
+ * @param {string} id from usersArray
  */
 function openEditDialog(user, id) {
   const modal = document.querySelector("[editContactDialog]");
@@ -286,7 +286,7 @@ function outsideClickHandler(event) {
  * @param {array} user 
  * @param {string} id 
  */
-function renderEditContactForm(user, id) {
+function renderEditContactForm(user, id) {  
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
