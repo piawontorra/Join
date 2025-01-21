@@ -160,7 +160,6 @@ async function getNextID() {
   return nextID;
 }
 
-
 /**
  * 
  * deletes a specific entry with the given id in the firebase database

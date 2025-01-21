@@ -105,4 +105,14 @@ function showError(elementId, message, inputField) {
         }, 2500);
     }
   }
-  
+
+/**
+ * checks if the window size is larger than 800px and will show up the Container again
+ * Container: contactDetailsContainer
+ */
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 800) {
+      let detailCard = document.getElementById('contactDetailsContainer');
+      detailCard.style.display = "flex";
+    }
+  });
