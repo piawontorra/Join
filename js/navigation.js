@@ -1,6 +1,6 @@
 /**
  * Determines the visibility of page content and manages redirection based on the user's login status 
- * and the current page URL. The function checks if the user is logged in or is a guest and adjusts 
+ * and the current page URL. The function checks if the user is logged in or is a guest or neither nor and adjusts 
  * the display or redirects accordingly.
  * 
  * - If the user is not logged in and the current page is a limited content page (privacy policy or legal notice),
@@ -31,15 +31,18 @@ function checkForLimitedContent() {
 
 /**
  * Adjusts the sidebar and main content for limited-content pages by hiding the main content and showing a login link.
- * This is used when the user is not logged in and is viewing pages like privacy-policy or legal-notice.
+ * Removes the submenu in the header (e.g. logout).
+ * This is used when the user is not logged in and is viewing pages privacy-policy or legal-notice.
  * 
  * @returns {void} No return value.
  */
 function adjustSidebarForLimitedContent() {
+    const removeSubmenu = document.getElementById('submenu');
     const mainContent = document.getElementById('mainTabs');
     const linkToLogin = document.getElementById('loginReference');
 
     if (mainContent && linkToLogin) {
+        removeSubmenu.classList.add('d-none');
         mainContent.classList.add('d-none');
         linkToLogin.classList.remove('d-none');
     } else {

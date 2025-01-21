@@ -17,8 +17,15 @@ function showMoveTo(event) {
         });
 
         menuPopUp.style.display = "flex";
+        menuPopUp.addEventListener("click", (e) => e.stopPropagation());
     }
 }
+
+document.addEventListener("click", () => {
+    document.querySelectorAll(".task-card-menu-pop-up").forEach(popup => {
+        popup.style.display = "none";
+    });
+});
 
 /**
  * Moves a task to a new category and updates its status in the backend.
