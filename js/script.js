@@ -159,15 +159,34 @@ function adaptFields() {
 }
 
 /**
- * Simulates a guest login by using predefined guest credentials.
+ * Initiates a guest login process.
+ * At first the input fields are resetted.
+ * If the "Remember Me" checkbox is checked, it will be unchecked. Then the function proceeds to log in the user as a guest.
+ * The guest login is performed using predefined guest credentials (email and password).
+ * 
  */
 function guestLogIn() {
+    resetFields();
+    uncheckCheckbox();
+
     const guestLoginData = {
         email: 'guest@test.de',
         password: '000'
     };
 
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
+}
+
+/**
+ * Unchecks the "Remember Me" checkbox if it is checked.
+ * 
+ */
+function uncheckCheckbox() {
+    const checkboxRef = document.getElementById('remember-me');
+
+    if (checkboxRef.checked) {
+        checkboxRef.checked = false;
+    }
 }
 
 /**
@@ -179,9 +198,9 @@ function guestLogIn() {
  */
 async function loginWithGuestData(email, password) {
     let users = await loadUsers("users");
-    let user = Object.values(users).find(u => u.email === email && u.password === password);
+    let guestUser = Object.values(users).find(u => u.email === email && u.password === password);
 
-    if (user) {
+    if (guestUser) {
         sessionStorage.setItem('guestUser', 'G');
         transferToSummary();
     } else {

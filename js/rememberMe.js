@@ -1,8 +1,8 @@
 /**
  * Toggles the visibility of the "Remember me" checkbox based on whether the email 
- * and/or password input fields are filled out.
+ * and the password input fields are filled out.
  * 
- * If either the email or password field is not empty, the "Remember me" checkbox 
+ * If neither the email nor password field is empty, the "Remember me" checkbox 
  * will be displayed. Otherwise, it will be hidden.
  * 
  * This function assumes that the HTML elements for the email, password, and "Remember me" checkbox 
@@ -19,7 +19,7 @@ function toggleRememberMe() {
         let passwordValue = passwordRef.value.trim();
         let rememberRef = document.getElementById('remember-div');
 
-        if (emailValue !== "" || passwordValue !== "") {
+        if (emailValue !== "" && passwordValue !== "") {
             rememberRef.classList.remove('d-none');
         } else {
             rememberRef.classList.add('d-none');
@@ -28,6 +28,7 @@ function toggleRememberMe() {
 }
 
 /**
+ * Checks if the "Remember Me" checkbox has to be shown.
  * Checks if the "Remember Me" option is enabled in localStorage, and updates the checkbox state accordingly.
  * Also updates the checkbox image to reflect its state.
  */
@@ -35,6 +36,8 @@ function checkRememberMe() {
     const rememberMe = localStorage.getItem('rememberMe');
     const realCheckboxRef = document.getElementById('remember-me');
     const customizedCheckboxImg = document.getElementById('remember-checkbox-img');
+
+    toggleRememberMe();
 
     if (rememberMe === 'true') {
         realCheckboxRef.checked = true;
@@ -50,6 +53,7 @@ function checkRememberMe() {
  */
 function rememberMeEffects() {
     let rememberMe = document.getElementById('remember-me').checked;
+    
     if (rememberMe) {
         localStorage.setItem('email', email.value);
         localStorage.setItem('password', password.value);
