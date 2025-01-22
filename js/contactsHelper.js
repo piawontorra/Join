@@ -48,11 +48,19 @@ async function nextIdToDatabase(nextID){
  * @returns true/false
  */
 function checkName() {
-    let name = document.getElementById("newUserName");
-    let isValid = /^[a-zA-ZäöüÄÖÜß\s]+ [a-zA-ZäöüÄÖÜß\s]+$/.test(name.value);
-    if (!isValid) showError("nameError", "Please enter your full name", name);
-    return isValid;
+  let name = document.getElementById("newUserName");
+  name.value = name.value
+      .toLowerCase()
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+  let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
+  if (!isValid) {
+      showError("nameError", "Please enter your full name with capitalized first letters", name);
   }
+  return isValid;
+}
 
  /**
  * checks if the user email input is valid

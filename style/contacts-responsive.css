@@ -281,6 +281,16 @@
     }
 }
 
+@media (max-height: 700px){
+        #contactDetailsHeader {
+        margin-top: 40px;
+        }
+
+        #arrowBack {
+            top: 2%;
+        }
+}
+
 @media (max-width: 428px){
     #span_contacts{
         font-size: 47px;
