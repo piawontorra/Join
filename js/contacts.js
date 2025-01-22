@@ -27,7 +27,7 @@ async function newContact(){
   nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 200);
   setTimeout(()=>{chooseNewContact(key);}, 300);
-  location.reload();
+  setTimeout(() => {location.reload()}, 400);
 }
 
 /**
