@@ -97,12 +97,15 @@
 
 .menu-component.active {
     background-color: #091931;
-    color: #FFFFFF;
     width: 232px;
 }
 
 .menu-component.active .menu-icon {
     filter: grayscale(100%) brightness(108%);
+}
+
+.menu-component.active p {
+    color: #FFFFFF;
 }
 
 @media (max-width: 1065px) {
