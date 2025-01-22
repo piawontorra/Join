@@ -74,6 +74,10 @@
     gap: 4px;
 }
 
+.imprint-link-component:hover {
+    background: unset;
+}
+
 .imprint-link {
     color: #CDCDCD;
     font-size: 16px;
@@ -95,10 +99,6 @@
     background-color: #091931;
     color: #FFFFFF;
     width: 232px;
-}
-
-.btn-imprint-links:hover {
-    background-color: #2A3647;
 }
 
 @media (max-width: 1065px) {
@@ -127,8 +127,8 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        padding: 0 15px;
+        justify-content: space-around;
+        padding: 0 88px;
     }
 
     .menu-component {
@@ -157,18 +157,20 @@
         height: 76px;
         padding-bottom: 0;
         flex-direction: row;
-        padding-right: 15px;
+        justify-content: space-around;
+        padding: 0 32px 0 0;
     }
 
     .imprint-links {
         flex-direction: row;
+        gap: 8px;
     }
 
-    .btn-imprint-links {
+    .imprint-link-component {
         width: 112px;
     }
 
-    .btn-imprint-links.active {
+    .imprint-link-component.active {
         width: 112px;
     }
 
@@ -183,33 +185,46 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 648px) {
     .menu-components {
+        justify-content: space-between;
         padding: 0 32px;
+    }
+
+    .imprint-content {
+        justify-content: flex-end;
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 448px) {
+    .menu-components {
+        padding: 0 16px;
+    }
+
     .menu-component {
         font-size: 14px;
     }
 
-    .menu-components {
-        padding: 0 16px;
+    .imprint-content {
+        padding-right: 16px;
     }
 }
 
 @media (max-width: 376px) {
     .menu-components {
-        padding: 0 4px;
+        padding: 0 8px;
     }
 
-    .btn-imprint-links {
+    .imprint-content {
+        padding-right: 8px;
+    }
+
+    .imprint-link-component {
         width: 80px;
         padding: 8px;
     }
 
-    .btn-imprint-links.active {
+    .imprint-link-component.active {
         width: 80px;
         padding: 8px;
     }
