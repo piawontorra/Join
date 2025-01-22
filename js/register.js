@@ -58,8 +58,18 @@ function checkNameValidity(name) {
     }
 }
 
+/**
+ * Validates the format of the provided email address.
+ * 
+ * This function uses a regular expression to check if the email address follows a valid format. 
+ * If the email is invalid, it displays an error message and highlights the email input field with a red border.
+ * 
+ * @param {string} email - The email address to be validated.
+ * @returns {boolean} Returns `true` if the email is valid, otherwise `false`.
+ */
 function checkEmailValidity(email) {
-    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[A-Za-z0-9.-]+\.+[A-Za-z0-9.-]+$/;
+    const emailRegex = /^[^@,;:\x22\s<>\(\)\[\]]+@[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+\.[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+ ?$/;
+
     if (!emailRegex.test(email)) {
         document.getElementById('msg-box').innerText = "Please enter a valid email address, e.g. steven.miller@gmail.com.";
         document.getElementById('input-registry-email').classList.add('red-border');
