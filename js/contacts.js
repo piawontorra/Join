@@ -14,14 +14,11 @@ function initContacts() {
  */
 async function newContact(){
   let userColor = createUserColor();
-  let name = document.getElementById('newUserName');
-  let email = document.getElementById('newUserEmail');
-  let phone = document.getElementById('newUserPhone');
   let key = await getNextID();
-  newData = {
-      name: name.value,email: email.value,
-      phone: phone.value,userColor: userColor, userId: key
-  }
+  let newData = {
+    ...getUpdatedData(),
+    userColor: userColor,
+    userID: key };
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
@@ -68,18 +65,18 @@ function chooseNewContact(key){
  */
 async function editContact(id, key){
   let updatedData = getUpdatedData();
-  // let key = id;
-  
   await updateData(updatedData, "contacts", key);
   const index = usersArray.findIndex(contact => contact.userId == key);
   if (index !== -1) {
     usersArray[index] = { ...usersArray[index], ...updatedData };
   }
   currentUser = [{ ...currentUser[0], ...updatedData }];
-  closeDialog("[editContactDialog]");
-  renderContacts(usersArray);
-  contactDetailCard(index);
-  addBackground(index);
+  if (validateForm()) {
+    closeDialog("[editContactDialog]");
+    renderContacts(usersArray);
+    contactDetailCard(index);
+    addBackground(index);
+  }
 }
 
 /**
@@ -212,6 +209,9 @@ function openDialog(){
   renderNewContactForm();
 }
 
+/**
+ * renders the new contact form into modal and validate the user inputs
+ */
 function renderNewContactForm() {
   document.getElementById('contactDialog').innerHTML = newContactTemplate();
   let form = document.getElementById('newUserForm');
