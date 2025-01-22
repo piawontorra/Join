@@ -244,9 +244,14 @@
     }
 
     .userInitials.circle{
+        width: 120px;
+        height: 120px;
+        margin-right: 30px;
+    }
+
+    #contactCardHeader .userInitials.circle{
         width: 80px;
         height: 80px;
-        margin-right: 30px;
     }
 
     .userInitials{
