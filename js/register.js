@@ -16,8 +16,8 @@ function setupRegistrationForm() {
 
 /**
  * Handles the form submission event by validating the input.
- * If the password matches with its confirmation and the two names (first and last name) are only composed of letters,
- * a new user is added to the firebase database.
+ * If the password matches with its confirmation, the two names (first and last name) are only composed of letters,
+ * and the email address is proper, a new user is added to the firebase database.
  * Afterwards the function to clear the input fields is called.
  * 
  * @async
@@ -31,7 +31,7 @@ async function handleRegistrationFormSubmit(event) {
     let password = document.getElementById('password').value;
     let passwordConfirmation = document.getElementById('password-confirmation').value;
 
-    if (checkNameValidity(name) && checkPasswordCongruence(password, passwordConfirmation)) {
+    if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation)) {
         let newUser = addNewUserObject(name, email, password);
         await addUserToFirebase(newUser);
         resetRegistrationForm();
@@ -49,11 +49,23 @@ function checkNameValidity(name) {
     const userNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
 
     if (!userNameRegex.test(name)) {
-        document.getElementById('msg-box').innerText = "Please enter exactly two names with a single space between them (letters only).";
+        document.getElementById('msg-box').innerText = "Please enter your first and last name with a single space in between (letters only).";
         document.getElementById('input-registry-name').classList.add('red-border');
         return false;
     } else {
         document.getElementById('input-registry-name').classList.remove('red-border');
+        return true;
+    }
+}
+
+function checkEmailValidity(email) {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[A-Za-z0-9.-]+\.+[A-Za-z0-9.-]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById('msg-box').innerText = "Please enter a valid email address, e.g. steven.miller@gmail.com.";
+        document.getElementById('input-registry-email').classList.add('red-border');
+        return false;
+    } else {
+        document.getElementById('input-registry-email').classList.remove('red-border');
         return true;
     }
 }
