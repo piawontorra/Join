@@ -34,8 +34,13 @@
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
             <div class="content-fixed">
-                <div class="landscape-message d-none" id="landscape-message">
-                    <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+                <div class="screen-layer d-none" id="landscape-message">
+                    <div class="landscape-message">
+                        <div class="mobile-phone-rotation">
+                            <img class="mobile-phone" src="assets/img/smartphone.png" alt="rotating device example">
+                        </div>
+                        <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+                    </div>
                 </div>
                 <div class="section-head-add-task max-width">
                     <h1>Add Task</h1>
@@ -203,7 +208,7 @@
                     <div id="taskAddedToBoardModal">
                         <div id="taskAddedToBoard" style="display: none;">
                             <p>Task added to board</p>
-                            <img src="./assets/img/board_icon.png" alt="">
+                            <img src="./assets/img/board-icon.svg" alt="">
                         </div>
                     </div>
                 </form>

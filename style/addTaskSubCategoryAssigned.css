@@ -23,6 +23,19 @@
     gap: 8px;
 }
 
+.initials-circle-if-to-much {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
 .add-task-category-input-field {
     display: flex;
     flex-direction: row;

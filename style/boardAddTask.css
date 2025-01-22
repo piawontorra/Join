@@ -317,6 +317,11 @@ select {
     animation: myAddAnim 1s ease 0s 1 normal forwards;
 }
 
+.task-added-to-board img {
+    width: 32px;
+    height: 29.55px;
+}
+
 .initials-circle-if-to-much {
     display: flex;
     justify-content: center;
