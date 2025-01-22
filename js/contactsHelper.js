@@ -116,3 +116,7 @@ function showError(elementId, message, inputField) {
       detailCard.style.display = "flex";
     }
   });
+
+  function clearForm(){
+    document.getElementById('newUserForm').reset();
+  }
