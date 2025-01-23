@@ -160,36 +160,34 @@ function handleCheckboxChange(userId) {
     showAssignedUsers();
 }
 
-// /**
-//  * Displays the list of assigned users in the UI.
-//  */
-// function showAssignedUsers() {
-//     const assignedUsersElement = document.getElementById('assignedUsers');
-//     assignedUsersElement.innerHTML = '';
-
-//     assignedTo.forEach(userId => {
-//         const user = contacts[userId];
-//         if (user) {
-//             assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
-//         }
-//     });
-// }
-
 /**
- * Displays the list of assigned users in the UI with a limit of 4 icons and a "+n" indicator for additional users.
+ * Displays the list of assigned users in the UI.
  */
 function showAssignedUsers() {
     const assignedUsersElement = document.getElementById('assignedUsers');
     assignedUsersElement.innerHTML = '';
     const maxVisibleUsers = 4;
 
+    renderVisibleUsers(assignedUsersElement, maxVisibleUsers);
+    renderExtraUsersIndicator(assignedUsersElement, maxVisibleUsers);
+}
+
+/**
+ * Renders the visible assigned users.
+ */
+function renderVisibleUsers(assignedUsersElement, maxVisibleUsers) {
     assignedTo.slice(0, maxVisibleUsers).forEach(userId => {
         const user = contacts[userId];
         if (user) {
             assignedUsersElement.innerHTML += getAssignedUsersTemplate(user);
         }
     });
+}
 
+/**
+ * Renders the "+n" indicator for extra users.
+ */
+function renderExtraUsersIndicator(assignedUsersElement, maxVisibleUsers) {
     if (assignedTo.length > maxVisibleUsers) {
         const extraUsersCount = assignedTo.length - maxVisibleUsers;
         assignedUsersElement.innerHTML += `

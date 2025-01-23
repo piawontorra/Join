@@ -163,7 +163,7 @@ function generateUserHTML(user) {
 function generateRemainingBadgeHTML(remainingCount) {
     return `
         <div class="editor-task-assigned-to">
-            <div class="detail-task-user-icon" style="background-color: #ccc;">
+            <div class="detail-task-user-icon" style="background-color: grey;">
                 +${remainingCount}
             </div>
         </div>`;
