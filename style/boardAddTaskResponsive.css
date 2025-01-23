@@ -1,3 +1,9 @@
+@media (orientation: landscape) and (max-width: 1185px) {
+    .board-add-task-modal {
+        min-width: 100vw;
+    }
+}
+
 @media (max-width: 1150px) {
     .board-add-task-modal {
         max-width: 1000px;

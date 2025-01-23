@@ -42,24 +42,23 @@ function renderSubtasks() {
 }
 
 /**
-* Adds a new subtask to the subtasks list. 
-* If the input field is empty, it shows a placeholder warning.
-* If there are fewer than 5 subtasks, it adds the new subtask and resets the input field and buttons.
-*/
+ * Adds a new subtask to the subtasks list. 
+ * If the input field is empty, it shows a placeholder warning.
+ * Adds the new subtask and resets the input field and buttons.
+ */
 function addSubtask() {
   let input = document.getElementById('inputSubtask').value;
   if (input == '') {
     document.getElementById('inputSubtask').placeholder = 'Bitte etwas eingeben!';
     return;
   }
-  if (subtasks.length < 5) {
-    document.getElementById('inputSubtask').placeholder = 'Add new Subtask';
-    let newTask = { text: input, completed: false };
-    subtasks.push(newTask);
-    renderSubtasks();
-    document.getElementById('inputSubtask').value = '';
-    resetButtons();
-  }
+  
+  document.getElementById('inputSubtask').placeholder = 'Add new Subtask';
+  let newTask = { text: input, completed: false };
+  subtasks.push(newTask);
+  renderSubtasks();
+  document.getElementById('inputSubtask').value = '';
+  resetButtons();
 }
 
 /**
