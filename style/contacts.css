@@ -434,6 +434,14 @@
     color: white;
 }
 
+.chosen:hover {
+    cursor: default;
+}
+
+.singleEntry.chosen:hover {
+    background: #2A3647;
+}
+
 #statusAlert{
     height: 74px;
     width: 326px;
