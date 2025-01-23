@@ -75,7 +75,7 @@
 
     .centered-position {
         gap: 21px;
-        padding: 22px 38px 22px 38px;
+        padding: 22px 38px;
     }
 
     .login-buttons {
@@ -96,15 +96,29 @@
     }
 }
 
+@media (max-width: 544px) {
+    .registry-link-mobile {
+        padding-top: 8px;
+    }
+}
+
 @media (max-width: 416px) {
     .form {
         width: 288px;
         padding: 24px 0;
     }
 
+    .main-form {
+        gap: 24px;
+    }
+
+    .h1-underline {
+        padding-bottom: 8px;
+    }
+
     .form-input-fields {
         width: 272px;
-        gap: 21px;
+        gap: 16px;
     }
 
     .return-btn-registry {
@@ -132,11 +146,12 @@
 
     .conditional-elements {
         flex-direction: column;
-        gap: 16px;
+        gap: 8px;
+        padding: 12px 0 20px 0;
     }
 
-    .registry-link-mobile {
-        padding-top: 32px;
+    .login-buttons {
+        gap: 12px;
     }
 
     .check-item-registry {
@@ -150,19 +165,60 @@
     .policy-checkbox-img {
         left: 8px;
     }
+
+    .btn-success {
+        padding: 20px 10px;
+        line-height: 22.4px;
+        border-radius: 12px;
+    }
 }
 
 @media (max-width: 376px) {
-    .form-position {
-        min-height: calc(100vh - 115.03px - 63px);
+    .join-logo {
+        width: 48px;
+        height: auto;
     }
 
-    .registry-link-mobile {
-        flex-direction: column;
+    .login-headline {
+        padding: 16px 32px 0 32px;
+        height: 75px;
+    }
+
+    .main-form {
         gap: 16px;
+    }
+
+    .form-position {
+        min-height: calc(100vh - 75px - 51px);
+    }
+
+    .form {
+        padding-top: 16px;
+    }
+
+    .btn-variant {
+        height: 48px;
+    }
+
+    .user-question {
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .btn-sign-up {
+        padding: 8px 16px;
     }
 
     .footer-links {
         padding: 0;
+        font-size: 14px;
+    }
+
+    .registry-link-mobile {
+        padding-top: 0;
+    }
+
+    .centered-position {
+        padding: 16px 32px;
     }
 }
