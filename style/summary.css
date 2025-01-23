@@ -96,6 +96,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 80px;
 }
 
 .task-count {
@@ -113,13 +114,23 @@
     color: #2A3647;
 }
 
-.status-urgent {
+.status-deadline {
     font-size: 16px;
     line-height: 19.2px;
 }
 
-.status-urgent-img {
+.due-task-priority {
     height: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.priority-img {
+    height: 25.12px;
+    width: 34.19px;
 }
 
 .separator-variant {
@@ -130,7 +141,7 @@
     margin-right: 43px;
 }
 
-.urgent-deadline {
+.deadline {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -178,220 +189,4 @@
     font-size: 64px;
     line-height: 76.8px;
     color: #29ABE2;
-}
-
-@media (max-width: 1310px) {
-    .summary {
-        padding-left: 24px;
-        padding-right: 24px;
-        gap: 24px;
-    }
-
-    .summary-rows {
-        width: 520px;
-    }
-
-    .welcome-user {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
-
-@media (max-width: 1240px) {
-    #summary-head {
-        padding: 32px 16px;
-    }
-
-    .summary {
-        padding-top: 152px;
-        flex-direction: column-reverse;
-    }
-
-    .welcome-user {
-        padding-bottom: 24px;
-        max-width: 1240px;
-        width: 100%;
-        padding: 0 0 24px 0;
-    }
-
-    .welcome {
-        justify-content: flex-start;
-    }
-
-    .greeting-text {
-        width: 100%;
-    }
-}
-
-@media (max-width: 1065px) {
-    .separator {
-        display: none;
-    }
-
-    .separator-variant {
-        display: flex;
-        margin: 0 32px;
-        height: 88px;
-    }
-
-    #summary-head {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .h1-underline {
-        display: flex;
-    }
-
-    .summary {
-        justify-content: center;
-        align-items: center;
-        padding: 112px 16px;
-    }
-
-    .summary-content {
-        padding-top: 104px;
-    }
-
-    .tab-min-height {
-        min-height: calc(100vh - 80px - 76px);
-    }
-
-    .welcome-user {
-        justify-content: center;
-    }
-
-    .welcome {
-        text-align: center;
-    }
-}
-
-@media (max-width: 816px) {
-    #summary-head {
-        padding-bottom: 16px;
-    }
-
-    .summary-content {
-        padding-top: 64px;
-    }
-
-    .h1-underline-summary {
-        width: 90px !important;
-        padding-bottom: 6px !important;
-    }
-}
-
-@media (max-width: 616px) {
-    .summary-rows {
-        width: 396px;
-        gap: 24px;
-    }
-
-    .summary-row1 {
-        width: calc(50% - 24px/2);
-    }
-
-    .square-btn {
-        width: calc(33.333% - 48px/3);
-    }
-
-    .summary-btn {
-        border-radius: 20px;
-        gap: 10px;
-        height: 110px;
-    }
-
-    .status-img {
-        height: 40px;
-    }
-
-    .task-count {
-        font-size: 47px;
-        line-height: 56.4px;
-    }
-
-    .status {
-        font-size: 14px;
-        line-height: 16.8px;
-    }
-
-    .status-urgent-img {
-        height: 40px;
-    }
-
-    .status-urgent {
-        font-size: 14px;
-        line-height: 16.8px;
-    }
-
-    .urgent-deadline {
-        gap: 8px;
-    }
-
-    .h1-variant-deadline {
-        font-size: 16px;
-        line-height: 19.2px;
-    }
-
-    .separator-variant {
-        margin: 0 20px;
-        height: 68px;
-    }
-
-    .status-width {
-        max-width: 64px;
-    }
-
-    .status-in-progress {
-        font-family: 'Inter';
-    }
-
-    .greeting-text {
-        font-weight: 400;
-        font-size: 36px;
-        line-height: 43.2px;
-    }
-
-    .user-name {
-        font-size: 47px;
-        line-height: 56.4px;
-    }
-}
-
-@media (max-width: 416px) {
-    .summary-content {
-        gap: 12px;
-    }
-
-    .separator-variant {
-        margin: 0;
-    }
-
-    .summary-rows {
-        width: 288px;
-        gap: 12px;
-    }
-
-    .summary-row1 {
-        width: calc(50% - 12px/2);
-    }
-
-    .square-btn {
-        width: calc(33.333% - 24px/3);
-    }
-
-    .summary-btn:hover {
-        transform: scale(1.04);
-    }
-
-    .greeting-text {
-        font-size: 32px;
-        line-height: 39.2px;
-    }
-
-    .user-name {
-        font-size: 40px;
-        line-height: 48px;
-    }
 }

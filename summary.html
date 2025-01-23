@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./style/standard.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/summary.css">
+    <link rel="stylesheet" href="./style/summary-responsive.css">
     <link rel="stylesheet" href="./style/board.css">
     <link rel="stylesheet" href="./style/navigation.css">
     <link rel="stylesheet" href="./style/index-registry.css">
@@ -70,15 +71,18 @@
 
                         <div class="summary-rows">
                             <button class="btn summary-btn summary-row2" onclick="transferToBoard()">
-                                <img class="status-urgent-img" src="./assets/img/urgent_summary_icon.png" alt="Urgent">
+                                <div class="due-task-priority" id="due-task-priority">
+                                    <img class="priority-img" id="priority-img"
+                                        src="./assets/img/urgent_summary_icon.png" alt="Status icon">
+                                </div>
                                 <div class="task-count-status">
-                                    <span class="task-count" id="urgent-count">0</span>
-                                    <text class="status status-urgent">Urgent</text>
+                                    <span class="task-count" id="tasks-till-deadline">0</span>
+                                    <text class="status status-deadline" id="status-deadline">Urgent</text>
                                 </div>
                                 <div class="separator separator-variant"></div>
-                                <div class="urgent-deadline">
+                                <div class="deadline">
                                     <h1 class="h1-variant-deadline" id="next-deadline-date">January 16, 2025</h1>
-                                    <text class="status status-urgent">Upcoming Deadline</text>
+                                    <text class="status status-deadline">Upcoming Deadline</text>
                                 </div>
                             </button>
                         </div>
