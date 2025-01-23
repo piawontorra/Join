@@ -68,9 +68,9 @@
                                 <p class="add-task-input-headline">Assigned to</p>
                                 <div onclick="showUsers()" class="add-task-assigned-to-input-field">
                                     <p>Select user to assign</p>
-                                    <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                    <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="open user">
                                     <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
-                                        alt="" style="display: none;">
+                                        alt="close user" style="display: none;">
                                 </div>
                                 <div id="users" class="users" style="display: none;">
                                 </div>
@@ -88,7 +88,7 @@
                             <div class="task-due-date">
                                 <input class="add-task-input-fields" type="text" id="inputDueDate"
                                     placeholder="dd/mm/yyyy" minlength="10" maxlength="10">
-                                <img src="./assets/img/calendar_icon.png" alt="" id="calendarIcon">
+                                <img src="./assets/img/calendar_icon.png" alt="calendar" id="calendarIcon">
                                 <div id="calendarPopup" class="calendar-popup">
                                     <div id="calendarControls">
                                         <div class="custom-select">
@@ -130,16 +130,16 @@
                                 <div class="prio-buttons">
                                     <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
                                         <p>Urgent</p>
-                                        <img src="./assets/img/urgent_icon.png" alt="">
+                                        <img src="./assets/img/urgent_icon.png" alt="urgent">
                                     </div>
                                     <div id="mediumPrio" class="prio-button selected"
                                         onclick="selectPriority('Medium')">
                                         <p>Medium</p>
-                                        <img class="prio-medium-img" src="./assets/img/medium_icon.png" alt="">
+                                        <img class="prio-medium-img" src="./assets/img/medium_icon.png" alt="medium">
                                     </div>
                                     <div id="lowPrio" class="prio-button" onclick="selectPriority('Low')">
                                         <p>Low</p>
-                                        <img src="./assets/img/low_icon.png" alt="">
+                                        <img src="./assets/img/low_icon.png" alt="low">
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +150,9 @@
                                 </div>
                                 <div onclick="showCategorys()" id="categoryInput" class="add-task-category-input-field">
                                     <p id="selectedCategory"></p>
-                                    <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                    <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="open category">
                                     <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
-                                        alt="" style="display: none;">
+                                        alt="close category" style="display: none;">
                                     <div id="category" class="category" style="display: none;">
                                         <div class="category-options" onclick="selectCategory(event, 'Technical Task')">
                                             Technical Task</div>
@@ -169,15 +169,15 @@
                                 <div id="containerButtons" class="add-subtask-buttons">
                                     <div onclick="changeButtons()" id="inputOffButton"
                                         class="subtask-buttons pad-top-4">
-                                        <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                        <img src="./assets/img/plus_dark_icon.svg" alt="ü">
                                     </div>
                                     <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
                                         <div onclick="resetButtons()" class="subtask-buttons">
-                                            <img src="./assets/img/cancel_icon.svg" alt="">
+                                            <img src="./assets/img/cancel_icon.svg" alt="cancel">
                                         </div>
                                         <div class="subtask-seperator"></div>
                                         <div onclick="addSubtask()" class="subtask-buttons">
-                                            <img src="./assets/img/check_dark_icon.svg" alt="">
+                                            <img src="./assets/img/check_dark_icon.svg" alt="create">
                                         </div>
                                     </div>
                                 </div>
@@ -197,18 +197,18 @@
                         <div class="add-task-finish-buttons">
                             <div onclick="clearAddTask()" class="clear-task-btn">
                                 <p>Clear</p>
-                                <img src="./assets/img/cancel_icon.svg" alt="">
+                                <img src="./assets/img/cancel_icon.svg" alt="cancel">
                             </div>
                             <button class="create-task-btn" type="submit" onclick="newTask(event)">
                                 Create Task
-                                <img src="./assets/img/check_icon.png" alt="">
+                                <img src="./assets/img/check_icon.png" alt="create">
                             </button>
                         </div>
                     </div>
                     <div id="taskAddedToBoardModal">
                         <div id="taskAddedToBoard" style="display: none;">
                             <p>Task added to board</p>
-                            <img src="./assets/img/board-icon.svg" alt="">
+                            <img src="./assets/img/board-icon.svg" alt="board icon">
                         </div>
                     </div>
                 </form>

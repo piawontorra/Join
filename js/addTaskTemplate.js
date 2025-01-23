@@ -62,9 +62,9 @@ function getSubtaskTemplate(i) {
                 onkeydown="handleKeyPressEdit(event, ${i})"
                 />
                 <div class="edit-images" id="edit-images${i}">
-                  <img onclick="editSubtask(${i})" id="editSubtask${i}" src="./assets/img/edit_icon.svg" alt="">
+                  <img onclick="editSubtask(${i})" id="editSubtask${i}" src="./assets/img/edit_icon.svg" alt="edit">
                   <div class="edit-seperator"></div>
-                  <img onclick="deleteSubtask(${i})" id="deleteSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+                  <img onclick="deleteSubtask(${i})" id="deleteSubtask${i}" src="./assets/img/delete_icon.svg" alt="delete">
                 </div>
               </div>
           </div>`;
@@ -79,11 +79,11 @@ function getSubtaskTemplate(i) {
 function editSubtaskHTML(i) {
     return `
         <div class="edit-icons">
-            <img onclick="deleteSubtask(${i})" id="deleteSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+            <img onclick="deleteSubtask(${i})" id="deleteSubtask${i}" src="./assets/img/delete_icon.svg" alt="delete">
         </div>
         <div class="edit-seperator"></div>
         <div class="edit-icons">
-            <img onclick="checkSubtask(${i})" id="checkSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="">
+            <img onclick="checkSubtask(${i})" id="checkSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="save">
         </div>
       `;
 }

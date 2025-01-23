@@ -42,18 +42,17 @@
     <div class="content">
 
         <div w3-include-html="./assets/templates/navigation.html"></div>
-
+        <div class="screen-layer d-none" id="landscape-message">
+            <div class="landscape-message">
+                <div class="mobile-phone-rotation">
+                    <img class="mobile-phone" src="assets/img/smartphone.png" alt="rotating device example">
+                </div>
+                <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+            </div>
+        </div>
         <main>
             <div w3-include-html="./assets/templates/header.html"></div>
             <div class="board-content max-width">
-                <div class="screen-layer d-none" id="landscape-message">
-                    <div class="landscape-message">
-                        <div class="mobile-phone-rotation">
-                            <img class="mobile-phone" src="assets/img/smartphone.png" alt="rotating device example">
-                        </div>
-                        <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
-                    </div>
-                </div>
                 <div class="board-header">
                     <h1>Board</h1>
                     <div class="board-header-right">
@@ -63,7 +62,7 @@
                                 <div class="input-box-right">
                                     <div class="seperator"></div>
                                     <div class="input-search-icon">
-                                        <img src="./assets/img/search_icon.png" alt="">
+                                        <img src="./assets/img/search_icon.png" alt="Search lens">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +71,7 @@
                         </div>
                         <button onclick="openAddTask('todo')">
                             <span class="add-task-btn-text">Add task</span>
-                            <img src="./assets/img/plus_white_icon.png" alt="">
+                            <img src="./assets/img/plus_white_icon.png" alt="+">
                         </button>
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                         <div class="input-box-right">
                             <div class="seperator"></div>
                             <div class="input-search-icon">
-                                <img src="./assets/img/search_icon.png" alt="">
+                                <img src="./assets/img/search_icon.png" alt="Search lens">
                             </div>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
                                 <p>To do</p>
                                 <div class="task-header-btn">
                                     <button onclick="openAddTask('todo')"><img src="./assets/img/plus_dark_icon.png"
-                                            alt=""></button>
+                                            alt="+"></button>
                                 </div>
                             </div>
                             <div class="task-content-split" id="toDo"></div>
@@ -107,7 +106,7 @@
                                 <p>In progress</p>
                                 <div class="task-header-btn">
                                     <button onclick="openAddTask('in-progress')"><img
-                                            src="./assets/img/plus_dark_icon.png" alt=""></button>
+                                            src="./assets/img/plus_dark_icon.png" alt="+"></button>
                                 </div>
                             </div>
                             <div class="task-content-split" id="inProgress"></div>
@@ -118,7 +117,7 @@
                                 <p>Await feedback</p>
                                 <div class="task-header-btn">
                                     <button onclick="openAddTask('await-feedback')"><img
-                                            src="./assets/img/plus_dark_icon.png" alt=""></button>
+                                            src="./assets/img/plus_dark_icon.png" alt="+"></button>
                                 </div>
                             </div>
                             <div class="task-content-split" id="awaitFeedback"></div>
@@ -147,7 +146,7 @@
                 <div class="board-add-task-section-header max-width">
                     <h1>Add Task</h1>
                     <div onclick="closeAddTask(), clearAddTask()" class="add-task-close-btn">
-                        <img src="./assets/img/cancel_icon.svg" alt="">
+                        <img src="./assets/img/cancel_icon.svg" alt="cancel">
                     </div>
                 </div>
                 <form id="add-task-form">
@@ -172,9 +171,9 @@
                                 <p class="add-task-input-headline">Assigned to</p>
                                 <div onclick="showUsers()" class="add-task-assigned-to-input-field">
                                     <p>Select user to assign</p>
-                                    <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                    <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="open users">
                                     <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
-                                        alt="" style="display: none;">
+                                        alt="close users" style="display: none;">
                                 </div>
                                 <div id="users" class="users" style="display: none;">
                                 </div>
@@ -192,7 +191,7 @@
                             <div class="task-due-date">
                                 <input class="add-task-input-fields" type="text" id="inputDueDate"
                                     placeholder="dd/mm/yyyy" maxlength="10">
-                                <img src="./assets/img/calendar_icon.png" alt="" id="calendarIcon">
+                                <img src="./assets/img/calendar_icon.png" alt="calendar" id="calendarIcon">
                                 <div id="calendarPopup" class="calendar-popup">
                                     <div id="calendarControls">
                                         <div class="custom-select">
@@ -234,16 +233,16 @@
                                 <div class="prio-buttons">
                                     <div id="urgentPrio" class="prio-button" onclick="selectPriority('Urgent')">
                                         <p>Urgent</p>
-                                        <img src="./assets/img/urgent_icon.png" alt="">
+                                        <img src="./assets/img/urgent_icon.png" alt="urgent">
                                     </div>
                                     <div id="mediumPrio" class="prio-button selected"
                                         onclick="selectPriority('Medium')">
                                         <p>Medium</p>
-                                        <img src="./assets/img/medium_icon.png" alt="">
+                                        <img src="./assets/img/medium_icon.png" alt="medium">
                                     </div>
                                     <div id="lowPrio" class="prio-button" onclick="selectPriority('Low')">
                                         <p>Low</p>
-                                        <img src="./assets/img/low_icon.png" alt="">
+                                        <img src="./assets/img/low_icon.png" alt="low">
                                     </div>
                                 </div>
                             </div>
@@ -254,9 +253,9 @@
                                 </div>
                                 <div onclick="showCategorys()" id="categoryInput" class="add-task-category-input-field">
                                     <p id="selectedCategory"></p>
-                                    <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
+                                    <img id="categoryArrowDown" src="./assets/img/arrow_down_icon.png" alt="open category">
                                     <img id="categoryArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png"
-                                        alt="" style="display: none;">
+                                        alt="close category" style="display: none;">
                                     <div id="category" class="category" style="display: none;">
                                         <div class="category-options" onclick="selectCategory(event, 'Technical Task')">
                                             Technical Task</div>
@@ -273,15 +272,15 @@
                                 <div id="containerButtons" class="add-subtask-buttons">
                                     <div onclick="changeButtons()" id="inputOffButton"
                                         class="subtask-buttons padding-top-six">
-                                        <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                        <img src="./assets/img/plus_dark_icon.svg" alt="+">
                                     </div>
                                     <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
                                         <div onclick="resetButtons()" class="subtask-buttons">
-                                            <img src="./assets/img/cancel_icon.svg" alt="">
+                                            <img src="./assets/img/cancel_icon.svg" alt="cancel">
                                         </div>
                                         <div class="subtask-seperator"></div>
                                         <div onclick="addSubtask()" class="subtask-buttons">
-                                            <img src="./assets/img/check_dark_icon.svg" alt="">
+                                            <img src="./assets/img/check_dark_icon.svg" alt="create">
                                         </div>
                                     </div>
                                 </div>
@@ -301,18 +300,18 @@
                         <div class="add-task-finish-buttons">
                             <div onclick="clearAddTask()" class="clear-task-btn">
                                 <p>Clear</p>
-                                <img src="./assets/img/cancel_icon.svg" alt="">
+                                <img src="./assets/img/cancel_icon.svg" alt="cancel">
                             </div>
                             <button class="create-task-btn" type="submit" onclick="newTask(event)">
                                 Create Task
-                                <img src="./assets/img/check_icon.png" alt="">
+                                <img src="./assets/img/check_icon.png" alt="create">
                             </button>
                         </div>
                     </div>
                     <div id="taskAddedToBoardModal">
                         <div id="taskAddedToBoard" style="display: none;">
                             <p>Task added to board</p>
-                            <img src="./assets/img/board-icon.svg" alt="">
+                            <img src="./assets/img/board-icon.svg" alt="board icon">
                         </div>
                     </div>
                 </form>

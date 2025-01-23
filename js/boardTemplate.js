@@ -19,7 +19,6 @@ async function getTaskCardTemplate(task) {
         ? await getAssignedUserInitialsAndColor(task.assignedTo)
         : [];
 
-    // Show only the first 4 users, and count the rest as '+X'
     let assignedToHTML = assignedUserData.slice(0, 4)
         .map(user =>
             `<div class="task-user-icon" style="background-color: ${user.color};">
@@ -249,7 +248,7 @@ function getTaskEditorTemplate(task) {
                         </label>
                         <div class="task-due-date">
                             <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" maxlength="10" value="${task.dueDate}">
-                            <img src="./assets/img/calendar_icon.png" alt="" id="calendarIcon">
+                            <img src="./assets/img/calendar_icon.png" alt="calendar" id="calendarIcon">
                             <div id="calendarPopup" class="calendar-popup">
                                     <div id="calendarControls">
                                         <div class="custom-select">
@@ -290,15 +289,15 @@ function getTaskEditorTemplate(task) {
                             <div class="prio-buttons">
                                 <div id="urgentPrio" class="prio-button ${task.priority === 'Urgent' ? 'selected' : ''}" onclick="selectPriority('Urgent')">
                                     <p>Urgent</p>
-                                    <img src="./assets/img/urgent_icon.png" alt="">
+                                    <img src="./assets/img/urgent_icon.png" alt="urgent">
                                 </div>
                                 <div id="mediumPrio" class="prio-button ${task.priority === 'Medium' ? 'selected' : ''}" onclick="selectPriority('Medium')">
                                     <p>Medium</p>
-                                    <img src="./assets/img/medium_icon.png" alt="">
+                                    <img src="./assets/img/medium_icon.png" alt="medium">
                                 </div>
                                 <div id="lowPrio" class="prio-button ${task.priority === 'Low' ? 'selected' : ''}" onclick="selectPriority('Low')">
                                     <p>Low</p>
-                                    <img src="./assets/img/low_icon.png" alt="">
+                                    <img src="./assets/img/low_icon.png" alt="low">
                                 </div>
                             </div>
                         </div>
@@ -306,8 +305,8 @@ function getTaskEditorTemplate(task) {
                             <p class="add-task-input-headline">Assigned to</p>
                             <div onclick='showUsers(); loadEditorContactData(${JSON.stringify(task)});' class="add-task-assigned-to-input-field edit-task-assigned-to-input-field">
                                 <p>Select contacts to assign</p>
-                                <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="">
-                                <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt=""
+                                <img id="userArrowDown" src="./assets/img/arrow_down_icon.png" alt="open user">
+                                <img id="userArrowUp" class="rotate180" src="./assets/img/arrow_down_icon.png" alt="close user"
                                     style="display: none;">
                             </div>
                             <div id="users" class="users" style="display: none;">
@@ -321,15 +320,15 @@ function getTaskEditorTemplate(task) {
                                     placeholder="Add new subtask">
                                 <div id="containerButtons" class="add-subtask-buttons">
                                     <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons padding-top-six">
-                                        <img src="./assets/img/plus_dark_icon.svg" alt="">
+                                        <img src="./assets/img/plus_dark_icon.svg" alt="add subtask">
                                     </div>
                                     <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
                                         <div onclick="resetButtons()" class="subtask-buttons">
-                                            <img src="./assets/img/cancel_icon.svg" alt="">
+                                            <img src="./assets/img/cancel_icon.svg" alt="cancel">
                                         </div>
                                         <div class="subtask-seperator"></div>
                                         <div onclick="addEditorSubtask()" class="subtask-buttons">
-                                            <img src="./assets/img/check_dark_icon.svg" alt="">
+                                            <img src="./assets/img/check_dark_icon.svg" alt="create">
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +339,7 @@ function getTaskEditorTemplate(task) {
                 <div class="change-edit-task-btn-container">
                     <button class="change-edit-task-btn" onclick="updateCurrentTask(event)">
                         <span>Ok</span>
-                        <img src="./assets/img/check_icon.png" alt="">
+                        <img src="./assets/img/check_icon.png" alt="save">
                     </button>
                 </div>
             </div>
@@ -367,9 +366,9 @@ function getEditorSubtaskTemplate(subtask, i) {
                 onkeydown="handleKeyPressEditEditor(event, ${i})"
             />
             <div class="edit-images" id="edit-images${i}">
-                <img onclick="editEditorSubtask(${i})" id="editEditorSubtask${i}" src="./assets/img/edit_icon.svg" alt="">
+                <img onclick="editEditorSubtask(${i})" id="editEditorSubtask${i}" src="./assets/img/edit_icon.svg" alt="edit">
                 <div class="edit-seperator"></div>
-                <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+                <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="delete">
             </div>
         </div>`;
 }
@@ -383,11 +382,11 @@ function getEditorSubtaskTemplate(subtask, i) {
 function editEditorSubtaskHTML(i) {
     return `
         <div class="edit-icons">
-            <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="">
+            <img onclick="deleteEditorSubtask(${i})" id="deleteEditorSubtask${i}" src="./assets/img/delete_icon.svg" alt="delete">
         </div>
         <div class="edit-seperator"></div>
         <div class="edit-icons">
-            <img onclick="checkEditorSubtask(${i})" id="checkEditorSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="">
+            <img onclick="checkEditorSubtask(${i})" id="checkEditorSubtask${i}" src="./assets/img/check_dark_icon.svg" alt="save">
         </div>`;
 }
 
