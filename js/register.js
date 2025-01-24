@@ -1,3 +1,6 @@
+const userNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+const emailRegex = /^[^@,;:\x22\s<>\(\)\[\]]+@[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+\.[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+ ?$/;
+
 /**
  * Initializes the registration process by including HTML content and setting up the registration form.
  */
@@ -46,7 +49,6 @@ async function handleRegistrationFormSubmit(event) {
  * @returns {boolean} - Returns `true` if the name is valid, otherwise `false`.
  */
 function checkNameValidity(name) {
-    const userNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
 
     if (!userNameRegex.test(name)) {
         document.getElementById('msg-box').innerText = "Please enter your first and last name with a single space in between (letters only).";
@@ -68,7 +70,6 @@ function checkNameValidity(name) {
  * @returns {boolean} Returns `true` if the email is valid, otherwise `false`.
  */
 function checkEmailValidity(email) {
-    const emailRegex = /^[^@,;:\x22\s<>\(\)\[\]]+@[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+\.[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+ ?$/;
 
     if (!emailRegex.test(email)) {
         document.getElementById('msg-box').innerText = "Please enter a valid email address, e.g. steven.miller@gmail.com.";
@@ -118,7 +119,8 @@ function addNewUserObject(name, email, password) {
  * Resets the registration form by clearing all the input fields.
  */
 function resetRegistrationForm() {
-    document.getElementById('registration-form').reset();
+    let registrationRef = document.getElementById('registration-form');
+    registrationRef.reset();
 }
 
 /**

@@ -310,9 +310,8 @@ function displayGuestInitial() {
 }
 
 /**
- * Logs out the user or guest and redirects to the login page.
+ * After the redirection to the login page the user or guest is logged out.
  * Clears sessionStorage for either the logged-in user or the guest.
- * Redirects to the login page and sets the 'logoAnimated' item in sessionStorage to false.
  */
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
@@ -323,8 +322,6 @@ function logout() {
     } else if (guestUserName) {
         logoutGuest();
     }
-    window.location.href = 'index.html';
-    sessionStorage.setItem('logoAnimated', false);
 }
 
 /**

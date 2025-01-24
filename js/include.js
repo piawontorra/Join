@@ -49,6 +49,6 @@ async function includeHTML() {
     setTimeout(() => {
         getLoggedInUser();
         checkForLimitedContent();
-    }, 50);
+    }, 10);
     markCurrentTab();
 }
