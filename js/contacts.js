@@ -72,7 +72,7 @@ function openContactDetailsCard(infoboxId) {
     if (contactCard.classList.contains("open")) {
       return;
     }
-    document.querySelector(infoboxId).classList.add("open");
+    document.querySelector(`#${infoboxId}`).classList.add("open");
     showDetailsResponsive(infoboxId);
   }
 }
