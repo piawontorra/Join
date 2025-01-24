@@ -67,7 +67,6 @@ function contactDetailCard(id) {
     let contact = usersArray[id];
     let contactCardContainer = document.getElementById("contactCard");
     contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
-    // currentUser = [];
     // currentUser.push(contact);
     currentUser = contact;
 }
