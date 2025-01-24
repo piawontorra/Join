@@ -1,0 +1,101 @@
+.calendar-popup {
+    display: none;
+    position: absolute;
+    right: 36px;
+    top: 32px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 10px;
+}
+
+#calendarControls {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+#calendarControls select {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+#calendarTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#calendarTable td, #calendarTable th {
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#calendarTable td:hover {
+    background-color: #f0f0f0;
+}
+
+.disabled {
+    background-color: #f0f0f0;
+    color: #ccc;
+    pointer-events: none;
+}
+
+.custom-select {
+    position: relative;
+    font-size: 16px;
+    width: 120px;
+}
+
+.select-selected {
+    background-color: #f1f1f1;
+    padding: 4px 2px;
+    padding-left: 8px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select-items {
+    display: block;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100%;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 99;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.select-items div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.select-items div:hover {
+    background-color: #ddd;
+}
+
+.select-selected:after {
+    content: "\25BC";
+    color: #2A3647;
+    float: right;
+    padding: 5px;
+}
+
+.select-selected.active:after {
+    content: "\25B2";
+}
+
+.select-items div:hover {
+    background-color: #ddd;
+}
+
+.select-hide {
+    display: none;
+}
+

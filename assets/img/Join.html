@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://127.0.0.1:5503/addTask.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <script src="./Join_files/include.js"></script>
+    <script src="./Join_files/script.js"></script>
+    <script src="./Join_files/navigation.js"></script>
+    <script src="./Join_files/addTask.js"></script>
+    <script src="./Join_files/addTaskAssignedTo.js"></script>
+    <script src="./Join_files/addTaskDueDatePicker.js"></script>
+    <script src="./Join_files/addTaskClearAndValidate.js"></script>
+    <script src="./Join_files/addTaskSubtask.js"></script>
+    <script src="./Join_files/addTaskTemplate.js"></script>
+    <script src="./Join_files/initPortraitMode.js"></script>
+    <link rel="stylesheet" href="./Join_files/style.css">
+    <link rel="stylesheet" href="./Join_files/board.css">
+    <link rel="stylesheet" href="./Join_files/standard.css">
+    <link rel="stylesheet" href="./Join_files/navigation.css">
+    <link rel="stylesheet" href="./Join_files/addTask.css">
+    <link rel="stylesheet" href="./Join_files/addTaskDueDatePicker.css">
+    <link rel="stylesheet" href="./Join_files/addTaskResponsive.css">
+    <link rel="stylesheet" href="./Join_files/addTaskSubCategoryAssigned.css">
+    <link rel="icon" href="./Join_files/join_logo_login.png">
+</head>
+
+<body onload="initAddTask()" cz-shortcut-listen="true">
+    <div class="content">
+
+        <div w3-include-html="./assets/templates/navigation.html"><div class="side-menu-content">
+
+    <div class="side-menu-top">
+        <img class="join-logo-menu" src="./Join_files/join_logo_menu.png" alt="Join Logo">
+
+        <div class="menu-components" id="mainTabs">
+            <button class="menu-component" id="summary" onclick="switchTab(&#39;summary&#39;)">
+                <img class="menu-icon" src="./Join_files/summary-icon.svg" alt="Summary Icon">
+                <p>Summary</p>
+            </button>
+            <button class="menu-component active" id="addTask" onclick="switchTab(&#39;addTask&#39;)">
+                <img class="menu-icon" src="./Join_files/add-task-icon.svg" alt="Add Task Icon">
+                <p>Add Task</p>
+            </button>
+            <button class="menu-component" id="board" onclick="switchTab(&#39;board&#39;)">
+                <img class="menu-icon" src="./Join_files/board-icon.svg" alt="Board Icon">
+                <p>Board</p>
+            </button>
+            <button class="menu-component" id="contacts" onclick="switchTab(&#39;contacts&#39;)">
+                <img class="menu-icon" src="./Join_files/contacts-icon.svg" alt="Contacts Icon">
+                <p>Contacts</p>
+            </button>
+        </div>
+        <div class="menu-components d-none" id="loginReference">
+            <button class="menu-component" id="index" onclick="switchTab(&#39;index&#39;)">
+                <img class="menu-icon" src="./Join_files/login.png" alt="Login Icon">
+                <p>Log In</p>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="imprint-content" id="imprintContent">
+        <div class="imprint-links">
+            <button class="menu-component imprint-link-component" id="privacy-policy" onclick="switchTab(&#39;privacy-policy&#39;)">
+                <p class="imprint-link">Privacy Policy</p>
+            </button>
+            <button class="menu-component imprint-link-component" id="legal-notice" onclick="switchTab(&#39;legal-notice&#39;)">
+                <p class="imprint-link">Legal Notice</p>
+            </button>
+        </div>
+    </div>
+
+</div></div>
+
+        <main>
+            <div w3-include-html="./assets/templates/header.html"><header>
+    <nav class="header-content max-width">
+        <img class="header-logo" src="./Join_files/join_logo_login.png" alt="Logo">
+        <p class="tool-headline">Kanban Project Management Tool</p>
+        <div class="header-right" id="submenu">
+            <a class="btn-help" href="http://127.0.0.1:5503/help.html"><img src="./Join_files/help_icon.png" alt="Help"></a>
+            <div onclick="toggleUserMenu()">
+                <img class="unlogged-icon d-none" id="unloggedIcon" src="./Join_files/default_user_icon.png" alt="not logged in">
+                <p class="user-initials-header d-none" id="userInitialsHeader"></p>
+                <p class="user-initials-header" id="guestInitialHeader">G</p>
+            </div>
+            <nav class="user-menu menu-closed" id="userMenu">
+                <a class="menu-link" href="http://127.0.0.1:5503/help.html">
+                    <button class="user-menu-btn help-info">Help</button>
+                </a>
+                <a class="menu-link" href="http://127.0.0.1:5503/legal-notice.html">
+                    <button class="user-menu-btn">Legal Notice</button>
+                </a>
+                <a class="menu-link" href="http://127.0.0.1:5503/privacy-policy.html">
+                    <button class="user-menu-btn">Privacy Policy</button>
+                </a>
+                <button class="user-menu-btn menu-link" onclick="logout()">Logout</button>
+            </nav>
+        </div>
+    </nav>
+</header></div>
+            <div class="content-fixed">
+                <div class="screen-layer d-none" id="landscape-message">
+                    <div class="landscape-message">
+                        <div class="mobile-phone-rotation">
+                            <img class="mobile-phone" src="./Join_files/smartphone.png" alt="rotating device example">
+                        </div>
+                        <p class="max-width-calced device-portrait">Please rotate your device to portrait mode.</p>
+                    </div>
+                </div>
+                <div class="section-head-add-task max-width">
+                    <h1>Add Task</h1>
+                </div>
+
+                <form id="add-task-form">
+                    <div class="add-task-form">
+                        <div class="add-task-form-left">
+                            <div class="task-title">
+                                <label for="inputTitle">
+                                    <p>Title</p>
+                                    <p class="rosa-font">*</p>
+                                </label>
+                                <input class="add-task-input-fields" id="inputTitle" type="text" placeholder="Enter a title" autocomplete="off">
+                                <span id="inputTitleError" class="error-message" style="display: none;">This field is
+                                    required</span>
+                            </div>
+                            <div class="task-description">
+                                <label for="inputDescription">Description</label>
+                                <textarea class="add-task-input-fields" id="inputDescription" style="height: 120px" placeholder="Enter a Description"></textarea>
+                            </div>
+                            <div class="task-assignement-and-category">
+                                <p class="add-task-input-headline">Assigned to</p>
+                                <div onclick="showUsers()" class="add-task-assigned-to-input-field">
+                                    <p>Select user to assign</p>
+                                    <img id="userArrowDown" src="./Join_files/arrow_down_icon.png" alt="open user">
+                                    <img id="userArrowUp" class="rotate180" src="./Join_files/arrow_down_icon.png" alt="close user" style="display: none;">
+                                </div>
+                                <div id="users" class="users" style="display: none;">
+      <div class="user" id="user-18" data-user-id="18" onclick="handleUserClick(18)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFBB2B">NL</div>
+              <span class="contact-name">Niko Laus</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-18" class="user-checkbox" onchange="handleCheckboxChange(18)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-63" data-user-id="63" onclick="handleUserClick(63)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #C3FF2B">NG</div>
+              <span class="contact-name">Nadine Geppert</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-63" class="user-checkbox" onchange="handleCheckboxChange(63)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-68" data-user-id="68" onclick="handleUserClick(68)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFE62B">LG</div>
+              <span class="contact-name">Legolas Grünblatt</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-68" class="user-checkbox" onchange="handleCheckboxChange(68)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-75" data-user-id="75" onclick="handleUserClick(75)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFA35E">JLP</div>
+              <span class="contact-name">Jean Luc Picard</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-75" class="user-checkbox" onchange="handleCheckboxChange(75)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-76" data-user-id="76" onclick="handleUserClick(76)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFBB2B">JB</div>
+              <span class="contact-name">Josef Braunmüller</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-76" class="user-checkbox" onchange="handleCheckboxChange(76)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-81" data-user-id="81" onclick="handleUserClick(81)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FF5EB3">EC</div>
+              <span class="contact-name">Emre Can</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-81" class="user-checkbox" onchange="handleCheckboxChange(81)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-89" data-user-id="89" onclick="handleUserClick(89)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFA35E">BG</div>
+              <span class="contact-name">Bastian Geppert</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-89" class="user-checkbox" onchange="handleCheckboxChange(89)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-90" data-user-id="90" onclick="handleUserClick(90)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FFE62B">BS</div>
+              <span class="contact-name">Bedirhan Soylu</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-90" class="user-checkbox" onchange="handleCheckboxChange(90)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-91" data-user-id="91" onclick="handleUserClick(91)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #FF5EB3">AM</div>
+              <span class="contact-name">Andi Müller</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-91" class="user-checkbox" onchange="handleCheckboxChange(91)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-94" data-user-id="94" onclick="handleUserClick(94)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #C3FF2B">CA</div>
+              <span class="contact-name">Christina Albrecher</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-94" class="user-checkbox" onchange="handleCheckboxChange(94)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-96" data-user-id="96" onclick="handleUserClick(96)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #6E52FF">AP</div>
+              <span class="contact-name">Amir Paduli</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-96" class="user-checkbox" onchange="handleCheckboxChange(96)">
+          </div>
+      </div>
+  
+      <div class="user" id="user-101" data-user-id="101" onclick="handleUserClick(101)">
+          <div class="user-left">
+              <div class="initials-circle mr-10" style="background-color: #1FD7C1">AT</div>
+              <span class="contact-name">Archim Tema</span>
+          </div>
+          <div class="user-right">
+              <input type="checkbox" id="select-101" class="user-checkbox" onchange="handleCheckboxChange(101)">
+          </div>
+      </div>
+  </div>
+                                <div id="assignedUsers"></div>
+                            </div>
+                        </div>
+
+                        <div class="add-task-form-seperator"></div>
+
+                        <div class="add-task-form-right">
+                            <label for="inputDueDate">
+                                <p>Due date</p>
+                                <p class="rosa-font">*</p>
+                            </label>
+                            <div class="task-due-date">
+                                <input class="add-task-input-fields" type="text" id="inputDueDate" placeholder="dd/mm/yyyy" minlength="10" maxlength="10">
+                                <img src="./Join_files/calendar_icon.png" alt="calendar" id="calendarIcon">
+                                <div id="calendarPopup" class="calendar-popup">
+                                    <div id="calendarControls">
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedMonth">Januar</div>
+                                            <div class="select-items select-hide" id="monthSelect">
+                                                <div>Januar</div>
+                                                <div>Februar</div>
+                                                <div>März</div>
+                                                <div>April</div>
+                                                <div>Mai</div>
+                                                <div>Juni</div>
+                                                <div>Juli</div>
+                                                <div>August</div>
+                                                <div>September</div>
+                                                <div>Oktober</div>
+                                                <div>November</div>
+                                                <div>Dezember</div>
+                                            </div>
+                                        </div>
+                                        <div class="custom-select">
+                                            <div class="select-selected" id="selectedYear">2025</div>
+                                            <div class="select-items select-hide" id="yearSelect">
+                                                <div>2025</div>
+                                                <div>2026</div>
+                                                <div>2027</div>
+                                                <div>2028</div>
+                                                <div>2029</div>
+                                                <div>2030</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="calendarTable"></table>
+                                </div>
+                            </div>
+                            <span id="inputDueDateError" class="error-message" style="display: none;">This field is
+                                required</span>
+                            <div class="task-prio">
+                                <p class="add-task-input-headline">Prio</p>
+                                <div class="prio-buttons">
+                                    <div id="urgentPrio" class="prio-button" onclick="selectPriority(&#39;Urgent&#39;)">
+                                        <p>Urgent</p>
+                                        <img src="./Join_files/urgent_icon.png" alt="urgent">
+                                    </div>
+                                    <div id="mediumPrio" class="prio-button selected" onclick="selectPriority(&#39;Medium&#39;)">
+                                        <p>Medium</p>
+                                        <img class="prio-medium-img" src="./Join_files/medium_icon.png" alt="medium">
+                                    </div>
+                                    <div id="lowPrio" class="prio-button" onclick="selectPriority(&#39;Low&#39;)">
+                                        <p>Low</p>
+                                        <img src="./Join_files/low_icon.png" alt="low">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-assignement-and-category">
+                                <div class="add-task-input-headline">
+                                    <p>Category</p>
+                                    <p class="rosa-font">*</p>
+                                </div>
+                                <div onclick="showCategorys()" id="categoryInput" class="add-task-category-input-field">
+                                    <p id="selectedCategory">Select task category</p>
+                                    <img id="categoryArrowDown" src="./Join_files/arrow_down_icon.png" alt="open category">
+                                    <img id="categoryArrowUp" class="rotate180" src="./Join_files/arrow_down_icon.png" alt="close category" style="display: none;">
+                                    <div id="category" class="category" style="display: none;">
+                                        <div class="category-options" onclick="selectCategory(event, &#39;Technical Task&#39;)">
+                                            Technical Task</div>
+                                        <div class="category-options" onclick="selectCategory(event, &#39;User Story&#39;)">User
+                                            Story</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-subtask">
+                                <p class="add-task-input-headline">Subtasks</p>
+                                <input onkeydown="handleKeyPress(event)" onclick="changeButtons()" class="add-task-input-fields" type="text" id="inputSubtask" placeholder="Add new subtask">
+                                <div id="containerButtons" class="add-subtask-buttons">
+                                    <div onclick="changeButtons()" id="inputOffButton" class="subtask-buttons pad-top-4">
+                                        <img src="./Join_files/plus_dark_icon.svg" alt="ü">
+                                    </div>
+                                    <div id="inputOnButtons" class="subtask-buttons-with-input" style="display: none;">
+                                        <div onclick="resetButtons()" class="subtask-buttons">
+                                            <img src="./Join_files/cancel_icon.svg" alt="cancel">
+                                        </div>
+                                        <div class="subtask-seperator"></div>
+                                        <div onclick="addSubtask()" class="subtask-buttons">
+                                            <img src="./Join_files/check_dark_icon.svg" alt="create">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="subtask" class="created-subtasks-container"></div>
+                            <div class="info-line-responsive">
+                                <p class="rosa-font">*</p>
+                                <p>This field is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-task-form-bottom">
+                        <div class="info-line">
+                            <p class="rosa-font">*</p>
+                            <p>This field is required</p>
+                        </div>
+                        <div class="add-task-finish-buttons">
+                            <div onclick="clearAddTask()" class="clear-task-btn">
+                                <p>Clear</p>
+                                <img src="./Join_files/cancel_icon.svg" alt="cancel">
+                            </div>
+                            <button class="create-task-btn" type="submit" onclick="newTask(event)">
+                                Create Task
+                                <img src="./Join_files/check_icon.png" alt="create">
+                            </button>
+                        </div>
+                    </div>
+                    <div id="taskAddedToBoardModal">
+                        <div id="taskAddedToBoard" style="display: none;">
+                            <p>Task added to board</p>
+                            <img src="./Join_files/board-icon.svg" alt="board icon">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>

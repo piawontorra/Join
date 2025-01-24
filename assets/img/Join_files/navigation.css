@@ -1,0 +1,250 @@
+.side-menu-content {
+    width: 232px;
+    height: 100vh;
+    background-color: #2A3647;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1200;
+}
+
+.side-menu-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 64px;
+    gap: 144px;
+    width: 100%;
+}
+
+.join-logo-menu {
+    width: 100.03px;
+    height: 121.97px;
+}
+
+.menu-components {
+    height: 229px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-component {
+    height: 46px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-start;
+    padding: 0 61px;
+    color: #CDCDCD;
+    font-size: 16px;
+    line-height: 19.2px;
+    border: unset;
+    background-color: #2A3647;
+}
+
+.menu-component:hover {
+    background-color: #2A3D59;
+    cursor: pointer;
+}
+
+.menu-icon {
+    height: 30px;
+    width: 30px;
+    filter: grayscale(100%) brightness(80%);
+}
+
+.imprint-content {
+    height: 317px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 64px;
+}
+
+.imprint-links {
+    color: #CDCDCD;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.imprint-link-component:hover {
+    background: unset;
+}
+
+.imprint-link {
+    color: #CDCDCD;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+.imprint-link:hover {
+    color: #29ABE2;
+    font-weight: bold;
+}
+
+#seperator {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(183, 181, 181, 1);
+}
+
+.menu-component.active {
+    background-color: #091931;
+    width: 232px;
+}
+
+.menu-component.active:hover {
+    cursor: default;
+}
+
+.menu-component.active .menu-icon {
+    filter: grayscale(100%) brightness(108%);
+}
+
+.menu-component.active p {
+    color: #FFFFFF;
+}
+
+.menu-component.active p:hover {
+    font-weight: 400;
+}
+
+@media (max-width: 1065px) {
+    .side-menu-content {
+        width: 100%;
+        height: 80px;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .side-menu-top {
+        padding-top: 0;
+        width: 100%;
+    }
+
+    .join-logo-menu {
+        display: none;
+    }
+
+    .menu-components {
+        height: 76px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 88px;
+    }
+
+    .menu-component {
+        flex-direction: column;
+        gap: 4px;
+        padding: 0;
+        height: 76px;
+        width: 80px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: center;
+        font-family: 'open-sans';
+    }
+
+    .menu-component p {
+        font-family: 'open-sans';
+        font-size: 14px;
+        line-height: 16.8px;
+    }
+
+    .menu-component.active {
+        width: 80px;
+    }
+
+    .menu-component.active .menu-icon {
+        filter: grayscale(100%) brightness(136%);
+    }
+
+    .imprint-content {
+        height: 76px;
+        padding-bottom: 0;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 32px 0 0;
+    }
+
+    .imprint-links {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .imprint-link-component {
+        width: 112px;
+    }
+
+    .imprint-link-component.active {
+        width: 112px;
+    }
+
+    .imprint-link:hover {
+        color: #CDCDCD;
+        font-weight: 400;
+    }
+
+    .menu-icon {
+        height: 24px;
+        width: 24px;
+    }
+}
+
+@media (max-width: 648px) {
+    .menu-components {
+        justify-content: space-between;
+        padding: 0 32px;
+    }
+
+    .imprint-content {
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 448px) {
+    .menu-components {
+        padding: 0 16px;
+    }
+
+    .menu-component {
+        font-size: 14px;
+    }
+
+    .imprint-content {
+        padding-right: 16px;
+    }
+}
+
+@media (max-width: 376px) {
+    .menu-components {
+        padding: 0 8px;
+    }
+
+    .imprint-content {
+        padding-right: 8px;
+    }
+
+    .imprint-link-component {
+        width: 80px;
+        padding: 8px;
+    }
+
+    .imprint-link-component.active {
+        width: 80px;
+        padding: 8px;
+    }
+}
