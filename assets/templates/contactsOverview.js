@@ -5,13 +5,13 @@ let currentUser = [];
 * 
 * This function sends a GET request to retrieve all user data from the provided database path
 * and converts the response to JSON format.
-* @param {string} path - The path of the database
-*/
-async function getUsers(path) {
-    let response = await fetch(BASE_URL + path + ".json");
-    let responseToJson = await response.json();
-    return responseToJson;
-}
+// * @param {string} path - The path of the database
+// */
+// async function getUsers(path) {
+//     let response = await fetch(BASE_URL + path + ".json");
+//     let responseToJson = await response.json();
+//     return responseToJson;
+// }
 
 /**
  * Asynchronously fetches contact data from a given path, sorts the contacts by name,
@@ -214,7 +214,7 @@ function editContactTemplate(user) {
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                            <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
+                            <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required>
                               <img src="./assets/img/user_icon.png" alt="user icon">
                               <div class="error-message" id="nameError"></div>
                           </div>

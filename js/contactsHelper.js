@@ -40,8 +40,7 @@ async function nextIdToDatabase(nextID){
       body: JSON.stringify(nextID + 1),
     })
   }
-  
-  
+
 /**
  * checks if the user name input is valid
  * First name and last name
@@ -91,7 +90,7 @@ function checkPhone() {
  * @returns true/false
  */
 function validateForm() {
-    return checkName() & checkEmail() & checkPhone();
+  return checkName() && checkEmail() && checkPhone();
   }
 
 /**

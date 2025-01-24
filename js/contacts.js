@@ -23,10 +23,11 @@ async function newContact() {
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
-  getContacts(path);
+  setTimeout(async () => {
+    await getContacts(path);
+  }, 200); 
   chooseNewContact(key);
   // Obige Funktion verursacht noch Fehlermeldung
-  setTimeout(() => { location.reload() }, 400);
 }
 
 /**
@@ -49,7 +50,7 @@ function chooseNewContact(key) {
  */
 async function addNewData(data, path, key) {
   let response = await fetch(`${BASE_URL}${path}/${key}.json`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
@@ -253,6 +254,7 @@ function outsideClickHandler(event) {
 //  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
 async function editContact(userId) {
+
   if (validateForm()) {
     let updatedData = getUpdatedData();
     await updateData(updatedData, "contacts", userId);
