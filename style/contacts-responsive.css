@@ -227,6 +227,10 @@
         font-weight: 700;
     }
 
+    .action{
+        display: none;
+    }
+
     #contactText{
         height: 40px;
     }

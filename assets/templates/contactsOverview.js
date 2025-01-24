@@ -1,5 +1,68 @@
 let currentUser = [];
 
+/**
+* * Fetches user data from the specified database path and logs it to the console.
+* 
+* This function sends a GET request to retrieve all user data from the provided database path
+* and converts the response to JSON format.
+* @param {string} path - The path of the database
+*/
+async function getUsers(path) {
+    let response = await fetch(BASE_URL + path + ".json");
+    let responseToJson = await response.json();
+    return responseToJson;
+}
+
+/**
+ * Asynchronously fetches contact data from a given path, sorts the contacts by name,
+ * and renders them in the UI.
+ *
+ * @async
+ * @function getContacts
+ * @param {string} path - The relative path to fetch contact data from the API.
+ * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
+ *
+ */
+async function getContacts(path) {
+    let response = await fetch(BASE_URL + path + ".json");
+    let contactsJson = await response.json();
+    let contactsArray = [];
+    for (let key in contactsJson) {
+        contactsArray.push({ id: key, ...contactsJson[key] })
+    }
+    usersArray = contactsArray.sort((current, next) =>
+        current.name > next.name ? 1 : next.name > current.name ? -1 : 0
+    );
+    renderContacts(usersArray);
+}
+
+/**
+ * Renders a list of contacts into the "contactsOverview" container in the DOM.
+ *
+ * @function renderContacts
+ * @param {Array<Object>} contacts - An array of contact objects to be rendered.
+ * Each contact object should have at least a `name` property.
+ * @returns {void}
+ *
+ */
+function renderContacts(contacts) {
+    document.getElementById("contactsOverview").innerHTML = "";
+    let currentLetter = "";
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i] && contacts[i].name) {
+            let firstLetter = contacts[i].name.charAt(0);
+            let secondLetter = contacts[i].name.charAt(
+                contacts[i].name.indexOf(" ") + 1
+            );
+            if (firstLetter !== currentLetter) {
+                currentLetter = firstLetter;
+                contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
+            }
+            document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts, i, firstLetter, secondLetter);
+        }
+    }
+}
+
 function contactDetailCard(id) {
     let contact = usersArray[id];
     let contactCardContainer = document.getElementById("contactCard");
@@ -7,71 +70,10 @@ function contactDetailCard(id) {
     // currentUser = [];
     // currentUser.push(contact);
     currentUser = contact;
-  }
-
-  /**
- * * Fetches user data from the specified database path and logs it to the console.
- * 
- * This function sends a GET request to retrieve all user data from the provided database path
- * and converts the response to JSON format.
- * @param {string} path - The path of the database
- */
-async function getUsers(path){
-    let response = await fetch(BASE_URL + path + ".json");
-    let responseToJson = await response.json();
-  }
-  
-  /**
-   * Asynchronously fetches contact data from a given path, sorts the contacts by name,
-   * and renders them in the UI.
-   *
-   * @async
-   * @function getContacts
-   * @param {string} path - The relative path to fetch contact data from the API.
-   * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
-   *
-   */
-  async function getContacts(path) {
-    let response = await fetch(BASE_URL + path + ".json");
-    let contactsJson = await response.json();
-    let contactsArray = [];
-    for (let key in contactsJson){
-      contactsArray.push({id: key, ...contactsJson[key]})
-    }
-    usersArray = contactsArray.sort((current, next) =>
-      current.name > next.name ? 1 : next.name > current.name ? -1 : 0
-    );
-    renderContacts(usersArray);
-  }
-  
-  /**
-   * Renders a list of contacts into the "contactsOverview" container in the DOM.
-   *
-   * @function renderContacts
-   * @param {Array<Object>} contacts - An array of contact objects to be rendered.
-   * Each contact object should have at least a `name` property.
-   * @returns {void}
-   *
-   */
-  function renderContacts(contacts) {
-    document.getElementById("contactsOverview").innerHTML = "";
-    let currentLetter = "";
-    for (let i = 0; i < contacts.length; i++) {
-      if (contacts[i] && contacts[i].name) {
-        let firstLetter = contacts[i].name.charAt(0);
-        let secondLetter = contacts[i].name.charAt(
-          contacts[i].name.indexOf(" ") + 1
-        );
-        if (firstLetter !== currentLetter) {
-          currentLetter = firstLetter;
-          contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
-        }
-        document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts,i,firstLetter,secondLetter);}
-      }
-  }
+}
 
 function overviewTemplate(contacts, i, firstLetter, secondLetter) {
-  return `
+    return `
             <div id="${i}" class="singleEntry" onclick="removeClosed(), showDetailsResponsive(), contactDetailCard(id), addBackground(id)">
                 <div class="userInitialsOverview" style="background-color: ${contacts[i].userColor};">${firstLetter}${secondLetter}</div>    
                 <div>
@@ -81,9 +83,9 @@ function overviewTemplate(contacts, i, firstLetter, secondLetter) {
             </div>`;
 }
 
-function contactCardDetailsTemplate(id, contact) {   
-  let initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
-  return `
+function contactCardDetailsTemplate(id, contact) {
+    let initials = contact.name.charAt(0) + (contact.name.split(" ")[1]?.charAt(0) || "");
+    return `
             <div id="contactCardHeader">
                 <div class="userInitials circle" style="background-color: ${contact.userColor}">${initials}</div>
                 <div id="userInfo">
@@ -132,7 +134,7 @@ function contactCardDetailsTemplate(id, contact) {
 }
 
 function newContactTemplate() {
-  return `
+    return `
       <div id="newContactContent">
         <div id="addContactHeaderContainer">
             <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>
@@ -185,9 +187,9 @@ function newContactTemplate() {
   `;
 }
 
-function editContactTemplate(user, id){
-  let initials = user.name.charAt(0) + (user.name.split(" ")[1]?.charAt(0) || "");
-  let userId = user.userId;
+function editContactTemplate(user) {
+    let initials = user.name.charAt(0) + (user.name.split(" ")[1]?.charAt(0) || "");
+    let userId = user.id;
     return `
             <div id="newContactContent">
               <div id="addContactHeaderContainer">
@@ -223,7 +225,11 @@ function editContactTemplate(user, id){
                               <div class="error-message" id="emailError"></div>
                           </div>
                           <div class="inputField">
+<<<<<<< Updated upstream
                               <input type="number" id="newUserPhone" placeholder="Phone" required>
+=======
+                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user.phone || ''}" required>
+>>>>>>> Stashed changes
                               <img src="./assets/img/phone_icon.png" alt="phone icon">
                               <div class="error-message" id="phoneError"></div>
                           </div>
@@ -232,7 +238,11 @@ function editContactTemplate(user, id){
               </div>
               <div id="btnContainer">
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
+<<<<<<< Updated upstream
                 <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm" >Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
+=======
+                <button id="btnCreate" class="create-task-btn" onclick="editContact(${userId})">Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
+>>>>>>> Stashed changes
               </div>
           </div>
         

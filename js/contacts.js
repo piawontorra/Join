@@ -9,10 +9,10 @@ function initContacts() {
 
 /**
  * creates a new contact and saves it in the database
- * colecting data from user input as name, email and phone number
+ * collecting data from user input as name, email and phone number
  * update contact list and reload it
  */
-async function newContact(){
+async function newContact() {
   let userColor = createUserColor();
   let key = await getNextID();
   let newData = {
@@ -22,20 +22,27 @@ async function newContact(){
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
+<<<<<<< Updated upstream
   setTimeout(()=>{getContacts(path)}, 200);
   setTimeout(()=>{chooseNewContact(key);}, 300);
   // setTimeout(() => {location.reload()}, 400);
+=======
+  setTimeout(()=>{getContacts(path)}, 100);
+  setTimeout(()=>{chooseNewContact(key);}, 200);
+  // Obige Funktion verursacht noch Fehlermeldung
+  setTimeout(() => {location.reload()}, 400);
+>>>>>>> Stashed changes
 }
 
 /**
  * choose the last created contact, add background color on overview and show the detail page
  * @param {number} key 
  */
-function chooseNewContact(key){
+function chooseNewContact(key) {
   let index = usersArray.findIndex(user => user.id == key);
-  addBackground(index);
   openContactDetailsCard('contactCard');
   contactDetailCard(index);
+  addBackground(index);
 }
 
 /**
@@ -45,6 +52,7 @@ function chooseNewContact(key){
  * @param {string} key - a key under which the data will be stored
  * @returns {Promise<void>} A promise that resolves when the record is successfully added.
  */
+<<<<<<< Updated upstream
  async function addNewData(data, path, key){
   let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
       method: "PUT",
@@ -93,7 +101,17 @@ async function editContact(key){
       method: "PATCH",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(data)
+=======
+async function addNewData(data, path, key) {
+  let response = await fetch(`${BASE_URL}${path}/${key}.json`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
+>>>>>>> Stashed changes
   });
+  return responseAsJson = await response.json();
 }
 
 /**
@@ -119,7 +137,7 @@ function openContactDetailsCard(infoboxId) {
  * opens the contact detail container in mobile view
  * checks if the viewport is < 800
  */
-function showDetailsResponsive(){
+function showDetailsResponsive() {
   let contactDetailsContainer = document.getElementById('contactDetailsContainer');
   let wrapperContacts = document.getElementById('wrapperContacts');
   let contactCard = document.getElementById('contactCard')
@@ -132,7 +150,7 @@ function showDetailsResponsive(){
 /**
  * closes the contact detail container
  */
-function closeDetailsResponsive(){
+function closeDetailsResponsive() {
   let contactDetailsContainer = document.getElementById('contactDetailsContainer');
   let wrapperContacts = document.getElementById('wrapperContacts');
   let contactCard = document.getElementById('contactCard')
@@ -145,14 +163,14 @@ function closeDetailsResponsive(){
 }
 
 /**
- * fetches the database and lookin for the current userID
+ * fetches the database and lookin for the current userId
  * @returns the next available ID from the database 
  */
 async function getNextID() {
   let response = await fetch(`${BASE_URL}/nextID.json`);
   let nextID = await response.json();
   if (!nextID) {
-      nextID = 0;
+    nextID = 0;
   }
   return nextID;
 }
@@ -174,6 +192,7 @@ async function deleteContact(entryId) {
     closeContactDetailsCard();
   }
   getContacts(path);
+  return responseAsJson = await response.json();
 }
 
 /**
@@ -191,16 +210,16 @@ function closeContactDetailsCard() {
  * add or remove the background color to the chosen entry in the contact list
  * @param {string} id 
  */
-function addBackground(id){
+function addBackground(id) {
   let allEntries = document.querySelectorAll('.singleEntry');
   allEntries.forEach(singleEntry => singleEntry.classList.remove('chosen'));
-  document.getElementById(`${id}`).classList.add('chosen');
+  document.getElementById(id).classList.add('chosen');
 }
 
 /**
  * open up the dialog for new contact form
  */
-function openDialog(){
+function openDialog() {
   let modal = document.querySelector("[newContactDialog]");
   modal.showModal();
   setTimeout(() => {
@@ -216,13 +235,13 @@ function renderNewContactForm() {
   document.getElementById('contactDialog').innerHTML = newContactTemplate();
   let form = document.getElementById('newUserForm');
   if (form) {
-      form.addEventListener("submit", (event) => {
-          event.preventDefault();
-          if (validateForm()) {
-              newContact();
-              toggleAlert();
-          }
-      });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (validateForm()) {
+        newContact();
+        toggleAlert();
+      }
+    });
   }
 }
 
@@ -231,20 +250,20 @@ function renderNewContactForm() {
  * @param {array} user 
  * @param {string} id from usersArray
  */
-function openEditDialog(user, id) {
+function openEditDialog(user) {
   const modal = document.querySelector("[editContactDialog]");
   modal.showModal();
   setTimeout(() => {
     modal.classList.add('open');
   }, 10);
-  renderEditContactForm(user, id);
+  renderEditContactForm(user);
 }
 
 /**
  * open up the a dialog in mobile view for further funtions
  * functions: edit and delete
  */
-function openMenuDialog(){
+function openMenuDialog() {
   let modal = document.getElementById('moreResponsive');
   modal.classList.remove('closed');
   setTimeout(() => {
@@ -271,14 +290,54 @@ function closeMoreDialog() {
 function outsideClickHandler(event) {
   let modal = document.getElementById('moreResponsive');
   let rect = modal.getBoundingClientRect();
-    if (
-      event.clientX < rect.left ||
-      event.clientX > rect.right ||
-      event.clientY < rect.top ||
-      event.clientY > rect.bottom
-    ){
-      closeMoreDialog();
+  if (
+    event.clientX < rect.left ||
+    event.clientX > rect.right ||
+    event.clientY < rect.top ||
+    event.clientY > rect.bottom
+  ) {
+    closeMoreDialog();
+  }
+}
+
+/**
+ * Edit an existing contact and updates the database
+ * 
+ * This function get updated contact data and updates the database,
+ * and refreshes the UI to show the changes.
+ * 
+//  * @param {Object[]} user - An array containing the contact object to be edited. 
+ */
+async function editContact(userId) {
+  if (validateForm()) {
+    let updatedData = getUpdatedData();
+    await updateData(updatedData, "contacts", userId);
+    const index = usersArray.findIndex(contact => contact.userId === userId);
+    if (index !== -1) {
+      usersArray[index] = { ...usersArray[index], ...updatedData };
     }
+    renderContacts(usersArray);
+    contactDetailCard(index);
+    addBackground(index);
+    closeDialog("[editContactDialog]");
+  }
+}
+
+/**
+ * This function sends a PATCH request to the database (firebase) update a resource at the specified database path and key
+ * with the provided data.
+ * 
+ * @param {Object} data - The data object containing the updated values for the resource.
+ * @param {string} path - The database path where the resource is located.
+ * @param {string|number} key - The unique identifier of the resource to be updated.
+ * 
+ */
+async function updateData(data, path, key) {
+  await fetch(`${BASE_URL}${path}/${key}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
 }
 
 /**
@@ -286,17 +345,23 @@ function outsideClickHandler(event) {
  * @param {array} user 
  * @param {string} id 
  */
-function renderEditContactForm(user, id) {  
+function renderEditContactForm(user) {
   const container = document.getElementById('editContactDialog');
-  container.innerHTML = editContactTemplate(user, id);
+  container.innerHTML = editContactTemplate(user);
   const form = container.querySelector('#newUserForm');
   setEditFormValues(user);
   if (form) {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (validateForm()) {
+<<<<<<< Updated upstream
           editContact(user.id)
         }
+=======
+        newContact();
+        toggleAlert();
+      }
+>>>>>>> Stashed changes
     })
   }
 }
@@ -311,12 +376,23 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
+  removeInput();
+}
+
+function removeInput() {
+  let nameInputRef = document.getElementById('newUserName');
+  let emailInputRef = document.getElementById('newUserEmail');
+  let phoneInputRef = document.getElementById('newUserPhone');
+
+  nameInputRef.value = '';
+  emailInputRef.value = '';
+  phoneInputRef.value = '';
 }
 
 /**
  * removes the closed class to showup the dialog
  */
-function removeClosed(){
+function removeClosed() {
   let contactDetails = document.getElementById('contactCard');
   contactDetails.classList.remove('infoboxClosed');
 }
@@ -325,14 +401,14 @@ function removeClosed(){
  * Checks if the contactCard has the infoboxClosed class
  * If not, it makes `contactDetailsContainer` visible; otherwise, it hides it.
  */
-function checkDetailsContainer(){
+function checkDetailsContainer() {
   container = document.getElementById('contactCard');
   detailCard = document.getElementById('contactDetailsContainer');
-    if (!container.classList.contains('infoboxClosed')) {
-      detailCard.style.display = "flex";
-    } else {
-      detailCard.style.display = "none";
-    }
+  if (!container.classList.contains('infoboxClosed')) {
+    detailCard.style.display = "flex";
+  } else {
+    detailCard.style.display = "none";
+  }
 }
 
 /**
@@ -341,8 +417,8 @@ function checkDetailsContainer(){
  */
 function handleResize() {
   if (window.innerWidth < 800) {
-      checkDetailsContainer();
-}
+    checkDetailsContainer();
+  }
 }
 
 /**
