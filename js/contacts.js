@@ -22,16 +22,10 @@ async function newContact() {
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
-<<<<<<< Updated upstream
-  setTimeout(()=>{getContacts(path)}, 200);
-  setTimeout(()=>{chooseNewContact(key);}, 300);
-  // setTimeout(() => {location.reload()}, 400);
-=======
   setTimeout(()=>{getContacts(path)}, 100);
   setTimeout(()=>{chooseNewContact(key);}, 200);
   // Obige Funktion verursacht noch Fehlermeldung
   setTimeout(() => {location.reload()}, 400);
->>>>>>> Stashed changes
 }
 
 /**
@@ -52,56 +46,6 @@ function chooseNewContact(key) {
  * @param {string} key - a key under which the data will be stored
  * @returns {Promise<void>} A promise that resolves when the record is successfully added.
  */
-<<<<<<< Updated upstream
- async function addNewData(data, path, key){
-  let response = await fetch(`${BASE_URL}${path}/${key}.json`,{
-      method: "PUT",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-  });
-}
-
-/**
- * Edit an existing contact and updates the database
- * 
- * This function get updated contact data and updates the database,
- * and refreshes the UI to show the changes.
- * 
- * @param {Object[]} user - An array containing the contact object to be edited. 
- */
-async function editContact(key){
-  let updatedData = getUpdatedData();
-  await updateData(updatedData, "contacts", key);
-  const index = usersArray.findIndex(contact => contact.userId == key);
-  if (index !== -1) {
-    usersArray[index] = { ...usersArray[index], ...updatedData };
-  }
-  currentUser = [{ ...currentUser[0], ...updatedData }];
-  if (validateForm()) {
-    closeDialog("[editContactDialog]");
-    renderContacts(usersArray);
-    contactDetailCard(index);
-    addBackground(index);
-  }
-}
-
-/**
- * This function sends a PATCH request to the database (firebase) update a resource at the specified database path and key
- * with the provided data.
- * 
- * @param {Object} data - The data object containing the updated values for the resource.
- * @param {string} path - The database path where the resource is located.
- * @param {string|number} key - The unique identifier of the resource to be updated.
- * 
- */
- async function updateData(data, path, key){
-  await fetch(`${BASE_URL}${path}/${key}.json`,{
-      method: "PATCH",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(data)
-=======
 async function addNewData(data, path, key) {
   let response = await fetch(`${BASE_URL}${path}/${key}.json`, {
     method: "PUT",
@@ -109,7 +53,6 @@ async function addNewData(data, path, key) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data)
->>>>>>> Stashed changes
   });
   return responseAsJson = await response.json();
 }
@@ -128,7 +71,7 @@ function openContactDetailsCard(infoboxId) {
     if (contactCard.classList.contains("open")) {
       return;
     }
-    document.querySelector(`#${infoboxId}`).classList.add("open");
+    document.querySelector(infoboxId).classList.add("open");
     showDetailsResponsive(infoboxId);
   }
 }
@@ -349,19 +292,13 @@ function renderEditContactForm(user) {
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user);
   const form = container.querySelector('#newUserForm');
-  setEditFormValues(user);
   if (form) {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (validateForm()) {
-<<<<<<< Updated upstream
-          editContact(user.id)
-        }
-=======
         newContact();
         toggleAlert();
       }
->>>>>>> Stashed changes
     })
   }
 }
@@ -426,8 +363,8 @@ function handleResize() {
  * */
 window.addEventListener("resize", handleResize);
 
-function setEditFormValues(user){
-  document.getElementById('newUserName').value = user.name || '';
-  document.getElementById('newUserEmail').value = user.email || '';
-  document.getElementById('newUserPhone').value = user.phone || '';
-}
+// function setEditFormValues(user){
+//   document.getElementById('newUserName').value = user.name || '';
+//   document.getElementById('newUserEmail').value = user.email || '';
+//   document.getElementById('newUserPhone').value = user.phone || '';
+// }
