@@ -18,14 +18,15 @@ async function newContact() {
   let newData = {
     ...getUpdatedData(),
     userColor: userColor,
-    userId: key };
+    userId: key
+  };
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
-  setTimeout(()=>{getContacts(path)}, 100);
-  setTimeout(()=>{chooseNewContact(key);}, 200);
+  setTimeout(() => { getContacts(path) }, 100);
+  setTimeout(() => { chooseNewContact(key); }, 200);
   // Obige Funktion verursacht noch Fehlermeldung
-  setTimeout(() => {location.reload()}, 400);
+  setTimeout(() => { location.reload() }, 400);
 }
 
 /**
@@ -362,9 +363,3 @@ function handleResize() {
  * Adds an event listener for handleResize
  * */
 window.addEventListener("resize", handleResize);
-
-// function setEditFormValues(user){
-//   document.getElementById('newUserName').value = user.name || '';
-//   document.getElementById('newUserEmail').value = user.email || '';
-//   document.getElementById('newUserPhone').value = user.phone || '';
-// }
