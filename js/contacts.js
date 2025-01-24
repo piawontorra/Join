@@ -18,7 +18,7 @@ async function newContact(){
   let newData = {
     ...getUpdatedData(),
     userColor: userColor,
-    userID: key };
+    userId: key };
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
