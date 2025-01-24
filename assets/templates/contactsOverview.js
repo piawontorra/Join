@@ -213,17 +213,17 @@ function editContactTemplate(user, id){
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                              <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
+                              <input type="text" id="newUserName" placeholder="Name" required pattern="[a-zA-Z\s [a-zA-Z\s]+]+">
                               <img src="./assets/img/user_icon.png" alt="user icon">
                               <div class="error-message" id="nameError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="email" id="newUserEmail" placeholder="Email" value="${user.email || ''}" required>
+                              <input type="email" id="newUserEmail" placeholder="Email" required>
                               <img src="./assets/img/mail_icon.png" alt="mail icon">
                               <div class="error-message" id="emailError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user.phone  || ''}" required>
+                              <input type="number" id="newUserPhone" placeholder="Phone" required>
                               <img src="./assets/img/phone_icon.png" alt="phone icon">
                               <div class="error-message" id="phoneError"></div>
                           </div>
@@ -232,7 +232,7 @@ function editContactTemplate(user, id){
               </div>
               <div id="btnContainer">
                 <button id="btnCancel" class="clear-task-btn" type="button" onclick="deleteContact(${userId}), closeDialog('[editContactDialog]');">Delete</button>
-                <button id="btnCreate" class="create-task-btn" onclick="editContact(${id}, ${userId})">Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
+                <button id="btnCreate" class="create-task-btn" type="submit" form="newUserForm" >Save<img src="./assets/img/check_icon.png" alt="check icon"></button>
               </div>
           </div>
         

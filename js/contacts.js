@@ -24,7 +24,7 @@ async function newContact(){
   nextIdToDatabase(key);
   setTimeout(()=>{getContacts(path)}, 200);
   setTimeout(()=>{chooseNewContact(key);}, 300);
-  setTimeout(() => {location.reload()}, 400);
+  // setTimeout(() => {location.reload()}, 400);
 }
 
 /**
@@ -63,7 +63,7 @@ function chooseNewContact(key){
  * 
  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
-async function editContact(id, key){
+async function editContact(key){
   let updatedData = getUpdatedData();
   await updateData(updatedData, "contacts", key);
   const index = usersArray.findIndex(contact => contact.userId == key);
@@ -290,12 +290,12 @@ function renderEditContactForm(user, id) {
   const container = document.getElementById('editContactDialog');
   container.innerHTML = editContactTemplate(user, id);
   const form = container.querySelector('#newUserForm');
+  setEditFormValues(user);
   if (form) {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (validateForm()) {
-          newContact();
-          toggleAlert();
+          editContact(user.id)
         }
     })
   }
@@ -349,3 +349,9 @@ function handleResize() {
  * Adds an event listener for handleResize
  * */
 window.addEventListener("resize", handleResize);
+
+function setEditFormValues(user){
+  document.getElementById('newUserName').value = user.name || '';
+  document.getElementById('newUserEmail').value = user.email || '';
+  document.getElementById('newUserPhone').value = user.phone || '';
+}
