@@ -22,10 +22,11 @@ async function newContact() {
   };
   addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
-  // nextIdToDatabase(key);
+  nextIdToDatabase(key);
   getContacts(path);
   chooseNewContact(key);
   // Obige Funktion verursacht noch Fehlermeldung
+  setTimeout(() => { location.reload() }, 400);
 }
 
 /**
@@ -34,7 +35,7 @@ async function newContact() {
  */
 function chooseNewContact(key) {
   let index = usersArray.findIndex(user => user.id == key);
-  openContactDetailsCard(key);
+  openContactDetailsCard('contactCard');
   contactDetailCard(index);
   addBackground(index);
 }
