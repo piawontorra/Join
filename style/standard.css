@@ -99,7 +99,7 @@ a {
 .section-head {
     padding-top: calc(206px - 96px);
     padding-right: 96px;
-    padding-bottom: 56px;
+    padding-bottom: 30px;
     padding-left: calc(328px - 232px);
     display: flex;
     flex-direction: row;
@@ -107,9 +107,6 @@ a {
     align-items: center;
     gap: 30px;
     width: 100%;
-    position: fixed;
-    top: 96px;
-    left: 232px;
     z-index: 300;
     background-color: #F6F7F8;
 }
@@ -225,8 +222,6 @@ a {
     .section-head {
         padding: 32px 16px;
         gap: 16px;
-        top: 80px;
-        left: 0;
     }
 }
 
@@ -278,7 +273,7 @@ a {
         80% {
             transform: rotate(180deg);
         }
-    
+
         100% {
             transform: rotate(180deg);
         }
