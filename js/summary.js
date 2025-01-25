@@ -1,4 +1,4 @@
-let unfinishedTasks = [];
+let urgentUnfinishedTasks = [];
 const today = new Date();
 const yesterday = new Date(today);
 yesterday.setDate(today.getDate() - 1);
@@ -157,7 +157,7 @@ function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
  * Fetches the current tasks from firebase and updates the task counts.
  *
  * This function loads the tasks data asynchronously, processes it, and updates the 
- * status counts, nearest task deadline, and tasks amount till nearest due date in the DOM. 
+ * status counts, urgent task deadlines, and urgent task counts in the DOM. 
  * If no tasks are found, it updates the DOM with default values.
  *
  * @async
@@ -167,18 +167,16 @@ async function showCurrentTasksCount() {
     let tasksData = await loadTasks("tasks");
     if (tasksData && tasksData.length > 0) {
         updateSummaryStatusCount(tasksData);
-        const selectedTask = updateTaskDeadline(tasksData);
-        updateTasksCount(selectedTask, unfinishedTasks);
+        const selectedTask = updateUrgentTaskDeadline(tasksData);
+        updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks);
     } else {
         updateSummaryStatusCount([]);
-        updateTaskDeadline([]);
-        updateTasksCount(null, []);
+        updateUrgentTaskDeadline([]);
+        updateUrgentTasksCount(null, []);
     }
 }
 
 /**
- * Loads the tasks data from the given path.
- *
  * Fetches the tasks data from firebase and processes it by filtering out 
  * tasks that are missing a status to ensure, it is not a deleted one.
  *
@@ -233,28 +231,21 @@ function updateSummaryStatusCount(tasksData) {
 }
 
 /**
- * Updates the task deadline and related task details in the DOM based on the selected task.
+ * Updates the urgent task deadline and displays it in the DOM.
  *
- * This function finds the task with the nearest deadline from the provided tasks data, 
- * updates the 'next-deadline-date' element with the task's due date, and modifies 
- * the task status label, priority icon, and priority background color accordingly.
- * If no tasks are found, it displays a message indicating there are no urgent tasks available.
+ * Finds the task with the nearest deadline from the list of tasks and 
+ * displays its due date. If no urgent task is found, it displays a message 
+ * indicating no urgent tasks are available.
  *
- * @param {Array} tasksData - The list of tasks to check for the nearest deadline.
- * @param {Object} tasksData - Each task object contains task details, including the 'dueDate' and 'priority'.
- * @param {string} tasksData.dueDate - The task's deadline in MM/DD/YYYY format.
- * @param {string} tasksData.priority - The priority of the task (e.g., "Low", "Medium", "High").
- * @returns {Object|null} - The selected task with the nearest deadline, or null if no task is found.
+ * @param {Array} tasksData - The list of tasks to check.
+ * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
  */
-function updateTaskDeadline(tasksData) {
-    const selectedTask = findTaskWithNearestDeadline(tasksData);
+function updateUrgentTaskDeadline(tasksData) {
+    const selectedTask = findUrgentTaskWithNearestDeadline(tasksData);
 
     if (selectedTask) {
         const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
         document.getElementById('next-deadline-date').innerHTML = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        dueTaskStatusLabel(selectedTask);
-        dueTaskPriorityImg(selectedTask);
-        dueTaskPriorityBackground(selectedTask);
         return selectedTask;
     } else {
         document.getElementById('next-deadline-date').innerHTML = 'No urgent tasks available';
@@ -263,83 +254,18 @@ function updateTaskDeadline(tasksData) {
 }
 
 /**
- * Updates the task status label in the DOM based on the selected task.
+ * Finds the urgent task with the nearest deadline.
  *
- * This function sets the inner text of the element with the id 'status-deadline'
- * to reflect the status of the selected task, such as "done", "in-progress", etc.
- *
- * @param {Object} selectedTask - The selected task object containing task details.
- * @param {string} selectedTask.status - The current status of the task (e.g., 'done', 'todo').
- * @returns {void}
- */
-function dueTaskStatusLabel(selectedTask) {
-    let statusRef = document.getElementById('status-deadline');
-    statusRef.innerText = selectedTask.status;
-}
-
-/**
- * Updates the task priority icon in the DOM based on the selected task's priority.
- *
- * This function updates the 'priority-img' element's src attribute according to the
- * selected task's priority level. It uses different images for "Low", "Medium", and "High" priorities.
- *
- * @param {Object} selectedTask - The selected task object containing task details.
- * @param {string} selectedTask.priority - The priority of the task ("Low", "Medium", "High").
- * @returns {void}
- */
-function dueTaskPriorityImg(selectedTask) {
-    let priorityImgRef = document.getElementById('priority-img');
-
-    switch (selectedTask.priority) {
-        case "Low":
-            priorityImgRef.src = 'assets/img/low-white.svg';
-            break;
-        case "Medium":
-            priorityImgRef.src = 'assets/img/medium-white.svg';
-            break;
-        default:
-            priorityImgRef.src = 'assets/img/urgent-white.svg';
-    }
-}
-
-/**
- * Updates the task priority background color in the DOM based on the selected task's priority.
- *
- * This function modifies the background color of the 'due-task-priority' element based on the 
- * selected task's priority. It uses different colors for "Low", "Medium", and "High" priorities.
- *
- * @param {Object} selectedTask - The selected task object containing task details.
- * @param {string} selectedTask.priority - The priority of the task.
- * @returns {void}
- */
-function dueTaskPriorityBackground(selectedTask) {
-    let priorityBackgroundRef = document.getElementById('due-task-priority');
-
-    switch (selectedTask.priority) {
-        case "Low":
-            priorityBackgroundRef.style.background = " #7AE229";
-            break;
-        case "Medium":
-            priorityBackgroundRef.style.background = " #FFA800";
-            break;
-        default:
-            priorityBackgroundRef.style.background = " #FF3D00";
-    }
-}
-
-/**
- * Finds the task with the nearest deadline.
- *
- * Filters the tasks to find tasks that are not marked as 'done' and have a due date. 
- * It returns the task with the closest due date to today.
+ * Filters the tasks to find urgent tasks that are not marked as 'done' 
+ * and have a due date. It returns the task with the closest due date to today.
  *
  * @param {Array} tasksData - The list of tasks to check.
- * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
+ * @returns {Object|null} - The task with the nearest deadline, or null if no urgent task is found.
  */
-function findTaskWithNearestDeadline(tasksData) {
-    unfinishedTasks = tasksData.filter(task => task && task.dueDate && task.status !== 'done');
+function findUrgentTaskWithNearestDeadline(tasksData) {
+    urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
 
-    unfinishedTasks.forEach(task => {
+    urgentUnfinishedTasks.forEach(task => {
         const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
         const diffTime = dueDate - yesterday;
         if (dueDate >= yesterday && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
@@ -352,46 +278,48 @@ function findTaskWithNearestDeadline(tasksData) {
 }
 
 /**
- * Counts the number of tasks before the given due date.
+ * Counts the number of urgent tasks before the given due date.
  *
- * Filters the list of unfinished tasks to find those that have a due date earlier than or equal to the provided due date.
+ * Filters the list of urgent, unfinished tasks to find those that have 
+ * a due date earlier than or equal to the provided due date.
  *
- * @param {Array} unfinishedTasks - The list of unfinished tasks.
+ * @param {Array} urgentUnfinishedTasks - The list of urgent, unfinished tasks.
  * @param {Date} nearestDueDate - The date by which tasks are counted.
  * @returns {number} - The number of tasks before the given due date.
  */
-function countTasksBeforeDueDate(unfinishedTasks, nearestDueDate) {
-    return unfinishedTasks.filter(task => {
+function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
+    return urgentUnfinishedTasks.filter(task => {
         const taskDueDate = new Date(task.dueDate.split('/').reverse().join('/'));
         return taskDueDate <= nearestDueDate;
     }).length;
 }
 
 /**
- * Updates the count of tasks before the nearest deadline.
+ * Updates the count of urgent tasks before the nearest deadline.
  *
- * Displays the count of tasks that have a due date before or equal to the selected task's due date in 
- * the DOM element with the id 'tasks-till-deadline'.
+ * Displays the count of urgent tasks that have a due date before or 
+ * equal to the selected task's due date in the DOM element with the 
+ * id 'urgent-count'.
  *
- * @param {Object|null} selectedTask - The selected task with the nearest deadline.
- * @param {Array} unfinishedTasks - The list of unfinished tasks.
+ * @param {Object|null} selectedTask - The selected urgent task with the nearest deadline.
+ * @param {Array} urgentUnfinishedTasks - The list of urgent, unfinished tasks.
  * @returns {void}
  */
-function updateTasksCount(selectedTask, unfinishedTasks) {
+function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
     if (selectedTask) {
         const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
-        const dueTasksCount = countTasksBeforeDueDate(unfinishedTasks, dueDate);
 
-        document.getElementById('tasks-till-deadline').innerHTML = dueTasksCount;
+        const urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, dueDate);
+        document.getElementById('urgent-count').innerText = urgentCount;
     } else {
-        document.getElementById('tasks-till-deadline').innerText = 0;
+        document.getElementById('urgent-count').innerText = 0;
     }
 }
 
 /**
  * Event listener for resizing the window.
  * This listener calls the `summaryRepresentation()` function whenever the window is resized.
- * The function adjusts the visibility of the summary based on the window width.
+ * The function adjusts the visibility of the imprint summary based on the window width.
  * 
  * @listens resize
  */

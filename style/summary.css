@@ -4,10 +4,6 @@
     align-items: flex-start;
 }
 
-#summary-head {
-    padding-bottom: 40px;
-}
-
 .separator {
     height: 59px;
     width: 3px;
@@ -23,7 +19,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 239px 79px 64px 79px;
+    padding: 32px 79px;
     gap: 72px;
 }
 
@@ -96,7 +92,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 80px;
 }
 
 .task-count {
@@ -114,23 +109,13 @@
     color: #2A3647;
 }
 
-.status-deadline {
+.status-urgent {
     font-size: 16px;
     line-height: 19.2px;
 }
 
-.due-task-priority {
+.status-urgent-img {
     height: 60px;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.priority-img {
-    height: 25.12px;
-    width: 34.19px;
 }
 
 .separator-variant {
@@ -141,7 +126,7 @@
     margin-right: 43px;
 }
 
-.deadline {
+.urgent-deadline {
     display: flex;
     flex-direction: column;
     justify-content: center;

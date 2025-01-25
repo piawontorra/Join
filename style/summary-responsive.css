@@ -1,4 +1,8 @@
 @media (max-width: 1310px) {
+    #summary-head {
+        padding: 56px 24px 16px 24px;
+    }
+
     .summary {
         padding-left: 24px;
         padding-right: 24px;
@@ -21,7 +25,6 @@
     }
 
     .summary {
-        padding-top: 152px;
         flex-direction: column-reverse;
     }
 
@@ -65,11 +68,7 @@
     .summary {
         justify-content: center;
         align-items: center;
-        padding: 112px 16px;
-    }
-
-    .summary-content {
-        padding-top: 104px;
+        padding: 0 16px 112px 16px;
     }
 
     .tab-min-height {
@@ -86,21 +85,11 @@
 }
 
 @media (max-width: 816px) {
-    #summary-head {
-        padding-bottom: 16px;
-    }
-
-    .summary-content {
-        padding-top: 64px;
-    }
-
     .h1-underline-summary {
         width: 90px !important;
         padding-bottom: 6px !important;
     }
-}
 
-@media (max-width: 616px) {
     .summary-rows {
         width: 396px;
         gap: 24px;
@@ -177,7 +166,27 @@
     }
 }
 
+@media (max-width: 544px) {
+    .summary {
+        padding-bottom: 96px;
+    }
+
+    #summary-head {
+        padding-top: 24px;
+        padding-bottom: 24px;
+        gap: 4px;
+    }
+}
+
 @media (max-width: 416px) {
+    #summary-head {
+        gap: 0;
+    }
+
+    .summary {
+        padding-bottom: 92px;
+    }
+
     .summary-content {
         gap: 12px;
     }
