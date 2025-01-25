@@ -252,20 +252,20 @@ function getTaskEditorTemplate(task) {
                             <div id="calendarPopup" class="calendar-popup">
                                     <div id="calendarControls">
                                         <div class="custom-select">
-                                            <div class="select-selected" id="selectedMonth">Januar</div>
+                                            <div class="select-selected" id="selectedMonth">January</div>
                                             <div class="select-items select-hide" id="monthSelect">
-                                                <div>Januar</div>
-                                                <div>Februar</div>
-                                                <div>März</div>
+                                                <div>January</div>
+                                                <div>February</div>
+                                                <div>March</div>
                                                 <div>April</div>
-                                                <div>Mai</div>
-                                                <div>Juni</div>
-                                                <div>Juli</div>
+                                                <div>May</div>
+                                                <div>June</div>
+                                                <div>July</div>
                                                 <div>August</div>
                                                 <div>September</div>
                                                 <div>Oktober</div>
                                                 <div>November</div>
-                                                <div>Dezember</div>
+                                                <div>December</div>
                                             </div>
                                         </div>
                                         <div class="custom-select">

@@ -11,7 +11,6 @@ function renderUsers(contacts) {
     for (let i = 0; i < contactKeys.length; i++) {
         let key = contactKeys[i];
         let contact = contacts[key];
-
         let contactTemplate = getAssignedToTemplate(contact);
 
         usersRef.innerHTML += contactTemplate;
@@ -48,7 +47,7 @@ function showUsers() {
 function handleOutsideClick(event) {
     const usersElement = document.getElementById('users');
     const dropdownButton = document.getElementsByClassName('add-task-assigned-to-input-field')[0];
-    
+
     if (!usersElement.contains(event.target) && !dropdownButton.contains(event.target)) {
         hideUserList(usersElement, document.getElementById('userArrowDown'), document.getElementById('userArrowUp'), document.getElementById('assignedUsers'), dropdownButton);
         isUsersOpen = false;
@@ -57,7 +56,7 @@ function handleOutsideClick(event) {
 }
 
 /**
- * Checks whether the users element is hidden.
+ * Checks whether the users element is hidden or not.
  *
  * @param {HTMLElement} usersElement - The users element.
  * @returns {boolean} `true` if the users element is hidden, otherwise `false`.
@@ -156,7 +155,6 @@ function handleCheckboxChange(userId) {
         userElement.classList.remove("selected");
         assignedTo = assignedTo.filter(id => id !== userId);
     }
-
     showAssignedUsers();
 }
 

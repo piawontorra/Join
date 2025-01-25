@@ -11,18 +11,18 @@ function initializeDatepicker() {
     const yearSelect = document.getElementById("yearSelect");
 
     const monthNames = {
-        "Januar": 1,
-        "Februar": 2,
-        "März": 3,
+        "January": 1,
+        "February": 2,
+        "March": 3,
         "April": 4,
-        "Mai": 5,
-        "Juni": 6,
-        "Juli": 7,
+        "May": 5,
+        "June": 6,
+        "July": 7,
         "August": 8,
         "September": 9,
         "Oktober": 10,
         "November": 11,
-        "Dezember": 12
+        "December": 12
     };
 
     /**
@@ -47,7 +47,6 @@ function initializeDatepicker() {
         const today = new Date();
         const selectedDate = new Date(year, month - 1, day);
 
-        // Check if the selected date is strictly before today (does not include today)
         return selectedDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
     }
 
@@ -56,7 +55,7 @@ function initializeDatepicker() {
      * @returns {string} The HTML string for the table header row.
      */
     function generateTableHeader() {
-        const days = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+        const days = ["So", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
         return `<tr>${days.map(day => `<th>${day}</th>`).join('')}</tr>`;
     }
 
@@ -111,11 +110,11 @@ function initializeDatepicker() {
      * Sets the calendar to display January 2025 by default.
      */
     function resetCalendarToDefault() {
-        const defaultMonth = "Januar";
+        const defaultMonth = "January";
         const defaultYear = "2025";
         selectedMonth.textContent = defaultMonth;
         selectedYear.textContent = defaultYear;
-        generateCalendar(1, 2025); // Januar 2025
+        generateCalendar(1, 2025);
     }
 
     /**
@@ -124,7 +123,7 @@ function initializeDatepicker() {
     function setupCalendarPopup() {
         calendarIcon.addEventListener("click", function () {
             toggleVisibility(calendarPopup);
-            resetCalendarToDefault(); // Reset to January 2025 on each open
+            resetCalendarToDefault();
         });
     }
 

@@ -125,7 +125,7 @@ function showTitleError(titleInput, titleErrorMessage) {
     titleInput.classList.add('error');
     titleInput.style.marginBottom = '';
     titleErrorMessage.style.display = 'block';
-    
+
     setTimeout(function () {
         titleInput.classList.remove('error');
         titleErrorMessage.style.display = 'none';
@@ -242,7 +242,7 @@ function isValidDateFormat(date) {
         return "Invalid date, this date is not possible.";
     }
 
-    return null; // Date is valid
+    return null;
 }
 
 /**
@@ -266,8 +266,8 @@ function isMatchingDatePattern(date) {
  */
 function areDateComponentsRealistic(day, month, year) {
     return month >= 1 && month <= 12 &&
-           day >= 1 && day <= 31 &&
-           year >= 1900 && year <= 2100;
+        day >= 1 && day <= 31 &&
+        year >= 1900 && year <= 2100;
 }
 
 /**
@@ -281,8 +281,8 @@ function areDateComponentsRealistic(day, month, year) {
 function isDateParsable(day, month, year) {
     const parsedDate = new Date(year, month - 1, day);
     return parsedDate.getFullYear() === year &&
-           parsedDate.getMonth() === month - 1 &&
-           parsedDate.getDate() === day;
+        parsedDate.getMonth() === month - 1 &&
+        parsedDate.getDate() === day;
 }
 
 /**
@@ -311,7 +311,7 @@ function showDueDateError(dueDateInput, dueDateErrorMessage, message) {
     dueDateInput.classList.add('error');
     dueDateErrorMessage.textContent = message;
     dueDateErrorMessage.style.display = 'block';
-    
+
     setTimeout(function () {
         dueDateInput.classList.remove('error');
         dueDateErrorMessage.style.display = 'none';
