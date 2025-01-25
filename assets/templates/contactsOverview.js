@@ -34,6 +34,7 @@ async function getContacts(path) {
         current.name > next.name ? 1 : next.name > current.name ? -1 : 0
     );
     renderContacts(usersArray);
+    console.log('onload:', usersArray);
 }
 
 /**

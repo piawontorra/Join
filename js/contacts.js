@@ -20,14 +20,11 @@ async function newContact() {
     userColor: userColor,
     userId: key
   };
-  addNewData(newData, "/contacts", key);
+  await addNewData(newData, "/contacts", key);
   closeDialog("[newContactDialog]");
   nextIdToDatabase(key);
-  setTimeout(async () => {
-    await getContacts(path);
-  }, 200); 
+  await getContacts(path)
   chooseNewContact(key);
-  // Obige Funktion verursacht noch Fehlermeldung
 }
 
 /**
@@ -36,8 +33,10 @@ async function newContact() {
  */
 function chooseNewContact(key) {
   let index = usersArray.findIndex(user => user.id == key);
-  openContactDetailsCard('contactCard');
+  
+  removeClosed();
   contactDetailCard(index);
+  showDetailsResponsive()
   addBackground(index);
 }
 
