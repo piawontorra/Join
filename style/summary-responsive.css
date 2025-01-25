@@ -134,21 +134,16 @@
         line-height: 16.8px;
     }
 
-    .due-task-priority {
+    .status-urgent-img {
         height: 40px;
     }
 
-    .priority-img {
-        height: 16.74px;
-        width: 22.79px;
-    }
-
-    .status-deadline {
+    .status-urgent {
         font-size: 14px;
         line-height: 16.8px;
     }
 
-    .deadline {
+    .urgent-deadline {
         gap: 8px;
     }
 
@@ -183,14 +178,8 @@
 }
 
 @media (max-width: 416px) {
-    #summary-head {
-        gap: 0;
-        padding: 24px 16px 0 16px;
-    }
-
     .summary-content {
         gap: 12px;
-        padding-top: 26px;
     }
 
     .separator-variant {
@@ -199,7 +188,6 @@
 
     .summary-rows {
         width: 288px;
-        height: 104px;
         gap: 12px;
     }
 
