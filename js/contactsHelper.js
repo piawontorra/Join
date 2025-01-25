@@ -1,3 +1,62 @@
+let currentUser = [];
+
+/**
+ * Asynchronously fetches contact data from a given path, sorts the contacts by name,
+ * and renders them in the UI.
+ *
+ * @async
+ * @function getContacts
+ * @param {string} path - The relative path to fetch contact data from the API.
+ * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
+ *
+ */
+async function getContacts(path) {
+    let response = await fetch(BASE_URL + path + ".json");
+    let contactsJson = await response.json();
+    let contactsArray = [];
+    for (let key in contactsJson) {
+        contactsArray.push({ id: key, ...contactsJson[key] })
+    }
+    usersArray = contactsArray.sort((current, next) =>
+        current.name > next.name ? 1 : next.name > current.name ? -1 : 0
+    );
+    renderContacts(usersArray);
+}
+
+/**
+ * Renders a list of contacts into the "contactsOverview" container in the DOM.
+ *
+ * @function renderContacts
+ * @param {Array<Object>} contacts - An array of contact objects to be rendered.
+ * Each contact object should have at least a `name` property.
+ * @returns {void}
+ *
+ */
+function renderContacts(contacts) {
+    document.getElementById("contactsOverview").innerHTML = "";
+    let currentLetter = "";
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i] && contacts[i].name) {
+            let firstLetter = contacts[i].name.charAt(0);
+            let secondLetter = contacts[i].name.charAt(
+                contacts[i].name.indexOf(" ") + 1
+            );
+            if (firstLetter !== currentLetter) {
+                currentLetter = firstLetter;
+                contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
+            }
+            document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts, i, firstLetter, secondLetter);
+        }
+    }
+}
+
+function contactDetailCard(id) {
+    let contact = usersArray[id];
+    let contactCardContainer = document.getElementById("contactCard");
+    contactCardContainer.innerHTML = contactCardDetailsTemplate(id, contact);
+    currentUser = contact;
+}
+
 /**
  * Shows a popup notification when a new contact is created 
  */
@@ -27,11 +86,9 @@ function getUpdatedData() {
  */
 function getUpdatedEditData() {
   const form = document.querySelector('[id="editContactDialog"]');
-
   const name = form.querySelector('[name="name"]').value;
   const email = form.querySelector('[name="email"]').value;
   const phone = form.querySelector('[name="phone"]').value;
-
   return { name, email, phone };
 }
 
@@ -67,7 +124,6 @@ function checkName() {
     .split(" ")
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-
   let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
   if (!isValid) {
     showError("nameError", "Please enter your full name with capitalized first letters", name);
@@ -169,7 +225,6 @@ function checkEditPhone() {
 function showError(elementId, message, inputField) {
   let errorElement = document.getElementById(elementId);
   inputField.style.border = "1px solid red";
-
   if (errorElement) {
     errorElement.textContent = message;
     setTimeout(() => {
@@ -189,7 +244,3 @@ window.addEventListener('resize', () => {
     detailCard.style.display = "flex";
   }
 });
-
-function clearForm() {
-  document.getElementById('newUserForm').reset();
-}

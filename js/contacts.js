@@ -33,7 +33,6 @@ async function newContact() {
  */
 function chooseNewContact(key) {
   let index = usersArray.findIndex(user => user.id == key);
-
   removeClosed();
   contactDetailCard(index);
   showDetailsResponsive()
