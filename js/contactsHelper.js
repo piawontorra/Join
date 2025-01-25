@@ -85,11 +85,11 @@ function getUpdatedData() {
  * @returns value of name, email and phone
  */
 function getUpdatedEditData() {
-  const form = document.querySelector('[id="editContactDialog"]');
-  const name = form.querySelector('[name="name"]').value;
-  const email = form.querySelector('[name="email"]').value;
-  const phone = form.querySelector('[name="phone"]').value;
-  return { name, email, phone };
+  return {
+    name: document.getElementById('editUserName').value,
+    email: document.getElementById('editUserEmail').value,
+    phone: document.getElementById('editUserPhone').value
+  };
 }
 
 /**
