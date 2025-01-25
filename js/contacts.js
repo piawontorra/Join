@@ -33,7 +33,7 @@ async function newContact() {
  */
 function chooseNewContact(key) {
   let index = usersArray.findIndex(user => user.id == key);
-  
+
   removeClosed();
   contactDetailCard(index);
   showDetailsResponsive()
@@ -253,19 +253,18 @@ function outsideClickHandler(event) {
 //  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
 async function editContact(userId) {
-
-  if (validateForm()) {
-    let updatedData = getUpdatedData();
-    await updateData(updatedData, "contacts", userId);
-    const index = usersArray.findIndex(contact => contact.userId === userId);
-    if (index !== -1) {
-      usersArray[index] = { ...usersArray[index], ...updatedData };
-    }
-    renderContacts(usersArray);
-    contactDetailCard(index);
-    addBackground(index);
-    closeDialog("[editContactDialog]");
+  // if (validateForm()) {
+  let updatedData = getUpdatedEditData();
+  await updateData(updatedData, "contacts", userId);
+  const index = usersArray.findIndex(contact => contact.userId === userId);
+  if (index !== -1) {
+    usersArray[index] = { ...usersArray[index], ...updatedData };
   }
+  renderContacts(usersArray);
+  contactDetailCard(index);
+  addBackground(index);
+  closeDialog("[editContactDialog]");
+  // }
 }
 
 /**

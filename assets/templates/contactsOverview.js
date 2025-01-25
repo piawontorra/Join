@@ -1,19 +1,6 @@
 let currentUser = [];
 
 /**
-* * Fetches user data from the specified database path and logs it to the console.
-* 
-* This function sends a GET request to retrieve all user data from the provided database path
-* and converts the response to JSON format.
-// * @param {string} path - The path of the database
-// */
-// async function getUsers(path) {
-//     let response = await fetch(BASE_URL + path + ".json");
-//     let responseToJson = await response.json();
-//     return responseToJson;
-// }
-
-/**
  * Asynchronously fetches contact data from a given path, sorts the contacts by name,
  * and renders them in the UI.
  *
@@ -215,17 +202,17 @@ function editContactTemplate(user) {
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                            <input type="text" id="newUserName" placeholder="Name" value="${user.name || ''}" required>
+                            <input type="text" id="newUserName" name="name" placeholder="Name" value="${user.name || ''}" required>
                               <img src="./assets/img/user_icon.png" alt="user icon">
                               <div class="error-message" id="nameError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="email" id="newUserEmail" placeholder="Email" value="${user.email || ''}" required>
+                              <input type="email" id="newUserEmail" name="email" placeholder="Email" value="${user.email || ''}" required>
                               <img src="./assets/img/mail_icon.png" alt="mail icon">
                               <div class="error-message" id="emailError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="number" id="newUserPhone" placeholder="Phone" value="${user.phone || ''}" required>
+                              <input type="number" id="newUserPhone" name="phone" placeholder="Phone" value="${user.phone || ''}" required>
                               <img src="./assets/img/phone_icon.png" alt="phone icon">
                               <div class="error-message" id="phoneError"></div>
                           </div>

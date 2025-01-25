@@ -1,45 +1,59 @@
 /**
  * Shows a popup notification when a new contact is created 
  */
-function toggleAlert(){
-    let overlay = document.getElementById('statusAlert');
-    overlay.classList.add('open');
-    setTimeout(() => {
+function toggleAlert() {
+  let overlay = document.getElementById('statusAlert');
+  overlay.classList.add('open');
+  setTimeout(() => {
     overlay.classList.remove('open');
-    }, 2000);
-  }
+  }, 2000);
+}
+
+/**
+ * gathers values from user input and returns it to the newContact function
+ * @returns value of name, email and phone
+ */
+function getUpdatedData() {
+  return {
+    name: document.getElementById('newUserName').value,
+    email: document.getElementById('newUserEmail').value,
+    phone: document.getElementById('newUserPhone').value
+  };
+}
 
 /**
  * gathers values from user input and returns it to the editContact function
  * @returns value of name, email and phone
  */
-function getUpdatedData() {
-    return {
-        name: document.getElementById('newUserName').value,
-        email: document.getElementById('newUserEmail').value,
-        phone: document.getElementById('newUserPhone').value
-    };
-  }
+function getUpdatedEditData() {
+  const form = document.querySelector('[id="editContactDialog"]');
+
+  const name = form.querySelector('[name="name"]').value;
+  const email = form.querySelector('[name="email"]').value;
+  const phone = form.querySelector('[name="phone"]').value;
+
+  return { name, email, phone };
+}
 
 /**
  * @returns a background color for the new user out of preset colors
  */
-function createUserColor(){
-    let randomNumber = Math.floor(Math.random()*15);
-    let userColor = userColorsPreset[randomNumber];
-    return userColor;
-  }
+function createUserColor() {
+  let randomNumber = Math.floor(Math.random() * 15);
+  let userColor = userColorsPreset[randomNumber];
+  return userColor;
+}
 
 /**
  * writing the next available ID into the database
  * @param {number} nextID 
  */
-async function nextIdToDatabase(nextID){
-    await fetch(`${BASE_URL}/nextID.json`, {
-      method: 'PUT',
-      body: JSON.stringify(nextID + 1),
-    })
-  }
+async function nextIdToDatabase(nextID) {
+  await fetch(`${BASE_URL}/nextID.json`, {
+    method: 'PUT',
+    body: JSON.stringify(nextID + 1),
+  })
+}
 
 /**
  * checks if the user name input is valid
@@ -49,41 +63,41 @@ async function nextIdToDatabase(nextID){
 function checkName() {
   let name = document.getElementById("newUserName");
   name.value = name.value
-      .toLowerCase()
-      .split(" ")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+    .toLowerCase()
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
   if (!isValid) {
-      showError("nameError", "Please enter your full name with capitalized first letters", name);
+    showError("nameError", "Please enter your full name with capitalized first letters", name);
   }
   return isValid;
 }
 
- /**
- * checks if the user email input is valid
- * there must me a @ and a toplevel domain
- * @returns true/false
- */ 
+/**
+* checks if the user email input is valid
+* there must me a @ and a toplevel domain
+* @returns true/false
+*/
 function checkEmail() {
-    let email = document.getElementById("newUserEmail");
-    let isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-    if (!isValid) showError("emailError", "Please enter a valid email address", email);
-    return isValid;
-  }
-  
+  let email = document.getElementById("newUserEmail");
+  let isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+  if (!isValid) showError("emailError", "Please enter a valid email address", email);
+  return isValid;
+}
+
 /**
  * checks if the user phonenumber input is valid
  * there must be at least 7 digits
  * @returns true/false
- */  
+ */
 function checkPhone() {
-    let phoneNr = document.getElementById("newUserPhone");
-    let isValid = /^\d{7,15}$/.test(phoneNr.value);
-    if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits)", phoneNr);
-    return isValid;
-  }
+  let phoneNr = document.getElementById("newUserPhone");
+  let isValid = /^\d{7,15}$/.test(phoneNr.value);
+  if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits)", phoneNr);
+  return isValid;
+}
 
 /**
  * checks if all ist true
@@ -91,7 +105,7 @@ function checkPhone() {
  */
 function validateForm() {
   return checkName() && checkEmail() && checkPhone();
-  }
+}
 
 /**
  * Displays an error message for a specific input field
@@ -101,29 +115,29 @@ function validateForm() {
  * @param {HTMLElement}
  */
 function showError(elementId, message, inputField) {
-    let errorElement = document.getElementById(elementId);
-    inputField.style.border = "1px solid red";
-    
-    if (errorElement) {
-        errorElement.textContent = message;
-        setTimeout(() => {
-            errorElement.textContent = "";
-            inputField.style.border = "";
-        }, 2500);
-    }
+  let errorElement = document.getElementById(elementId);
+  inputField.style.border = "1px solid red";
+
+  if (errorElement) {
+    errorElement.textContent = message;
+    setTimeout(() => {
+      errorElement.textContent = "";
+      inputField.style.border = "";
+    }, 2500);
   }
+}
 
 /**
  * checks if the window size is larger than 800px and will show up the Container again
  * Container: contactDetailsContainer
  */
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 800) {
-      let detailCard = document.getElementById('contactDetailsContainer');
-      detailCard.style.display = "flex";
-    }
-  });
-
-  function clearForm(){
-    document.getElementById('newUserForm').reset();
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 800) {
+    let detailCard = document.getElementById('contactDetailsContainer');
+    detailCard.style.display = "flex";
   }
+});
+
+function clearForm() {
+  document.getElementById('newUserForm').reset();
+}
