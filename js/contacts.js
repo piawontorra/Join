@@ -314,7 +314,7 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
-  removeInput();
+  // removeInput();
 }
 
 function removeInput() {

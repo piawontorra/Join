@@ -74,7 +74,7 @@
         flex-direction: column;
     }
 
-    #blueLine{
+    .blueLine{
         background-color: rgb(41, 171, 226);
         height: 3px;
         width: 76px;
@@ -278,6 +278,14 @@
     .error-message {
         margin-top: -12px;
         margin-bottom: 8px;
+    }
+
+    #blueLineMobile{
+        display: block;
+    }
+
+    #blueLineDesktop{
+        display: none;
     }
 }
 
