@@ -248,7 +248,7 @@ async function loadData() {
     try {
         let response = await fetch(BASE_URL + "/contacts.json");
         let responseToJson = await response.json();
-        
+
         contacts = responseToJson;
 
         renderUsers(contacts);
@@ -361,7 +361,6 @@ document.addEventListener('click', (event) => {
     const categoryDropdown = document.getElementById('category');
     const categoryField = document.getElementsByClassName('add-task-category-input-field')[0];
 
-    // Check if the click is outside the category dropdown and input field
     if (categoryDropdown.style.display === 'block' && !categoryField.contains(event.target)) {
         hideCategorysList(
             categoryDropdown,
@@ -386,5 +385,5 @@ function showTaskAddedToBoard() {
         taskAddedToBoard.style.display = 'none';
         taskAddedToBoard.classList.remove('task-added-to-board');
         taskAddedToBoardModal.classList.remove('task-added-to-board-modal');
-      }, 3000);
+    }, 3000);
 }
