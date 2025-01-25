@@ -263,7 +263,7 @@ function getTaskEditorTemplate(task) {
                                                 <div>July</div>
                                                 <div>August</div>
                                                 <div>September</div>
-                                                <div>Oktober</div>
+                                                <div>October</div>
                                                 <div>November</div>
                                                 <div>December</div>
                                             </div>

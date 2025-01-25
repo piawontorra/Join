@@ -20,7 +20,7 @@ function initializeDatepicker() {
         "July": 7,
         "August": 8,
         "September": 9,
-        "Oktober": 10,
+        "October": 10,
         "November": 11,
         "December": 12
     };
