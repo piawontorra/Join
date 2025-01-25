@@ -253,7 +253,7 @@ function outsideClickHandler(event) {
 //  * @param {Object[]} user - An array containing the contact object to be edited. 
  */
 async function editContact(userId) {
-  // if (validateForm()) {
+  if (validateEditForm()) {
   let updatedData = getUpdatedEditData();
   await updateData(updatedData, "contacts", userId);
   const index = usersArray.findIndex(contact => contact.userId === userId);
@@ -264,7 +264,7 @@ async function editContact(userId) {
   contactDetailCard(index);
   addBackground(index);
   closeDialog("[editContactDialog]");
-  // }
+  }
 }
 
 /**

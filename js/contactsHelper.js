@@ -108,6 +108,58 @@ function validateForm() {
 }
 
 /**
+ * checks if all ist true
+ * @returns true/false
+ */
+function validateEditForm() {
+  return checkEditName() && checkEditEmail() && checkEditPhone();
+}
+
+/**
+ * checks if the user name input is valid
+ * First name and last name
+ * @returns true/false
+ */
+function checkEditName() {
+  let name = document.getElementById("editUserName");
+  name.value = name.value
+    .toLowerCase()
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
+  if (!isValid) {
+    showError("nameError", "Please enter your full name with capitalized first letters", name);
+  }
+  return isValid;
+}
+
+/**
+* checks if the user email input is valid
+* there must me a @ and a toplevel domain
+* @returns true/false
+*/
+function checkEditEmail() {
+  let email = document.getElementById("editUserEmail");
+  let isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+  if (!isValid) showError("emailError", "Please enter a valid email address", email);
+  return isValid;
+}
+
+/**
+ * checks if the user phonenumber input is valid
+ * there must be at least 7 digits
+ * @returns true/false
+ */
+function checkEditPhone() {
+  let phoneNr = document.getElementById("editUserPhone");
+  let isValid = /^\d{7,15}$/.test(phoneNr.value);
+  if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits)", phoneNr);
+  return isValid;
+}
+
+/**
  * Displays an error message for a specific input field
  * The error message disappears after 2.5 seconds
  * @param {string}

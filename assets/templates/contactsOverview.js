@@ -202,17 +202,17 @@ function editContactTemplate(user) {
                       </div>
                       <form id="newUserForm">
                           <div class="inputField">
-                            <input type="text" id="newUserName" name="name" placeholder="Name" value="${user.name || ''}" required>
+                            <input type="text" id="editUserName" name="name" placeholder="Name" value="${user.name || ''}" required>
                               <img src="./assets/img/user_icon.png" alt="user icon">
                               <div class="error-message" id="nameError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="email" id="newUserEmail" name="email" placeholder="Email" value="${user.email || ''}" required>
+                              <input type="email" id="editUserEmail" name="email" placeholder="Email" value="${user.email || ''}" required>
                               <img src="./assets/img/mail_icon.png" alt="mail icon">
                               <div class="error-message" id="emailError"></div>
                           </div>
                           <div class="inputField">
-                              <input type="number" id="newUserPhone" name="phone" placeholder="Phone" value="${user.phone || ''}" required>
+                              <input type="number" id="editUserPhone" name="phone" placeholder="Phone" value="${user.phone || ''}" required>
                               <img src="./assets/img/phone_icon.png" alt="phone icon">
                               <div class="error-message" id="phoneError"></div>
                           </div>
