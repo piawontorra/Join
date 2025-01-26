@@ -8,7 +8,6 @@ function initRegistry() {
     includeFooter();
     initPortraitMode();
     eventHandler();
-
 }
 
 function eventHandler() {
@@ -32,9 +31,7 @@ function eventHandler() {
  * @returns {void}
  */
 async function addUser() {
-    // document.getElementById("registration-form").onsubmit = function (event) {
-    //     event.preventDefault();
-
+    
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -47,6 +44,7 @@ async function addUser() {
             resetRegistrationForm();
         }
     }
+
 
 /**
  * Validates the user's name input to ensure it consists of exactly two names, each consisting of only letters, and exactly one space between them.
