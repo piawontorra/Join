@@ -5,58 +5,72 @@
  * 
  * @returns {void} 
  */
-function logoAnimation() {
+function checkLogoAnimation() {
     window.innerWidth >= 816 ? checkLogoAnimationDesktop() : checkLogoAnimationMobile();
 }
 
 /**
- * Applies the desktop logo animation if it hasn't already been performed in the current session.
- * It checks the session storage to determine whether the animation has been triggered.
- * If not, it adds the animation class to the desktop logo and hides the "no-animation" element.
- * Once the animation is complete, the session storage is updated to reflect that the animation has been triggered.
- * 
- * @returns {void} 
+ * Checks whether the desktop logo animation has been played before, and applies the appropriate animation or no-animation logic.
+ * This function uses `sessionStorage` to remember whether the logo animation has been shown during the current session.
+ * If the logo animation has not been played yet, it adds the animation class to the desktop logo and plays the animation.
+ * If the animation has already been played, it hides the logo animation and shows the not animated logo.
  */
 function checkLogoAnimationDesktop() {
     const logoDesktopRef = document.getElementById('logo-animation');
-    const noAnimationRef = document.getElementById('logo-no-animation');
 
     if (sessionStorage.getItem('logoAnimated') !== 'true') {
-        noAnimationRef.classList.add('d-none');
-        logoDesktopRef.classList.add('logo-animation');
-        sessionStorage.setItem('logoAnimated', 'true');
+        playAnimation();
+        setTimeout(() => logoDesktopRef.classList.add('logo-animation'), 100);
     } else {
-        noAnimationRef.classList.remove('d-none');
+        playNoAnimation();
         logoDesktopRef.classList.remove('logo-animation');
         logoDesktopRef.classList.add('d-none');
-        document.getElementById('content-add').setAttribute('style', 'animation: none');
     }
 }
 
 /**
- * Applies the mobile logo animation if it hasn't already been performed in the current session.
- * It checks the session storage to determine whether the animation has been triggered.
- * If not, it adds the animation class to the mobile logo, triggers the logo change during the animation,
- * and hides the "no-animation" element. Once the animation is complete, the session storage is updated.
- * 
- * @returns {void} 
+ * Checks whether the mobile logo animation has been played before, and applies the appropriate animation or no-animation logic.
+ * This function uses `sessionStorage` to remember whether the logo animation has been shown during the current session or not.
+ * If the logo animation has not been played yet, it adds the mobile animation class to the mobile logo and plays the animation.
+ * If the animation has already been played, it hides the logo animation and shows the not animated logo.
  */
 function checkLogoAnimationMobile() {
     const logoMobileRef = document.getElementById('logo-animation-mobile');
-    const noAnimationRef = document.getElementById('logo-no-animation');
+    const logoDiv = document.getElementById('logo-animation-div');
 
     if (sessionStorage.getItem('logoAnimated') !== 'true') {
-        noAnimationRef.classList.add('d-none');
-        logoMobileRef.classList.add('logo-animation-mobile');
+        playAnimation();
+        setTimeout(() => logoMobileRef.classList.add('logo-animation-mobile'), 100);
         changeLogoDuringAnimation();
-        sessionStorage.setItem('logoAnimated', 'true');
     } else {
-        noAnimationRef.classList.remove('d-none');
+        playNoAnimation();
         logoMobileRef.classList.remove('logo-animation-mobile');
         logoMobileRef.classList.add('d-none');
-        document.getElementById('logo-animation-div').setAttribute('style', 'animation: none');
-        document.getElementById('content-add').setAttribute('style', 'animation: none');
+        logoDiv.style.animation = 'none';
     }
+}
+
+/**
+ * Plays the logo animation by hiding the not animated logo and setting a flag in `sessionStorage` to remember
+ * that the animation was played.
+ * This ensures that the animation is only played once per session.
+ */
+function playAnimation() {
+    const noAnimationRef = document.getElementById('logo-no-animation');
+
+    noAnimationRef.classList.add('d-none');
+    sessionStorage.setItem('logoAnimated', 'true');
+}
+
+/**
+ * Plays the "no animation" state by showing the not animated logo and stopping any ongoing animations.
+ */
+function playNoAnimation() {
+    const noAnimationRef = document.getElementById('logo-no-animation');
+    const contentAddRef = document.getElementById('content-add');
+
+    noAnimationRef.classList.remove('d-none');
+    contentAddRef.style.animation = 'none';
 }
 
 /**
@@ -81,6 +95,6 @@ function changeLogoDuringAnimation() {
  * 
  * @listens resize
  */
-window.addEventListener('resize', function() {
-    logoAnimation();
+window.addEventListener('resize', function () {
+    checkLogoAnimation();
 });

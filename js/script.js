@@ -9,7 +9,7 @@ const msgBox = document.getElementById('msg-box');
  * remembering login state, and fetching user data.
  */
 function initLogin() {
-    logoAnimation();
+    checkLogoAnimation();
     initPortraitMode();
     loadUserCredentials();
     checkRememberMe();

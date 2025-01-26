@@ -57,6 +57,31 @@
     }
 }
 
+@media (max-width: 1288px) {
+    @keyframes moveLogo {
+        0% {
+            top: calc(50vh - 334px/2);
+            left: calc(50% - 274px/2);
+            height: 334px;
+            width: 274px;
+        }
+
+        30% {
+            top: calc(50vh - 334px/2);
+            left: calc(50% - 274px/2);
+            height: 334px;
+            width: 274px;
+        }
+
+        100% {
+            top: 60px;
+            left: 77px;
+            height: 121.97px;
+            width: 100.03px;
+        }
+    }
+}
+
 @media (max-width: 816px) {
     .logo-animation-div {
         animation: backgroundChange 1s ease-in-out;
@@ -123,6 +148,31 @@
 
         100% {
             opacity: 1;
+        }
+    }
+}
+
+@media (max-width: 376px) {
+    @keyframes moveLogoMobile {
+        0% {
+            top: calc(50vh - 121.97px/2);
+            left: calc(50% - 100.03px/2);
+            height: 121.97px;
+            width: 100.03px;
+        }
+
+        20% {
+            top: calc(50vh - 121.97px/2);
+            left: calc(50% - 100.03px/2);
+            height: 121.97px;
+            width: 100.03px;
+        }
+
+        100% {
+            top: 16px;
+            left: 32px;
+            height: 78.03px;
+            width: 64px;
         }
     }
 }
