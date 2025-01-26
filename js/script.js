@@ -3,6 +3,7 @@ let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
+let isFormSubmitted = false;
 
 /**
  * Initializes the login page by calling necessary functions for logo animation, user credentials loading, 
@@ -110,6 +111,15 @@ function togglePasswordVisibility(passwordImgRef) {
 }
 
 /**
+ * Only gets called when the form is submitted.
+ * It prevents the unnecessary error display from appearing when the page is loaded.
+ */
+function handleLoginFormSubmit(event) {
+    event.preventDefault();
+    login();
+}
+
+/**
  * Handles the login process by checking the provided email and password against the stored users.
  * If a match is found, the user is logged in, the input fields are cleared and the user is redirected to the summary page.
  * If no match is found, the adaptFields() function is called, which signalize an error.
@@ -118,19 +128,32 @@ function togglePasswordVisibility(passwordImgRef) {
  * @param {string} password - The entered password.
  */
 function login() {
+    isFormSubmitted = true;
     let email = document.getElementById('email');
     let password = document.getElementById('password');
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
     if (user) {
         sessionStorage.setItem('loggedInUserName', user.user.name);
-        rememberMeEffects();
-        resetFields();
-        transferToSummary();
+        loggedInUser();
     }
     else {
         adaptFields();
     }
+}
+
+/**
+ * Handles the actions after a user has successfully logged in.
+ * This includes applying the "Remember Me" effects, resetting the form fields, 
+ * and transferring the user to the summary page.
+ *
+ * @returns {void} This function does not return a value. It performs side-effects such as 
+ *                 updating the UI and navigating to another page.
+ */
+function loggedInUser() {
+    rememberMeEffects();
+    resetFields();
+    transferToSummary();
 }
 
 /**
@@ -152,10 +175,12 @@ function resetFields() {
  * Also shows the option for resetting the password if only the password input was incorrect.
  */
 function adaptFields() {
-    document.getElementById('input-email').classList.add('red-border');
-    document.getElementById('input-password').classList.add('red-border');
-    document.getElementById('msg-box').innerHTML = getLoginErrorTemplate();
-    forgotPasswordQuote();
+    if (isFormSubmitted) {
+        document.getElementById('input-email').classList.add('red-border');
+        document.getElementById('input-password').classList.add('red-border');
+        document.getElementById('msg-box').innerHTML = getLoginErrorTemplate();
+        forgotPasswordQuote();
+    }
 }
 
 /**

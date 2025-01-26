@@ -47,7 +47,8 @@
             </div>
 
             <div class="flex form-position">
-                <form class="flex form" id="login-form" onsubmit="login(); return false;">
+                <form class="flex form" id="login-form" onsubmit="handleLoginFormSubmit(event); return false;"
+                    novalidate>
                     <div class="flex main-form">
                         <div class="flex form-headline">
                             <h1 class="h1-variant">Log in</h1>
