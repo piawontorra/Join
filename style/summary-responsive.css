@@ -13,6 +13,10 @@
         width: 520px;
     }
 
+    .summary-btn {
+        height: 144px;
+    }
+
     .welcome-user {
         padding-left: 24px;
         padding-right: 24px;
@@ -68,15 +72,20 @@
     .summary {
         justify-content: center;
         align-items: center;
-        padding: 0 16px 112px 16px;
+        padding: 0;
     }
 
     .tab-min-height {
-        min-height: calc(100vh - 80px - 76px);
+        min-height: calc(100vh - 96px - 76px);
+    }
+
+    .summary-content {
+        padding-bottom: 96px;
     }
 
     .welcome-user {
         justify-content: center;
+        padding: 112px 16px;
     }
 
     .welcome {
@@ -167,14 +176,15 @@
 }
 
 @media (max-width: 544px) {
-    .summary {
-        padding-bottom: 96px;
-    }
-
     #summary-head {
         padding-top: 24px;
         padding-bottom: 24px;
         gap: 4px;
+    }
+
+    .welcome-user {
+        justify-content: center;
+        padding: 80px 16px;
     }
 }
 
@@ -183,12 +193,9 @@
         gap: 0;
     }
 
-    .summary {
-        padding-bottom: 92px;
-    }
-
     .summary-content {
         gap: 12px;
+        padding-bottom: 92px;
     }
 
     .separator-variant {
