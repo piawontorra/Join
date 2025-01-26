@@ -83,7 +83,7 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.35);
 }
 
-@media (orientation: landscape) and (max-width: 1185px) {
+@media (orientation: landscape) and (max-width: 1440px) {
     .edit-task-form {
         height: calc(100vh - 42px);
     }

@@ -322,7 +322,7 @@
         padding-right: 24px;
         overflow-y: hidden;
         overflow-x: auto;
-        width: 100vw;
+        width: calc(100vw - 20px);
         height: 100%;
     }
 }
