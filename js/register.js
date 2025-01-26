@@ -1,5 +1,5 @@
-const userNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-const emailRegex = /^[^@,;:\x22\s<>\(\)\[\]]+@[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+\.[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+ ?$/;
+const userNameRegex = /^[A-ZÄÖÜa-zäöüß]+ [A-ZÄÖÜa-zäöüß]+$/;
+const emailRegex = /^(?![_.-])([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9.-]{2,}$/;
 
 /**
  * Initializes the registration process by including HTML content and setting up the registration form.
@@ -7,37 +7,37 @@ const emailRegex = /^[^@,;:\x22\s<>\(\)\[\]]+@[^@,;:\s\x22\x27<>\(\)\[\]+!#$%&]+
 function initRegistry() {
     includeFooter();
     initPortraitMode();
-    setupRegistrationForm();
 }
 
 /**
- * Sets up the event listener for the registration form submission.
- */
-function setupRegistrationForm() {
-    document.getElementById("registration-form").onsubmit = handleRegistrationFormSubmit;
-}
-
-/**
- * Handles the form submission event by validating the input.
- * If the password matches with its confirmation, the two names (first and last name) are only composed of letters,
- * and the email address is proper, a new user is added to the firebase database.
- * Afterwards the function to clear the input fields is called.
+ * Handles the registration form submission, validates the user's input, 
+ * and adds a new user to the database if all checks pass.
+ * 
+ * This function attaches an event listener to the form's `submit` event. 
+ * When the form is submitted, it prevents the default form submission, 
+ * performs the necessary validation on the user's inputs (name, email, password, etc.), 
+ * and if the inputs are valid, it creates a new user object and adds it to the database. 
+ * After a successful registration, the form is reset.
  * 
  * @async
- * @param {Event} event - The form submission event.
+ * @function
+ * @returns {void}
  */
-async function handleRegistrationFormSubmit(event) {
-    event.preventDefault();
+async function addUser() {
+    document.getElementById("registration-form").onsubmit = function (event) {
+        event.preventDefault();
 
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let passwordConfirmation = document.getElementById('password-confirmation').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const passwordConfirmation = document.getElementById('password-confirmation').value;
+        const checkboxRef = document.getElementById('accepted-policy');
 
-    if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation)) {
-        let newUser = addNewUserObject(name, email, password);
-        await addUserToFirebase(newUser);
-        resetRegistrationForm();
+        if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation) && checkPolicyAcceptance(checkboxRef)) {
+            let newUser = addNewUserObject(name, email, password);
+            addUserToFirebase(newUser);
+            resetRegistrationForm();
+        }
     }
 }
 
@@ -49,12 +49,12 @@ async function handleRegistrationFormSubmit(event) {
  * @returns {boolean} - Returns `true` if the name is valid, otherwise `false`.
  */
 function checkNameValidity(name) {
-
     if (!userNameRegex.test(name)) {
-        document.getElementById('msg-box').innerText = "Please enter your first and last name with a single space in between (letters only).";
+        document.getElementById('msg-box').innerText = "Please enter your first and last name with a single space in between.";
         document.getElementById('input-registry-name').classList.add('red-border');
         return false;
     } else {
+        document.getElementById('msg-box').innerText = '';
         document.getElementById('input-registry-name').classList.remove('red-border');
         return true;
     }
@@ -70,23 +70,26 @@ function checkNameValidity(name) {
  * @returns {boolean} Returns `true` if the email is valid, otherwise `false`.
  */
 function checkEmailValidity(email) {
-
     if (!emailRegex.test(email)) {
         document.getElementById('msg-box').innerText = "Please enter a valid email address, e.g. steven.miller@gmail.com.";
         document.getElementById('input-registry-email').classList.add('red-border');
         return false;
     } else {
+        document.getElementById('msg-box').innerText = '';
         document.getElementById('input-registry-email').classList.remove('red-border');
         return true;
     }
 }
 
 /**
- * Checks if the password and its confirmation match.
+ * Checks if the password and password confirmation fields match.
  * 
- * @param {string} password - The password entered by the user.
- * @param {string} passwordConfirmation - The confirmation password entered by the user.
- * @returns {boolean} - Returns `true` if the passwords match, otherwise `false`.
+ * If the passwords don't match, a message is displayed to the user and the confirmation field is highlighted with a red border.
+ * If the passwords match, any previous error message and the red border are removed.
+ * 
+ * @param {string} password - The user's password entered in the password field.
+ * @param {string} passwordConfirmation - The user's password entered in the password confirmation field.
+ * @returns {boolean} Returns `true` if the passwords match, otherwise returns `false`.
  */
 function checkPasswordCongruence(password, passwordConfirmation) {
     if (password !== passwordConfirmation) {
@@ -94,7 +97,55 @@ function checkPasswordCongruence(password, passwordConfirmation) {
         document.getElementById('input-password-confirmation').classList.add('red-border');
         return false;
     } else {
+        document.getElementById('msg-box').innerText = '';
         document.getElementById('input-password-confirmation').classList.remove('red-border');
+        return true;
+    }
+}
+
+/**
+ * Checks if the password and password confirmation fields have at least 3 characters.
+ * 
+ * If either of the password fields is shorter than 3 characters, a message is displayed and both password fields are highlighted with a red border.
+ * If the length is valid, the error message and red borders are removed.
+ * 
+ * @param {string} password - The user's password entered in the password field.
+ * @param {string} passwordConfirmation - The user's password entered in the password confirmation field.
+ * @returns {boolean} Returns `true` if both password fields are at least 3 characters long, otherwise returns `false`.
+ */
+function checkPasswordLength(password, passwordConfirmation) {
+    if (password.length < 3 || passwordConfirmation.length < 3) {
+        document.getElementById('msg-box').innerText = "Please enter at least 3 characters for both password fields.";
+        document.getElementById('input-password').classList.add('red-border');
+        document.getElementById('input-password-confirmation').classList.add('red-border');
+        return false;
+    } else {
+        document.getElementById('msg-box').innerText = '';
+        document.getElementById('input-password').classList.remove('red-border');
+        document.getElementById('input-password-confirmation').classList.remove('red-border');
+        return true;
+    }
+}
+
+/**
+ * Checks if the user has accepted the Privacy Policy by verifying the checkbox state.
+ * 
+ * If the checkbox is not checked, a message is displayed and the checkbox is highlighted with a red border.
+ * If the checkbox is checked, any previous error message and red border are removed.
+ * 
+ * @param {HTMLInputElement} checkboxRef - The reference to the checkbox input element where the user must accept the Privacy Policy.
+ * @returns {boolean} Returns `true` if the Privacy Policy checkbox is checked, otherwise returns `false`.
+ */
+function checkPolicyAcceptance(checkboxRef) {
+    const checkboxDiv = document.getElementById('checkbox-img');
+
+    if (!checkboxRef.checked) {
+        document.getElementById('msg-box').innerText = "To proceed, accept our Privacy Policy.";
+        checkboxDiv.classList.add('red-border-registry');
+        return false;
+    } else {
+        document.getElementById('msg-box').innerText = '';
+        checkboxDiv.classList.remove('red-border-registry');
         return true;
     }
 }
@@ -116,35 +167,7 @@ function addNewUserObject(name, email, password) {
 }
 
 /**
- * Resets the registration form by clearing all the input fields.
- */
-function resetRegistrationForm() {
-    let registrationRef = document.getElementById('registration-form');
-    registrationRef.reset();
-}
-
-/**
- * Toggles the checkbox image between checked and unchecked states.
- * Changes the checkbox image when clicked and updates the checkbox status.
- */
-function toggleCheckboxImg() {
-    const checkboxRef = document.getElementById('accepted-policy');
-    const checkboxImgRef = document.getElementById('checkbox-img');
-
-    if (checkboxRef.checked) {
-        checkboxImgRef.src = "assets/img/unchecked.png";
-        checkboxRef.checked = false;
-    } else {
-        checkboxImgRef.src = "assets/img/checked.png";
-        checkboxRef.checked = true;
-    }
-}
-
-/**
- * Adds a new user to the database and updates the next user ID.
- * Displays a success message and overlays the page.
- * 
- * @async
+ * Handles the form submission for user registration, validates input, and adds the user to Firebase.
  * @param {Object} user - The new user's data.
  * @param {string} user.name - The name of the new user.
  * @param {string} user.email - The email of the new user.
@@ -152,11 +175,9 @@ function toggleCheckboxImg() {
  */
 async function addUserToFirebase(user) {
     let existingUsers = await loadUsers("users");
-
     if (!existingUsers) {
         existingUsers = {};
     }
-
     let newUserId = await getNextUserId();
     existingUsers[newUserId] = user;
     await putUser("users", existingUsers);
@@ -209,6 +230,31 @@ async function putUser(path = "", users = {}) {
         body: JSON.stringify(users)
     });
     return responseAsJson = await response.json();
+}
+
+/**
+ * Resets the registration form by clearing all the input fields.
+ */
+function resetRegistrationForm() {
+    let registrationRef = document.getElementById('registration-form');
+    registrationRef.reset();
+}
+
+/**
+ * Toggles the checkbox image between checked and unchecked states.
+ * Changes the checkbox image when clicked and updates the checkbox status.
+ */
+function toggleCheckboxImg() {
+    const checkboxRef = document.getElementById('accepted-policy');
+    const checkboxImgRef = document.getElementById('checkbox-img');
+
+    if (checkboxRef.checked) {
+        checkboxImgRef.src = "assets/img/unchecked.png";
+        checkboxRef.checked = false;
+    } else {
+        checkboxImgRef.src = "assets/img/checked.png";
+        checkboxRef.checked = true;
+    }
 }
 
 /**
