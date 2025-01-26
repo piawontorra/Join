@@ -233,3 +233,9 @@
     display: flex;
     gap: 4px;
 }
+
+@media (max-width: 1100px) {
+    .edit-images {
+        display: flex;
+    }
+}

@@ -62,10 +62,6 @@
 }
 
 @media (max-width: 1065px) {
-    .add-task-form {
-        min-height: unset;
-    }
-
     .add-task-form-left {
         width: 400px;
     }
@@ -79,7 +75,6 @@
     }
 
     .add-task-form-bottom {
-        padding-top: 40px;
         max-width: 889px;
     }
 }
@@ -145,14 +140,18 @@
         gap: 0px;
         overflow-y: auto;
         scrollbar-width: none;
-        max-height: 613px;
+        max-height: calc(100vh - 381px);
+        min-height: unset;
     }
 
     .add-task-form-bottom {
         position: fixed;
-        bottom: 92px;
+        bottom: 80px;
         left: 0;
         padding-right: 16px;
+        width: 100%;
+        background-color: #F6F7F8;
+        z-index: 7;
     }
 
     .add-task-form-seperator {
@@ -167,7 +166,7 @@
 
     .add-task-form {
         padding-left: 16px;
-        max-height: 553px;
+        max-height: calc(100vh - 353px);
     }
 
     label {
@@ -221,11 +220,9 @@
     .add-task-form-bottom {
         display: flex;
         justify-content: flex-end;
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
-
-    .add-task-finish-buttons {
-        padding-right: 16px;
-    }    
 
     .info-line {
         display: none;
@@ -233,6 +230,8 @@
 
     .info-line-responsive {
         display: flex;
+        padding-bottom: 34px;
+        padding-top: 16px;
     }
 }
 
@@ -243,11 +242,13 @@
     }
 }
 
-@media (max-width: 390px) {
-    .add-task-form {
-        max-height: 506px;
+@media (max-width: 400px) {
+    .info-line-responsive {
+        padding-bottom: 0;
     }
+}
 
+@media (max-width: 390px) {
     .section-head-add-task {
         padding-top: calc(116px - 96px);
         padding-bottom: 20px;
@@ -258,17 +259,7 @@
     }
 }
 
-@media (max-width: 380px) {
-    .add-task-form {
-        max-height: 330px;
-    }
-}
-
 @media (max-width: 360px) {
-    .add-task-form {
-        max-height: 240px;
-    }
-
     .add-task-form-bottom {
         bottom: 88px;
     }
