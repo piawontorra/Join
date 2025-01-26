@@ -66,7 +66,7 @@ function newContactTemplate() {
             <div id="responsiveClose" onclick="closeDialog('[newContactDialog]')">X</div>
             <div id="addContactHeader">
                 <div id="joinLogo">
-                    <img src="assets/img/join_logo_menu.png" alt="">
+                    <img src="assets/img/join_logo_menu.png" alt="Join Logo">
                 </div>
                 <div id="newContactHeaderText">
                     <p>Add contact</p>
@@ -122,7 +122,7 @@ function editContactTemplate(user) {
               <div id="responsiveClose" onclick="closeDialog('[editContactDialog]')">X</div>
               <div id="addContactHeader">
                   <div id="joinLogo">
-                      <img src="assets/img/join_logo_menu.png" alt="">
+                      <img src="assets/img/join_logo_menu.png" alt="Join Logo">
                   </div>
                   <div id="newContactHeaderText">
                       <p>Edit contact</p>

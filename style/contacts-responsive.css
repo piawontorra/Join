@@ -59,8 +59,6 @@
     display: none;
 }
 
-
-
 @media (max-width: 1300px){
     #contactDetailsContainer{
         margin-left: 18px;
@@ -91,7 +89,6 @@
 }
 
 @media (max-width: 1065px){
-
     .contacts-fixed{
         left: 0;
     }

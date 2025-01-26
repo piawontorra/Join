@@ -97,7 +97,6 @@ function closeDetailsResponsive() {
   let contactDetailsContainer = document.getElementById('contactDetailsContainer');
   let wrapperContacts = document.getElementById('wrapperContacts');
   let contactCard = document.getElementById('contactCard')
-
   if (window.innerWidth < 800 && contactDetailsContainer && wrapperContacts) {
     contactDetailsContainer.style.display = "none";
     contactCard.classList.remove("open");
@@ -273,7 +272,6 @@ async function editContact(userId) {
  * @param {Object} data - The data object containing the updated values for the resource.
  * @param {string} path - The database path where the resource is located.
  * @param {string|number} key - The unique identifier of the resource to be updated.
- * 
  */
 async function updateData(data, path, key) {
   await fetch(`${BASE_URL}${path}/${key}.json`, {
@@ -313,9 +311,12 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
-  // removeInput();
+  removeInput();
 }
 
+/**
+ * clears the given input fields to avoid wrong values
+ */
 function removeInput() {
   let nameInputRef = document.getElementById('newUserName');
   let emailInputRef = document.getElementById('newUserEmail');
@@ -360,5 +361,5 @@ function handleResize() {
 
 /**
  * Adds an event listener for handleResize
- * */
+ */
 window.addEventListener("resize", handleResize);

@@ -8,7 +8,6 @@ let currentUser = [];
  * @function getContacts
  * @param {string} path - The relative path to fetch contact data from the API.
  * @returns {Promise<void>} - A promise that resolves when the contacts are fetched and rendered.
- *
  */
 async function getContacts(path) {
     let response = await fetch(BASE_URL + path + ".json");
@@ -30,7 +29,6 @@ async function getContacts(path) {
  * @param {Array<Object>} contacts - An array of contact objects to be rendered.
  * Each contact object should have at least a `name` property.
  * @returns {void}
- *
  */
 function renderContacts(contacts) {
     document.getElementById("contactsOverview").innerHTML = "";
@@ -50,6 +48,14 @@ function renderContacts(contacts) {
     }
 }
 
+/**
+ * Renders the contact detail card for a selected contact using the `userArray` and the id
+ * 
+ * Update the `contactCard` container with the details, and sets the currentUser 
+ * to the selected contact.
+ * 
+ * @param {number} id - The index of the contact in the `usersArray`.
+ */
 function contactDetailCard(id) {
     let contact = usersArray[id];
     let contactCardContainer = document.getElementById("contactCard");
@@ -59,6 +65,7 @@ function contactDetailCard(id) {
 
 /**
  * Shows a popup notification when a new contact is created 
+ * after 2000ms the notification disapears
  */
 function toggleAlert() {
   let overlay = document.getElementById('statusAlert');
@@ -113,8 +120,15 @@ async function nextIdToDatabase(nextID) {
 }
 
 /**
- * checks if the user name input is valid
- * First name and last name
+ * checks if all ist true
+ * @returns true/false
+ */
+function validateForm() {
+  return checkName() && checkEmail() && checkPhone();
+}
+
+/**
+ * checks if the user name (Firstname and Lastname) input is valid
  * @returns true/false
  */
 function checkName() {
@@ -159,21 +173,12 @@ function checkPhone() {
  * checks if all ist true
  * @returns true/false
  */
-function validateForm() {
-  return checkName() && checkEmail() && checkPhone();
-}
-
-/**
- * checks if all ist true
- * @returns true/false
- */
 function validateEditForm() {
   return checkEditName() && checkEditEmail() && checkEditPhone();
 }
 
 /**
- * checks if the user name input is valid
- * First name and last name
+ * checks if the user name (Firstname and Lastname) input is valid
  * @returns true/false
  */
 function checkEditName() {
