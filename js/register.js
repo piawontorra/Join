@@ -20,7 +20,6 @@ function initRegistry() {
  * After a successful registration, the form is reset.
  * 
  * @async
- * @function
  * @returns {void}
  */
 async function addUser() {
@@ -167,7 +166,10 @@ function addNewUserObject(name, email, password) {
 }
 
 /**
- * Handles the form submission for user registration, validates input, and adds the user to Firebase.
+ * Adds a new user to the database and updates the next user ID.
+ * Displays a success message and overlays the page.
+ * 
+ * @async
  * @param {Object} user - The new user's data.
  * @param {string} user.name - The name of the new user.
  * @param {string} user.email - The email of the new user.
