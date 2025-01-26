@@ -222,10 +222,13 @@ function uncheckCheckbox() {
  * @param {string} password - The password of the guest.
  */
 async function loginWithGuestData(email, password) {
+    isFormSubmitted = false;
     let users = await loadUsers("users");
     let guestUser = Object.values(users).find(u => u.email === email && u.password === password);
 
     if (guestUser) {
+        resetFields();
+        uncheckCheckbox();
         sessionStorage.setItem('guestUser', 'G');
         transferToSummary();
     } else {
