@@ -20,7 +20,7 @@ function checkLogoAnimationDesktop() {
 
     if (sessionStorage.getItem('logoAnimated') !== 'true') {
         playAnimation();
-        setTimeout(() => logoDesktopRef.classList.add('logo-animation'), 100);
+        setTimeout(() => logoDesktopRef.classList.add('logo-animation'), 200);
     } else {
         playNoAnimation();
         logoDesktopRef.classList.remove('logo-animation');
@@ -40,7 +40,7 @@ function checkLogoAnimationMobile() {
 
     if (sessionStorage.getItem('logoAnimated') !== 'true') {
         playAnimation();
-        setTimeout(() => logoMobileRef.classList.add('logo-animation-mobile'), 100);
+        setTimeout(() => logoMobileRef.classList.add('logo-animation-mobile'), 200);
         changeLogoDuringAnimation();
     } else {
         playNoAnimation();
