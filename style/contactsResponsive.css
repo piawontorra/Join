@@ -79,7 +79,7 @@
         margin: 8px 0 8px 0;
     }
 
-    #span_better{
+    #spanBetter{
         margin: 0;
     }
 
@@ -89,11 +89,11 @@
 }
 
 @media (max-width: 1065px){
-    .contacts-fixed{
+    .contactsFixed{
         left: 0;
     }
 
-    .contacts-fixed{
+    .contactsFixed{
         top: 80px;
     }
 
@@ -297,11 +297,11 @@
 }
 
 @media (max-width: 428px){
-    #span_contacts{
+    #spanContacts{
         font-size: 47px;
     }
 
-    #span_better{
+    #spanBetter{
         font-size: 20px;
     }
 
@@ -317,7 +317,7 @@
 }   
 
 @media (max-width: 360px){
-    #span_contacts{
+    #spanContacts{
         font-size: 50px;
     }
 

@@ -41,7 +41,7 @@ function renderContacts(contacts) {
             );
             if (firstLetter !== currentLetter) {
                 currentLetter = firstLetter;
-                contactsOverview.innerHTML += `<div class="letter-group">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
+                contactsOverview.innerHTML += `<div class="letterGroup">${currentLetter}</div><div id="seperatorContainer"><div id="seperator"></div>`;
             }
             document.getElementById("contactsOverview").innerHTML += overviewTemplate(contacts, i, firstLetter, secondLetter);
         }

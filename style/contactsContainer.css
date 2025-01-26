@@ -1,0 +1,152 @@
+#contactDetailsContainer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 64px;
+}
+
+#seperatorContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#addContactHeaderContainer{
+    width: 467px;
+    min-width: 350px;
+    background-color: rgb(42, 54, 71);
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#newContactFormContainer{
+    display: flex;
+    flex-direction: column;
+    margin: 16px 40px 16px 0;
+    justify-content: center;
+}
+
+#formContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#circleContainer {
+    width: calc(10% + 80px);
+    margin: 0 2%;
+    display: flex;
+    align-items: center;
+    max-width: 120px;
+}
+
+#btnContainer{
+    display: flex;
+    gap: 20px;
+    padding-top: 31px;
+}
+
+#btnContainer div{
+    height: 56px;
+    width: auto;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    cursor: pointer;
+}
+
+#cancelImgContainer{
+    justify-content: end;
+    display: flex;
+    padding-bottom: 82px;
+}
+
+#addUserFormContainer .inputField{
+    height: 70px;
+} 
+
+#wrapperContacts{
+    width: 456px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 5px 5px rgb(184, 183, 183);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+}
+
+#contactsOverview{
+    margin-top: 20px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    width: 100%;
+    padding: 0 20px 0 20px;
+}
+
+#newContactContent{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 592px;
+}
+
+Dialog.dialogNorm {
+    position: fixed;
+    top: 50%;
+    left: 100vw;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0;
+    border-radius: 25px 25px 25px 25px;
+    box-shadow: 1px 6px 4px 0px rgba(0, 0, 0, 0.25);
+    border: none !important;
+    transition: all 0.6s ease-in-out;
+}
+
+Dialog.dialogNorm.open {
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.infoboxClosed{
+    transform: translateX(100vw);
+}
+
+dialog.contactDialog{
+    width: 396px;
+}
+
+#statusAlert{
+    height: 74px;
+    width: 326px;
+    z-index: 999;
+    background-color: rgb(42, 54, 71);
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    border-radius: 12px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 74px;
+    position: fixed;
+    top: -250px;
+    left: calc(50% - 163px);
+    transition: top 0.6s ease-in-out;
+}
+
+#statusAlert.open{
+    top: 110px;
+}
+
+#contactDetailsCard{
+    height: 364px;
+    width: 461px;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
+}
