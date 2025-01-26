@@ -7,6 +7,15 @@ const emailRegex = /^(?![_.-])([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A
 function initRegistry() {
     includeFooter();
     initPortraitMode();
+    eventHandler();
+
+}
+
+function eventHandler() {
+    document.getElementById("registration-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        addUser();
+});
 }
 
 /**
@@ -23,8 +32,8 @@ function initRegistry() {
  * @returns {void}
  */
 async function addUser() {
-    document.getElementById("registration-form").onsubmit = function (event) {
-        event.preventDefault();
+    // document.getElementById("registration-form").onsubmit = function (event) {
+    //     event.preventDefault();
 
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -38,7 +47,6 @@ async function addUser() {
             resetRegistrationForm();
         }
     }
-}
 
 /**
  * Validates the user's name input to ensure it consists of exactly two names, each consisting of only letters, and exactly one space between them.
@@ -232,14 +240,6 @@ async function putUser(path = "", users = {}) {
         body: JSON.stringify(users)
     });
     return responseAsJson = await response.json();
-}
-
-/**
- * Resets the registration form by clearing all the input fields.
- */
-function resetRegistrationForm() {
-    let registrationRef = document.getElementById('registration-form');
-    registrationRef.reset();
 }
 
 /**
