@@ -1,3 +1,22 @@
+@media (max-width: 1288px) {
+    .login-headline {
+        padding-top: 60px;
+    }
+
+    .centered-position {
+        padding-top: 24px;
+        padding-bottom: 20px;
+    }
+
+    .form-position {
+        min-height: calc(100vh - 196.2px - 79.2px);
+    }
+
+    .registration-form-position {
+        min-height: calc(100vh - 182px - 79.2px);
+    }
+}
+
 @media (max-width: 816px) {
     .login-headline {
         height: 115.03px;
@@ -10,7 +29,7 @@
     }
 
     .form-position {
-        min-height: calc(100vh - 115.03px - 79.2px);
+        min-height: calc(100vh - 115px - 71.2px);
     }
 
     .form {
@@ -67,20 +86,9 @@
         top: -2px;
     }
 
-    .btn-variant {
-        width: 180px;
-        height: 51px;
-        padding: 4px 0;
-    }
-
     .centered-position {
         gap: 21px;
-        padding: 22px 38px;
-    }
-
-    .login-buttons {
-        gap: 21px;
-        flex-direction: column;
+        padding: 20px 38px 16px 38px;
     }
 
     .registry-link {
@@ -99,6 +107,19 @@
 @media (max-width: 544px) {
     .registry-link-mobile {
         padding-top: 8px;
+    }
+}
+
+@media (max-width: 488px) {
+    .login-buttons {
+        gap: 21px;
+        flex-direction: column;
+    }
+
+    .btn-variant {
+        width: 180px;
+        height: 51px;
+        padding: 4px 0;
     }
 }
 
@@ -189,11 +210,18 @@
     }
 
     .form-position {
-        min-height: calc(100vh - 75px - 51px);
+        min-height: calc(100vh - 75px - 43.2px);
     }
 
     .form {
         padding-top: 16px;
+    }
+
+    .form-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
     }
 
     .btn-variant {
@@ -219,6 +247,6 @@
     }
 
     .centered-position {
-        padding: 16px 32px;
+        padding: 8px 32px 16px 32px;
     }
 }
