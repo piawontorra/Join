@@ -126,7 +126,7 @@ function checkName() {
     .join(" ");
   let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
   if (!isValid) {
-    showError("nameError", "Please enter your full name with capitalized first letters", name);
+    showError("nameError", "Please enter your first and last name.", name);
   }
   return isValid;
 }
@@ -138,8 +138,8 @@ function checkName() {
 */
 function checkEmail() {
   let email = document.getElementById("newUserEmail");
-  let isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-  if (!isValid) showError("emailError", "Please enter a valid email address", email);
+  let isValid = /^(?![_.-])([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9.-]{2,}$/.test(email.value);
+  if (!isValid) showError("emailError", "Please enter a valid email address.", email);
   return isValid;
 }
 
@@ -151,7 +151,7 @@ function checkEmail() {
 function checkPhone() {
   let phoneNr = document.getElementById("newUserPhone");
   let isValid = /^\d{7,15}$/.test(phoneNr.value);
-  if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits)", phoneNr);
+  if (!isValid) showError("phoneError", "Please enter a valid phone number (7-15 digits).", phoneNr);
   return isValid;
 }
 
@@ -186,7 +186,7 @@ function checkEditName() {
 
   let isValid = /^[A-ZÄÖÜ][a-zäöüß]+\s[A-ZÄÖÜ][a-zäöüß]+$/.test(name.value.trim());
   if (!isValid) {
-    showError("nameError", "Please enter your full name with capitalized first letters", name);
+    showError("nameError", "Please enter your first and last name.", name);
   }
   return isValid;
 }
