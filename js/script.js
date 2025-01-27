@@ -166,9 +166,11 @@ function adaptFields() {
  * The guest login is performed using predefined guest credentials (email and password).
  * 
  */
-function guestLogIn() {
+function guestLogIn(event) {
+    event.preventDefault();
     resetFields();
     uncheckCheckbox();
+    disableValidation();
 
     const guestLoginData = {
         email: 'guest@test.de',
@@ -176,6 +178,20 @@ function guestLogIn() {
     };
 
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
+}
+
+function disableValidation() {
+    const emailRef = document.getElementById('email');
+    const passwordRef = document.getElementById('password');
+    const emailInputRef = document.getElementById('input-email');
+    const passwordInputRef = document.getElementById('input-password');
+    const msgRef = document.getElementById('msg-box');
+
+    if (emailRef.value.length === null && passwordRef.value.length === null) {
+        emailInputRef.classList.remove('red-border');
+        passwordInputRef.classList.remove('red-border');
+        msgRef = '';
+    }
 }
 
 /**
@@ -188,10 +204,13 @@ function guestLogIn() {
 async function loginWithGuestData(email, password) {
     let users = await loadUsers("users");
     let guestUser = Object.values(users).find(u => u.email === email && u.password === password);
+    let msgRef = document.getElementById('msg-box');
 
     if (guestUser) {
         sessionStorage.setItem('guestUser', 'G');
         transferToSummary();
+    } else {
+        msgRef.innerHTML = 'Error logging in as guest. Please try again.';
     }
 }
 

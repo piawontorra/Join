@@ -135,14 +135,28 @@ function confirmPasswordReset() {
 /**
  * Resets the password reset process and navigates the user back to the login page.
  * This function does the following:
- * - Resets the `isResetPasswordSubmitted` flag to `false`.
  * - Clears any error messages and input fields using the `clearFields` function.
  * - Calls the `returnToLogIn` function to navigate the user back to the login page.
  * 
  * @returns {void} This function does not return any value; it performs UI updates and navigates to the login page.
  */
 function returnToStart() {
-    isResetPasswordSubmitted = false;
-    clearFields();
-    returnToLogIn();
+    noValidation();
+    setTimeout(() => {
+        returnToLogIn();
+    }, 150);
+}
+
+function noValidation() {
+    const passwordRef = document.getElementById('password');
+    const confirmationRef = document.getElementById('email');
+    const inputPasswordRef = document.getElementById('input-password');
+    const inputConfirmationRef = document.getElementById('input-password-confirmation');
+    const msgRef = document.getElementById('msg-box');
+
+    if (passwordRef.value.length === null && confirmationRef.value.length === null) {
+        inputPasswordRef.classList.remove('red-border');
+        inputConfirmationRef.classList.remove('red-border');
+        msgRef = '';
+    }
 }
