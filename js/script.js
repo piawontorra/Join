@@ -14,6 +14,7 @@ function initLogin() {
     loadUserCredentials();
     checkRememberMe();
     usersPush();
+    toggleLogoutAlert();
 }
 
 /**
@@ -322,6 +323,7 @@ function logout() {
     } else if (guestUserName) {
         logoutGuest();
     }
+    sessionStorage.setItem('logoutFromApp', 'true');
 }
 
 /**
@@ -348,4 +350,20 @@ function logoutGuest() {
     guestInitialsRef.classList.add('d-none');
     unloggedIconRef.classList.remove('d-none');
     sessionStorage.removeItem('guestUser');
+}
+
+/**
+ * Toggles the logout alert overlay.
+ * If the session storage for "logoutFromApp" is set to "true", the overlay will be displayed
+ * for 2 seconds. After that the value is set to "false"
+ */
+function toggleLogoutAlert() {
+    if (sessionStorage.getItem('logoutFromApp') === "true") {
+        let overlay = document.getElementById('logOutInfo');
+        overlay.classList.remove('closed');
+        setTimeout(() => {
+            overlay.classList.add('closed');
+        }, 2000);
+        sessionStorage.setItem('logoutFromApp', "false");
+    }
 }
