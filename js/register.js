@@ -7,14 +7,6 @@ const emailRegex = /^(?![_.-])([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A
 function initRegistry() {
     includeFooter();
     initPortraitMode();
-    eventHandler();
-}
-
-function eventHandler() {
-    document.getElementById("registration-form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        addUser();
-});
 }
 
 /**
@@ -24,27 +16,26 @@ function eventHandler() {
  * This function attaches an event listener to the form's `submit` event. 
  * When the form is submitted, it prevents the default form submission, 
  * performs the necessary validation on the user's inputs (name, email, password, etc.), 
- * and if the inputs are valid, it creates a new user object and adds it to the database. 
- * After a successful registration, the form is reset.
+ * and if the inputs are valid, it creates a new user object and adds it to the database.
  * 
  * @async
  * @returns {void}
  */
-async function addUser() {
-    
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const passwordConfirmation = document.getElementById('password-confirmation').value;
-        const checkboxRef = document.getElementById('accepted-policy');
+async function addUser(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirmation = document.getElementById('password-confirmation').value;
+    const checkboxRef = document.getElementById('accepted-policy');
 
+    if (name.length > 1 || email.length > 1 || password.length > 1 || passwordConfirmation.lenght > 1) {
         if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation) && checkPolicyAcceptance(checkboxRef)) {
             let newUser = addNewUserObject(name, email, password);
             addUserToFirebase(newUser);
-            resetRegistrationForm();
         }
     }
-
+}
 
 /**
  * Validates the user's name input to ensure it consists of exactly two names, each consisting of only letters, and exactly one space between them.

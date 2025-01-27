@@ -3,11 +3,10 @@ let users = [];
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
-let isFormSubmitted = false;
 
 /**
  * Initializes the login page by calling necessary functions for logo animation, user credentials loading, 
- * remembering login state, and fetching user data.
+ * remembering login state, and pushing user data.
  */
 function initLogin() {
     checkLogoAnimation();
@@ -111,15 +110,6 @@ function togglePasswordVisibility(passwordImgRef) {
 }
 
 /**
- * Only gets called when the form is submitted.
- * It prevents the unnecessary error display from appearing when the page is loaded.
- */
-function handleLoginFormSubmit(event) {
-    event.preventDefault();
-    login();
-}
-
-/**
  * Handles the login process by checking the provided email and password against the stored users.
  * If a match is found, the user is logged in, the input fields are cleared and the user is redirected to the summary page.
  * If no match is found, the adaptFields() function is called, which signalize an error.
@@ -127,33 +117,21 @@ function handleLoginFormSubmit(event) {
  * @param {string} email - The entered email address.
  * @param {string} password - The entered password.
  */
-function login() {
-    isFormSubmitted = true;
+function login(event) {
+    event.preventDefault();
     let email = document.getElementById('email');
     let password = document.getElementById('password');
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
     if (user) {
         sessionStorage.setItem('loggedInUserName', user.user.name);
-        loggedInUser();
+        rememberMeEffects();
+        resetFields();
+        transferToSummary();
     }
     else {
         adaptFields();
     }
-}
-
-/**
- * Handles the actions after a user has successfully logged in.
- * This includes applying the "Remember Me" effects, resetting the form fields, 
- * and transferring the user to the summary page.
- *
- * @returns {void} This function does not return a value. It performs side-effects such as 
- *                 updating the UI and navigating to another page.
- */
-function loggedInUser() {
-    rememberMeEffects();
-    resetFields();
-    transferToSummary();
 }
 
 /**
@@ -175,12 +153,10 @@ function resetFields() {
  * Also shows the option for resetting the password if only the password input was incorrect.
  */
 function adaptFields() {
-    if (isFormSubmitted) {
-        document.getElementById('input-email').classList.add('red-border');
-        document.getElementById('input-password').classList.add('red-border');
-        document.getElementById('msg-box').innerHTML = getLoginErrorTemplate();
-        forgotPasswordQuote();
-    }
+    document.getElementById('input-email').classList.add('red-border');
+    document.getElementById('input-password').classList.add('red-border');
+    document.getElementById('msg-box').innerHTML = getLoginErrorTemplate();
+    forgotPasswordQuote();
 }
 
 /**
@@ -203,6 +179,23 @@ function guestLogIn() {
 }
 
 /**
+ * Logs the user in with guest credentials and transfers to the summary page.
+ * If the credentials are incorrect, an error message is displayed.
+ *
+ * @param {string} email - The email address of the guest.
+ * @param {string} password - The password of the guest.
+ */
+async function loginWithGuestData(email, password) {
+    let users = await loadUsers("users");
+    let guestUser = Object.values(users).find(u => u.email === email && u.password === password);
+
+    if (guestUser) {
+        sessionStorage.setItem('guestUser', 'G');
+        transferToSummary();
+    }
+}
+
+/**
  * Unchecks the "Remember Me" checkbox if it is checked.
  * 
  */
@@ -211,28 +204,6 @@ function uncheckCheckbox() {
 
     if (checkboxRef.checked) {
         checkboxRef.checked = false;
-    }
-}
-
-/**
- * Logs the user in with guest credentials and transfers to the summary page.
- * If the credentials are incorrect, an error message is displayed.
- *
- * @param {string} email - The email address of the guest.
- * @param {string} password - The password of the guest.
- */
-async function loginWithGuestData(email, password) {
-    isFormSubmitted = false;
-    let users = await loadUsers("users");
-    let guestUser = Object.values(users).find(u => u.email === email && u.password === password);
-
-    if (guestUser) {
-        resetFields();
-        uncheckCheckbox();
-        sessionStorage.setItem('guestUser', 'G');
-        transferToSummary();
-    } else {
-        document.getElementById('msg-box').innerHTML = 'Error logging in as guest. Please try again.';
     }
 }
 
@@ -247,13 +218,14 @@ function transferToSummary() {
  * Displays or hides the "Forgotten Password" link based on whether the provided email exists and the password is incorrect.
  */
 function forgotPasswordQuote() {
-    let forgottenPasswordRef = document.getElementById('forgotten-password');
-    let forgottenPasswordConditions = users.find(user => user.user.email === email.value && user.user.password !== password.value);
+    let emailRef = document.getElementById('email');
+    let passwordRef = document.getElementById('password');
 
-    if (forgottenPasswordConditions) {
-        forgottenPasswordRef.classList.remove('d-none');
-    } else {
-        forgottenPasswordRef.classList.add('d-none');
+    if (emailRef && passwordRef) {
+        let forgottenPasswordRef = document.getElementById('forgotten-password');
+        let forgottenPasswordConditions = users.find(user => user.user.email === email.value && user.user.password !== password.value);
+
+        forgottenPasswordConditions ? forgottenPasswordRef.classList.remove('d-none') : forgottenPasswordRef.classList.add('d-none');
     }
 }
 

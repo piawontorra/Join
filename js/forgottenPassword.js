@@ -1,5 +1,3 @@
-let isResetPasswordSubmitted = false;
-
 /**
  * Initializes the reset password process by including the footer HTML content.
  * This function calls the `includeFooter` function to load the footer content, which might be necessary 
@@ -8,21 +6,8 @@ let isResetPasswordSubmitted = false;
  * @returns {Promise<void>} This function returns a Promise that resolves when the footer has been successfully included.
  */
 function initResetPassword() {
-    isResetPasswordSubmitted = false;
     includeFooter();
     initPortraitMode();
-}
-
-/**
- * Only gets called when the form is submitted.
- * It prevents the unnecessary error display from appearing when the page is loaded.
- */
-function handleResetFormSubmit(event) {
-    event.preventDefault();
-    saveNewPassword();
-    if (!saveNewPassword()) {
-        clearFields();
-    }
 }
 
 /**
@@ -35,20 +20,22 @@ function handleResetFormSubmit(event) {
  * @returns {Promise<void>} This function performs asynchronous operations to retrieve user data,
  *                           update the password, and confirm the reset.
  */
-async function saveNewPassword() {
-    isResetPasswordSubmitted = true;
+async function saveNewPassword(event) {
+    event.preventDefault();
     let email = getEmailFromURL();
     let password = document.getElementById('password').value;
     let passwordConfirmation = document.getElementById('password-confirmation').value;
 
-    if (checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation)) {
-        const user = await getUserByEmail(email);
+    if (email.length > 0 || password.length > 0 || passwordConfirmation.length > 0) {
+        if (checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation)) {
+            const user = await getUserByEmail(email);
 
-        if (user) {
-            const { userId } = user;
-            let newPassword = password;
-            await updateUserPassword(userId, newPassword);
-            confirmPasswordReset();
+            if (user) {
+                const { userId } = user;
+                let newPassword = password;
+                await updateUserPassword(userId, newPassword);
+                confirmPasswordReset();
+            }
         }
     }
 }

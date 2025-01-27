@@ -47,8 +47,7 @@
             </div>
 
             <div class="flex form-position">
-                <form class="flex form" id="login-form" onsubmit="handleLoginFormSubmit(event); return false;"
-                    novalidate>
+                <form class="flex form" id="login-form" onsubmit="login(event); return false;" novalidate>
                     <div class="flex main-form">
                         <div class="flex form-headline">
                             <h1 class="h1-variant">Log in</h1>
@@ -90,7 +89,7 @@
                         </div>
                     </div>
                     <div class="login-buttons">
-                        <button class="btn btn1 btn-variant" id="log-in-btn">Log in</button>
+                        <button class="btn btn1 btn-variant" type="submit" id="log-in-btn">Log in</button>
                         <button class="btn btn2 btn-variant" onclick="guestLogIn()">Guest Log in</button>
                     </div>
                 </form>
