@@ -243,12 +243,15 @@ function outsideClickHandler(event) {
 }
 
 /**
- * Edit an existing contact and updates the database
- * 
- * This function get updated contact data and updates the database,
- * and refreshes the UI to show the changes.
- * 
- * @param {Object[]} user - An array containing the contact object to be edited. 
+ * Edit an existing contact and updates the database.
+ *
+ * This function validates the form, retrieves updated data, and updates the user's contact
+ * information in both the local `usersArray` and the remote database. After updating, it 
+ * re-renders the contacts, shows the updated contact details, and closes the edit dialog.
+ *
+ * @async
+ * @param {string} userId - The unique identifier of the user whose contact information is to be edited.
+ * @returns {Promise<void>} A promise that resolves when the contact has been successfully updated and the UI has been refreshed.
  */
 async function editContact(userId) {
   if (validateEditForm()) {
@@ -311,6 +314,24 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
+  removeInput(dialogSelector);
+}
+
+/**
+ * Clears the input fields of the form inside the given dialog.
+ * 
+ * @param {string} dialogSelector - The selector of the dialog/modal that is currently open.
+ */
+function removeInput(dialogSelector) {
+  const form = document.querySelector(dialogSelector + ' form');
+
+  if (form) {
+    let inputFields = form.querySelectorAll('input[name="name"], input[name="email"], input[name="phone"]');
+
+    inputFields.forEach(input => {
+      input.value = '';
+    });
+  }
 }
 
 /**

@@ -86,17 +86,17 @@ function newContactTemplate() {
                     </div>
                     <form id="newUserForm" novalidate>
                         <div class="inputField">
-                            <input type="text" id="newUserName" placeholder="Name" required>
+                            <input type="text" id="newUserName" name="name" placeholder="Name" required>
                             <img src="./assets/img/user_icon.png" alt="user icon">
                             <div class="error-message" id="nameError"></div>
                         </div>
                         <div class="inputField">
-                            <input type="email" id="newUserEmail" placeholder="Email" required>
+                            <input type="email" id="newUserEmail" name="email" placeholder="Email" required>
                             <img src="./assets/img/mail_icon.png" alt="mail icon">
                             <div class="error-message" id="emailError"></div>
                         </div>
                         <div class="inputField">
-                            <input type="number" id="newUserPhone" placeholder="Phone" required>
+                            <input type="number" id="newUserPhone" name="phone" placeholder="Phone" required>
                             <img src="./assets/img/phone_icon.png" alt="phone icon">
                             <div class="error-message" id="phoneError"></div>
                         </div>
