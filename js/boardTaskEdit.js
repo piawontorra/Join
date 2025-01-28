@@ -281,13 +281,12 @@ function closeTaskDetailView(modal, content) {
  */
 function resetTaskEditorAfterAnimation(contentRef, taskCard, delay) {
     setTimeout(() => {
-        contentRef.style.animation = ""; // Remove the animation
-        contentRef.innerHTML = "";       // Clear the content
+        contentRef.style.animation = "";
+        contentRef.innerHTML = "";
         taskCard.style.display = 'block';
         contentRef.style.display = 'none';
     }, delay);
 }
-
 
 /**
  * Validates task input fields for title and due date.

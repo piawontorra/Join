@@ -248,7 +248,7 @@ function outsideClickHandler(event) {
  * This function get updated contact data and updates the database,
  * and refreshes the UI to show the changes.
  * 
-//  * @param {Object[]} user - An array containing the contact object to be edited. 
+ * @param {Object[]} user - An array containing the contact object to be edited. 
  */
 async function editContact(userId) {
   if (validateEditForm()) {
@@ -311,20 +311,6 @@ function closeDialog(dialogSelector) {
   setTimeout(() => {
     modal.close();
   }, 500);
-  removeInput();
-}
-
-/**
- * clears the given input fields to avoid wrong values
- */
-function removeInput() {
-  let nameInputRef = document.getElementById('newUserName');
-  let emailInputRef = document.getElementById('newUserEmail');
-  let phoneInputRef = document.getElementById('newUserPhone');
-
-  nameInputRef.value = '';
-  emailInputRef.value = '';
-  phoneInputRef.value = '';
 }
 
 /**
