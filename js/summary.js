@@ -1,6 +1,6 @@
 let urgentUnfinishedTasks = [];
-const today = new Date();
-const yesterday = new Date(today);
+let today = new Date();
+let yesterday = new Date(today);
 yesterday.setDate(today.getDate() - 1);
 let selectedTask = null;
 let selectedDateDiff = null;
@@ -22,8 +22,8 @@ function initSummary() {
  * @returns {void} This function does not return any value, it performs DOM manipulation based on the screen size.
  */
 function summaryRepresentation() {
-    let summaryHeadRef = document.getElementById('summary-head');
-    let summaryContentRef = document.getElementById('summary-content');
+    const summaryHeadRef = document.getElementById('summary-head');
+    const summaryContentRef = document.getElementById('summary-content');
 
     if (summaryHeadRef || summaryContentRef) {
         if (innerWidth < 1065) {
@@ -43,9 +43,9 @@ function summaryRepresentation() {
  * @returns {void} This function does not return any value, it manipulates the DOM to adjust the layout for mobile view.
  */
 function summaryMobile() {
-    let summaryHeadRef = document.getElementById('summary-head');
-    let summaryContentRef = document.getElementById('summary-content');
-    let greetingHeightRef = document.getElementById('greeting-min-height');
+    const summaryHeadRef = document.getElementById('summary-head');
+    const summaryContentRef = document.getElementById('summary-content');
+    const greetingHeightRef = document.getElementById('greeting-min-height');
 
     summaryHeadRef.classList.add('d-none');
     summaryContentRef.classList.add('d-none');
@@ -63,10 +63,10 @@ function summaryMobile() {
  * @returns {void} This function does not return any value, it manipulates the DOM elements to manage the greeting transition.
  */
 function greetingComesAtFirst() {
-    let summaryHeadRef = document.getElementById('summary-head');
-    let summaryContentRef = document.getElementById('summary-content');
-    let greetingHeightRef = document.getElementById('greeting-min-height');
-    let summaryGreetingRef = document.getElementById('summary-greeting');
+    const summaryHeadRef = document.getElementById('summary-head');
+    const summaryContentRef = document.getElementById('summary-content');
+    const greetingHeightRef = document.getElementById('greeting-min-height');
+    const summaryGreetingRef = document.getElementById('summary-greeting');
 
     setTimeout(() => {
         summaryGreetingRef.classList.add('d-none');
@@ -87,9 +87,9 @@ function greetingComesAtFirst() {
  * @returns {void} This function does not return any value, it manipulates the DOM to adjust the layout for desktop view.
  */
 function summaryDesktop() {
-    let summaryHeadRef = document.getElementById('summary-head');
-    let summaryContentRef = document.getElementById('summary-content');
-    let summaryGreetingRef = document.getElementById('summary-greeting');
+    const summaryHeadRef = document.getElementById('summary-head');
+    const summaryContentRef = document.getElementById('summary-content');
+    const summaryGreetingRef = document.getElementById('summary-greeting');
 
     summaryHeadRef.classList.remove('d-none');
     summaryContentRef.classList.remove('d-none');
@@ -102,8 +102,8 @@ function summaryDesktop() {
  * Greets the user based on the time of day and displays her/his name if logged in.
  */
 function greetUser() {
-    let greetingTextRef = document.getElementById('greeting-text');
-    let userNameRef = document.getElementById('user-name');
+    const greetingTextRef = document.getElementById('greeting-text');
+    const userNameRef = document.getElementById('user-name');
     let hours = new Date().getHours();
     let userName = sessionStorage.getItem('loggedInUserName');
     let greeting = getGreetingBasedOnTime(hours);
@@ -149,7 +149,7 @@ function transferToBoard() {
  * @param {string} originalSrc - The source of the image when not hovered.
  */
 function toggleImage(isHovered, imgId, hoverSrc, originalSrc) {
-    let imgRef = document.getElementById(imgId);
+    const imgRef = document.getElementById(imgId);
     imgRef.src = isHovered ? hoverSrc : originalSrc;
 }
 
@@ -222,7 +222,7 @@ function countTasksByStatus(tasksData) {
  * @returns {void}
  */
 function updateSummaryStatusCount(tasksData) {
-    const statusCount = countTasksByStatus(tasksData);
+    let statusCount = countTasksByStatus(tasksData);
     document.getElementById('to-do-count').innerText = statusCount['todo'];
     document.getElementById('done-count').innerText = statusCount['done'];
     document.getElementById('in-progress-count').innerText = statusCount['in-progress'];
@@ -241,10 +241,10 @@ function updateSummaryStatusCount(tasksData) {
  * @returns {Object|null} - The task with the nearest deadline, or null if no task is found.
  */
 function updateUrgentTaskDeadline(tasksData) {
-    const selectedTask = findUrgentTaskWithNearestDeadline(tasksData);
+    let selectedTask = findUrgentTaskWithNearestDeadline(tasksData);
 
     if (selectedTask) {
-        const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
+        let dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
         document.getElementById('next-deadline-date').innerHTML = dueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         return selectedTask;
     } else {
@@ -266,14 +266,13 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
     urgentUnfinishedTasks = tasksData.filter(task => task && task.priority === 'Urgent' && task.dueDate && task.status !== 'done');
 
     urgentUnfinishedTasks.forEach(task => {
-        const dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
-        const diffTime = dueDate - yesterday;
+        let dueDate = new Date(task.dueDate.split('/').reverse().join('/'));
+        let diffTime = dueDate - yesterday;
         if (dueDate >= yesterday && (selectedDateDiff === null || diffTime <= selectedDateDiff)) {
             selectedTask = task;
             selectedDateDiff = diffTime;
         }
     });
-
     return selectedTask;
 }
 
@@ -289,7 +288,7 @@ function findUrgentTaskWithNearestDeadline(tasksData) {
  */
 function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
     return urgentUnfinishedTasks.filter(task => {
-        const taskDueDate = new Date(task.dueDate.split('/').reverse().join('/'));
+        let taskDueDate = new Date(task.dueDate.split('/').reverse().join('/'));
         return taskDueDate <= nearestDueDate;
     }).length;
 }
@@ -307,9 +306,8 @@ function countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, nearestDueDate) {
  */
 function updateUrgentTasksCount(selectedTask, urgentUnfinishedTasks) {
     if (selectedTask) {
-        const dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
-
-        const urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, dueDate);
+        let dueDate = new Date(selectedTask.dueDate.split('/').reverse().join('/'));
+        let urgentCount = countUrgentTasksBeforeDueDate(urgentUnfinishedTasks, dueDate);
         document.getElementById('urgent-count').innerText = urgentCount;
     } else {
         document.getElementById('urgent-count').innerText = 0;
