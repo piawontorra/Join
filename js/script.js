@@ -1,8 +1,5 @@
 const BASE_URL = "https://join-83911-default-rtdb.europe-west1.firebasedatabase.app/";
 let users = [];
-const urlParams = new URLSearchParams(window.location.search);
-const msg = urlParams.get('msg');
-const msgBox = document.getElementById('msg-box');
 
 /**
  * Initializes the login page and performs necessary setup actions.
@@ -62,13 +59,6 @@ async function usersPush() {
 async function loadUsers(path = "") {
     let response = await fetch(BASE_URL + path + ".json");
     return responseAsJson = await response.json();
-}
-
-/**
- * If there is a message in the URL query parameters, it is displayed in the message box element.
- */
-if (msg) {
-    msgBox.innerHTML = msg;
 }
 
 /**
