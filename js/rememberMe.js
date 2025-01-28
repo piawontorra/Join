@@ -11,8 +11,8 @@
  * @returns {void} This function does not return any value.
  */
 function toggleRememberMe() {
-    let emailRef = document.getElementById('email');
-    let passwordRef = document.getElementById('password');
+    const emailRef = document.getElementById('email');
+    const passwordRef = document.getElementById('password');
 
     if (emailRef && passwordRef) {
         let emailValue = emailRef.value.trim();
@@ -52,8 +52,8 @@ function checkRememberMe() {
  * Saves the email and password to localStorage if the "Remember Me" option is selected.
  */
 function rememberMeEffects() {
-    let rememberMe = document.getElementById('remember-me').checked;
-    
+    const rememberMe = document.getElementById('remember-me').checked;
+
     if (rememberMe) {
         localStorage.setItem('email', email.value);
         localStorage.setItem('password', password.value);

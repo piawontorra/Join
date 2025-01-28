@@ -260,7 +260,8 @@ function toggleCheckboxImg() {
  * Displays a grey overlay on the page to indicate a background process.
  */
 function addGreyOverlay() {
-    let greyOverlayRef = document.getElementById('grey-overlay');
+    const greyOverlayRef = document.getElementById('grey-overlay');
+
     greyOverlayRef.classList.remove('d-none');
     handleScrollbar();
 }
@@ -286,7 +287,8 @@ function renderOverlay(message) {
  * Manages the page's scrollbar visibility (it is hidden) when the overlay is active.
  */
 function handleScrollbar() {
-    let greyOverlayRef = document.getElementById('grey-overlay');
+    const greyOverlayRef = document.getElementById('grey-overlay');
+
     greyOverlayRef.classList.contains('d-none') ?
         document.body.classList.remove('overlay-active') : document.body.classList.add('overlay-active');
 }
@@ -310,7 +312,7 @@ function returnToLogIn() {
 function noValidation() {
     skipValidation = true;
 
-    const inputFields = document.querySelectorAll('.registration-input input');
+    let inputFields = document.querySelectorAll('.registration-input input');
     inputFields.forEach(input => {
         input.classList.remove('red-border');
     });

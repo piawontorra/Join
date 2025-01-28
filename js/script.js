@@ -114,8 +114,8 @@ function togglePasswordVisibility(passwordImgRef) {
  */
 function login(event) {
     event.preventDefault();
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
     let user = users.find(user => user.user.email === email.value && user.user.password === password.value);
 
     if (user) {
@@ -132,8 +132,8 @@ function login(event) {
  * Resets the login form fields (email, password) and removes any error styling or messages.
  */
 function resetFields() {
-    let email = document.getElementById('email');
-    let password = document.getElementById('password');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
 
     document.getElementById('input-email').classList.remove('red-border');
     email.value = '';
@@ -220,8 +220,8 @@ function transferToSummary() {
  * Displays or hides the "Forgotten Password" link based on whether the provided email exists and the password is incorrect.
  */
 function forgotPasswordQuote() {
-    let emailRef = document.getElementById('email');
-    let passwordRef = document.getElementById('password');
+    const emailRef = document.getElementById('email');
+    const passwordRef = document.getElementById('password');
 
     if (emailRef && passwordRef) {
         let forgottenPasswordRef = document.getElementById('forgotten-password');
@@ -235,7 +235,7 @@ function forgotPasswordQuote() {
  * Redirects the user to the password reset page with the email passed as a query parameter.
  */
 function setNewPassword() {
-    let email = document.getElementById('email').value;
+    const email = document.getElementById('email').value;
     window.location.href = `forgotten-password.html?email=${encodeURIComponent(email)}`;
 }
 
@@ -291,8 +291,8 @@ function displayUserInitialsHeader(currentUserName) {
  * @returns {string} The initials of the user.
  */
 function getUserInitials(currentUserName) {
-    const nameParts = currentUserName.split(' ');
-    const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+    let nameParts = currentUserName.split(' ');
+    let initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
     return initials;
 }
 
