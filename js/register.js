@@ -1,8 +1,10 @@
+let skipValidation = false;
 const userNameRegex = /^[A-ZÄÖÜa-zäöüß]+ [A-ZÄÖÜa-zäöüß]+$/;
 const emailRegex = /^(?![_.-])([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9.-]{2,}$/;
 
 /**
- * Initializes the registration process by including HTML content and setting up the registration form.
+ * Initializes the registration process by setting up necessary components and configurations.
+ * It includes the footer, and initializes the portrait mode.
  */
 function initRegistry() {
     includeFooter();
@@ -10,16 +12,14 @@ function initRegistry() {
 }
 
 /**
- * Handles the registration form submission, validates the user's input, 
- * and adds a new user to the database if all checks pass.
- * 
- * This function attaches an event listener to the form's `submit` event. 
- * When the form is submitted, it prevents the default form submission, 
- * performs the necessary validation on the user's inputs (name, email, password, etc.), 
- * and if the inputs are valid, it creates a new user object and adds it to the database.
+ * Handles the submission of the registration form and adds a new user.
+ *
+ * This asynchronous function is triggered when the registration form is submitted. It validates the user's 
+ * inputs (name, email, password, etc.) using helper functions. If all validations pass, it creates a new 
+ * user object and adds the user to the Firebase database.
  * 
  * @async
- * @returns {void}
+ * @param {Event} event - The submit event triggered by the form submission.
  */
 async function addUser(event) {
     event.preventDefault();
@@ -29,22 +29,22 @@ async function addUser(event) {
     const passwordConfirmation = document.getElementById('password-confirmation').value;
     const checkboxRef = document.getElementById('accepted-policy');
 
-    if (name.length > 1 || email.length > 1 || password.length > 1 || passwordConfirmation.lenght > 1) {
-        if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation) && checkPolicyAcceptance(checkboxRef)) {
-            let newUser = addNewUserObject(name, email, password);
-            addUserToFirebase(newUser);
-        }
+    if (checkNameValidity(name) && checkEmailValidity(email) && checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation) && checkPolicyAcceptance(checkboxRef)) {
+        let newUser = addNewUserObject(name, email, password);
+        addUserToFirebase(newUser);
     }
 }
 
 /**
  * Validates the user's name input to ensure it consists of exactly two names, each consisting of only letters, and exactly one space between them.
  * If the name is invalid, it displays an error message and adds a red border to the name input field.
+ * If validation is skipped (via `skipValidation` flag), the function will return true without performing the check.
  *
  * @param {string} name - The name input provided by the user.
  * @returns {boolean} - Returns `true` if the name is valid, otherwise `false`.
  */
 function checkNameValidity(name) {
+    if (skipValidation) return true;
     if (!userNameRegex.test(name)) {
         document.getElementById('msg-box').innerText = "Please enter your first and last name with a single space in between.";
         document.getElementById('input-registry-name').classList.add('red-border');
@@ -61,11 +61,13 @@ function checkNameValidity(name) {
  * 
  * This function uses a regular expression to check if the email address follows a valid format. 
  * If the email is invalid, it displays an error message and highlights the email input field with a red border.
+ * If validation is skipped (via `skipValidation` flag), the function will return true without performing the check.
  * 
  * @param {string} email - The email address to be validated.
  * @returns {boolean} Returns `true` if the email is valid, otherwise `false`.
  */
 function checkEmailValidity(email) {
+    if (skipValidation) return true;
     if (!emailRegex.test(email)) {
         document.getElementById('msg-box').innerText = "Please enter a valid email address, e.g. steven.miller@gmail.com.";
         document.getElementById('input-registry-email').classList.add('red-border');
@@ -82,12 +84,14 @@ function checkEmailValidity(email) {
  * 
  * If the passwords don't match, a message is displayed to the user and the confirmation field is highlighted with a red border.
  * If the passwords match, any previous error message and the red border are removed.
+ * If validation is skipped (via `skipValidation` flag), the function will return true without performing the check.
  * 
  * @param {string} password - The user's password entered in the password field.
  * @param {string} passwordConfirmation - The user's password entered in the password confirmation field.
  * @returns {boolean} Returns `true` if the passwords match, otherwise returns `false`.
  */
 function checkPasswordCongruence(password, passwordConfirmation) {
+    if (skipValidation) return true;
     if (password !== passwordConfirmation) {
         document.getElementById('msg-box').innerText = "Your passwords don’t match. Please try again.";
         document.getElementById('input-password-confirmation').classList.add('red-border');
@@ -104,12 +108,14 @@ function checkPasswordCongruence(password, passwordConfirmation) {
  * 
  * If either of the password fields is shorter than 3 characters, a message is displayed and both password fields are highlighted with a red border.
  * If the length is valid, the error message and red borders are removed.
+ * If validation is skipped (via `skipValidation` flag), the function will return true without performing the check.
  * 
  * @param {string} password - The user's password entered in the password field.
  * @param {string} passwordConfirmation - The user's password entered in the password confirmation field.
  * @returns {boolean} Returns `true` if both password fields are at least 3 characters long, otherwise returns `false`.
  */
 function checkPasswordLength(password, passwordConfirmation) {
+    if (skipValidation) return true;
     if (password.length < 3 || passwordConfirmation.length < 3) {
         document.getElementById('msg-box').innerText = "Please enter at least 3 characters for both password fields.";
         document.getElementById('input-password').classList.add('red-border');
@@ -128,12 +134,14 @@ function checkPasswordLength(password, passwordConfirmation) {
  * 
  * If the checkbox is not checked, a message is displayed and the checkbox is highlighted with a red border.
  * If the checkbox is checked, any previous error message and red border are removed.
+ * If validation is skipped (via `skipValidation` flag), the function will return true without performing the check.
  * 
  * @param {HTMLInputElement} checkboxRef - The reference to the checkbox input element where the user must accept the Privacy Policy.
  * @returns {boolean} Returns `true` if the Privacy Policy checkbox is checked, otherwise returns `false`.
  */
 function checkPolicyAcceptance(checkboxRef) {
     const checkboxDiv = document.getElementById('checkbox-img');
+    if (skipValidation) return true;
 
     if (!checkboxRef.checked) {
         document.getElementById('msg-box').innerText = "To proceed, accept our Privacy Policy.";
@@ -284,8 +292,39 @@ function handleScrollbar() {
 }
 
 /**
- * Redirects the user to the login page.
+ * Redirects the user to the login page (index.html).
+ *
+ * This function updates the window location to redirect the user to the login page.
+ * It does not perform any additional checks or validations before the redirection.
  */
 function returnToLogIn() {
     window.location.href = 'index.html';
+}
+
+/**
+ * Disables form validation and clears any error states.
+ *
+ * This function sets a flag to skip validation and removes any error-related UI changes
+ * such as red borders and msg-box messages.
+ */
+function noValidation() {
+    skipValidation = true;
+
+    const inputFields = document.querySelectorAll('.registration-input input');
+    inputFields.forEach(input => {
+        input.classList.remove('red-border');
+    });
+
+    document.getElementById('msg-box').innerText = '';
+}
+
+/**
+ * Disables form validation and redirects the user to the login page.
+ *
+ * This function first calls `noValidation()` to disable form validation and clear any errors,
+ * then redirects the user to the login page using the `returnToLogIn()` function.
+ */
+function returnToStart() {
+    noValidation();
+    returnToLogIn();
 }

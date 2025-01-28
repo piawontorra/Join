@@ -2,8 +2,6 @@
  * Determines which logo animation to apply based on the window width.
  * If the window width is greater than or equal to 816px, the desktop logo animation is applied.
  * Otherwise, the mobile logo animation is applied.
- * 
- * @returns {void} 
  */
 function checkLogoAnimation() {
     window.innerWidth >= 816 ? checkLogoAnimationDesktop() : checkLogoAnimationMobile();
@@ -77,8 +75,6 @@ function playNoAnimation() {
  * Changes the logo image during the animation.
  * This function changes the source of the mobile logo after a short delay (450ms).
  * It is used to switch from the mobile version of the logo to the default desktop logo.
- * 
- * @returns {void} 
  */
 function changeLogoDuringAnimation() {
     const logoMobileRef = document.getElementById('logo-animation-mobile');

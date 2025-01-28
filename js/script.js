@@ -5,8 +5,12 @@ const msg = urlParams.get('msg');
 const msgBox = document.getElementById('msg-box');
 
 /**
- * Initializes the login page by calling necessary functions for logo animation, user credentials loading, 
- * remembering login state, and pushing user data.
+ * Initializes the login page and performs necessary setup actions.
+ * 
+ * This function is responsible for initializing various aspects of the login page, 
+ * including checking for animations, ensuring the page layout works correctly in portrait mode, 
+ * loading user credentials from session or storage, verifying if "Remember Me" is checked, 
+ * pushing user data, and toggling the logout alert if applicable.
  */
 function initLogin() {
     checkLogoAnimation();
@@ -129,8 +133,7 @@ function login(event) {
         rememberMeEffects();
         resetFields();
         transferToSummary();
-    }
-    else {
+    } else {
         adaptFields();
     }
 }
@@ -161,17 +164,18 @@ function adaptFields() {
 }
 
 /**
- * Initiates a guest login process.
+ * Initiates a guest login process. This function is triggered when the "Guest Log in" button is clicked.
  * At first the input fields are resetted.
  * If the "Remember Me" checkbox is checked, it will be unchecked. Then the function proceeds to log in the user as a guest.
  * The guest login is performed using predefined guest credentials (email and password).
  * 
+ * @param {Event} event - The form submit event triggered when the user attempts to log in as a guest.
  */
 function guestLogIn(event) {
     event.preventDefault();
     resetFields();
     uncheckCheckbox();
-    disableValidation();
+    noValidation();
 
     const guestLoginData = {
         email: 'guest@test.de',
@@ -181,26 +185,14 @@ function guestLogIn(event) {
     loginWithGuestData(guestLoginData.email, guestLoginData.password);
 }
 
-function disableValidation() {
-    const emailRef = document.getElementById('email');
-    const passwordRef = document.getElementById('password');
-    const emailInputRef = document.getElementById('input-email');
-    const passwordInputRef = document.getElementById('input-password');
-    const msgRef = document.getElementById('msg-box');
-
-    if (emailRef.value.length === null && passwordRef.value.length === null) {
-        emailInputRef.classList.remove('red-border');
-        passwordInputRef.classList.remove('red-border');
-        msgRef = '';
-    }
-}
-
 /**
  * Logs the user in with guest credentials and transfers to the summary page.
  * If the credentials are incorrect, an error message is displayed.
  *
  * @param {string} email - The email address of the guest.
  * @param {string} password - The password of the guest.
+ * @async
+ * @returns {Promise<void>} - A promise that resolves once the guest is logged in or an error message is displayed.
  */
 async function loginWithGuestData(email, password) {
     let users = await loadUsers("users");
@@ -330,8 +322,13 @@ function displayGuestInitial() {
 }
 
 /**
- * After the redirection to the login page the user or guest is logged out.
- * Clears sessionStorage for either the logged-in user or the guest.
+ * Logs out the current user or guest user, and sets a flag indicating the user has logged out.
+ * 
+ * This function checks the session storage to determine whether a logged-in user or a guest user is currently active. 
+ * Depending on the type of user, it calls the respective logout function:
+ * - If a logged-in user is found, the function calls `logoutUser()`.
+ * - If a guest user is detected, it calls `logoutGuest()`.
+ * After logging out, it sets a session storage item `logoutFromApp` to `'true'` to indicate that the user has logged out.
  */
 function logout() {
     const currentUserName = sessionStorage.getItem('loggedInUserName');
@@ -373,16 +370,16 @@ function logoutGuest() {
 
 /**
  * Toggles the logout alert overlay.
- * If the session storage for "logoutFromApp" is set to "true", the overlay will be displayed
- * for 2 seconds. After that the value is set to "false"
+ * If the session storage for `logoutFromApp` is set to `'true'`, the overlay will be displayed
+ * for 2 seconds. After that the value is set to `'false'`.
  */
 function toggleLogoutAlert() {
-    if (sessionStorage.getItem('logoutFromApp') === "true") {
+    if (sessionStorage.getItem('logoutFromApp') === 'true') {
         let overlay = document.getElementById('logOutInfo');
         overlay.classList.remove('closed');
         setTimeout(() => {
             overlay.classList.add('closed');
         }, 2000);
-        sessionStorage.setItem('logoutFromApp', "false");
+        sessionStorage.setItem('logoutFromApp', 'false');
     }
 }

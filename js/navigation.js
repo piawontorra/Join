@@ -8,8 +8,6 @@
  * - If the user is not logged in and tries to access restricted pages (such as addTask, board, contacts, etc.),
  *   the user is redirected to the login page.
  * - Default: If the a user or a guest user is logged in, the complete content with all mainTabs will be shown.
- * 
- * @returns {void} This function does not return any value, it performs DOM manipulation and redirects.
  */
 function checkForLimitedContent() {
     const loggedInUser = sessionStorage.getItem('loggedInUserName');
@@ -33,8 +31,6 @@ function checkForLimitedContent() {
  * Adjusts the sidebar and main content for limited-content pages by hiding the main content and showing a login link.
  * Removes the submenu in the header (e.g. logout).
  * This is used when the user is not logged in and is viewing pages privacy-policy or legal-notice.
- * 
- * @returns {void} No return value.
  */
 function adjustSidebarForLimitedContent() {
     const removeSubmenu = document.getElementById('submenu');
@@ -54,8 +50,6 @@ function adjustSidebarForLimitedContent() {
  * Adjusts the visibility of the "imprintContent" element based on the window width.
  * If the window width is less than 1065px, the "imprintContent" element is hidden by adding the "d-none" class.
  * Otherwise, the "d-none" class is removed, making the element visible.
- * 
- * @returns {void} No return value.
  */
 function adjustUserSidebar() {
     const imprintContentRef = document.getElementById('imprintContent');

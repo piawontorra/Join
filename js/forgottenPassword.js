@@ -1,9 +1,6 @@
 /**
- * Initializes the reset password process by including the footer HTML content.
- * This function calls the `includeFooter` function to load the footer content, which might be necessary 
- * for the reset password page layout or functionality.
- * 
- * @returns {Promise<void>} This function returns a Promise that resolves when the footer has been successfully included.
+ * Initializes the reset password process by setting up necessary components and configurations.
+ * It includes the footer, and initializes the portrait mode.
  */
 function initResetPassword() {
     includeFooter();
@@ -11,31 +8,30 @@ function initResetPassword() {
 }
 
 /**
- * Saves the new password provided by the user if it matches the confirmation and meets the required length.
- * It retrieves the email from the URL, validates the password and confirmation, and updates the password 
- * for the user in the database if the validation passes.
- * If validation fails, the fields are cleared and no changes are made.
+ * Saves the new password for a user after validating the password fields.
+ * 
+ * This function is triggered when the user submits the reset password form. It prevents the default form submission,
+ * validates the new password and password confirmation, and updates the user's password in the database.
+ * If the update is successful, a confirmation message is displayed.
  *
+ * @param {Event} event - The form submit event triggered when the user submits the reset password form.
  * @async
- * @returns {Promise<void>} This function performs asynchronous operations to retrieve user data,
- *                           update the password, and confirm the reset.
+ * @returns {Promise<void>} - A promise that resolves once the password is successfully updated and the confirmation is shown.
  */
 async function saveNewPassword(event) {
     event.preventDefault();
     let email = getEmailFromURL();
-    let password = document.getElementById('password').value;
-    let passwordConfirmation = document.getElementById('password-confirmation').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirmation = document.getElementById('password-confirmation').value;
 
-    if (email.length > 0 || password.length > 0 || passwordConfirmation.length > 0) {
-        if (checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation)) {
-            const user = await getUserByEmail(email);
+    if (checkPasswordCongruence(password, passwordConfirmation) && checkPasswordLength(password, passwordConfirmation)) {
+        const user = await getUserByEmail(email);
 
-            if (user) {
-                const { userId } = user;
-                let newPassword = password;
-                await updateUserPassword(userId, newPassword);
-                confirmPasswordReset();
-            }
+        if (user) {
+            const { userId } = user;
+            let newPassword = password;
+            await updateUserPassword(userId, newPassword);
+            confirmPasswordReset();
         }
     }
 }
@@ -98,8 +94,6 @@ async function updateUserPassword(userId, newPassword) {
  * Clears the password input fields and the message box, removing any error styling.
  * This is used when the validation fails or when the user is redirected back to the page.
  * It removes the red border from the password fields and clears any error messages.
- * 
- * @returns {void} This function does not return a value. It only clears the form fields and error messages.
  */
 function clearFields() {
     document.getElementById('input-password').classList.remove('red-border');
@@ -116,8 +110,6 @@ function clearFields() {
  * - Clears any messages displayed in the message box.
  * - Adds a grey overlay to the screen to provide visual feedback.
  * - Displays a message overlay to inform the user that the password has been reset.
- * 
- * @returns {void} This function does not return any value; it performs DOM manipulation and updates UI elements.
  */
 function confirmPasswordReset() {
     const passwordConfirmationInput = document.getElementById('input-password-confirmation');
@@ -130,33 +122,4 @@ function confirmPasswordReset() {
     document.getElementById('msg-box').innerHTML = '';
     addGreyOverlay();
     renderOverlay('Your password was resetted.');
-}
-
-/**
- * Resets the password reset process and navigates the user back to the login page.
- * This function does the following:
- * - Clears any error messages and input fields using the `clearFields` function.
- * - Calls the `returnToLogIn` function to navigate the user back to the login page.
- * 
- * @returns {void} This function does not return any value; it performs UI updates and navigates to the login page.
- */
-function returnToStart() {
-    noValidation();
-    setTimeout(() => {
-        returnToLogIn();
-    }, 150);
-}
-
-function noValidation() {
-    const passwordRef = document.getElementById('password');
-    const confirmationRef = document.getElementById('email');
-    const inputPasswordRef = document.getElementById('input-password');
-    const inputConfirmationRef = document.getElementById('input-password-confirmation');
-    const msgRef = document.getElementById('msg-box');
-
-    if (passwordRef.value.length === null && confirmationRef.value.length === null) {
-        inputPasswordRef.classList.remove('red-border');
-        inputConfirmationRef.classList.remove('red-border');
-        msgRef = '';
-    }
 }
