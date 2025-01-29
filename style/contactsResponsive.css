@@ -93,6 +93,10 @@
         left: 0;
     }
 
+    #contactsOverview{
+        max-height: calc(100vh - 250px);
+    }
+
     .contactsFixed{
         top: 80px;
     }
@@ -190,6 +194,11 @@
 }
 
 @media (max-width: 800px){
+    
+    #contactsOverview{
+        max-height: calc(100vh - 200px);
+    }
+
     .moreResponsive{
         display: flex;
     }

@@ -1,4 +1,5 @@
 #contactDetailsContainer{
+    width: 75%;
     display: flex;
     flex-direction: column;
     margin-left: 64px;
